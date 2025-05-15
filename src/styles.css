@@ -324,5 +324,27 @@ input[type='checkbox']:checked:after {
 }
 
 
+.releaseHistoryListData > div > ul > li > div{
+  font-size: 9px !important;
+}
+
+.releaseHistoryListData > div > ul > li {
+padding-inline-start: 5px !important;
+gap: 2px !important;
+}
+
+.releaseHistoryListData > div > ul > li > div:nth-child(1) {
+  width: 10% !important;
+}
+
+.releaseHistoryListData > div > ul > li > div > span{
+  font-size: 9px !important;
+  padding: 2px !important;
+  /* border-radius: 100px !important; */
+}
+.releaseHistoryListData > div > ul > li {
+  padding-inline-start: 5px !important;
+  gap: 2px !important;
+  }
 
 

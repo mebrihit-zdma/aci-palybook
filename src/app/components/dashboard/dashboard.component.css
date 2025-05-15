@@ -1,0 +1,29 @@
+#crypto-modal {
+    position: absolute;
+    left: 71%;
+}  
+
+.modalHeader > svg {
+    margin-right: 8px;
+}
+.modalHeader >  h3 {
+    margin-bottom: 0 !important;
+}
+.modalContent {
+    height: 650px;
+    overflow-y: scroll;
+}
+.listIcon {
+    background-image: url('../../resources/images/sixdotsblue.png');
+    background-repeat: no-repeat;
+    height: 30px;
+    width: 30px;
+  }
+
+  .releaseHistoryListData {
+    width: 100%;
+  }
+
+  .releaseHistoryListData > div > span {
+    font-size: 9px !important;
+  }
