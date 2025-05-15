@@ -1,0 +1,291 @@
+<div class="h-full w-full flex flex-col lg:flex-row gap-4">
+    <!-- document generate section -->
+    <div class="flex flex-col gap-[16px] flex-1">
+        <div class="flex justify-between">
+            <!-- Select Template and Add Sources dropdown section -->
+            <div class="flex flex-col lg:flex-row gap-[16px]">
+                <div class="flex flex-col relative">
+                    <div [ngClass]="(!sourcesTemplateTooltipDone)? 'md:bg-[#F7F8FA] md:p-[16px] md:rounded-[8px] md:z-10010 md:shadow-[0px_4px_10px_rgba(0,0,0,0.2)]' : ''" >
+                        <div class="flex flex-col lg:flex-row gap-[16px]">
+                            <!-- Select Template dropdown section -->
+                            <div class="relative w-45">
+                                <!-- Dropdown Button -->
+                                <button
+                                    (click)="toggleDropdown()"
+                                    class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-sm font-medium h-[100%]"
+                                >
+                                    {{ selectedTemplate }}
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="h-5 w-5 text-gray-500"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                        >
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            clip-rule="evenodd"
+                                        />
+                                    </svg>
+                                </button>
+
+                                <!-- Dropdown Menu -->
+                                <div
+                                    *ngIf="isOpen"
+                                    class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10"
+                                >
+                                    <ul>
+                                        <li
+                                            *ngFor="let template of templates"
+                                            (click)="selectTemplate(template)"
+                                            class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0"
+                                        >
+                                            {{ template }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- Add Sources section -->
+                            <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium">
+                                <button class="flex gap-[8px]" (click)="openModal()">
+                                    <span class="w-[16.67px] h-[18px] bg-[url('./app/resources/icons/pluses-icon.svg')]">
+                                    </span>
+                                    Add Sources
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Select Template and Add Sources tooltip -->
+                    <div class="hidden md:block">
+                        <div [ngClass]="(!sourcesTemplateTooltipDone)? 'overlay' : ''"></div>
+                        <div [ngClass]="(!sourcesTemplateTooltipDone)? 'block' : ' hidden'" >
+                            <div class="flex flex-col bg-white p-[18px] gap-[16px]  items-center rounded-[12px] absolute sources-template-tooltip tooltip">
+                                <p class="text-[18px] text-[#19213D] leading-[130%] font-medium">Use these buttons to choose your sources and select a template before getting started.</p>
+                                <div class="flex justify-between w-full mt-[10px] gap-[12px]">
+                                    <button class="bg-white flex justify-center items-center py-[8px] px-[24px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[168px] h-[44px]" (click)="skipSourcesTemplateTooltip()">
+                                        Skip
+                                    </button>
+                                    <button class="activeButton flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[168px] h-[44px]" (click)="goToGenerateTooltip()">
+                                        Next
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Generate button -->
+                <div class="flex flex-col relative">
+                    <div [ngClass]="(!generateTooltipDone)? 'bg-[#F7F8FA] p-[16px] rounded-[8px] tooltip' : ''" 
+                        [ngClass]="generateTooltip? 'bg-[#F7F8FA] p-[16px] rounded-[8px] tooltip' : ''">
+                        <button class="text-sm text-white bg-primary flex items-center gap-[8px] px-[14px] rounded-lg border border-[#D5D7DA] h-[41.5px]" [ngClass]="(!generateDoc)? 'disabled' : ''" (click)="createDocument()">
+                            <span class="w-[18.33px] h-[18.33px] scale-[0.8] bg-[url('./app/resources/icons/white-stars.svg')]">
+                            </span>
+                            <span>Generate</span>
+                        </button>
+                    </div>
+                    <!-- documentation tooltip -->
+                    <div class="hidden md:block">
+                        <div [ngClass]="(!generateTooltipDone)? 'overlay' : ''" 
+                            [ngClass]="generateTooltip? 'overlay' : ''"></div>
+                        <div [ngClass]="(!generateTooltipDone)? 'block' : ' hidden'" 
+                            [ngClass]="generateTooltip? 'block' : ' hidden'"  >
+                            <div class="flex flex-col bg-white p-[18px] gap-[16px]  items-center rounded-[12px] absolute generate-documentation-tooltip tooltip">
+                                <p class="text-[18px] text-[#19213D] leading-[130%] font-medium">After listing all your sources, click this button to generate the content.</p>
+                                <div class="flex justify-between w-full mt-[10px] gap-[12px]">
+                                    <button class="bg-white flex justify-center items-center py-[8px] px-[24px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[168px] h-[44px]" (click)="skipGenerateTooltip()">
+                                        Skip
+                                    </button>
+                                    <button class="activeButton flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[168px] h-[44px]" (click)="goToEditorTooltip()">
+                                        Next
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- export and publish button section -->
+            <div class="flex flex-col relative">
+                <div [ngClass]="(!exportPublishTooltipDone)? 'bg-[#F7F8FA] p-[16px] rounded-[8px] tooltip' : ''" 
+                    [ngClass]="exportPublishTooltip? 'bg-[#F7F8FA] p-[16px] rounded-[8px] tooltip' : ''" >
+                    <div class="flex flex-col lg:flex-row gap-[16px] h-[100%]">
+                        <button class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[8px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium h-[100%]" (click)="exportAsText()">
+                            <span class="w-[21.83px] h-[21.83px] bg-[url('./app/resources/icons/download-icon.svg')]">
+                            </span>
+                            Export
+                        </button>
+                        <button class="my-auto border border-[#D5D7DA] rounded-[8px] px-[24px] py-[8px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-white text-sm font-medium bg-primary h-[100%]" [ngClass]="(displayDoc)? '' : 'disabled'">Publish</button>
+                    </div>
+                </div>
+                <!-- export publish tooltip -->
+                <div class="hidden md:block">
+                    <div [ngClass]="(!exportPublishTooltipDone)? 'overlay' : ''" 
+                        [ngClass]="exportPublishTooltip? 'overlay' : ''"></div>
+                    <div [ngClass]="(!exportPublishTooltipDone)? 'block' : ' hidden'" 
+                        [ngClass]="exportPublishTooltip? 'block' : ' hidden'" >
+                        <div class="flex flex-col bg-white p-[18px] gap-[16px] items-center rounded-[12px] absolute export-publish-tooltip tooltip">
+                            <p class="text-[18px] text-[#19213D] leading-[130%] font-medium">Once you've made your changes, you can publish the content to the product playbook or export it in your preferred format.</p>
+                            <div class="flex justify-end w-full mt-[10px] gap-[12px]">
+                                <button class="activeButton flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[168px] h-[44px]" (click)="doneWithTooltip()">
+                                    Finish
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- documentation section -->
+        <div class="bg-white flex flex-col gap-[16px] w-full min-h-screen h-auto rounded-lg px-6 py-8 ">
+            <!--/* doc section */-->
+            <div class="flex flex-col gap-[12px] px-[4px]" [ngClass]="(displayDoc)? '' : 'hidden'">
+                <p>
+                    Example: ACI Payment Gateway – Release Notes (Version 2.5.0) 
+                </p>
+                <p>
+                    Release Date: March 15, 2025 
+                </p>
+                <p class="text-[#666F8D]">
+                    Prepared By: Product Management Team 
+                </p>
+                <ul class="text-[#666F8D] flex flex-col gap-[12px]">
+                    <li class="flex flex-col gap-[8px]" *ngFor="let item of generatedDocument">
+                        <p>
+                            {{item.title}}
+                        </p>
+                        <p>
+                           {{item.description}}
+                        </p>
+                        <p>
+                           {{item.Issues}}
+                        </p>
+                        <ul class="list-disc flex flex-col gap-[12px] ml-[24px]">
+                            <li *ngFor="let issue of item.Issues">
+                                {{ issue }}
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="text-[#666F8D]"> 
+                    <p>
+                        For further details, contact: 
+                    </p>
+                    <p>
+                    📧 ACI Support Team – support&#64;aci.com
+                    </p>
+                    <p>
+                    📖 Documentation & FAQs – ACI Knowledge Base
+                    </p>
+                </div>
+            </div>
+            <!-- default  doc section -->
+            <div class="flex flex-col justify-center items-center h-full" [ngClass]="(!displayDoc)? '' : 'hidden'">
+                <div class="flex flex-col justify-center items-center text-[#666f8d]">
+                    <p class="text-[32px] font-medium">Meet DocuBot!</p>
+                    <p class="text-[24px] font-medium">Your assistant for generating documentation.</p>
+                    <div class="flex mt-[18px]">
+                        <span class="w-[110.2px] h-[74.14px] bg-[url('./app/resources/icons/docu-bot-icon.svg')]">
+                        </span>
+                    </div>
+                    <div class="flex flex-col gap-[12px] mt-[70px]">
+                        <p>To get started:</p>
+                        <ol class="text-sm text-[#666f8d]">
+                            <li>1. Select a template that fits the document you need</li>
+                            <li>2. Add the relevant sources</li>
+                            <li>3. Click Generate to create your documentation</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- editor section -->
+    <div class="flex flex-col">
+        <div class="flex-1"></div>
+        <div class="flex flex-col relative">
+            <!-- editor tooltip -->
+            <div class="hidden md:block">
+                <div [ngClass]="(!editorTooltipDone)? 'overlay' : ''" 
+                        [ngClass]="editorTooltip? 'overlay' : ''"></div>
+                <div [ngClass]="(!editorTooltipDone)? 'block' : ' hidden'" 
+                    [ngClass]="editorTooltip? 'block' : ' hidden'"  >
+                    <div class="flex flex-col bg-white p-[18px] gap-[16px] items-center rounded-[12px] absolute editor-tooltip tooltip">
+                        <p class="text-[18px] text-[#19213D] leading-[130%] font-medium">Use the built-in AI editor to refine or rewrite the content to match your tone and style.</p>
+                        <div class="flex justify-between w-full mt-[10px] gap-[12px]">
+                            <button class="bg-white flex justify-center items-center py-[8px] px-[24px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[168px] h-[44px]" (click)="skipEditorTooltip()">
+                                Skip
+                            </button>
+                            <button class="activeButton flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[168px] h-[44px]" (click)="goToExportPublishTooltip()">
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div [ngClass]="(!editorTooltipDone)? 'bg-[#F7F8FA] p-[16px] rounded-[8px] tooltip' : ''" 
+                [ngClass]="editorTooltip? 'bg-[#F7F8FA] p-[16px] rounded-[8px] tooltip' : ''"  >
+                <button class="my-auto bg-white border border-[#D3D3D3] rounded-[36px] px-[18px] py-[12px] flex items-center gap-[12px]">
+                    <span class="w-[21.83px] h-[21.83px] bg-[url('./app/resources/icons/pencil-icon.svg')]">
+                    </span>
+                    Editor
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/* add sources modal section */-->
+<div class="" *ngIf="isModalOpen">
+    <div class="overlay"></div>
+    <div class="">
+        <div class="flex flex-col bg-white p-[24px] gap-[12px] w-[100%] md:w-[480px] min-h-[490px] rounded-[12px] absolute document-model tooltip justify-between">
+            <div class="flex flex-col gap-[8px]">
+                <div class="flex items-center justify-between mb-[16px]">
+                    <p class="font-medium font-[20px] text-[#2c2d2e]">Upload Sources</p>
+                    <button (click)="closeModal()" class="flex">
+                        <span class="w-[21.69px] h-[27.9px] bg-[url('./app/resources/icons/black-close-icon.svg')] rounded-lg"></span>
+                    </button>
+                   
+                </div>
+                <p class="text-base text-[#344054]">Add JIRA or confluence Pages</p>
+                <!-- sources list -->
+                <ul class="flex flex-col gap-[8px]">
+                    <li class="flex w-[100%] bg-[#FAFAFA] border border-[#DFDFDF] rounded-lg py-[10px] px-[16px] gap-[8px] justify-between " *ngFor="let item of sources; let i = index">
+                        <div class="flex items-center justify-center gap-[4px]">
+                            <span class="w-[24px] h-[24px] scale-[0.8] bg-[url('./app/resources/icons/green-file-uplode-icon.svg')]"></span>
+                            <span class="text-sm break-words whitespace-normal flex-1 text-[#2C2D2E]">{{item.source}}</span>
+                        </div>
+                        <button class="material-icons text-[#919399] ml-[0px]" (click)="deleteSource(i)">delete</button>
+                    </li>
+                </ul>
+                <div class="flex w-[100%] bg-[#FAFAFA] border border-[#DFDFDF] rounded-lg py-[10px] px-[16px] gap-[8px]">
+                    <span class="w-[13px] h-[20px] bg-[url('./app/resources/icons/paste-url-icon.svg')]">
+                    </span>
+                    <input type="text" placeholder="Paste your URL here" class="text-sm"  [(ngModel)]="newSource">
+                </div>
+            </div>
+        
+            <!-- Drag and Drop or Browse -->
+            <div class="flex flex-col gap-[16px] w-[100%]">
+                <div class="flex flex-col items-center justify-center w-[100%] bg-[#FAFAFA] border border-[#DFDFDF] rounded-lg py-[16px] px-[24px] gap-[4px]"
+                    (dragover)="onDragOver($event)" 
+                    (drop)="onDrop($event)">
+                    <span class="material-icons rotate-270 text-[#919399] my-[4px]">logout</span>
+                    <input type="file" #fileInput class="hidden" (change)="onFileSelected($event)" multiple>
+                    <p class="text-[#474567] text-sm">Drag and drop or 
+                        <span class="text-primary cursor-pointer" (click)="fileInput.click()">Browse</span>
+                    </p>
+                    <p class="text-[#919399] text-xs">PDF, DOC or DOCX (max. 50 MB)</p>
+                </div>
+                <div class="flex gap-[12px]  mt-[10px] w-[100%] text-base font-bold">
+                    <button class="bg-white flex justify-center items-center py-[8px] px-[24px]  border border-[#D5D7DA] rounded-[8px] w-[50%]" (click)="closeModal()">
+                        Close 
+                    </button>
+                    <button class="activeButton flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] w-[50%]" (click)="addSource()">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

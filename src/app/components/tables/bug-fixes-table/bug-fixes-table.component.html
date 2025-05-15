@@ -1,0 +1,51 @@
+<div class="bg-white border border-[#E9EAEB] rounded-xl text-sm text-[#535862] text-sm pt-[4px]">
+    <ul>
+        <li class="grid grid-cols-[0.75fr_2fr_1fr_1fr_1fr_1fr] gap-4 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]">
+            <div class="flex gap-2 justify-start items-center">Issue</div>
+            <div class="flex items-center">Description</div>
+            <div class="flex items-center">Priority</div>
+            <div class="flex items-center">Status</div>
+            <div class="flex items-center">Assigned to</div>
+        </li>
+        <li class="grid grid-cols-[0.75fr_2fr_1fr_1fr_1fr_1fr] gap-4 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]" *ngFor="let item of paginatedItems">
+            <div class="flex gap-2 justify-start items-center text-primary font-semibold">
+                {{ item.issue }}
+                <span class="w-[11.2px] h-[9.98px] scale-[1.2] bg-[url('./app/resources/icons/blue-slant-up-arrow-icon.svg')]"></span>
+            </div>
+            <div class="w-60 truncate flex items-center">{{ item.description }}</div>
+            <div class="flex items-center gap-[12px]">
+                <div *ngIf="item.priority === 'Low'" class="w-[7.45px] h-[4.39px] scale-[1.5] bg-[url('./app/resources/icons/blue-low-icon.svg')] ">
+                </div>
+                <div *ngIf="item.priority === 'High'" class="w-[7.92px] h-[4.39px] scale-[1.5] bg-[url('./app/resources/icons/red-high-icon.svg')] ">
+                </div>
+                <div *ngIf="item.priority === 'Highest'" class="w-[7.92px] h-[8.78px] scale-[1.5] bg-[url('./app/resources/icons/red-highest-icon.svg')] ">
+                </div>
+                {{ item.priority }}
+            </div>
+            <div class="flex items-center">
+                <span class=" px-5 py-2 rounded-[16px] text-xs font-medium" 
+                    [ngStyle]="{
+                        'background-color': item.status === 'Resolved' ? '#ECFDF3' : '#F5F5F5',
+                        'color': item.status === 'Resolved' ? '#027A48' : '#414651'
+                    }">
+                    {{ item.status }}
+                </span>
+            </div>
+            <div class="flex justify-start items-center gap-[10px]">
+                <div class="border border-[#9D9D9D] rounded-[200px] w-[40px] h-[40px] bg-[url('./app/resources/icons/profile-picture.svg')] ">
+                </div>
+                {{ item.assignedTo }}
+            </div>
+            <div class="text-[primary] font-semibold flex items-center">{{ item.viewResolution }}</div>
+        </li>
+    </ul>
+    <!-- pagination controls -->
+    <div class="flex justify-between items-center ps-[24px] pe-[50px] py-[8px]">
+        <span class="text-gray-500">{{ currentPage }} of {{ totalPages }}</span>
+        <div class="flex gap-[12px]">
+            <button (click)="prevPage()" [disabled]="currentPage === 1" class="scale-[1.5]">‹</button>
+            <span>Page {{ currentPage }} of {{ totalPages }}</span>
+            <button (click)="nextPage()" [disabled]="currentPage >= totalPages" class="scale-[1.5]">›</button>
+        </div>
+    </div>
+</div>

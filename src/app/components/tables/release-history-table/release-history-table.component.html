@@ -1,0 +1,47 @@
+<div class="bg-white border border-[#E9EAEB] rounded-xl text-sm text-[#535862] text-sm pt-[4px]">
+    <ul>
+        <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_1fr_0.5fr] gap-4 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]">
+            <div class="flex gap-2 justify-start items-center">Version</div>
+            <div class="flex items-center">Product</div>
+            <div class="flex items-center">Type</div>
+            <div class="flex items-center">Status</div>
+            <div class="flex items-center gap-[4px]">
+                Delivery date
+                <span class="w-[16px] h-[16px] bg-[url('./app/resources/icons/black-down-arrow-icon.svg')] ">
+                </span>
+            </div>
+            <div class="flex items-center">Executed by</div>
+        </li>
+        <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_1fr_0.5fr] gap-4 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]" *ngFor="let item of paginatedItems">
+            <div class="flex gap-2 justify-start items-center">
+                {{ item.documentation }}
+            </div>
+            <div class="flex items-center">{{ item.product }}</div>
+            <div class="flex items-center">{{ item.type }}</div>
+            <div class="flex items-center">
+                <span class="bg-[#ECFDF3] px-5 py-2 rounded-[16px] text-[#027A48] text-xs font-medium"
+                    [ngStyle]="{
+                        'background-color': item.status === 'Published' ? '#ECFDF3' : '#F5F5F5',
+                        'color': item.status === 'Published' ? '#027A48' : '#414651'
+                    }">
+                    {{ item.status }}
+                </span>
+            </div>
+            <div class="flex items-center">{{ item.deliveryDate }}</div>
+            <div class="flex justify-start items-center gap-[10px]">
+                <span class="text-primary bg-[#e9eef8] flex rounded-[200px] w-[40px] h-[40px] justify-center items-center">{{ getFirstLetter(item.executedBy) }}</span>
+                {{ item.executedBy }}
+            </div>
+            <div class="text-primary font-semibold flex items-center">{{ item.view }}</div>
+        </li>
+    </ul>
+    <!-- pagination controls -->
+    <div class="flex justify-between items-center ps-[24px] pe-[50px] py-[8px]">
+        <span class="text-gray-500">{{ currentPage }} of {{ totalPages }}</span>
+        <div class="flex gap-[12px]">
+            <button (click)="prevPage()" [disabled]="currentPage === 1" class="scale-[1.5]">‹</button>
+            <span>Page {{ currentPage }} of {{ totalPages }}</span>
+            <button (click)="nextPage()" [disabled]="currentPage >= totalPages" class="scale-[1.5]">›</button>
+        </div>
+    </div>
+</div>

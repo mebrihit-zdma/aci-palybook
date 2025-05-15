@@ -1,0 +1,43 @@
+<div class="bg-white border border-[#D5D7DA] h-[310px] rounded-lg flex flex-col p-[24px] justify-between">
+    <div class="h-[100%]">
+        <div class="flex justify-between items-center">
+            <p class="text-base font-bold">{{data.title}}</p>
+            <div class="flex gap-[4px] justify-center items-center border border-[#D5D7DA] rounded-lg py-[8px] px-[14px] shadow-[0px_1px_2px_rgba(16,24,40,0.05)]"> 
+                <span class="bg-[url('./app/resources/icons/calendar-today-icon.svg')] w-[15px] h-[18px]"></span>
+                <p class="text-xs font-medium text-[#344054]">March, 2025</p>
+            </div>
+        </div>
+        <div class="flex justify-between my-[28px]">
+            <div class="flex flex-col justify-center items-center relative">
+                <ngx-charts-pie-chart
+                    [view]=data.view
+                    [results]="data.pieChartData"
+                    [legend]="showLegend"
+                    [labels]="showLabels"
+                    [explodeSlices]="explodeSlices"
+                    [doughnut]="doughnut"
+                    [arcWidth]="arcWidth"
+                    [customColors]="data.customColors">
+                </ngx-charts-pie-chart>
+                <div class="absolute font-semibold text-[25px] text-[#101828]">12</div>
+            </div>
+            <ul class="flex flex-col w-[55%]  my-auto gap-[12px]">
+                <li class="flex items-center justify-between" *ngFor="let givenColor of data.pieChartData">
+                    <div>
+                        <span class="inline-block mr-[5px] w-[10px] h-[10px] rounded-full" [ngStyle]="{'background-color': givenColor.color }"></span>
+                        <span class="text-base text-[#344054]">{{givenColor.name}}</span>
+                    </div> 
+                    <span class="text-base text-[#344054]">{{givenColor.value}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- link section -->
+    <div class="flex flex-col gap-[16px]">
+        <hr class="border-none h-[1px] bg-[#e2e8f0]">
+        <a class="flex gap-[4px]">
+            <div class="w-[23px] h-[23px] scale-[0.7] bg-[url('./app/resources/icons/blue-stars.svg')]"></div>
+            <p class="text-sm text-primary font-bold flex items-center">View Highlights</p>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+<div class="h-[100%] flex flex-col justify-between">
+    <!-- dropdown section -->
+    <div class="flex justify-between mb-2 ml-[60px] md:ml-0">
+        <div class="flex relative">
+            <div class="flex gap-[16px]">
+                <!-- ACI payment hub dropdown section -->
+                <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium">
+                    <select>
+                        <option class="bg-gray-200 text-black" value="" disabled selected>Connectic - High Value V1.0</option>
+                        <option class="bg-gray-200 text-black"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- bell icon -->
+        <!--/* <span class="w-[22.76px] h-[29.25px] bg-[url('./app/resources/icons/blue-bell-icon.svg')]"></span> */-->
+    </div>
+    <!-- question and answer -->
+    <div class="w-[100%] lg:w-[90%] ml-auto mr-auto mb-[50px]">
+        <div class="flex flex-col justify-center gap-[24px]">
+            <div class="w-[100%] lg:w-[90%] ml-auto mr-auto mb-[50px]">
+              <div class="flex flex-col justify-center gap-[24px]">
+                <div *ngFor="let msg of messages">
+                  <div>
+                    <div
+                      class="flex"
+                        [ngClass]="{
+                          'justify-end': msg.sender === 'user',
+                          'flex-row': msg.sender === 'bot'
+                        }">
+                        <ng-container *ngIf="msg.sender === 'bot'">
+                          <div class="flex items-start gap-2">
+                            <span class="mt-[-4px] w-[36px] h-[36px] scale-[0.7] bg-[url('./app/resources/icons/blue-chat-icon.svg')]"></span>
+                          </div>
+                        </ng-container>
+                        <div
+                          class="bg-white flex py-[10px] px-[14px] w-[100%] lg:w-[60%] border border-[#D5D7DA] text-sm rounded-br-lg rounded-tl-lg rounded-bl-lg rounded-bl-lg" 
+                          [ngClass]="{
+                            'rounded-tl-lg rounded-tr-none  max-w-[70%] ': msg.sender === 'user',
+                            'rounded-tl-none rounded-tr-lg pl-[12px] pr-[20px] py-[20px]': msg.sender === 'bot'
+                          }">
+                          <div class="chat-answer" [innerHTML]="msg.text"></div>
+                        </div>
+                    </div>
+                    <!-- Sources Section -->
+                    <ng-container *ngIf="msg.sender === 'bot'">
+                      <div class="ml-[40px]">
+                          <p class="mt-[20px] mb-[-8px]">Sources</p>
+                          <div class="mt-4 lg:flex gap-4 lg:flex-wrap">
+                            <app-source-card class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" [data]="msg.sources"/>
+                          </div>
+                      </div>
+                    </ng-container>
+                  </div>            
+                </div>
+              </div>
+            </div>
+            <!-- ask question input field -->
+            <div class="w-[100%]">
+              <label class="bg-white flex items-center justify-between py-[12px] px-[12px]  border border-[#D5D7DA] rounded-[8px] gap-[16px]" (click)="askQuestion(askedQuestion)">
+                <div class="flex gap-[8px] w-[90%]">
+                    <span class="w-[16px] h-[17px] scale-[0.9] bg-[url('./app/resources/icons/chat-link-icon.svg')]"></span>
+                    <input 
+                      type="text" 
+                      placeholder="Ask your question!" 
+                      class="text-sm w-[100%]"
+                      name="askedQuestion"
+                      [(ngModel)]="askedQuestion"
+                      (keydown.enter)="askQuestion(askedQuestion)"
+                    />
+                </div>
+                <span class="w-[18px] h-[18.86px] bg-[url('./app/resources/icons/blue-right-arrow-icon.svg')]"></span>
+              </label>
+            </div>
+        </div>
+    </div>
+</div>

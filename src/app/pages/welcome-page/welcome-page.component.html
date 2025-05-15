@@ -1,0 +1,19 @@
+<div class="w-full h-screen flex justify-center items-center">
+    <div class="p-4 h-full py-6 flex flex-col justify-between">
+        <div class="flex flex-col gap-[16px] md:w-[700px] justify-center items-center mt-[20%]">
+            <div class="w-[89px] h-[56px] bg-[url('./app/resources/icons/aci-worldwide-logo.svg')]"></div>
+            <p class="text-[#101828] font-semibold text-[32px] leading-[44px] text-center tracking-[-0.02em] capitalize">Welcome, {{ userName }}!</p>
+            <p class="text-[#30425C] text-[20px] font-medium text-center mb-[-16px]">Your Product Playbook is ready.</p>
+            <p class="text-[#30425C] text-[18px] font-medium text-center">
+                Learn how to navigate updates, access key resources, and personalize your experience with dashboard settings, notifications, and AI-powered insights.
+            </p>
+        </div>
+        <div class="flex justify-center items-center mb-[10%]">
+            <button (click)="goToOnboarding()"
+                class="bg-white flex justify-center items-center py-[16px] px-[24px] gap-[16px] border border-[#D5D7DA] rounded-[16px] w-fit h-fit p-2 border">
+                <p>Start Onboarding</p>
+                <div class="w-[23px] h-[23px] bg-[url('./app/resources/icons/blue-stars.svg')]"></div>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,1 +1,328 @@
 /* You can add global styles to this file, and also import other style files */
+
+/* google fonts family */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+/* google Material icons */
+@import url('https://fonts.googleapis.com/css2?family=Material+Icons');
+
+@import "tailwindcss";
+
+@theme {
+
+  /* font family */
+  --font-display: "Satoshi", "sans-serif";
+  --font-Inter: "Inter", "sans-serif";
+
+  /* color palette */
+  --color-primary: #2726DD;
+ 
+
+  /* typography scale */
+  --text-smalltext: 8px;
+  /* --text-base: 40px; */
+
+  /* break point */
+  --breakpoint-3xl: 120rem;
+}
+
+html, body{
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position:fixed;
+    
+    background: url("./app/resources/images/aci-bg-image.svg");
+    background-size: cover;
+    background-position: center; 
+    background-attachment: fixed;
+    font-family: var(--font-Inter);
+}
+*{
+    outline: none;
+}
+
+/* sidebar */
+.active {
+  background: rgba(43, 42, 221, 0.1);
+}
+.tooltip-text{
+  display: none;
+}
+.tooltip-btn:hover .tooltip-text{
+  display: block;
+}
+.tooltip-btn:hover{
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), rgba(43, 42, 221, 0.1);
+  border-radius: 16px;
+}
+
+/* on boarding */
+.disabled-button{
+  opacity: 0.5;
+  pointer-events: none;
+  background-color: #d5d7da;
+  color:black;
+}
+.disabled{
+  opacity: 0.5;
+  pointer-events: none;
+}
+.activeButton {
+  background-color: var(--color-primary);
+  color: white;
+}
+/* radio buttons */
+input[type="radio"] {
+  visibility:hidden;
+}
+input[type='radio']:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  content:url('./app/resources/icons/gray-uncheked-raido-button.svg');
+  display: inline-block;
+  visibility: visible;
+}
+
+input[type='radio']:checked:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  content:url('./app/resources/icons/blue-checkmark-icon.svg');
+  display: inline-block;
+  visibility: visible;
+}
+
+input[type="checkbox"] {
+  visibility:hidden;
+}
+input[type='checkbox']:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  content:url('./app/resources/icons/gray-uncheked-raido-button.svg');
+  display: inline-block;
+  visibility: visible;
+}
+
+input[type='checkbox']:checked:after {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  top: -2px;
+  left: -1px;
+  position: relative;
+  content:url('./app/resources/icons/blue-checkmark-icon.svg');
+  display: inline-block;
+  visibility: visible;
+}
+/* tooltip */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100
+}
+.tooltip {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 10010;
+}
+/* dashboard model */
+.dashboard-model{
+  left: calc(50% - 400px/2);
+  top: calc(50% - 420px/2);
+  box-shadow: 0px 20px 24px -4px rgba(16, 24, 40, 0.08), 0px 8px 8px -4px rgba(16, 24, 40, 0.03);
+}
+.document-model{
+  left: calc(50% - 400px/2);
+  top: calc(50% - 420px/2);
+  box-shadow: 0px 20px 24px -4px rgba(16, 24, 40, 0.08), 0px 8px 8px -4px rgba(16, 24, 40, 0.03);
+}
+
+/* ACI Payment Hub */
+.aci-payment-hub-tooltip{
+  left:120%;
+  z-index: 100020;
+}
+.aci-payment-hub-tooltip::after,
+.aci-payment-hub-tooltip::before {
+  content: "";
+  position: absolute;
+  background-color: white;
+  height: 30px;
+  width: 30px;
+  top: 20%;
+  left:0px;
+  transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -webkit-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -moz-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -ms-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -o-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+
+  opacity: 1; /* Adjust transparency */
+  z-index: 100;
+}
+/* create documentation */
+.create-documentation-tooltip{
+  left: -160%; 
+  top: -50%; 
+  z-index: 100;
+}
+.create-documentation-tooltip::after,
+.create-documentation-tooltip::before {
+  content: "";
+  position: absolute;
+  background-color: white;
+  height: 30px;
+  width: 30px;
+  top: 50%;
+  right: -30px;
+  transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -webkit-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -moz-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -ms-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -o-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+}
+/* start new chat */
+.start-new-chat-tooltip{
+  top: -150%;
+  right: 36%;
+  z-index: 100;
+}
+.start-new-chat-tooltip::after,
+.start-new-chat-tooltip::before {
+  content: "";
+  position: absolute;
+  background-color: white;
+  height: 30px;
+  width: 30px;
+  bottom: -13%;
+  left:50%;
+  transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -webkit-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -moz-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -ms-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -o-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  z-index: -1;
+ 
+}
+/* sources and template */
+.sources-template-tooltip{
+  top: 140%; 
+  z-index: 100;
+}
+.sources-template-tooltip::after,
+.sources-template-div-tooltip::before {
+  content: "";
+  position: absolute;
+  background-color: white;
+  height: 30px;
+  width: 30px;
+  top: -13px;
+  left:50%;
+  transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -webkit-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -moz-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -ms-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -o-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+}
+/* export and publish */
+.export-publish-tooltip{
+  top: 140%; 
+  left: -30%;
+  z-index: 100;
+}
+.export-publish-tooltip::after,
+.export-publish-tooltip::before {
+  content: "";
+  position: absolute;
+  background-color: white;
+  height: 30px;
+  width: 30px;
+  top: -13px;
+  left:50%;
+  transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -webkit-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -moz-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -ms-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -o-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+}
+/* generate documentation */
+.generate-documentation-tooltip{
+  top: 140%; 
+  left: -70%;
+  z-index: 100;
+}
+.generate-documentation-tooltip::after,
+.generate-documentation-tooltip::before {
+  content: "";
+  position: absolute;
+  background-color: white;
+  height: 30px;
+  width: 30px;
+  top: -13px;
+  left:50%;
+  transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -webkit-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -moz-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -ms-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -o-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+}
+/* editor */
+.editor-tooltip{
+  right: 120%;
+  bottom: 0%;
+  z-index: 100;
+}
+.editor-tooltip::after,
+.editor-tooltip::before {
+  content: "";
+  position: absolute;
+  background-color: white;
+  height: 30px;
+  width: 30px;
+  top: 50%;
+  right:-30px;
+  transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -webkit-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -moz-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -ms-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+  -o-transform: translate(-50%, -10%) rotate(45deg) scale(1);
+}
+
+/* chat section */
+.chat-answer ol {
+  list-style: decimal !important;
+  padding-left: 1.5rem;
+}
+
+.chat-answer ul {
+  list-style: disc !important;
+  padding-left: 1.5rem;
+}
+
+.chat-answer li {
+  margin-bottom: 0.5rem;
+}
+.chat-answer p, h2, h3 {
+  margin-bottom: 0.5rem;
+}
+
+
+
+

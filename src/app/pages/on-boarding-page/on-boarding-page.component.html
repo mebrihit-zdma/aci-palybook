@@ -1,0 +1,155 @@
+<div class="w-full h-screen flex justify-center items-center overflow-y-auto">
+    <div class="p-4 h-full py-6 flex flex-col sm:w-[55%] justify-between">
+        <div class="flex flex-col gap-[10px] sm:w-[660px]  justify-center items-center mt-[6%]">
+            <p class="text-[#101828] font-semibold text-[32px] text-center tracking-[-0.02em] ">Let's Get Started!</p>
+            <p class="text-[#30425C] text-[20px] font-medium text-center mb-[20px]">
+                Let's walk you through the essentials to help you get started.
+            </p>
+        </div>
+
+        <div class="flex flex-col justify-center items-center mb-[10%] gap-[24px] sm:mx-[16px]">
+            <!-- role section -->
+            <div class="w-full ms-[-8px] md:ms-0" >
+                <div class="flex flex-col gap-[32px] w-full">
+                    <div class="flex">
+                        <div class="mt-[-4px] w-[40px] h-[36px] sm:w-[36px] scale-[0.7] bg-[url('./app/resources/icons/blue-chat-icon.svg')]" [ngClass]="!disableRoleSection? '' : 'disabled'"></div>
+                        <p class="bg-white flex py-[10px] px-[12px] w-[100%] lg:w-[75%] border border-[#D5D7DA] text-sm rounded-tl-none rounded-tr-lg rounded-br-lg rounded-bl-lg sm:pe-[40px]" [ngClass]="!disableRoleSection? '' : 'disabled'">I see your role is &nbsp; <strong>{{userRole}}</strong>. Does that look right to you?</p>
+                    </div>
+                    <div class="flex justify-center md:justify-end">
+                        <div class="flex gap-[8px]">
+                            <label class="bg-white flex justify-center items-center py-[8px] px-[16px]  border border-[#D5D7DA] rounded-[8px] text-sm gap-[8px]" [ngClass]="!disableRoleSection? '' : 'disabled'">
+                                <input type="radio" id="yes" name="role" value="yes" (change)="roleAnswered()">
+                                Yes, that’s correct
+                            </label>
+                            <label class="bg-white flex justify-center items-center py-[8px] px-[16px]  border border-[#D5D7DA] rounded-[8px] text-sm gap-[8px]" [ngClass]="!disableRoleSection? '' : 'disabled'" (click)="showRoleList()">
+                                <input type="radio" id="no" name="role" value="no" (change)="roleAnswered()">
+                                No, I want to change it
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- role list radio button for no section -->
+                    <div class="flex justify-center md:justify-end" [ngClass]="givenRoleList? '' : 'hidden'" >
+                        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-[20px] sm:justify-end sm:w-[80%]" [ngClass]="!disableRoleSection? '' : 'disabled'">
+                            <label class="bg-white flex justify-center items-center py-[16px] px-[12px]  border border-[#D5D7DA] rounded-[8px] text-sm gap-[32px] relative" *ngFor="let item of roleList">
+                                <div class="flex flex-col  me-[32px] py-[8px]">
+                                    <span class="flex justify-center items-center w-[48px] h-[48px] material-icons text-primary bg-[#F4EBFF] rounded-[28px]">{{item.icon}}</span>
+                                    <p class="text-base font-semibold mt-[12px] mb-[6px]">{{item.title}}</p>
+                                    <p class="text-xs font-medium">{{item.description}}</p>
+                                </div>
+                                <input type="radio" name="products" value="lowValue" class="absolute top-[24px] right-[24px]" (change)="productsAnswered()">
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- cancel and next button -->
+                    <div class="flex justify-between w-full" [ngClass]="!disableRoleSection? '' : 'hidden'">
+                        <button (click)="goToPervSection()" class="bg-white flex justify-center items-center py-[8px] px-[24px]  border border-[#D5D7DA] rounded-[8px] text-sm">
+                            Cancel
+                        </button>
+                        <button (click)="goToPoductsSection()" class="bg-white flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] text-sm" [ngClass]="!isRoleNextButtonActive? 'disabled' : 'activeButton'">
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+             <!-- products section -->
+            <div class="w-full ms-[-8px] md:ms-0" [ngClass]="!hiddenProductsSection? 'block' : ' hidden'">
+                <div class="flex flex-col gap-[32px] w-full">
+                    <!-- products question section -->
+                    <div class="flex">
+                        <div class="mt-[-4px] w-[40px] h-[36px] sm:w-[36px] scale-[0.7] bg-[url('./app/resources/icons/blue-chat-icon.svg')]" [ngClass]="!disableProductsSection? '' : 'disabled'"></div>
+                        <p class="bg-white flex py-[10px] px-[12px] w-[100%] lg:w-[75%] border border-[#D5D7DA] text-sm rounded-tl-none rounded-tr-lg rounded-br-lg rounded-bl-lg sm:pe-[40px]" [ngClass]="!disableProductsSection? '' : 'disabled'">Next, let’s set up your workspace. Select the &nbsp;<strong>products</strong> &nbsp; you are actively working on.</p>
+                    </div>
+                    <!-- products radio button section -->
+                    <div class="flex flex-col justify-center justify-center md:justify-end">
+                        <!--/* Search */-->
+                        <div class="flex justify-center md:justify-end mb-[8px]">
+                            <div class="md:my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[12px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium w-[100%] md:w-[468px]">
+                                <span class="flex justify-center items-center w-[12.4px] h-[12.4px] bg-[url('./app/resources/icons/search-icon.svg')]"></span>
+                                <input type="text" placeholder="Search for a product..."/>
+                            </div>
+                        </div>
+                        <div class="flex gap-[8px] justify-center md:justify-end">
+                            <label class="bg-white flex justify-center items-center py-[8px] px-[12px]  border border-[#D5D7DA] rounded-[8px] text-sm gap-[32px] relative disabled" [ngClass]="!disableProductsSection? '' : 'disabled'">
+                                <!--/* label */-->
+                                <div class="flex flex-col gap-[8px] me-[32px] py-[8px]">
+                                    <div class="text-base text-[#2A282F] leading-[18px] font-semibold">
+                                        <p>Connetic - </p>
+                                        <p class="">Low Value</p>
+                                    </div>
+                                    <div class="text-[#A8A6AC] text-sm leading-[18px]">
+                                        <p class="">Connetic</p>
+                                        <p class="">V-1.0</p>
+                                    </div>
+                                </div>
+                                <input type="radio" name="products" value="lowValue" class="absolute top-[8px] right-[8px]" (change)="productsAnswered()">
+                            </label>
+                            <label class="bg-white flex justify-center items-center py-[8px] px-[12px]  border border-[#D5D7DA] rounded-[8px] text-sm gap-[32px] relative" [ngClass]="!disableProductsSection? '' : 'disabled'">
+                                <div class="flex flex-col gap-[8px] me-[32px] py-[8px]">
+                                    <div class="text-base text-[#2A282F] leading-[18px] font-semibold">
+                                        <p>Connetic -</p>
+                                        <p class="">High Value </p>
+                                    </div>
+                                    <div class="text-[#A8A6AC] text-sm leading-[18px]">
+                                        <p class="">Connetic</p>
+                                        <p class="">V-1.0</p>
+                                    </div>
+                                </div>
+                                <input type="radio" name="products" value="aci" class="absolute top-[8px] right-[8px]" (change)="productsAnswered()">
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- cancel and next button -->
+                    <div class="flex justify-between w-full" [ngClass]="!disableProductsSection? '' : 'hidden'">
+                        <button class="bg-white flex justify-center items-center py-[8px] px-[24px]  border border-[#D5D7DA] rounded-[8px] text-sm">
+                            Cancel
+                        </button>
+                        <button (click)="goToPersonalizeDashboardSection()" class="bg-white flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] text-sm" [ngClass]="!isProductsNextButtonActive? 'disabled' : 'activeButton'">
+                            Next
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- personalize your dashboard section -->
+            <div class="w-full ms-[-8px] md:ms-0" [ngClass]="!hiddenPersonalizeDashboardSection? 'block' : 'hidden'">
+                <div class="flex flex-col gap-[32px] w-full mb-[10%]">
+                    <!-- personalize your dashboard question section -->
+                    <div class="flex">
+                        <div class="mt-[-4px] w-[40px] h-[36px] sm:w-[36px] scale-[0.7] bg-[url('./app/resources/icons/blue-chat-icon.svg')]"></div>
+                        <p class="bg-white flex py-[10px] px-[12px] w-[100%] lg:w-[75%] border border-[#D5D7DA] text-sm rounded-tl-none rounded-tr-lg rounded-br-lg rounded-bl-lg sm:pe-[40px]">Personalize your dashboard by selecting the content you find most valuable. We’ve pre-selected a few options for you.</p>
+                    </div>
+                    <!-- personalize your dashboard radio button section -->
+                    <div class="flex justify-end">
+                        <div class="sm:w-[90%] gap-[8px] grid grid-cols-1 sm:grid-cols-2">
+                            <label class="bg-white flex justify-center items-center py-[12px] px-[12px]  border border-[#D5D7DA] rounded-[8px] gap-[16px] cursor-pointer relative" *ngFor="let data of personalizeDashboard">
+                                <div class="flex">
+                                    <span class="w-[48px] h-[48px] bg-[url('./app/resources/icons/blue-lightning-bolts.svg')]"></span>
+                                </div>
+                                <div class="flex flex-col gap-[2px] me-[32px]">
+                                    <p class="text-base font-bold">{{data.title}}</p>
+                                    <p class="text-[#727272] text-sm">{{data.description}}</p>
+                                </div>
+                                <input type="checkbox" class="absolute top-[10px] right-[10px]" (change)="personalizeDashboardAnswered()">
+                            </label>
+                        </div>
+                    </div>
+                    <!-- cancel and next button -->
+                    <div class="flex justify-between w-full">
+                        <button (click)="goToPoductsSection()" class="bg-white flex justify-center items-center py-[8px] px-[24px]  border border-[#D5D7DA] rounded-[8px] text-sm">
+                            Cancel
+                        </button>
+                        <div class="flex gap-[24px]">
+                            <button class="text-primary font-bold text-sm">Skip</button>
+                            <button (click)="goToDashboard()" class="bg-white flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] text-sm" [ngClass]="!isPersonalizeDashboardNextButtonActive? 'disabled' : 'activeButton'">
+                                Next
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
