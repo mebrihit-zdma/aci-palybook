@@ -219,4 +219,13 @@ export class DashboardComponent {
   doneWithTooltip(){
     this.startNewChatTooltipDone = true;
   }
+
+  // Customize Widgets
+  isCustomizeWidgets = false;
+  customizeWidgets(){
+    this.isCustomizeWidgets = true;
+  }
+  closeCustomizeWidgets(){
+    this.isCustomizeWidgets = false;
+  }
 }

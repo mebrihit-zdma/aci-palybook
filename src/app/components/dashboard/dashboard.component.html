@@ -37,7 +37,16 @@
         <!-- bell icon -->
         <!--/* <span class="w-[22.76px] h-[29.25px] bg-[url('./app/resources/icons/blue-bell-icon.svg')]"></span> */-->
     </div>
-    <p class="font-medium text-2xl text-[#19213D] text-center md:text-start">Welcome {{userName}}!</p>
+    <!--/* Welcome and Customize Widgets */-->
+    <div class="flex justify-between">
+        <p class="font-medium text-2xl text-[#19213D] text-center md:text-start">Welcome {{userName}}!</p>
+        <button class="bg-white flex justify-center items-center py-[8px] px-[16px] gap-[8px] border border-[#D5D7DA] rounded-[8px] w-fit h-fit border" (click)="customizeWidgets()">
+            <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0.666667 7.16667H4.66667C5.03333 7.16667 5.33333 6.86667 5.33333 6.5V1.16667C5.33333 0.8 5.03333 0.5 4.66667 0.5H0.666667C0.3 0.5 0 0.8 0 1.16667V6.5C0 6.86667 0.3 7.16667 0.666667 7.16667ZM0.666667 12.5H4.66667C5.03333 12.5 5.33333 12.2 5.33333 11.8333V9.16667C5.33333 8.8 5.03333 8.5 4.66667 8.5H0.666667C0.3 8.5 0 8.8 0 9.16667V11.8333C0 12.2 0.3 12.5 0.666667 12.5ZM7.33333 12.5H11.3333C11.7 12.5 12 12.2 12 11.8333V6.5C12 6.13333 11.7 5.83333 11.3333 5.83333H7.33333C6.96667 5.83333 6.66667 6.13333 6.66667 6.5V11.8333C6.66667 12.2 6.96667 12.5 7.33333 12.5ZM6.66667 1.16667V3.83333C6.66667 4.2 6.96667 4.5 7.33333 4.5H11.3333C11.7 4.5 12 4.2 12 3.83333V1.16667C12 0.8 11.7 0.5 11.3333 0.5H7.33333C6.96667 0.5 6.66667 0.8 6.66667 1.16667Z" fill="black"/>
+            </svg>
+            <p>Customize Widgets</p>
+        </button>
+    </div>
     <!-- summary card section -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <!-- summary card -->
@@ -175,7 +184,7 @@
 </div>
 
 <!-- Customize Widget modal -->
-<div id="crypto-modal"  class="h-full overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 max-h-full">
+<div id="crypto-modal"  class="h-full overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 max-h-full" [ngClass]="isCustomizeWidgets? 'block' : ' hidden'">
     <div class="relative w-full max-w-md max-h-full">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
@@ -187,7 +196,7 @@
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                     Customize Widgets
                 </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crypto-modal">
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crypto-modal" (click)="closeCustomizeWidgets()">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
