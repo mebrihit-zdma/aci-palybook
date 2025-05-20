@@ -355,5 +355,5 @@ gap: 2px !important;
   background-origin: border-box;
   background-image:
     linear-gradient(white, white), 
-    linear-gradient(90deg, #282BDD, #28D3DA);
+    linear-gradient(0deg, #282BDD, #28D3DA);
 }
