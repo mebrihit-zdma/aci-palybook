@@ -17,7 +17,7 @@
                     </div>
                     <div class="flex justify-center md:justify-end">
                         <div class="flex gap-[8px]">
-                            <label class="bg-white flex justify-center items-center py-[8px] px-[16px]  border border-[#D5D7DA] rounded-[8px] text-sm gap-[8px]" [ngClass]="!disableRoleSection? '' : 'disabled'">
+                            <label class="bg-white flex justify-center items-center py-[8px] px-[16px]  border border-[#D5D7DA] rounded-[8px] text-sm gap-[8px]" [ngClass]="!disableRoleSection? '' : 'disabled'" (click)="goToPoductsSection()">
                                 <input type="radio" id="yes" name="role" value="yes" (change)="roleAnswered()">
                                 Yes, that’s correct
                             </label>
@@ -42,10 +42,10 @@
                         </div>
                     </div>
                     
-                    <!-- cancel and next button -->
+                    <!-- Exit and next button -->
                     <div class="flex justify-between w-full" [ngClass]="!disableRoleSection? '' : 'hidden'">
                         <button (click)="goToPervSection()" class="bg-white flex justify-center items-center py-[8px] px-[24px]  border border-[#D5D7DA] rounded-[8px] text-sm">
-                            Cancel
+                            Exit
                         </button>
                         <button (click)="goToPoductsSection()" class="bg-white flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] text-sm" [ngClass]="!isRoleNextButtonActive? 'disabled' : 'activeButton'">
                             Next
@@ -86,7 +86,7 @@
                                 </div>
                                 <input type="radio" name="products" value="lowValue" class="absolute top-[8px] right-[8px]" (change)="productsAnswered()">
                             </label>
-                            <label class="bg-white flex justify-center items-center py-[8px] px-[12px]  border border-[#D5D7DA] rounded-[8px] text-sm gap-[32px] relative" [ngClass]="!disableProductsSection? '' : 'disabled'">
+                            <label class="bg-white flex justify-center items-center py-[8px] px-[12px]  border border-[#D5D7DA] rounded-[8px] text-sm gap-[32px] relative" [ngClass]="!disableProductsSection? '' : 'disabled'" (click)="goToPersonalizeDashboardSection()">
                                 <div class="flex flex-col gap-[8px] me-[32px] py-[8px]">
                                     <div class="text-base text-[#2A282F] leading-[18px] font-semibold">
                                         <p>Connetic -</p>
@@ -102,10 +102,10 @@
                         </div>
                     </div>
 
-                    <!-- cancel and next button -->
+                    <!-- Exit and next button -->
                     <div class="flex justify-between w-full" [ngClass]="!disableProductsSection? '' : 'hidden'">
                         <button class="bg-white flex justify-center items-center py-[8px] px-[24px]  border border-[#D5D7DA] rounded-[8px] text-sm">
-                            Cancel
+                            Exit
                         </button>
                         <button (click)="goToPersonalizeDashboardSection()" class="bg-white flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] text-sm" [ngClass]="!isProductsNextButtonActive? 'disabled' : 'activeButton'">
                             Next
@@ -136,10 +136,10 @@
                             </label>
                         </div>
                     </div>
-                    <!-- cancel and next button -->
+                    <!-- Exit and next button -->
                     <div class="flex justify-between w-full">
                         <button (click)="goToPoductsSection()" class="bg-white flex justify-center items-center py-[8px] px-[24px]  border border-[#D5D7DA] rounded-[8px] text-sm">
-                            Cancel
+                            Exit
                         </button>
                         <div class="flex gap-[24px]">
                             <button class="text-primary font-bold text-sm">Skip</button>
