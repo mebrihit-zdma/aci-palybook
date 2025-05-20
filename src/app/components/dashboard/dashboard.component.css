@@ -10,7 +10,7 @@
     margin-bottom: 0 !important;
 }
 .modalContent {
-    height: 650px;
+    /* height: 650px; */
     overflow-y: scroll;
 }
 .listIcon {
