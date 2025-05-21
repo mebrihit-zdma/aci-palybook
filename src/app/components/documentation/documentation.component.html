@@ -142,18 +142,53 @@
     <!-- document generate section -->
     <div class="flex flex-col gap-[16px] flex-1">
         <div class="flex justify-between">
-            <!-- Select Template and Add Sources dropdown section -->
+            <!-- Select Product, Template and Add Sources dropdown section -->
             <div class="flex flex-col lg:flex-row gap-[16px]">
                 <div class="flex flex-col relative">
                     <div [ngClass]="(!sourcesTemplateTooltipDone)? 'md:bg-[#F7F8FA] md:p-[16px] md:rounded-[8px] md:z-10010 md:shadow-[0px_4px_10px_rgba(0,0,0,0.2)]' : ''" >
                         <div class="flex flex-col lg:flex-row gap-[16px]">
+                            <!-- Select Product dropdown section -->
+                            <div class="relative w-45">
+                                <!-- Product Dropdown Button -->
+                                <button
+                                    type="button"
+                                    (click)="toggleProductDropdown()"
+                                    class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-sm font-medium h-[100%] whitespace-nowrap overflow-hidden truncate w-[18ch]">
+                                    {{ selectedProduct }}
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        class="h-5 w-5 text-gray-500"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                        >
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                            clip-rule="evenodd"
+                                        />
+                                    </svg>
+                                </button>
+                                <!-- Product Dropdown Menu -->
+                                <div
+                                    *ngIf="isProductDropdownOpen"
+                                    class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                                    <ul>
+                                        <li
+                                            *ngFor="let product of products"
+                                            (click)="selectProduct(product)"
+                                            class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0 whitespace-nowrap overflow-hidden text-ellipsis w-[18ch]"
+                                        >
+                                            {{ product }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                             <!-- Select Template dropdown section -->
                             <div class="relative w-45">
-                                <!-- Dropdown Button -->
+                                <!-- Template Dropdown Button -->
                                 <button
                                     (click)="toggleDropdown()"
-                                    class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-sm font-medium h-[100%]"
-                                >
+                                    class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-sm font-medium h-[100%]">
                                     {{ selectedTemplate }}
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -169,11 +204,10 @@
                                     </svg>
                                 </button>
 
-                                <!-- Dropdown Menu -->
+                                <!-- Template Dropdown Menu -->
                                 <div
                                     *ngIf="isOpen"
-                                    class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10"
-                                >
+                                    class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
                                     <ul>
                                         <li
                                             *ngFor="let template of templates"
