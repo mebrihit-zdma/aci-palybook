@@ -50,6 +50,8 @@ export class DocumentationComponent {
   //   { source: 'EPIC-516: Payment Hub Security updates' }
   // ];
   sources: { source: string }[] = [];
+  PdfSources: { PdfSources: string }[] = [];
+  pdfNewSource: string = '';
 
   newSource: string = '';
   generateDoc = false;
@@ -63,9 +65,17 @@ export class DocumentationComponent {
     this.generateDoc = true;
   }
 
+  addPdfSource() {
+    if (this.pdfNewSource.trim()) {
+      this.PdfSources.push({ PdfSources: this.pdfNewSource });
+      this.pdfNewSource = ''; // Clear input after adding
+    }
+    this.generateDoc = true;
+  }
   deleteSource(index: number) {
     this.sources.splice(index, 1);
   }
+
   onFileSelected(event: any) {
     const files = event.target.files;
     this.handleFiles(files);
@@ -85,7 +95,8 @@ export class DocumentationComponent {
 
   handleFiles(files: FileList) {
     for (let i = 0; i < files.length; i++) {
-      this.sources.push({ source: files[i].name });
+      // this.sources.push({ source: files[i].name });
+      this.PdfSources.push({ PdfSources: files[i].name });
     }
   }
   // tooltip
