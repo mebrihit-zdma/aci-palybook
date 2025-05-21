@@ -8,21 +8,19 @@
             <p class="text-[24px] font-medium">Meet DocuBot!</p>
             <p class="text-[16px]">Your assistant for generating documentation.</p>
             <div class="flex flex-col gap-[24px] justify-center items-center mt-6">
-                <!--/* select product section */-->
+                <!-- select product section -->
                 <div class="flex flex-col gap-[16px]">
                     <div class="relative w-100">
-                        <!-- Dropdown Button -->
+                        <!-- Products Dropdown Button -->
                         <button
-                            (click)="toggleDropdown()"
-                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-sm font-medium h-[100%]"
-                        >
-                            {{ selectProduct }}
+                            (click)="toggleProductDropdown()"
+                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-base h-[100%]">
+                            {{ selectedProduct }}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 class="h-5 w-5 text-gray-500"
                                 viewBox="0 0 20 20"
-                                fill="currentColor"
-                                >
+                                fill="currentColor">
                                 <path
                                     fill-rule="evenodd"
                                     d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -30,34 +28,28 @@
                                 />
                             </svg>
                         </button>
-
-                        <!-- Dropdown Menu -->
+                        <!-- Products Dropdown Menu -->
                         <div
-                            *ngIf="isOpen"
-                            class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10"
-                        >
+                            *ngIf="isProductDropdownOpen"
+                            class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
                             <ul>
                                 <li
-                                    *ngFor="let template of templates"
-                                    (click)="selectTemplate(template)"
-                                    class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0"
-                                >
-                                    {{ products }}
+                                    *ngFor="let product of products"
+                                    (click)="selectProduct(product)"
+                                    class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-base border-b border-gray-200 last:border-b-0">
+                                    {{ product }}
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    
                 </div>
-                <!--/* selected template section */-->
+                <!-- select template section -->
                 <div class="flex flex-col gap-[16px]">
-                    <!-- Select Template dropdown section -->
                     <div class="relative w-100">
-                        <!-- Dropdown Button -->
+                        <!-- Templates Dropdown Button -->
                         <button
                             (click)="toggleDropdown()"
-                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-sm font-medium h-[100%]"
-                        >
+                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-base h-[100%]">
                             {{ selectedTemplate }}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -72,34 +64,30 @@
                                 />
                             </svg>
                         </button>
-
-                        <!-- Dropdown Menu -->
+                        <!-- Templates Dropdown Menu -->
                         <div
                             *ngIf="isOpen"
-                            class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10"
-                        >
+                            class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
                             <ul>
                                 <li
                                     *ngFor="let template of templates"
                                     (click)="selectTemplate(template)"
-                                    class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0"
-                                >
+                                    class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-base border-b border-gray-200 last:border-b-0">
                                     {{ template }}
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    
                 </div>
                 <!--/* add sources section*/-->
                 <div class="flex flex-col justify-start gap-[8px]">
-                    <p class="text-base text-[#344054]">Add Sources</p>
+                    <p class="text-base text-[#344054] mb-[-10px]">Add Sources</p>
                     <!-- sources list -->
                     <ul class="flex flex-col gap-[8px] w-100">
                         <li class="flex w-[100%] bg-[#FAFAFA] border border-[#DFDFDF] rounded-lg py-[10px] px-[16px] gap-[8px] justify-between " *ngFor="let item of sources; let i = index">
                             <div class="flex items-center justify-center gap-[4px]">
                                 <span class="w-[24px] h-[24px] scale-[0.8] bg-[url('./app/resources/icons/green-file-uplode-icon.svg')]"></span>
-                                <span class="text-sm break-words whitespace-normal flex-1 text-[#2C2D2E]">{{item.source}}</span>
+                                <span class="text-base whitespace-nowrap overflow-hidden text-ellipsis w-[25ch] flex-1 text-[#2C2D2E]">{{item.source}}</span>
                             </div>
                             <button class="material-icons text-[#919399] ml-[0px]" (click)="deleteSource(i)">delete</button>
                         </li>
@@ -107,7 +95,12 @@
                     <div class="flex w-[100%] bg-[#FAFAFA] border border-[#DFDFDF] rounded-lg py-[10px] px-[16px] gap-[8px]">
                         <span class="w-[13px] h-[20px] bg-[url('./app/resources/icons/paste-url-icon.svg')]">
                         </span>
-                        <input type="text" placeholder="Paste your URL here" class="text-sm"  [(ngModel)]="newSource">
+                        <input type="text" 
+                            placeholder="Paste your URL here" 
+                            class="text-base"  
+                            [(ngModel)]="newSource" 
+                            (keydown.enter)="addSource()"
+                        />
                     </div>
                 </div>
                 <!-- Drag and Drop or Browse -->
@@ -388,7 +381,7 @@
                     <li class="flex w-[100%] bg-[#FAFAFA] border border-[#DFDFDF] rounded-lg py-[10px] px-[16px] gap-[8px] justify-between " *ngFor="let item of sources; let i = index">
                         <div class="flex items-center justify-center gap-[4px]">
                             <span class="w-[24px] h-[24px] scale-[0.8] bg-[url('./app/resources/icons/green-file-uplode-icon.svg')]"></span>
-                            <span class="text-sm break-words whitespace-normal flex-1 text-[#2C2D2E]">{{item.source}}</span>
+                            <span class="text-sm whitespace-nowrap overflow-hidden text-ellipsis w-[30ch] flex-1 text-[#2C2D2E]">{{item.source}}</span>
                         </div>
                         <button class="material-icons text-[#919399] ml-[0px]" (click)="deleteSource(i)">delete</button>
                     </li>

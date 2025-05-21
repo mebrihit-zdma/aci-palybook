@@ -17,11 +17,12 @@ export class DocumentationComponent {
 
   // Select Template section
   isOpen = false;
+  isProductDropdownOpen = false;
   selectedTemplate = 'Select Template';
-  selectProduct = 'Select Product';
+  selectedProduct = 'Select Product';
 
   templates = ['User Manual', 'Release Notes'];
-  products = ['Connectic - High Value V1.0'];
+  products = ['Connectic - High Value V1.0', 'Connectic - Low Value V1.0'];
 
   constructor(private tooltipService: TooltipService ) {}
   
@@ -32,6 +33,15 @@ export class DocumentationComponent {
   selectTemplate(template: string) {
     this.selectedTemplate = template;
     this.isOpen = false;
+  }
+
+  toggleProductDropdown() {
+    this.isProductDropdownOpen = !this.isProductDropdownOpen;
+  }
+
+  selectProduct(template: string) {
+    this.selectedProduct = template;
+    this.isProductDropdownOpen = false;
   }
 
   // sources section
