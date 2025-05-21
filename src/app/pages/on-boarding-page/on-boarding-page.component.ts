@@ -3,11 +3,12 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-on-boarding-page',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, FormsModule],
   templateUrl: './on-boarding-page.component.html',
   styleUrl: './on-boarding-page.component.css'
 })
@@ -25,6 +26,9 @@ export class OnBoardingPageComponent {
   givenRoleList = false;
   showRoleList(){
     this.givenRoleList = true;
+  }
+  hideRoleList(){
+    this.givenRoleList = false;
   }
   personalizeDashboard  = [
     {
@@ -103,8 +107,9 @@ export class OnBoardingPageComponent {
   }
 
   goToPoductsSection() {
-    this.disableRoleSection = !this.disableRoleSection;
-    this.hiddenProductsSection = !this.hiddenProductsSection; 
+    // this.disableRoleSection = !this.disableRoleSection;
+    // this.hiddenProductsSection = !this.hiddenProductsSection; 
+    this.hiddenProductsSection = false; 
 
   }
   goToPersonalizeDashboardSection() {
@@ -120,4 +125,28 @@ export class OnBoardingPageComponent {
     this.router.navigate(['/dashboard-page']);
   }
 
+  goToWelcomePage() {
+    this.router.navigate(['/welcome-page']);
+  }
+  selectedRole: string = '';
+  selectedRoleList: string = '';
+  selectedProduct: string[] = [];
+  selectedPersonalize: string[] = [];
+  toggleProduct(value: string) {
+    const index = this.selectedProduct.indexOf(value);
+    if (index === -1) {
+      this.selectedProduct.push(value);
+    } else {
+      this.selectedProduct.splice(index, 1);
+    }
+  }
+
+  togglePersonalize(value: string) {
+    const index = this.selectedPersonalize.indexOf(value);
+    if (index === -1) {
+      this.selectedPersonalize.push(value);
+    } else {
+      this.selectedPersonalize.splice(index, 1);
+    }
+  }
 }
