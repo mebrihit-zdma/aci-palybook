@@ -247,13 +247,16 @@
                                     <ul >
                                         <li 
                                             *ngFor="let item of sources; let i = index"
-                                            class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0 flex gap-[8px]">
-                                            <span class="w-[22px] h-[16px]  bg-[url('./app/resources/icons/green-jira-icon.svg')]">
-                                            </span>
-                                            <span
-                                                class="whitespace-nowrap overflow-hidden text-ellipsis w-[20ch]">
-                                                {{ item.source }}
-                                            </span>
+                                            class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0">
+                                            <label  class="flex gap-2 view-sources-container">
+                                                <input type="checkbox" checked="checked">
+                                                <span class="my-auto w-[28px] h-[16px] scale-[0.9] bg-[url('./app/resources/icons/green-jira-icon.svg')]">
+                                                </span>
+                                                <span
+                                                    class="whitespace-nowrap overflow-hidden text-ellipsis w-[20ch]">
+                                                    {{ item.source }}
+                                                </span>
+                                            </label>
                                         </li>
                                         <!-- Add Sources section -->
                                         <div class="px-4 py-2 text-[#2388FF] text-sm font-medium">

@@ -77,7 +77,7 @@
                             </div>
                         </div>
                         <div class="flex gap-[8px] justify-center md:justify-end">
-                            <label class="bg-white flex justify-center items-center py-[8px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm gap-[32px] relative disabled">
+                            <label class="bg-white flex justify-center items-center py-[8px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm gap-[32px] relative disabled on-boarding">
                                 <div class="flex flex-col gap-[8px] me-[32px] py-[8px]">
                                     <div class="text-base text-[#2A282F] leading-[18px] font-semibold">
                                         <p>Connetic - </p>
@@ -98,7 +98,7 @@
                                     (change)="productsAnswered()"
                                 />
                             </label>
-                            <label class="bg-white flex justify-center items-center py-[8px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm gap-[32px] relative" (click)="goToPersonalizeDashboardSection()"
+                            <label class="bg-white flex justify-center items-center py-[8px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm gap-[32px] relative on-boarding" (click)="goToPersonalizeDashboardSection()"
                             [ngClass]="selectedProduct.includes('highValue') ? 'gradient-border' : ''">
                                 <div class="flex flex-col gap-[8px] me-[32px] py-[8px]">
                                     <div class="text-base text-[#2A282F] leading-[18px] font-semibold">
@@ -145,7 +145,7 @@
                     <!-- personalize your dashboard radio button section -->
                     <div class="flex justify-end">
                         <div class="sm:w-[90%] gap-[8px] grid grid-cols-1 sm:grid-cols-2">
-                            <label class="bg-white flex justify-center items-center py-[12px] px-[12px]  border border-[#D5D7DA] rounded-[12px] gap-[16px] cursor-pointer relative" *ngFor="let data of personalizeDashboard"
+                            <label class="bg-white flex justify-center items-center py-[12px] px-[12px]  border border-[#D5D7DA] rounded-[12px] gap-[16px] cursor-pointer relative on-boarding" *ngFor="let data of personalizeDashboard"
                             [ngClass]="selectedPersonalize.includes(data.title) ? 'gradient-border' : ''">
                                 <div class="flex">
                                     <span class="w-[48px] h-[48px] bg-[url('./app/resources/icons/blue-lightning-bolts.svg')]"></span>
