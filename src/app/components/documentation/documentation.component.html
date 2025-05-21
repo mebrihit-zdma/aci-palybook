@@ -219,7 +219,6 @@
                                     </ul>
                                 </div>
                             </div>
-                            <!--/* test */-->
                              <!-- Select Template dropdown section -->
                              <div class="relative w-45">
                                 <!-- View Sources Dropdown Button -->
@@ -246,13 +245,18 @@
                                     *ngIf="isViewSourcesDropdownOpen"
                                     class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
                                     <ul >
-                                        <li
+                                        <li 
                                             *ngFor="let item of sources; let i = index"
-                                            class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0 whitespace-nowrap overflow-hidden text-ellipsis w-[20ch]">
-                                            {{ item.source }}
+                                            class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0 flex gap-[8px]">
+                                            <span class="w-[22px] h-[16px]  bg-[url('./app/resources/icons/green-jira-icon.svg')]">
+                                            </span>
+                                            <span
+                                                class="whitespace-nowrap overflow-hidden text-ellipsis w-[20ch]">
+                                                {{ item.source }}
+                                            </span>
                                         </li>
                                         <!-- Add Sources section -->
-                                        <div class="my-auto bg-white  rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#2388FF] text-sm font-medium">
+                                        <div class="px-4 py-2 text-[#2388FF] text-sm font-medium">
                                             <button class="flex gap-[8px]" (click)="openModal()">
                                                 <span class="w-[22px] h-[22px] bg-[url('./app/resources/icons/add-link-icon.svg')]">
                                                 </span>
