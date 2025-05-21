@@ -17,6 +17,7 @@ export class DocumentationComponent {
 
   // Select Template section
   isOpen = false;
+  isViewSourcesDropdownOpen = false
   isProductDropdownOpen = false;
   selectedTemplate = 'Select Template';
   selectedProduct = 'Select Product';
@@ -29,7 +30,10 @@ export class DocumentationComponent {
   toggleDropdown() {
     this.isOpen = !this.isOpen;
   }
-
+  toggleViewSourcesDropdown() {
+    this.isViewSourcesDropdownOpen = !this.isViewSourcesDropdownOpen;
+    console.log("this.isViewSourcesDropdownOpen: ", this.isViewSourcesDropdownOpen)
+  }
   selectTemplate(template: string) {
     this.selectedTemplate = template;
     this.isOpen = false;
@@ -45,10 +49,10 @@ export class DocumentationComponent {
   }
 
   // sources section
-  // sources = [
-  //   { source: 'JIRA-516: Bug Fixes from latest code changes' },
-  //   { source: 'EPIC-516: Payment Hub Security updates' }
-  // ];
+  viewSources = [
+    { source: 'JIRA-516: Bug Fixes from latest code changes' },
+    { source: 'EPIC-516: Payment Hub Security updates' }
+  ];
   sources: { source: string }[] = [];
   PdfSources: { PdfSources: string }[] = [];
   pdfNewSource: string = '';
