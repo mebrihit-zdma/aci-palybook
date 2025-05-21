@@ -104,9 +104,9 @@
                     </div>
                 </div>
                 <!-- Drag and Drop or Browse -->
-                <div class="w-[100%]">
-                    <!-- sources list -->
-                    <ul class="flex flex-col gap-[8px] w-100">
+                <div class="w-[100%] flex flex-col gap-2">
+                    <!-- pdf sources list -->
+                    <ul class="flex flex-col gap-[8px] w-[100%] mt-12">
                         <li class="flex w-[100%] bg-[#FAFAFA] border border-[#DFDFDF] rounded-lg py-[10px] px-[16px] gap-[8px] justify-between " *ngFor="let item of PdfSources; let i = index">
                             <div class="flex items-center justify-center gap-[4px]">
                                 <span class="w-[20px] h-[24px] scale-[0.8] bg-[url('./app/resources/icons/pdf-icon.svg')]"></span>
@@ -400,12 +400,27 @@
                 <div class="flex w-[100%] bg-[#FAFAFA] border border-[#DFDFDF] rounded-lg py-[10px] px-[16px] gap-[8px]">
                     <span class="w-[13px] h-[20px] bg-[url('./app/resources/icons/paste-url-icon.svg')]">
                     </span>
-                    <input type="text" placeholder="Paste your URL here" class="text-sm"  [(ngModel)]="newSource">
+                    <input 
+                        type="text" 
+                        placeholder="Paste your URL here" 
+                        class="text-sm"  
+                        [(ngModel)]="newSource" 
+                        (keydown.enter)="addSource()">
                 </div>
             </div>
         
             <!-- Drag and Drop or Browse -->
-            <div class="flex flex-col gap-[16px] w-[100%]">
+            <div class="flex flex-col gap-[16px] w-[100%] mt-12">
+                <!-- pdf sources list -->
+                <ul class="flex flex-col gap-[8px] w-[100%]">
+                    <li class="flex w-[100%] bg-[#FAFAFA] border border-[#DFDFDF] rounded-lg py-[10px] px-[16px] gap-[8px] justify-between " *ngFor="let item of PdfSources; let i = index">
+                        <div class="flex items-center justify-center gap-[4px]">
+                            <span class="w-[20px] h-[24px] scale-[0.8] bg-[url('./app/resources/icons/pdf-icon.svg')]"></span>
+                            <span class="text-base whitespace-nowrap overflow-hidden text-ellipsis w-[25ch] flex-1 text-[#2C2D2E]">{{item.PdfSources}}</span>
+                        </div>
+                        <button class="material-icons text-[#919399] ml-[0px]" (click)="deleteSource(i)">delete</button>
+                    </li>
+                </ul>
                 <div class="flex flex-col items-center justify-center w-[100%] bg-[#FAFAFA] border border-[#DFDFDF] rounded-lg py-[16px] px-[24px] gap-[4px]"
                     (dragover)="onDragOver($event)" 
                     (drop)="onDrop($event)">
