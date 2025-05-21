@@ -245,26 +245,31 @@
                                 <div
                                     *ngIf="isViewSourcesDropdownOpen"
                                     class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                                    <ul class="pb-2">
+                                    <ul >
                                         <li
                                             *ngFor="let item of sources; let i = index"
                                             class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0 whitespace-nowrap overflow-hidden text-ellipsis w-[20ch]">
                                             {{ item.source }}
                                         </li>
-                                        <span class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0">
-                                            Add a Source
-                                        </span>
+                                        <!-- Add Sources section -->
+                                        <div class="my-auto bg-white  rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#2388FF] text-sm font-medium">
+                                            <button class="flex gap-[8px]" (click)="openModal()">
+                                                <span class="w-[22px] h-[22px] bg-[url('./app/resources/icons/add-link-icon.svg')]">
+                                                </span>
+                                                Add a Sources
+                                            </button>
+                                        </div>
                                     </ul>
                                 </div>
                             </div>
                             <!-- Add Sources section -->
-                            <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium">
+                            <!--/* <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium">
                                 <button class="flex gap-[8px]" (click)="openModal()">
                                     <span class="w-[16.67px] h-[18px] bg-[url('./app/resources/icons/pluses-icon.svg')]">
                                     </span>
                                     Add Sources
                                 </button>
-                            </div>
+                            </div> */-->
                         </div>
                     </div>
                     <!-- Select Template and Add Sources tooltip -->
