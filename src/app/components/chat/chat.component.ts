@@ -35,7 +35,16 @@ export class ChatComponent {
   messages: ChatMessage[] = [];
 
   constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer){}
-  
+  isProductDropdownOpen = false;
+  selectedProduct = 'Select Product';
+  products = ['Connectic - High Value V1.0', 'Connectic - Low Value V1.0'];
+  toggleProductDropdown() {
+    this.isProductDropdownOpen = !this.isProductDropdownOpen;
+  }
+  selectProduct(template: string) {
+    this.selectedProduct = template;
+    this.isProductDropdownOpen = false;
+  }
   // post a question and get answer using api call
   askQuestion(askedQuestion : string ) {
     const question = askedQuestion.trim();
