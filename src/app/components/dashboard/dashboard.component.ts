@@ -7,6 +7,7 @@ import { ReleaseHistoryTableComponent } from '../../components/tables/release-hi
 import { BugFixesTableComponent } from '../../components/tables/bug-fixes-table/bug-fixes-table.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { UserService } from '../../services/user.service';
+import { TooltipService } from '../../services/tooltip.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +17,7 @@ import { UserService } from '../../services/user.service';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
-  constructor(private userService: UserService ) {}
+  constructor(private userService: UserService, private tooltipService: TooltipService ) {}
  
   userName: string | null = null;
   userRole: string | null = null;
@@ -27,6 +28,7 @@ export class DashboardComponent {
     this.userService.userRole$.subscribe(role => {
       this.userRole = role;
     });
+    this.skipTooltipValue = this.tooltipService.getSkipTooltipValue();
   }
   // cards data
   productLatestUpdates = [
@@ -194,9 +196,9 @@ export class DashboardComponent {
   startNewChatTooltipDone = false;
 
   skipTooltip(){
+    this.tooltipService.setSkipTooltipValue(true)
     this.skipTooltipValue = true;
   }
-
   goToAciPaymentHubTooltip(){
     this.aciPaymentHubTooltip = true;
     this.dashboardModelDone = true;

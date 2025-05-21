@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
+import { TooltipService } from '../../services/tooltip.service';
 
 @Component({
   selector: 'app-documentation',
@@ -22,6 +23,8 @@ export class DocumentationComponent {
   templates = ['User Manual', 'Release Notes'];
   products = ['Connectic - High Value V1.0'];
 
+  constructor(private tooltipService: TooltipService ) {}
+  
   toggleDropdown() {
     this.isOpen = !this.isOpen;
   }
@@ -87,6 +90,9 @@ export class DocumentationComponent {
   generateTooltipDone = false;
   editorTooltipDone = false;
 
+  ngOnInit() {
+    this.sourcesTemplateTooltipDone = this.tooltipService.getSkipTooltipValue();
+  }
   // Template Sources Tooltip
   skipSourcesTemplateTooltip(){
     this.sourcesTemplateTooltipDone = true;
