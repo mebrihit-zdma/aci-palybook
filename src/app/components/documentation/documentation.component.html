@@ -1,3 +1,139 @@
+<div class="h-full w-full">
+    <div class="flex flex-col justify-center items-center mt-[8%]">
+        <div class="flex flex-col justify-center items-center text-[#666f8d]">
+            <div class="flex mt-[18px] mb-6">
+                <span class="w-[110.2px] h-[74.14px] bg-[url('./app/resources/icons/docu-bot-icon.svg')]">
+                </span>
+            </div>
+            <p class="text-[24px] font-medium">Meet DocuBot!</p>
+            <p class="text-[16px]">Your assistant for generating documentation.</p>
+            <div class="flex flex-col gap-[24px] justify-center items-center mt-6">
+                <!--/* select product section */-->
+                <div class="flex flex-col gap-[16px]">
+                    <div class="relative w-100">
+                        <!-- Dropdown Button -->
+                        <button
+                            (click)="toggleDropdown()"
+                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-sm font-medium h-[100%]"
+                        >
+                            {{ selectProduct }}
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5 text-gray-500"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div
+                            *ngIf="isOpen"
+                            class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10"
+                        >
+                            <ul>
+                                <li
+                                    *ngFor="let template of templates"
+                                    (click)="selectTemplate(template)"
+                                    class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0"
+                                >
+                                    {{ products }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                </div>
+                <!--/* selected template section */-->
+                <div class="flex flex-col gap-[16px]">
+                    <!-- Select Template dropdown section -->
+                    <div class="relative w-100">
+                        <!-- Dropdown Button -->
+                        <button
+                            (click)="toggleDropdown()"
+                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-sm font-medium h-[100%]"
+                        >
+                            {{ selectedTemplate }}
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5 text-gray-500"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div
+                            *ngIf="isOpen"
+                            class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10"
+                        >
+                            <ul>
+                                <li
+                                    *ngFor="let template of templates"
+                                    (click)="selectTemplate(template)"
+                                    class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0"
+                                >
+                                    {{ template }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                </div>
+                <!--/* add sources section*/-->
+                <div class="flex flex-col justify-start gap-[8px]">
+                    <p class="text-base text-[#344054]">Add Sources</p>
+                    <!-- sources list -->
+                    <ul class="flex flex-col gap-[8px] w-100">
+                        <li class="flex w-[100%] bg-[#FAFAFA] border border-[#DFDFDF] rounded-lg py-[10px] px-[16px] gap-[8px] justify-between " *ngFor="let item of sources; let i = index">
+                            <div class="flex items-center justify-center gap-[4px]">
+                                <span class="w-[24px] h-[24px] scale-[0.8] bg-[url('./app/resources/icons/green-file-uplode-icon.svg')]"></span>
+                                <span class="text-sm break-words whitespace-normal flex-1 text-[#2C2D2E]">{{item.source}}</span>
+                            </div>
+                            <button class="material-icons text-[#919399] ml-[0px]" (click)="deleteSource(i)">delete</button>
+                        </li>
+                    </ul>
+                    <div class="flex w-[100%] bg-[#FAFAFA] border border-[#DFDFDF] rounded-lg py-[10px] px-[16px] gap-[8px]">
+                        <span class="w-[13px] h-[20px] bg-[url('./app/resources/icons/paste-url-icon.svg')]">
+                        </span>
+                        <input type="text" placeholder="Paste your URL here" class="text-sm"  [(ngModel)]="newSource">
+                    </div>
+                </div>
+                <!-- Drag and Drop or Browse -->
+                <div class="flex flex-col gap-[16px] w-[100%]">
+                    <div class="flex flex-col items-center justify-center w-[100%] bg-[#FAFAFA] border border-[#DFDFDF] rounded-lg py-[16px] px-[24px] gap-[4px]"
+                        (dragover)="onDragOver($event)" 
+                        (drop)="onDrop($event)">
+                        <span class="material-icons rotate-270 text-[#919399] my-[4px]">logout</span>
+                        <input type="file" #fileInput class="hidden" (change)="onFileSelected($event)" multiple>
+                        <p class="text-[#474567] text-sm">Drag and drop or 
+                            <span class="text-primary cursor-pointer" (click)="fileInput.click()">Browse</span>
+                        </p>
+                        <p class="text-[#919399] text-xs">PDF, DOC or DOCX (max. 50 MB)</p>
+                    </div>
+                    
+                </div>
+                <button class="text-sm text-white bg-primary flex items-center gap-[8px] px-[14px] rounded-lg border border-[#D5D7DA] h-[41.5px]" [ngClass]="(!generateDoc)? 'disabled' : ''" (click)="createDocument()">
+                    <span class="w-[18.33px] h-[18.33px] scale-[0.8] bg-[url('./app/resources/icons/white-stars.svg')]">
+                    </span>
+                    <span>Generate</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/* second section */-->
 <div class="h-full w-full flex flex-col lg:flex-row gap-4">
     <!-- document generate section -->
     <div class="flex flex-col gap-[16px] flex-1">

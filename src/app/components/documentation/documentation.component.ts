@@ -17,8 +17,10 @@ export class DocumentationComponent {
   // Select Template section
   isOpen = false;
   selectedTemplate = 'Select Template';
+  selectProduct = 'Select Product';
 
   templates = ['User Manual', 'Release Notes'];
+  products = ['Connectic - High Value V1.0'];
 
   toggleDropdown() {
     this.isOpen = !this.isOpen;
