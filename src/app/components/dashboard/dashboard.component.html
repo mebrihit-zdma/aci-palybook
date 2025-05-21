@@ -5,15 +5,44 @@
             <div class="flex gap-[16px]" 
                 [ngClass]="(!aciPaymentHubTooltipDone)? 'bg-[#F7F8FA] p-[16px] rounded-[8px] tooltip' : ''" 
                 [ngClass]="aciPaymentHubTooltip? 'bg-[#F7F8FA] p-[16px] rounded-[8px] tooltip' : ''" >
-                <!-- ACI payment hub dropdown section -->
-                <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium">
-                    <select>
-                        <option class="bg-gray-200 text-black" value="" disabled selected>Connetic - High Value V1.0</option>
-                        <option class="bg-gray-200 text-black"></option>
-                    </select>
+                <!-- Select Product dropdown section -->
+                <div class="relative w-70">
+                    <!-- Product Dropdown Button -->
+                    <button
+                        type="button"
+                        (click)="toggleProductDropdown()"
+                        class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-sm font-medium h-[100%] whitespace-nowrap overflow-hidden truncate w-[18ch]">
+                        {{ selectedProduct }}
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-5 w-5 text-gray-500"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                            >
+                            <path
+                                fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd"
+                            />
+                        </svg>
+                    </button>
+                    <!-- Product Dropdown Menu -->
+                    <div
+                        *ngIf="isProductDropdownOpen"
+                        class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                        <ul>
+                            <li
+                                *ngFor="let product of products"
+                                (click)="selectProduct(product)"
+                                class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0"
+                            >
+                                {{ product }}
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <!-- ACI payment hub tooltip -->
+            <!-- Select Product dropdown tooltip -->
             <div class="hidden md:block">
                 <div [ngClass]="(!aciPaymentHubTooltipDone)? 'overlay' : ''" 
                 [ngClass]="aciPaymentHubTooltip? 'overlay' : ''"></div>

@@ -30,6 +30,16 @@ export class DashboardComponent {
     });
     this.skipTooltipValue = this.tooltipService.getSkipTooltipValue();
   }
+  isProductDropdownOpen = false;
+  selectedProduct = 'Select Product';
+  products = ['Connectic - High Value V1.0', 'Connectic - Low Value V1.0'];
+  toggleProductDropdown() {
+    this.isProductDropdownOpen = !this.isProductDropdownOpen;
+  }
+  selectProduct(template: string) {
+    this.selectedProduct = template;
+    this.isProductDropdownOpen = false;
+  }
   // cards data
   productLatestUpdates = [
     { 
