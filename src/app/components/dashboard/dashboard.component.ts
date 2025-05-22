@@ -19,15 +19,17 @@ import { TooltipService } from '../../services/tooltip.service';
 export class DashboardComponent {
   constructor(private userService: UserService, private tooltipService: TooltipService ) {}
  
-  userName: string | null = null;
-  userRole: string | null = null;
+  // userName: string | null = null;
+  // userRole: string | null = null;
+  userName: string | null = 'User Name';
+  userRole: string | null = 'Product Owner';
   ngOnInit() {
-    this.userService.userName$.subscribe(name => {
-      this.userName = name;
-    });
-    this.userService.userRole$.subscribe(role => {
-      this.userRole = role;
-    });
+    // this.userService.userName$.subscribe(name => {
+    //   this.userName = name;
+    // });
+    // this.userService.userRole$.subscribe(role => {
+    //   this.userRole = role;
+    // });
     this.skipTooltipValue = this.tooltipService.getSkipTooltipValue();
   }
   isProductDropdownOpen = false;

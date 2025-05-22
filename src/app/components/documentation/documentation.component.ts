@@ -2,15 +2,22 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { TooltipService } from '../../services/tooltip.service';
+import { UserService } from '../../services/user.service';
+import { ReleaseHistoryTableComponent } from '../../components/tables/release-history-table/release-history-table.component';
+import { BugFixesTableComponent } from '../../components/tables/bug-fixes-table/bug-fixes-table.component';
 
 @Component({
   selector: 'app-documentation',
   standalone: true,
-  imports: [CommonModule,FormsModule ],
+  imports: [CommonModule,FormsModule, ReleaseHistoryTableComponent, BugFixesTableComponent ],
   templateUrl: './documentation.component.html',
   styleUrl: './documentation.component.css'
 })
 export class DocumentationComponent {
+  // userName: string | null = null;
+  // userRole: string | null = null;
+  userName: string | null = 'User Name';
+  userRole: string | null = 'Product Owner';
   selectedOption1 = '';  
   selectedOption2 = '';  
   imagePath ='./app/resources/icons/paste-url-icon.svg';
@@ -25,7 +32,17 @@ export class DocumentationComponent {
   templates = ['User Manual', 'Release Notes'];
   products = ['Connectic - High Value V1.0', 'Connectic - Low Value V1.0'];
 
-  constructor(private tooltipService: TooltipService ) {}
+  constructor(private userService: UserService, private tooltipService: TooltipService ) {}
+
+  ngOnInit() {
+    // this.userService.userName$.subscribe(name => {
+    //   this.userName = name;
+    // });
+    // this.userService.userRole$.subscribe(role => {
+    //   this.userRole = role;
+    // });
+    this.sourcesTemplateTooltipDone = this.tooltipService.getSkipTooltipValue();
+  }
   
   toggleDropdown() {
     this.isOpen = !this.isOpen;
@@ -115,9 +132,6 @@ export class DocumentationComponent {
   generateTooltipDone = false;
   editorTooltipDone = false;
 
-  ngOnInit() {
-    this.sourcesTemplateTooltipDone = this.tooltipService.getSkipTooltipValue();
-  }
   // Template Sources Tooltip
   skipSourcesTemplateTooltip(){
     this.sourcesTemplateTooltipDone = true;
@@ -231,4 +245,103 @@ For further details, contact:
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
   }
+
+  // release history data 
+  releaseHistory = [
+    { documentation: "Payment_Hub_1.2.3-A", 
+      product: "Payment Hub", 
+      type: "Release Notes",
+      status: "In Progress",
+      deliveryDate: "",
+      executedBy: "Gulse",
+      view: "",
+    },
+    { documentation: "Payment_Hub_1.2.3-A", 
+      product: "Payment Hub", 
+      type: "Release Notes",
+      status: "Published",
+      deliveryDate: "Jan 13, 2025",
+      executedBy: "Jeannie",
+      view: "View",
+    },
+    { documentation: "Payment_Hub_1.2.3-A", 
+      product: "Payment Hub", 
+      type: "User Manual",
+      status: "Published",
+      deliveryDate: "Jan 13, 2025",
+      executedBy: "Meera",
+      view: "View",
+    },
+    { documentation: "Payment_Hub_1.2.3-A", 
+      product: "Payment Hub", 
+      type: "User Manual",
+      status: "Published",
+      deliveryDate: "Jan 13, 2025",
+      executedBy: "Meera",
+      view: "View",
+    },
+    { documentation: "Payment_Hub_1.2.3-A", 
+      product: "Payment Hub", 
+      type: "User Manual",
+      status: "Published",
+      deliveryDate: "Jan 13, 2025",
+      executedBy: "Meera",
+      view: "View",
+    },
+    { documentation: "Payment_Hub_1.2.3-A", 
+      product: "Payment Hub", 
+      type: "User Manual",
+      status: "Published",
+      deliveryDate: "Jan 13, 2025",
+      executedBy: "Meera",
+      view: "View",
+    },
+    { documentation: "Payment_Hub_1.2.3-A", 
+      product: "Payment Hub", 
+      type: "User Manual",
+      status: "Published",
+      deliveryDate: "Jan 13, 2025",
+      executedBy: "Meera",
+      view: "View",
+    },
+  ];
+
+  // bug fixes data 
+  bugFixes = [
+    { issue: "SBI-323", 
+      description: "Slow loading times", 
+      priority: "Low",
+      status: "Fix In Progress",
+      assignedTo: "Adam",
+      viewResolution: "",
+    },
+    { issue: "SBI-321", 
+      description: "Payment approval delays for high volume", 
+      priority: "Highest",
+      status: "Resolved",
+      assignedTo: "Adam",
+      viewResolution: "View Resolution",
+    },
+    { issue: "SBI-319", 
+      description: "Performance Optimizations", 
+      priority: "High",
+      status: "Resolved",
+      assignedTo: "Adam",
+      viewResolution: "View Resolution",
+    },
+    { issue: "SBI-319", 
+      description: "Performance Optimizations", 
+      priority: "High",
+      status: "Resolved",
+      assignedTo: "Adam",
+      viewResolution: "View Resolution",
+    },
+    { issue: "SBI-319", 
+      description: "Performance Optimizations", 
+      priority: "High",
+      status: "Resolved",
+      assignedTo: "Adam",
+      viewResolution: "View Resolution",
+    },
+  ];
 }
