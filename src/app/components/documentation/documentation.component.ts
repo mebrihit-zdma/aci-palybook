@@ -23,6 +23,25 @@ export class DocumentationComponent {
   imagePath ='./app/resources/icons/paste-url-icon.svg';
   listNumber = 5;
 
+  // documentation Pages
+  documentationLandingPage = false;
+  documentationGeneratingPage = false; 
+  documentationGeneratedPage = false; 
+  goToDocumentationLandingPage() {
+    this.documentationLandingPage = true;
+    this.documentationGeneratingPage = false; 
+    this.documentationGeneratedPage = false; 
+  }
+  goToDocumentationGeneratingPage() {
+    this.documentationLandingPage = false;
+    this.documentationGeneratingPage = true; 
+    this.documentationGeneratedPage = false; 
+  }
+  goToDocumentationGeneratedPage() {
+    this.documentationLandingPage = false;
+    this.documentationGeneratingPage = false; 
+    this.documentationGeneratedPage = true; 
+  }
   // Select Template section
   isOpen = false;
   isViewSourcesDropdownOpen = false

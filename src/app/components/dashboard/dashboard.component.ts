@@ -8,6 +8,7 @@ import { BugFixesTableComponent } from '../../components/tables/bug-fixes-table/
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { UserService } from '../../services/user.service';
 import { TooltipService } from '../../services/tooltip.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +18,7 @@ import { TooltipService } from '../../services/tooltip.service';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
-  constructor(private userService: UserService, private tooltipService: TooltipService ) {}
+  constructor(private userService: UserService, private tooltipService: TooltipService, private router: Router ) {}
   listNumber = 2;
   // userName: string | null = null;
   // userRole: string | null = null;
@@ -241,5 +242,8 @@ export class DashboardComponent {
   }
   closeCustomizeWidgets(){
     this.isCustomizeWidgets = false;
+  }
+  goToDocumentationGeneratedPage(){
+    this.router.navigate(['/dashboard-page/documentation']);
   }
 }
