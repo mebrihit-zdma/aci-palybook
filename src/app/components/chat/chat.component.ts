@@ -58,7 +58,8 @@ export class ChatComponent {
     const payload = {
       app_id: this.app_id,
       session_id: 'b956506-2a95-43a2-8737-c0deb90d0b75',
-      user_id: this.userService.getUserId(),
+      user_id: '8c8cda2b-cda6-41c2-927d-511d40724810',
+      // user_id: this.userService.getUserId(),
       question: askedQuestion, 
       model_name: this.model_name,
       top_k: this.top_k,

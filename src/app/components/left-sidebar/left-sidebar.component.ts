@@ -24,7 +24,8 @@ export class LeftSidebarComponent {
   
   // userName: string | null = null;
   // userRole: string | null = null;
-  profileImageUrl: string | null = null;
+  // profileImageUrl: string | null = null;
+  profileImageUrl: string | null = 'http://localhost:4200/48a1b773-d4f8-4c49-8379-ba1af18c37bc';
   userName: string | null = 'User Name';
   userRole: string | null = 'Product Owner';
   ngOnInit() {
