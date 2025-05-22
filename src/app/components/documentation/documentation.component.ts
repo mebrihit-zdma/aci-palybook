@@ -63,6 +63,14 @@ export class DocumentationComponent {
     this.documentationLandingPage = false;
     this.documentationGeneratingPage = false;
   }
+  goToDocumentationGeneratingPage(){
+    this.documentationService.setDocumentationLandingPage(false);
+    // this.documentationService.setDocumentationGeneratingPage(false); 
+    this.documentationService.setDocumentationGeneratedPage(false); 
+    this.documentationGeneratedPage = false;
+    this.documentationLandingPage = false;
+    this.documentationGeneratingPage = true;
+  }
   // Select Template section
   isOpen = false;
   isViewSourcesDropdownOpen = false
