@@ -56,12 +56,12 @@ export class DocumentationComponent {
   //   this.documentationService.setDocumentationGeneratedPage(false); 
   // }
   goToDocumentationGeneratedPage() {
-    // this.documentationLandingPage = false;
-    // this.documentationGeneratingPage = false; 
-    // this.documentationGeneratedPage = true; 
     this.documentationService.setDocumentationLandingPage(false);
     this.documentationService.setDocumentationGeneratingPage(false); 
-    this.documentationService.setDocumentationGeneratedPage(true); 
+    // this.documentationService.setDocumentationGeneratedPage(true); 
+    this.documentationGeneratedPage = true;
+    this.documentationLandingPage = false;
+    this.documentationGeneratingPage = false;
   }
   // Select Template section
   isOpen = false;

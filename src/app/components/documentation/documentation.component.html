@@ -411,14 +411,6 @@
                                     </ul>
                                 </div>
                             </div>
-                            <!-- Add Sources section -->
-                            <!--/* <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium">
-                                <button class="flex gap-[8px]" (click)="openModal()">
-                                    <span class="w-[16.67px] h-[18px] bg-[url('./app/resources/icons/pluses-icon.svg')]">
-                                    </span>
-                                    Add Sources
-                                </button>
-                            </div> */-->
                         </div>
                     </div>
                     <!-- Select Template and Add Sources tooltip -->
@@ -502,9 +494,9 @@
             </div>
         </div>
         <!-- documentation section -->
-        <div class="bg-white flex flex-col gap-[16px] w-full min-h-screen h-auto rounded-lg px-6 py-8 ">
+        <div class="bg-white flex flex-col gap-[16px] w-full h-auto rounded-lg px-6 py-8 ">
             <!--/* doc section */-->
-            <div class="flex flex-col gap-[12px] px-[4px]" [ngClass]="(displayDoc)? '' : 'hidden'">
+            <div class="flex flex-col gap-[12px] px-[4px]">
                 <p>
                     Example: ACI Payment Gateway – Release Notes (Version 2.5.0) 
                 </p>
@@ -542,25 +534,6 @@
                     <p>
                     📖 Documentation & FAQs – ACI Knowledge Base
                     </p>
-                </div>
-            </div>
-            <!-- default  doc section -->
-            <div class="flex flex-col justify-center items-center h-full" [ngClass]="(!displayDoc)? '' : 'hidden'">
-                <div class="flex flex-col justify-center items-center text-[#666f8d]">
-                    <p class="text-[32px] font-medium">Meet DocuBot!</p>
-                    <p class="text-[24px] font-medium">Your assistant for generating documentation.</p>
-                    <div class="flex mt-[18px]">
-                        <span class="w-[110.2px] h-[74.14px] bg-[url('./app/resources/icons/docu-bot-icon.svg')]">
-                        </span>
-                    </div>
-                    <div class="flex flex-col gap-[12px] mt-[70px]">
-                        <p>To get started:</p>
-                        <ol class="text-sm text-[#666f8d]">
-                            <li>1. Select a template that fits the document you need</li>
-                            <li>2. Add the relevant sources</li>
-                            <li>3. Click Generate to create your documentation</li>
-                        </ol>
-                    </div>
                 </div>
             </div>
         </div>
