@@ -1,7 +1,9 @@
 <div class="bg-white border border-[#E9EAEB] rounded-xl text-sm text-[#535862] text-sm pt-[4px]">
     <ul>
         <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr] gap-4 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]">
-            <div class="flex gap-2 justify-start items-center">Documentation</div>
+            <div class="flex gap-2 justify-start items-center">
+                Documentation
+            </div>
             <!--/* <div class="flex items-center">Product</div> */-->
             <div class="flex items-center">Type</div>
             <div class="flex items-center">Status</div>
@@ -13,7 +15,10 @@
             <div class="flex items-center">Created by</div>
         </li>
         <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr] gap-4 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]" *ngFor="let item of paginatedItems">
-            <div class="flex gap-2 justify-start items-center">
+            <div class="flex gap-3 justify-start items-center">
+                <input
+                    type="checkbox"
+                />
                 {{ item.documentation }}
             </div>
             <!--/* <div class="flex items-center">{{ item.product }}</div> */-->
