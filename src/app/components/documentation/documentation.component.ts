@@ -21,17 +21,19 @@ export class DocumentationComponent {
   selectedOption1 = '';  
   selectedOption2 = '';  
   imagePath ='./app/resources/icons/paste-url-icon.svg';
-  listNumber = 6;
+  listNumber = 5;
 
   // Select Template section
   isOpen = false;
   isViewSourcesDropdownOpen = false
   isProductDropdownOpen = false;
+  isFilterDropdownOpen = false;
   selectedTemplate = 'Select Template';
   selectedProduct = 'Select Product';
 
   templates = ['User Manual', 'Release Notes'];
   products = ['Connectic - High Value V1.0', 'Connectic - Low Value V1.0'];
+  filters =['Type', 'Status', 'Published date', 'Created by'];
 
   constructor(private userService: UserService, private tooltipService: TooltipService ) {}
 
@@ -59,6 +61,9 @@ export class DocumentationComponent {
 
   toggleProductDropdown() {
     this.isProductDropdownOpen = !this.isProductDropdownOpen;
+  }
+  toggleFilterDropdown() {
+    this.isFilterDropdownOpen = !this.isFilterDropdownOpen;
   }
 
   selectProduct(template: string) {
