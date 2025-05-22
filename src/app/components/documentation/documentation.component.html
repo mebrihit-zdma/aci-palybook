@@ -48,7 +48,19 @@
         <div class="flex flex-col gap-4">
             <!-- release history search, filter, and create documentation section -->
             <div class="flex flex-col gap-[16px]" *ngIf="userRole === 'Product Owner'">
-                <p class="font-medium text-base text-[#19213D]">Generated Documentation History</p>
+                <div class="flex flex-col md:flex-row gap-4 justify-between">
+                    <p class="font-medium text-base text-[#19213D]">Generated Documentation History</p>
+                    <!-- Create Documentation -->
+                    <div class="flex gap-[16px] relative justify-center">
+                        <div>
+                            <button class="text-white bg-primary flex items-center gap-[8px] px-[14px] py-[10px] rounded-lg   border border-[#D5D7DA]">
+                                <span class="w-[18.33px] h-[18.33px] bg-[url('./app/resources/icons/white-stars.svg')]">
+                                </span>
+                                Create Documentation
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <div class="flex flex-col md:flex-row gap-4 justify-between">
                     <!-- Search Filter -->
                     <div class="flex gap-[8px] justify-center">
@@ -62,43 +74,6 @@
                             <span class="w-[18.33px] h-[18.33px] bg-[url('./app/resources/icons/filter-icon.svg')]">
                             </span>
                         </div>
-                    </div>
-                    <!-- Create Documentation -->
-                    <div class="flex gap-[16px] relative justify-center">
-                        <div>
-                            <button class="text-white bg-primary flex items-center gap-[8px] px-[14px] py-[10px] rounded-lg   border border-[#D5D7DA]">
-                                <span class="w-[18.33px] h-[18.33px] bg-[url('./app/resources/icons/white-stars.svg')]">
-                                </span>
-                                Create Documentation
-                            </button>
-                        </div>
-                        <!--/* <div [ngClass]="!createDocTooltipDone? 'bg-[#F7F8FA] p-[16px] rounded-[8px] tooltip' : ''"
-                            [ngClass]="createDocTooltip? 'bg-[#F7F8FA] p-[16px] rounded-[8px] tooltip' : ''">
-                            <button class="text-white bg-primary flex items-center gap-[8px] px-[14px] py-[10px] rounded-lg   border border-[#D5D7DA]">
-                                <span class="w-[18.33px] h-[18.33px] bg-[url('./app/resources/icons/white-stars.svg')]">
-                                </span>
-                                Create Documentation
-                            </button>
-                        </div> */-->
-                        <!-- create documentation tooltip -->
-                        <!--/* <div class="hidden md:block">
-                            <div [ngClass]="(!createDocTooltipDone)? 'overlay' : ''" 
-                            [ngClass]="createDocTooltip? 'overlay' : ''"></div>
-                            <div [ngClass]="!createDocTooltipDone? 'block tooltip' : ' hidden'" 
-                                [ngClass]="createDocTooltip? 'block tooltip' : ' hidden'">
-                                <div class="flex flex-col bg-white p-[18px] gap-[16px] w-[384px] h-[146px] items-center rounded-[12px] absolute create-documentation-tooltip">
-                                    <p class="text-[18px] text-[#19213D] leading-[130%] font-medium">Click this button to start generating your documentation</p>
-                                    <div class="flex justify-between w-full mt-[10px]">
-                                        <button class="bg-white flex justify-center items-center py-[8px] px-[24px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[168px]" (click)="skipCreateDocTooltip()">
-                                            Skip
-                                        </button>
-                                        <button class="activeButton flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[168px]" (click)="goToStartNewChatTooltip()">
-                                            Next
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> */-->
                     </div>
                 </div>
             </div>
