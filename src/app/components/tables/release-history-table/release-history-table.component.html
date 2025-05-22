@@ -1,8 +1,8 @@
 <div class="bg-white border border-[#E9EAEB] rounded-xl text-sm text-[#535862] text-sm pt-[4px]">
     <ul>
-        <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_1fr_0.5fr] gap-4 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]">
+        <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr] gap-4 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]">
             <div class="flex gap-2 justify-start items-center">Documentation</div>
-            <div class="flex items-center">Product</div>
+            <!--/* <div class="flex items-center">Product</div> */-->
             <div class="flex items-center">Type</div>
             <div class="flex items-center">Status</div>
             <div class="flex items-center gap-[4px]">
@@ -12,11 +12,11 @@
             </div>
             <div class="flex items-center">Created by</div>
         </li>
-        <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_1fr_0.5fr] gap-4 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]" *ngFor="let item of paginatedItems">
+        <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr] gap-4 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]" *ngFor="let item of paginatedItems">
             <div class="flex gap-2 justify-start items-center">
                 {{ item.documentation }}
             </div>
-            <div class="flex items-center">{{ item.product }}</div>
+            <!--/* <div class="flex items-center">{{ item.product }}</div> */-->
             <div class="flex items-center">{{ item.type }}</div>
             <div class="flex items-center">
                 <span class="bg-[#ECFDF3] px-5 py-2 rounded-[16px] text-[#027A48] text-xs font-medium"
@@ -32,7 +32,7 @@
                 <span class="text-primary bg-[#e9eef8] flex rounded-[200px] w-[40px] h-[40px] justify-center items-center">{{ getFirstLetter(item.executedBy) }}</span>
                 {{ item.executedBy }}
             </div>
-            <div class="text-primary font-semibold flex items-center">{{ item.view }}</div>
+            <!--/* <div class="text-primary font-semibold flex items-center">{{ item.view }}</div> */-->
         </li>
     </ul>
     <!-- pagination controls -->

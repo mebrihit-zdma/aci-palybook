@@ -103,7 +103,7 @@ export class DashboardComponent {
       product: "Payment Hub", 
       type: "Release Notes",
       status: "In Progress",
-      deliveryDate: "",
+      deliveryDate: "Jan 02, 2025",
       executedBy: "Gulse",
       view: "",
     },
