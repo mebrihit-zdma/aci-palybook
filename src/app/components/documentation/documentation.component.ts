@@ -23,6 +23,11 @@ export class DocumentationComponent {
   selectedOption2 = '';  
   imagePath ='./app/resources/icons/paste-url-icon.svg';
   listNumber = 5;
+  // documentation Pages
+  documentationLandingPage = false;
+  documentationGeneratingPage = false; 
+  documentationGeneratedPage = false; 
+
   constructor(private userService: UserService, private tooltipService: TooltipService, private documentationService: DocumentationService ) {}
   ngOnInit() {
     // this.userService.userName$.subscribe(name => {
@@ -32,11 +37,12 @@ export class DocumentationComponent {
     //   this.userRole = role;
     // });
     this.sourcesTemplateTooltipDone = this.tooltipService.getSkipTooltipValue();
+    // documentation Pages
+    this.documentationLandingPage = this.documentationService.getDocumentationLandingPage();
+    this.documentationGeneratingPage = this.documentationService.getDocumentationGeneratingPage(); 
+    this.documentationGeneratedPage = this.documentationService.getDocumentationGeneratedPage(); 
   }
-  // documentation Pages
-  documentationLandingPage = false;
-  documentationGeneratingPage = false; 
-  documentationGeneratedPage = false; 
+  
   goToDocumentationLandingPage() {
     this.documentationLandingPage = true;
     this.documentationGeneratingPage = false; 

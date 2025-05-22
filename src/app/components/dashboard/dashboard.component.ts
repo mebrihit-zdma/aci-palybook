@@ -25,6 +25,10 @@ export class DashboardComponent {
   // userRole: string | null = null;
   userName: string | null = 'User Name';
   userRole: string | null = 'Product Owner';
+  // documentation Pages
+  documentationLandingPage = false;
+  documentationGeneratingPage = false; 
+  documentationGeneratedPage = false; 
   ngOnInit() {
     // this.userService.userName$.subscribe(name => {
     //   this.userName = name;
@@ -33,6 +37,9 @@ export class DashboardComponent {
     //   this.userRole = role;
     // });
     this.skipTooltipValue = this.tooltipService.getSkipTooltipValue();
+    this.documentationLandingPage = this.documentationService.getDocumentationLandingPage();
+    this.documentationGeneratingPage = this.documentationService.getDocumentationGeneratingPage(); 
+    this.documentationGeneratedPage = this.documentationService.getDocumentationGeneratedPage(); 
   }
   isProductDropdownOpen = false;
   selectedProduct = 'Select Product';

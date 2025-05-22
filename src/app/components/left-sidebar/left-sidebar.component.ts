@@ -29,6 +29,10 @@ export class LeftSidebarComponent {
   profileImageUrl: string | null = 'http://localhost:4200/48a1b773-d4f8-4c49-8379-ba1af18c37bc';
   userName: string | null = 'User Name';
   userRole: string | null = 'Product Owner';
+  // documentation Pages
+  documentationLandingPage = false;
+  documentationGeneratingPage = false; 
+  documentationGeneratedPage = false; 
   ngOnInit() {
     // this.userService.userName$.subscribe(name => {
     //   this.userName = name;
@@ -40,6 +44,10 @@ export class LeftSidebarComponent {
     // this.userService.userImageUrl$.subscribe(imageUrl => {
     //   this.profileImageUrl = imageUrl;
     // });
+    // documentation Pages
+    this.documentationLandingPage = this.documentationService.getDocumentationLandingPage();
+    this.documentationGeneratingPage = this.documentationService.getDocumentationGeneratingPage(); 
+    this.documentationGeneratedPage = this.documentationService.getDocumentationGeneratedPage(); 
   }
 
   isLeftSidebarCollapsed = input.required<boolean>();
