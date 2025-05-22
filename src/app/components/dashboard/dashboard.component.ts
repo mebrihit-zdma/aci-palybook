@@ -251,7 +251,11 @@ export class DashboardComponent {
   closeCustomizeWidgets(){
     this.isCustomizeWidgets = false;
   }
-  goToDocumentationGeneratedPage(){
+  goToDocumentationGeneratingPage(){
+    this.documentationService.setDocumentationLandingPage(false);
+    this.documentationService.setDocumentationGeneratingPage(true); 
+    this.documentationService.setDocumentationGeneratedPage(false); 
+    
     this.router.navigate(['/dashboard-page/documentation']);
   }
 }

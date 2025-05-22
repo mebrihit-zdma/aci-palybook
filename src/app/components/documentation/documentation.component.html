@@ -1,4 +1,4 @@
-<div class="h-full w-full">
+<div class="h-full w-full" [ngClass]="(documentationLandingPage)? 'block' : 'hidden'">
     <div class="flex flex-col gap-8 mx-16">
         <!-- dropdown section -->
         <div class="flex justify-between ml-[60px] md:ml-0">
@@ -55,7 +55,7 @@
                     <div class="flex gap-[16px] relative justify-center">
                         <div>
                             <button class="text-white bg-primary flex items-center gap-[8px] px-[14px] py-[10px] rounded-lg  border border-[#D5D7DA]"
-                            (click)="goToDocumentationGeneratedPage()">
+                            >
                                 <span class="w-[18.33px] h-[18.33px] bg-[url('./app/resources/icons/white-stars.svg')]">
                                 </span>
                                 Create Documentation
@@ -140,7 +140,7 @@
     </div>
 </div>
 <!--/* first section */-->
-<div class="h-full w-full hidden">
+<div class="h-full w-full" [ngClass]="(documentationGeneratingPage)? '' : 'hidden'">
     <div class="flex flex-col justify-center items-center mt-[8%]">
         <div class="flex flex-col justify-center items-center text-[#666f8d]">
             <div class="flex mt-[18px] mb-6">
@@ -270,7 +270,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="text-sm text-white bg-primary flex items-center gap-[8px] px-[14px] rounded-lg border border-[#D5D7DA] h-[41.5px]" [ngClass]="(!generateDoc)? 'disabled' : ''" (click)="createDocument()">
+                <button class="text-sm text-white bg-primary flex items-center gap-[8px] px-[14px] rounded-lg border border-[#D5D7DA] h-[41.5px]" [ngClass]="(!generateDoc)? 'disabled' : ''" (click)="goToDocumentationGeneratedPage()">
                     <span class="w-[18.33px] h-[18.33px] scale-[0.8] bg-[url('./app/resources/icons/white-stars.svg')]">
                     </span>
                     <span>Generate</span>
@@ -280,7 +280,7 @@
     </div>
 </div>
 <!--/* second section */-->
-<div class="h-full w-full flex flex-col lg:flex-row gap-4 hidden">
+<div class="h-full w-full flex flex-col lg:flex-row gap-4" [ngClass]="(documentationGeneratedPage)? 'block' : 'hidden'">
     <!-- document generate section -->
     <div class="flex flex-col gap-[16px] flex-1">
         <div class="flex justify-between">

@@ -41,22 +41,27 @@ export class DocumentationComponent {
     this.documentationLandingPage = this.documentationService.getDocumentationLandingPage();
     this.documentationGeneratingPage = this.documentationService.getDocumentationGeneratingPage(); 
     this.documentationGeneratedPage = this.documentationService.getDocumentationGeneratedPage(); 
+
+    console.log("this.documentationService.getDocumentationGeneratingPage(): ", this.documentationGeneratingPage,)
   }
   
-  goToDocumentationLandingPage() {
-    this.documentationLandingPage = true;
-    this.documentationGeneratingPage = false; 
-    this.documentationGeneratedPage = false; 
-  }
-  goToDocumentationGeneratingPage() {
-    this.documentationLandingPage = false;
-    this.documentationGeneratingPage = true; 
-    this.documentationGeneratedPage = false; 
-  }
+  // goToDocumentationLandingPage() {
+  //   this.documentationLandingPage = true;
+  //   this.documentationGeneratingPage = false; 
+  //   this.documentationGeneratedPage = false; 
+  // }
+  // goToDocumentationGeneratingPage() {
+  //   this.documentationService.setDocumentationLandingPage(false);
+  //   this.documentationService.setDocumentationGeneratingPage(true); 
+  //   this.documentationService.setDocumentationGeneratedPage(false); 
+  // }
   goToDocumentationGeneratedPage() {
-    this.documentationLandingPage = false;
-    this.documentationGeneratingPage = false; 
-    this.documentationGeneratedPage = true; 
+    // this.documentationLandingPage = false;
+    // this.documentationGeneratingPage = false; 
+    // this.documentationGeneratedPage = true; 
+    this.documentationService.setDocumentationLandingPage(false);
+    this.documentationService.setDocumentationGeneratingPage(false); 
+    this.documentationService.setDocumentationGeneratedPage(true); 
   }
   // Select Template section
   isOpen = false;
