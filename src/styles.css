@@ -75,10 +75,10 @@ html, body{
   color: white;
 }
 /* radio buttons */
-input[type="radio"] {
+.on-boarding > input[type="radio"] {
   visibility:hidden;
 }
-input[type='radio']:after {
+.on-boarding > input[type='radio']:after {
   width: 15px;
   height: 15px;
   border-radius: 15px;
@@ -90,7 +90,7 @@ input[type='radio']:after {
   visibility: visible;
 }
 
-input[type='radio']:checked:after {
+.on-boarding > input[type='radio']:checked:after {
   width: 15px;
   height: 15px;
   border-radius: 15px;
@@ -102,10 +102,10 @@ input[type='radio']:checked:after {
   visibility: visible;
 }
 
-input[type="checkbox"] {
+.on-boarding > input[type="checkbox"] {
   visibility:hidden;
 }
-input[type='checkbox']:after {
+.on-boarding > input[type='checkbox']:after {
   width: 15px;
   height: 15px;
   border-radius: 15px;
@@ -117,7 +117,7 @@ input[type='checkbox']:after {
   visibility: visible;
 }
 
-input[type='checkbox']:checked:after {
+.on-boarding > input[type='checkbox']:checked:after {
   width: 15px;
   height: 15px;
   border-radius: 15px;

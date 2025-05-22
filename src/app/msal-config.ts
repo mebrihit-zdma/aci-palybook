@@ -48,10 +48,10 @@ export function msalInstanceFactory(platformId: Object): IPublicClientApplicatio
   const config: Configuration = {
     auth: {
       authority: 'https://login.microsoftonline.com/45488ed5-ce1d-4d00-87d2-144f056d15d3',
-      // clientId: '9298e23f-f951-4164-ad53-92347706120b',
-      // redirectUri: 'http://localhost:4200',
-      clientId: '0071edf4-4545-4797-81ea-c5ef43041030',
-      redirectUri: 'https://d15d4x71dime5a.cloudfront.net',
+      clientId: '9298e23f-f951-4164-ad53-92347706120b',
+      redirectUri: 'http://localhost:4200',
+      // clientId: '0071edf4-4545-4797-81ea-c5ef43041030',
+      // redirectUri: 'https://d15d4x71dime5a.cloudfront.net',
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,

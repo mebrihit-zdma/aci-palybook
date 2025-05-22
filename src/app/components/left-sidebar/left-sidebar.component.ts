@@ -22,20 +22,23 @@ export class LeftSidebarComponent {
     this.loginDisplay= this.loginService.getLoginDisplay();
   }
   
-  userName: string | null = null;
-  userRole: string | null = null;
-  profileImageUrl: string | null = null;
+  // userName: string | null = null;
+  // userRole: string | null = null;
+  // profileImageUrl: string | null = null;
+  profileImageUrl: string | null = 'http://localhost:4200/48a1b773-d4f8-4c49-8379-ba1af18c37bc';
+  userName: string | null = 'User Name';
+  userRole: string | null = 'Product Owner';
   ngOnInit() {
-    this.userService.userName$.subscribe(name => {
-      this.userName = name;
-    });
-    this.userService.userRole$.subscribe(role => {
-      this.userRole = role;
-    });
+    // this.userService.userName$.subscribe(name => {
+    //   this.userName = name;
+    // });
+    // this.userService.userRole$.subscribe(role => {
+    //   this.userRole = role;
+    // });
 
-    this.userService.userImageUrl$.subscribe(imageUrl => {
-      this.profileImageUrl = imageUrl;
-    });
+    // this.userService.userImageUrl$.subscribe(imageUrl => {
+    //   this.profileImageUrl = imageUrl;
+    // });
   }
 
   isLeftSidebarCollapsed = input.required<boolean>();

@@ -17,11 +17,11 @@
                     </div>
                     <div class="flex justify-center md:justify-end">
                         <div class="flex gap-[8px]">
-                            <label class="bg-white flex justify-center items-center py-[8px] px-[16px]  border border-[#D5D7DA] rounded-[12px] text-sm gap-[8px]" (click)="goToPoductsSection()" (click)="hideRoleList()" [ngClass]="selectedRole === 'yes' ? 'gradient-border' : ''">
+                            <label class="bg-white flex justify-center items-center py-[8px] px-[16px]  border border-[#D5D7DA] rounded-[12px] text-sm gap-[8px] on-boarding" (click)="goToPoductsSection()" (click)="hideRoleList()" [ngClass]="selectedRole === 'yes' ? 'gradient-border' : ''">
                                 <input type="radio" id="yes" name="role" value="yes" (change)="roleAnswered()" [(ngModel)]="selectedRole">
                                 Yes, that’s correct
                             </label>
-                            <label class="bg-white flex justify-center items-center py-[8px] px-[16px]  border border-[#D5D7DA] rounded-[12px] text-sm gap-[8px]" (click)="showRoleList()" [ngClass]="selectedRole === 'no' ? 'gradient-border' : ''">
+                            <label class="bg-white flex justify-center items-center py-[8px] px-[16px]  border border-[#D5D7DA] rounded-[12px] text-sm gap-[8px] on-boarding" (click)="showRoleList()" [ngClass]="selectedRole === 'no' ? 'gradient-border' : ''">
                                 <input type="radio" id="no" name="role" value="no" (change)="roleAnswered()" [(ngModel)]="selectedRole">
                                 No, I want to change it
                             </label>
@@ -33,7 +33,7 @@
                         <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-[20px] sm:justify-end sm:w-[60%]">
                             <label class="bg-white flex flex-col  py-[16px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm relative" *ngFor="let item of roleList" (click)="goToPoductsSection()" 
                             [ngClass]="selectedRoleList === item.title ? 'gradient-border' : ''">
-                                <div class="flex">
+                                <div class="flex on-boarding">
                                     <div class="w-[48px] h-[48px] bg-[#F4EBFF] rounded-full flex items-center justify-center  text-primary">
                                         <span  class=" w-5 h-5 material-icons">{{item.icon}}</span>
                                     </div>
@@ -77,7 +77,7 @@
                             </div>
                         </div>
                         <div class="flex gap-[8px] justify-center md:justify-end">
-                            <label class="bg-white flex justify-center items-center py-[8px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm gap-[32px] relative disabled">
+                            <label class="bg-white flex justify-center items-center py-[8px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm gap-[32px] relative disabled on-boarding">
                                 <div class="flex flex-col gap-[8px] me-[32px] py-[8px]">
                                     <div class="text-base text-[#2A282F] leading-[18px] font-semibold">
                                         <p>Connetic - </p>
@@ -98,7 +98,7 @@
                                     (change)="productsAnswered()"
                                 />
                             </label>
-                            <label class="bg-white flex justify-center items-center py-[8px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm gap-[32px] relative" (click)="goToPersonalizeDashboardSection()"
+                            <label class="bg-white flex justify-center items-center py-[8px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm gap-[32px] relative on-boarding" (click)="goToPersonalizeDashboardSection()"
                             [ngClass]="selectedProduct.includes('highValue') ? 'gradient-border' : ''">
                                 <div class="flex flex-col gap-[8px] me-[32px] py-[8px]">
                                     <div class="text-base text-[#2A282F] leading-[18px] font-semibold">
@@ -140,12 +140,12 @@
                     <!-- personalize your dashboard question section -->
                     <div class="flex">
                         <div class="mt-[-4px] w-[40px] h-[36px] sm:w-[36px] scale-[0.7] bg-[url('./app/resources/icons/blue-chat-icon.svg')]"></div>
-                        <p class="bg-white flex py-[10px] px-[12px] w-[100%] lg:w-[75%] border border-[#D5D7DA] text-sm rounded-tl-none rounded-tr-lg rounded-br-lg rounded-bl-lg sm:pe-[40px]">Personalize your dashboard by selecting the content you find most valuable. We’ve pre-selected a few options for you.</p>
+                        <p class="bg-white flex py-[10px] px-[12px] w-[100%] lg:w-[75%] border border-[#D5D7DA] text-sm rounded-tl-none rounded-tr-lg rounded-br-lg rounded-bl-lg sm:pe-[40px]">Set up your dashboard by selecting the content most applicable to your work. These widget preferences can be modified later in the dashboard as needed.</p>
                     </div>
                     <!-- personalize your dashboard radio button section -->
                     <div class="flex justify-end">
                         <div class="sm:w-[90%] gap-[8px] grid grid-cols-1 sm:grid-cols-2">
-                            <label class="bg-white flex justify-center items-center py-[12px] px-[12px]  border border-[#D5D7DA] rounded-[12px] gap-[16px] cursor-pointer relative" *ngFor="let data of personalizeDashboard"
+                            <label class="bg-white flex justify-center items-center py-[12px] px-[12px]  border border-[#D5D7DA] rounded-[12px] gap-[16px] cursor-pointer relative on-boarding" *ngFor="let data of personalizeDashboard"
                             [ngClass]="selectedPersonalize.includes(data.title) ? 'gradient-border' : ''">
                                 <div class="flex">
                                     <span class="w-[48px] h-[48px] bg-[url('./app/resources/icons/blue-lightning-bolts.svg')]"></span>

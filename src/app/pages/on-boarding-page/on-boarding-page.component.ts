@@ -16,11 +16,12 @@ export class OnBoardingPageComponent {
   
   constructor(private userService: UserService, private router: Router ) {}
 
-  userRole: string | null = null;
+  // userRole: string | null = null;
+  userRole: string | null = 'Product Owner';
   ngOnInit(): void {
-    this.userService.userRole$.subscribe(role => {
-      this.userRole = role;
-    });
+    // this.userService.userRole$.subscribe(role => {
+    //   this.userRole = role;
+    // });
   }
 
   givenRoleList = false;
