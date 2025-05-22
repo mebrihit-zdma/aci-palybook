@@ -18,7 +18,7 @@ import { TooltipService } from '../../services/tooltip.service';
 })
 export class DashboardComponent {
   constructor(private userService: UserService, private tooltipService: TooltipService ) {}
- 
+  listNumber = 2;
   // userName: string | null = null;
   // userRole: string | null = null;
   userName: string | null = 'User Name';

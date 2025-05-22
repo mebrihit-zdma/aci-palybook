@@ -152,7 +152,7 @@
     </div>
     <!-- release history list-->
     <div *ngIf="userRole === 'Product Owner'">
-        <app-release-history-table [data]="releaseHistory" />
+        <app-release-history-table [data]="releaseHistory" [listPerPage]="listNumber" />
     </div>
     <!-- bug fixes list-->
     <div *ngIf="userRole === 'Help24 Analyst'">

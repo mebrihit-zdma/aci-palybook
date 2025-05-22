@@ -21,6 +21,7 @@ export class DocumentationComponent {
   selectedOption1 = '';  
   selectedOption2 = '';  
   imagePath ='./app/resources/icons/paste-url-icon.svg';
+  listNumber = 6;
 
   // Select Template section
   isOpen = false;

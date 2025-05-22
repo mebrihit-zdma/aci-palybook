@@ -11,17 +11,17 @@ import { FormsModule } from '@angular/forms';
 })
 export class ReleaseHistoryTableComponent {
   @Input() data!: any; // Input property to receive data from the parent
-
-  itemsPerPage = 2;
+  @Input() listPerPage!: number;
+  
   currentPage = 1;
 
   get totalPages(): number {
-    return Math.ceil(this.data.length / this.itemsPerPage);
+    return Math.ceil(this.data.length / this.listPerPage);
   }
 
   get paginatedItems() {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    return this.data.slice(start, start + this.itemsPerPage);
+    const start = (this.currentPage - 1) * this.listPerPage;
+    return this.data.slice(start, start + this.listPerPage);
   }
 
   nextPage() {
