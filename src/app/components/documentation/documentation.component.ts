@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { TooltipService } from '../../services/tooltip.service';
 import { UserService } from '../../services/user.service';
+import { DocumentationService } from '../../services/documentation.service';
 import { ReleaseHistoryTableComponent } from '../../components/tables/release-history-table/release-history-table.component';
 import { BugFixesTableComponent } from '../../components/tables/bug-fixes-table/bug-fixes-table.component';
 
@@ -22,7 +23,16 @@ export class DocumentationComponent {
   selectedOption2 = '';  
   imagePath ='./app/resources/icons/paste-url-icon.svg';
   listNumber = 5;
-
+  constructor(private userService: UserService, private tooltipService: TooltipService, private documentationService: DocumentationService ) {}
+  ngOnInit() {
+    // this.userService.userName$.subscribe(name => {
+    //   this.userName = name;
+    // });
+    // this.userService.userRole$.subscribe(role => {
+    //   this.userRole = role;
+    // });
+    this.sourcesTemplateTooltipDone = this.tooltipService.getSkipTooltipValue();
+  }
   // documentation Pages
   documentationLandingPage = false;
   documentationGeneratingPage = false; 
@@ -54,18 +64,6 @@ export class DocumentationComponent {
   products = ['Connectic - High Value V1.0', 'Connectic - Low Value V1.0'];
   filters =['Type', 'Status', 'Published date', 'Created by'];
 
-  constructor(private userService: UserService, private tooltipService: TooltipService ) {}
-
-  ngOnInit() {
-    // this.userService.userName$.subscribe(name => {
-    //   this.userName = name;
-    // });
-    // this.userService.userRole$.subscribe(role => {
-    //   this.userRole = role;
-    // });
-    this.sourcesTemplateTooltipDone = this.tooltipService.getSkipTooltipValue();
-  }
-  
   toggleDropdown() {
     this.isOpen = !this.isOpen;
   }

@@ -6,6 +6,7 @@ import { LoginService } from '../../services/login.service';
 import { ChatHistoryComponent } from '../../components/chat-history/chat-history.component';
 import { ChatService } from '../../services/chat.service';
 import { MsalService } from '@azure/msal-angular';
+import { DocumentationService } from '../../services/documentation.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ import { MsalService } from '@azure/msal-angular';
 export class LeftSidebarComponent {
   
   loginDisplay: boolean = false;
-  constructor(private userService: UserService, private loginService: LoginService, private chatService: ChatService, private authService: MsalService, ) {
+  constructor(private userService: UserService, private loginService: LoginService, private chatService: ChatService, private authService: MsalService, private documentationService: DocumentationService) {
     this.loginDisplay= this.loginService.getLoginDisplay();
   }
   

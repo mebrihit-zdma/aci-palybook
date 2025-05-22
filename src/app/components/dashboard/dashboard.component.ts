@@ -8,6 +8,7 @@ import { BugFixesTableComponent } from '../../components/tables/bug-fixes-table/
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { UserService } from '../../services/user.service';
 import { TooltipService } from '../../services/tooltip.service';
+import { DocumentationService } from '../../services/documentation.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,7 +19,7 @@ import { Router } from '@angular/router';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
-  constructor(private userService: UserService, private tooltipService: TooltipService, private router: Router ) {}
+  constructor(private userService: UserService, private tooltipService: TooltipService,  private documentationService: DocumentationService, private router: Router ) {}
   listNumber = 2;
   // userName: string | null = null;
   // userRole: string | null = null;
