@@ -1,124 +1,126 @@
 <div class="h-full w-full">
-    <!-- dropdown section -->
-    <div class="flex justify-between mb-2 ml-[60px] md:ml-0">
-        <div class="flex relative">
-            <div class="flex gap-[16px]">
-                <!-- Select Product dropdown section -->
-                <div class="relative w-70">
-                    <!-- Product Dropdown Button -->
-                    <button
-                        type="button"
-                        (click)="toggleProductDropdown()"
-                        class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-sm font-medium h-[100%] whitespace-nowrap overflow-hidden truncate w-[18ch]">
-                        {{ selectedProduct }}
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 text-gray-500"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            >
-                            <path
-                                fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"
-                            />
-                        </svg>
-                    </button>
-                    <!-- Product Dropdown Menu -->
-                    <div
-                        *ngIf="isProductDropdownOpen"
-                        class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                        <ul>
-                            <li
-                                *ngFor="let product of products"
-                                (click)="selectProduct(product)"
-                                class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0"
-                            >
-                                {{ product }}
-                            </li>
-                        </ul>
+    <div class="flex flex-col gap-12 mx-16">
+        <!-- dropdown section -->
+        <div class="flex justify-between mb-2 ml-[60px] md:ml-0">
+            <div class="flex relative">
+                <div class="flex gap-[16px]">
+                    <!-- Select Product dropdown section -->
+                    <div class="relative w-70">
+                        <!-- Product Dropdown Button -->
+                        <button
+                            type="button"
+                            (click)="toggleProductDropdown()"
+                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-sm font-medium h-[100%] whitespace-nowrap overflow-hidden truncate w-[18ch]">
+                            {{ selectedProduct }}
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-5 w-5 text-gray-500"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                        </button>
+                        <!-- Product Dropdown Menu -->
+                        <div
+                            *ngIf="isProductDropdownOpen"
+                            class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                            <ul>
+                                <li
+                                    *ngFor="let product of products"
+                                    (click)="selectProduct(product)"
+                                    class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0"
+                                >
+                                    {{ product }}
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
+            <!-- bell icon -->
+            <span class="w-[22.76px] h-[29.25px] bg-[url('./app/resources/icons/blue-bell-icon.svg')]"></span>
         </div>
-        <!-- bell icon -->
-        <span class="w-[22.76px] h-[29.25px] bg-[url('./app/resources/icons/blue-bell-icon.svg')]"></span>
-    </div>
-    <div>
-        <!-- release history search, filter, and create documentation section -->
-        <div class="flex flex-col gap-[16px]" *ngIf="userRole === 'Product Owner'">
-            <p class="font-medium text-base text-[#19213D]">Documentation History</p>
-            <div class="flex flex-col md:flex-row gap-4 justify-between">
-                <!-- Search Filter -->
-                <div class="flex gap-[8px] justify-center">
-                    <!--/* Search */-->
-                    <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[8px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium w-[273px]">
-                        <span class="flex justify-center items-center w-[12.4px] h-[12.4px] bg-[url('./app/resources/icons/search-icon.svg')]"></span>
-                        <input type="text" placeholder="Search"/>
-                    </div>
-                    <!--/* Filter */-->
-                    <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium">
-                        <span class="w-[18.33px] h-[18.33px] bg-[url('./app/resources/icons/filter-icon.svg')]">
-                        </span>
-                    </div>
-                </div>
-                <!-- Create Documentation -->
-                <div class="flex gap-[16px] relative justify-center">
-                    <div>
-                        <button class="text-white bg-primary flex items-center gap-[8px] px-[14px] py-[10px] rounded-lg   border border-[#D5D7DA]">
-                            <span class="w-[18.33px] h-[18.33px] bg-[url('./app/resources/icons/white-stars.svg')]">
+        <div class="flex flex-col gap-4">
+            <!-- release history search, filter, and create documentation section -->
+            <div class="flex flex-col gap-[16px]" *ngIf="userRole === 'Product Owner'">
+                <p class="font-medium text-base text-[#19213D]">Documentation History</p>
+                <div class="flex flex-col md:flex-row gap-4 justify-between">
+                    <!-- Search Filter -->
+                    <div class="flex gap-[8px] justify-center">
+                        <!--/* Search */-->
+                        <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[8px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium w-[273px]">
+                            <span class="flex justify-center items-center w-[12.4px] h-[12.4px] bg-[url('./app/resources/icons/search-icon.svg')]"></span>
+                            <input type="text" placeholder="Search"/>
+                        </div>
+                        <!--/* Filter */-->
+                        <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium">
+                            <span class="w-[18.33px] h-[18.33px] bg-[url('./app/resources/icons/filter-icon.svg')]">
                             </span>
-                            Create Documentation
-                        </button>
+                        </div>
                     </div>
-                    <!--/* <div [ngClass]="!createDocTooltipDone? 'bg-[#F7F8FA] p-[16px] rounded-[8px] tooltip' : ''"
-                        [ngClass]="createDocTooltip? 'bg-[#F7F8FA] p-[16px] rounded-[8px] tooltip' : ''">
-                        <button class="text-white bg-primary flex items-center gap-[8px] px-[14px] py-[10px] rounded-lg   border border-[#D5D7DA]">
-                            <span class="w-[18.33px] h-[18.33px] bg-[url('./app/resources/icons/white-stars.svg')]">
-                            </span>
-                            Create Documentation
-                        </button>
-                    </div> */-->
-                    <!-- create documentation tooltip -->
-                    <!--/* <div class="hidden md:block">
-                        <div [ngClass]="(!createDocTooltipDone)? 'overlay' : ''" 
-                        [ngClass]="createDocTooltip? 'overlay' : ''"></div>
-                        <div [ngClass]="!createDocTooltipDone? 'block tooltip' : ' hidden'" 
-                            [ngClass]="createDocTooltip? 'block tooltip' : ' hidden'">
-                            <div class="flex flex-col bg-white p-[18px] gap-[16px] w-[384px] h-[146px] items-center rounded-[12px] absolute create-documentation-tooltip">
-                                <p class="text-[18px] text-[#19213D] leading-[130%] font-medium">Click this button to start generating your documentation</p>
-                                <div class="flex justify-between w-full mt-[10px]">
-                                    <button class="bg-white flex justify-center items-center py-[8px] px-[24px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[168px]" (click)="skipCreateDocTooltip()">
-                                        Skip
-                                    </button>
-                                    <button class="activeButton flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[168px]" (click)="goToStartNewChatTooltip()">
-                                        Next
-                                    </button>
+                    <!-- Create Documentation -->
+                    <div class="flex gap-[16px] relative justify-center">
+                        <div>
+                            <button class="text-white bg-primary flex items-center gap-[8px] px-[14px] py-[10px] rounded-lg   border border-[#D5D7DA]">
+                                <span class="w-[18.33px] h-[18.33px] bg-[url('./app/resources/icons/white-stars.svg')]">
+                                </span>
+                                Create Documentation
+                            </button>
+                        </div>
+                        <!--/* <div [ngClass]="!createDocTooltipDone? 'bg-[#F7F8FA] p-[16px] rounded-[8px] tooltip' : ''"
+                            [ngClass]="createDocTooltip? 'bg-[#F7F8FA] p-[16px] rounded-[8px] tooltip' : ''">
+                            <button class="text-white bg-primary flex items-center gap-[8px] px-[14px] py-[10px] rounded-lg   border border-[#D5D7DA]">
+                                <span class="w-[18.33px] h-[18.33px] bg-[url('./app/resources/icons/white-stars.svg')]">
+                                </span>
+                                Create Documentation
+                            </button>
+                        </div> */-->
+                        <!-- create documentation tooltip -->
+                        <!--/* <div class="hidden md:block">
+                            <div [ngClass]="(!createDocTooltipDone)? 'overlay' : ''" 
+                            [ngClass]="createDocTooltip? 'overlay' : ''"></div>
+                            <div [ngClass]="!createDocTooltipDone? 'block tooltip' : ' hidden'" 
+                                [ngClass]="createDocTooltip? 'block tooltip' : ' hidden'">
+                                <div class="flex flex-col bg-white p-[18px] gap-[16px] w-[384px] h-[146px] items-center rounded-[12px] absolute create-documentation-tooltip">
+                                    <p class="text-[18px] text-[#19213D] leading-[130%] font-medium">Click this button to start generating your documentation</p>
+                                    <div class="flex justify-between w-full mt-[10px]">
+                                        <button class="bg-white flex justify-center items-center py-[8px] px-[24px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[168px]" (click)="skipCreateDocTooltip()">
+                                            Skip
+                                        </button>
+                                        <button class="activeButton flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[168px]" (click)="goToStartNewChatTooltip()">
+                                            Next
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div> */-->
+                        </div> */-->
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- bug fixes search section -->
-        <div class="flex justify-between items-center" *ngIf="userRole === 'Help24 Analyst'">
-            <p class="font-medium text-base text-[#19213D]">Bug Fixes in the latest release</p>
-            <div>
-                <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium w-[273px]">
-                    <span class="flex justify-center items-center w-[12.4px] h-[12.4px] bg-[url('./app/resources/icons/search-icon.svg')]"></span>
-                    <span class="material-icons">search</span>
-                    <input trpe="text" placeholder="Search"/>
+            <!-- bug fixes search section -->
+            <div class="flex justify-between items-center" *ngIf="userRole === 'Help24 Analyst'">
+                <p class="font-medium text-base text-[#19213D]">Bug Fixes in the latest release</p>
+                <div>
+                    <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium w-[273px]">
+                        <span class="flex justify-center items-center w-[12.4px] h-[12.4px] bg-[url('./app/resources/icons/search-icon.svg')]"></span>
+                        <span class="material-icons">search</span>
+                        <input trpe="text" placeholder="Search"/>
+                    </div>
                 </div>
             </div>
-        </div>
-        <!-- release history list-->
-        <div *ngIf="userRole === 'Product Owner'">
-            <app-release-history-table [data]="releaseHistory" [listPerPage]="listNumber" />
-        </div>
-        <!-- bug fixes list-->
-        <div *ngIf="userRole === 'Help24 Analyst'">
-            <app-bug-fixes-table [data]="bugFixes" />
+            <!-- release history list-->
+            <div *ngIf="userRole === 'Product Owner'">
+                <app-release-history-table [data]="releaseHistory" [listPerPage]="listNumber" />
+            </div>
+            <!-- bug fixes list-->
+            <div *ngIf="userRole === 'Help24 Analyst'">
+                <app-bug-fixes-table [data]="bugFixes" />
+            </div>
         </div>
     </div>
 </div>

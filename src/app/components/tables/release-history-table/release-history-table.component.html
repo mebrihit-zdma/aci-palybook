@@ -1,16 +1,16 @@
 <div class="bg-white border border-[#E9EAEB] rounded-xl text-sm text-[#535862] text-sm pt-[4px]">
     <ul>
         <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_1fr_0.5fr] gap-4 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]">
-            <div class="flex gap-2 justify-start items-center">Version</div>
+            <div class="flex gap-2 justify-start items-center">Documentation</div>
             <div class="flex items-center">Product</div>
             <div class="flex items-center">Type</div>
             <div class="flex items-center">Status</div>
             <div class="flex items-center gap-[4px]">
-                Delivery date
+                Published date
                 <span class="w-[16px] h-[16px] bg-[url('./app/resources/icons/black-down-arrow-icon.svg')] ">
                 </span>
             </div>
-            <div class="flex items-center">Executed by</div>
+            <div class="flex items-center">Created by</div>
         </li>
         <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_1fr_0.5fr] gap-4 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]" *ngFor="let item of paginatedItems">
             <div class="flex gap-2 justify-start items-center">
