@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class DocumentationService {
   skipTooltipValue: boolean = false;
 
-  documentationLandingPage = false;
+  documentationLandingPage = true;
   documentationGeneratingPage = false; 
   documentationGeneratedPage = false; 
 
