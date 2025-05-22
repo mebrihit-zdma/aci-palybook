@@ -19,11 +19,3 @@
     height: 30px;
     width: 30px;
   }
-
-  .releaseHistoryListData {
-    width: 100%;
-  }
-
-  .releaseHistoryListData > div > span {
-    font-size: 9px !important;
-  }
