@@ -1,49 +1,68 @@
 <div class="h-[100%] flex flex-col justify-between">
     <!-- dropdown section -->
-    <div class="flex justify-between mb-2 ml-[60px] md:ml-0">
-        <div class="flex relative">
-            <div class="flex gap-[16px]">
-                <!-- Select Product dropdown section -->
-                <div class="relative w-70">
-                    <!-- Product Dropdown Button -->
-                    <button
-                        type="button"
-                        (click)="toggleProductDropdown()"
-                        class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-sm font-medium h-[100%] whitespace-nowrap overflow-hidden truncate w-[18ch]">
-                        {{ selectedProduct }}
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 text-gray-500"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                            >
-                            <path
-                                fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"
-                            />
-                        </svg>
-                    </button>
-                    <!-- Product Dropdown Menu -->
-                    <div
-                        *ngIf="isProductDropdownOpen"
-                        class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                        <ul>
-                            <li
-                                *ngFor="let product of products"
-                                (click)="selectProduct(product)"
-                                class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0"
-                            >
-                                {{ product }}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- bell icon -->
-        <!--/* <span class="w-[22.76px] h-[29.25px] bg-[url('./app/resources/icons/blue-bell-icon.svg')]"></span> */-->
+    <div class="flex flex-col gap-8">
+      <div class="flex justify-between mb-2 ml-[60px] md:ml-0">
+          <div class="flex relative">
+              <div class="flex gap-[16px]">
+                  <!-- Select Product dropdown section -->
+                  <div class="relative w-70">
+                      <!-- Product Dropdown Button -->
+                      <button
+                          type="button"
+                          (click)="toggleProductDropdown()"
+                          class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-sm font-medium h-[100%] whitespace-nowrap overflow-hidden truncate w-[18ch]">
+                          {{ selectedProduct }}
+                          <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="h-5 w-5 text-gray-500"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                              >
+                              <path
+                                  fill-rule="evenodd"
+                                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                  clip-rule="evenodd"
+                              />
+                          </svg>
+                      </button>
+                      <!-- Product Dropdown Menu -->
+                      <div
+                          *ngIf="isProductDropdownOpen"
+                          class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                          <ul>
+                              <li
+                                  *ngFor="let product of products"
+                                  (click)="selectProduct(product)"
+                                  class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0"
+                              >
+                                  {{ product }}
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- bell icon -->
+          <!--/* <span class="w-[22.76px] h-[29.25px] bg-[url('./app/resources/icons/blue-bell-icon.svg')]"></span> */-->
+      </div>
+      <div class=" flex-col gap-1 flex justify-center items-center ">
+        <h1 class="text-[48px] font-bold text-[#101828]">Welcome, Jamie!!</h1>
+        <p class="text-[#30425c]">Here are a few prompts to help you kick things off!</p>
+      </div>
     </div>
+    <!-- few prompts -->
+    <ul class="grid grid-cols-3 gap-4 px-[20%] pt-[2%]">
+      <li class="bg-white border border-[#D5D7DA] rounded-lg h-[100%] flex flex-col gap-[16px] px-[24px] py-[16px]"
+      *ngFor="let item of chatPrompts">
+        <p class="text-[#727272] font-medium text-[12px]">{{item.source}}</p>
+        <p class="text-[#727272] font-medium text-[15px]">{{item.question}}</p>
+      </li>
+      <!--/* Create a shortcut Prompt */-->
+      <div class="bg-white border border-[#D5D7DA] rounded-lg h-[100%] flex flex-col justify-between gap-[16px] px-[24px] py-[16px]">
+        <span class="w-[24px] h-[24px] bg-[url('./app/resources/icons/add-icon.svg')]"></span>
+        <p class="text-[#727272] font-medium text-[15px] pb-[16px]">Create a shortcut Prompt</p>
+      </div>
+    </ul>
     <!-- question and answer -->
     <div class="w-[100%] lg:w-[90%] ml-auto mr-auto mb-[50px]">
         <div class="flex flex-col justify-center gap-[24px]">

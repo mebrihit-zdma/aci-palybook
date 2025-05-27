@@ -135,4 +135,23 @@ export class ChatComponent {
     });
   }
 
+  // few prompts
+  chatPrompts = [
+    { source: "Suggested by AI", 
+      question: "What are the differences between the latest and older release notes?", 
+    },
+    { source: "Suggested by AI", 
+      question: "Create a step-by-step guide on configuring ACI Payment Hub based on client-specific needs", 
+    },
+    { source: "Based on your Activity", 
+      question: "Generate an API customization guide for ACI Payment Hub", 
+    },
+    { source: "Recommended based on your Activity", 
+      question: "Generate a guide on configuring custom dashboards and reports for Connetic High value Payments", 
+    },
+    { source: "Frequently searched by you", 
+      question: "Generate a guide on configuring custom dashboards and reports for Connetic High value Payments", 
+    },
+  ];
+
 }
