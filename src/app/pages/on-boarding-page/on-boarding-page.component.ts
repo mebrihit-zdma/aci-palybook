@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { ApiService } from '../../services/api.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -14,14 +15,27 @@ import { FormsModule } from '@angular/forms';
 })
 export class OnBoardingPageComponent {
   
-  constructor(private userService: UserService, private router: Router ) {}
+  constructor(private userService: UserService, private router: Router, private apiService: ApiService, ) {}
 
   // userRole: string | null = null;
   userRole: string | null = 'Product Owner';
+  roleList: any[] = [];
   ngOnInit(): void {
     // this.userService.userRole$.subscribe(role => {
     //   this.userRole = role;
     // });
+    this.apiService.get<any>('list_personas').subscribe({
+      next: async (data) => {
+        this.roleList = data;
+
+        this.roleList = this.roleList.map(role => ({
+          ...role,
+          icon: this.getRandomIcon()
+        }));
+      },
+      error: (err) => console.error('Error:', err),
+    });
+
   }
 
   givenRoleList = false;
@@ -49,39 +63,11 @@ export class OnBoardingPageComponent {
       description :"Monitor the number of bugs raised this month to gauge product stability."
     },
   ]
-  roleList  = [
-    {
-      icon:"edit_document",
-      title:"Product Manager",
-      description :"Create, Manage Documentation and product updates."
-    },
-    {
-      icon:"manage_accounts",
-      title:"Help 24 Analyst",
-      description :"Manage Documentation and product updates."
-    },
-    {
-      icon:"manage_accounts",
-      title:"Professional Services",
-      description :"Manage Documentation and product updates."
-    },
-    {
-      icon:"manage_accounts",
-      title:"Solution Architect",
-      description :"Manage Documentation and product updates."
-    },
-    {
-      icon:"wifi_tethering",
-      title:"Sales",
-      description :"Manage Documentation and product updates."
-    },
-    {
-      icon:"edit_document",
-      title:"Marketing",
-      description :"Manage Documentation and product updates."
-    },
-  ]
-
+  iconList:string[]  = ["edit_document", "manage_accounts","wifi_tethering", "edit_document"]
+  getRandomIcon(): string {
+    const randomIndex = Math.floor(Math.random() * this.iconList.length);
+    return this.iconList[randomIndex];
+  }
   // hide the questions at the beginning 
   hiddenProductsSection = true;
   hiddenPersonalizeDashboardSection = true;
