@@ -34,6 +34,8 @@ export class ChatComponent {
   sources: AnswerSource[] = [];
   messages: ChatMessage[] = [];
 
+  createShortcutPrompt = false;
+
   constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer){}
   isProductDropdownOpen = false;
   selectedProduct = 'Select Product';
@@ -51,6 +53,7 @@ export class ChatComponent {
     if (!question) return;
     this.postChat(question);
     this.askedQuestion = ''; 
+    this.createShortcutPrompt = true;
   }
   // Chat Stream
   postChat(askedQuestion: string) {
@@ -131,7 +134,7 @@ export class ChatComponent {
       this.sources = [];
       this.messages = [];
       this.createSessionId(this.userService.getUserId());
-      console.log("sessionId: ", this.sessionId)
+      this.createShortcutPrompt = false;
     });
   }
 

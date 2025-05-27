@@ -1,6 +1,6 @@
 <div class="h-[100%] flex flex-col justify-between">
     <!-- dropdown section -->
-    <div class="flex flex-col gap-8">
+    <div class="flex flex-col gap-8 mb-[2%]">
       <div class="flex justify-between mb-2 ml-[60px] md:ml-0">
           <div class="flex relative">
               <div class="flex gap-[16px]">
@@ -47,11 +47,11 @@
       </div>
       <div class=" flex-col gap-1 flex justify-center items-center ">
         <h1 class="text-[48px] font-bold text-[#101828]">Welcome, Jamie!!</h1>
-        <p class="text-[#30425c]">Here are a few prompts to help you kick things off!</p>
+        <p class="text-[#30425c]" [ngClass]="(!createShortcutPrompt)? 'block' : 'hidden'">Here are a few prompts to help you kick things off!</p>
       </div>
     </div>
     <!-- few prompts -->
-    <ul class="grid grid-cols-3 gap-4 px-[20%] pt-[2%]">
+    <ul class="grid grid-cols-3 gap-4 px-[20%]" [ngClass]="(!createShortcutPrompt)? 'block' : 'hidden'">
       <li class="bg-white border border-[#D5D7DA] rounded-lg h-[100%] flex flex-col gap-[16px] px-[24px] py-[16px]"
       *ngFor="let item of chatPrompts">
         <p class="text-[#727272] font-medium text-[12px]">{{item.source}}</p>
