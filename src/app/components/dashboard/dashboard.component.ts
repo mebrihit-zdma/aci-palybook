@@ -36,7 +36,7 @@ export class DashboardComponent {
     // this.userService.userRole$.subscribe(role => {
     //   this.userRole = role;
     // });
-    this.skipTooltipValue = this.tooltipService.getSkipTooltipValue();
+    // this.skipTooltipValue = this.tooltipService.getSkipTooltipValue();
     this.documentationLandingPage = this.documentationService.getDocumentationLandingPage();
     this.documentationGeneratingPage = this.documentationService.getDocumentationGeneratingPage(); 
     this.documentationGeneratedPage = this.documentationService.getDocumentationGeneratedPage(); 
@@ -217,8 +217,8 @@ export class DashboardComponent {
   startNewChatTooltipDone = false;
 
   skipTooltip(){
-    this.tooltipService.setSkipTooltipValue(true)
     this.skipTooltipValue = true;
+    this.tooltipService.setSkipTooltipValue(true)
   }
   goToAciPaymentHubTooltip(){
     this.aciPaymentHubTooltip = true;
