@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { DocumentationService } from '../../services/documentation.service';
 import { ReleaseHistoryTableComponent } from '../../components/tables/release-history-table/release-history-table.component';
 import { BugFixesTableComponent } from '../../components/tables/bug-fixes-table/bug-fixes-table.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-documentation',
@@ -28,7 +29,7 @@ export class DocumentationComponent {
   documentationGeneratingPage = false; 
   documentationGeneratedPage = false; 
 
-  constructor(private userService: UserService, private tooltipService: TooltipService, private documentationService: DocumentationService ) {}
+  constructor(private userService: UserService, private tooltipService: TooltipService, private documentationService: DocumentationService, private router: Router ) {}
   ngOnInit() {
     // this.userService.userName$.subscribe(name => {
     //   this.userName = name;
@@ -386,4 +387,7 @@ For further details, contact:
       viewResolution: "View Resolution",
     },
   ];
+  documentationAskDocuBot(){
+    this.router.navigate(['/dashboard-page/chat']);
+  }
 }

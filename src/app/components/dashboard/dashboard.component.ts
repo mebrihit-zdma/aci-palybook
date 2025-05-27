@@ -258,4 +258,7 @@ export class DashboardComponent {
     
     this.router.navigate(['/dashboard-page/documentation']);
   }
+  dashboardStartNewChat(){
+    this.router.navigate(['/dashboard-page/chat']);
+  }
 }

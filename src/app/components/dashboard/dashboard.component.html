@@ -180,7 +180,7 @@
             [ngClass]="startNewChatTooltip? 'bg-[#F7F8FA] p-[16px] rounded-[8px] tooltip' : ''">
             <div class="flex justify-center items-center mb-[0px]">
                 <button
-                    class="bg-white flex justify-center items-center py-[16px] px-[24px] gap-[16px] border border-[#D5D7DA] rounded-[16px] w-fit h-fit p-2 border">
+                    class="bg-white flex justify-center items-center py-[16px] px-[24px] gap-[16px] border border-[#D5D7DA] rounded-[16px] w-fit h-fit p-2 border" (click)="dashboardStartNewChat()">
                     <p>Start New Chat</p>
                     <div class="w-[23px] h-[23px] bg-[url('./app/resources/icons/blue-stars.svg')]"></div>
                 </button>
@@ -327,10 +327,10 @@
         <!-- Modal footer -->
         <div class="flex items-center p-4 bottom-0 absolute bg-white w-full">
             <div class="flex justify-between w-full mt-[10px] gap-[12px]">
-                <button class="bg-white flex justify-center items-center py-[8px] px-[24px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[168px] h-[44px]" (click)="skipAciPaymentHubTooltip()">
+                <button class="bg-white flex justify-center items-center py-[8px] px-[24px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[168px] h-[44px]">
                     Restore to default
                 </button>
-                <button class="activeButton flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[168px] h-[44px]" (click)="goToCreateDocTooltip()" >
+                <button class="activeButton flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[168px] h-[44px]">
                     Save
                 </button>
             </div>
