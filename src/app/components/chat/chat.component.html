@@ -104,8 +104,14 @@
               </div>
             </div>
             <!-- ask question input field -->
-            <div class="w-[100%]">
-              <label class="bg-white flex items-center justify-between py-[12px] px-[12px]  border border-[#D5D7DA] rounded-[8px] gap-[16px]" (click)="askQuestion(askedQuestion)">
+            <div class="w-[100%] flex gap-2">
+              <!-- Prompts Library -->
+              
+              <div class="bg-white  items-center justify-between p-[12px]  border border-[#D5D7DA] rounded-[8px] gap-[16px">
+                <div class="w-[20px] h-[20px] bg-[url('./app/resources/icons/prompts-library-icon.svg')]"></div>
+              </div>
+              <!-- question input field -->
+              <label class="w-[100%] bg-white flex items-center justify-between py-[12px] px-[12px]  border border-[#D5D7DA] rounded-[8px] gap-[16px]" (click)="askQuestion(askedQuestion)">
                 <div class="flex gap-[8px] w-[90%]">
                     <span class="w-[16px] h-[17px] scale-[0.9] bg-[url('./app/resources/icons/chat-link-icon.svg')]"></span>
                     <input 
