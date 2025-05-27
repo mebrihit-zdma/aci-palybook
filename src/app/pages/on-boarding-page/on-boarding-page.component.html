@@ -32,12 +32,18 @@
                     <div class="flex justify-center md:justify-end" [ngClass]="givenRoleList? '' : 'hidden'" >
                         <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-[20px] sm:justify-end sm:w-[60%]">
                             <label class="bg-white flex flex-col  py-[16px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm relative" *ngFor="let item of roleList" (click)="goToPoductsSection()" 
-                            [ngClass]="selectedRoleList === item.title ? 'gradient-border' : ''">
+                            [ngClass]="selectedRoleList === item.name ? 'gradient-border' : ''">
                                 <div class="flex on-boarding">
                                     <div class="w-[48px] h-[48px] bg-[#F4EBFF] rounded-full flex items-center justify-center  text-primary">
                                         <span  class=" w-5 h-5 material-icons">{{item.icon}}</span>
                                     </div>
-                                    <input type="radio" name="products" [value]="item.name" class="absolute top-[24px] right-[24px]" (change)="roleAnswered()" [(ngModel)]="selectedRoleList">
+                                    <input 
+                                    type="radio" 
+                                    name="products" 
+                                    [value]="item.name" 
+                                    class="absolute top-[24px] right-[24px]" 
+                                    (change)="roleAnswered()" 
+                                    [(ngModel)]="selectedRoleList">
                                 </div>
                                 <div>
                                     <p class="text-base font-semibold mt-[12px] mb-[6px]">{{item.name}}</p>
@@ -112,16 +118,6 @@
                             </label>
                         </div>
                     </div>
-
-                    <!-- Exit and next button -->
-                    <!--/* <div (click)="goToWelcomePage()" class="flex justify-between w-full" [ngClass]="!disableProductsSection? '' : 'hidden'">
-                        <button class="bg-white flex justify-center items-center py-[8px] px-[24px]  border border-[#D5D7DA] rounded-[8px] text-sm">
-                            Exit
-                        </button>
-                        <button (click)="goToPersonalizeDashboardSection()" class="bg-white flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] text-sm" [ngClass]="!isProductsNextButtonActive? 'disabled' : 'activeButton'">
-                            Next
-                        </button>
-                    </div> */-->
                 </div>
             </div>
             <!-- personalize your dashboard section -->
