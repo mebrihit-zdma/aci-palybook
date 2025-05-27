@@ -156,5 +156,11 @@ export class ChatComponent {
       question: "Generate a guide on configuring custom dashboards and reports for Connetic High value Payments", 
     },
   ];
-
+  isPromptsLibraryModelOpen = false
+  closePromptsLibraryModel(){
+    this.isPromptsLibraryModelOpen = false;
+  }
+  openPromptsLibraryModel(){
+    this.isPromptsLibraryModelOpen = true;
+  }
 }
