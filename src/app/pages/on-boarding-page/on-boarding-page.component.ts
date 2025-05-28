@@ -20,10 +20,12 @@ export class OnBoardingPageComponent {
   // userRole: string | null = null;
   userRole: string | null = 'Product Owner';
   roleList: any[] = [];
+  productsList: any[] = [];
   ngOnInit(): void {
     // this.userService.userRole$.subscribe(role => {
     //   this.userRole = role;
     // });
+    // getting role List
     this.apiService.get<any>('list_personas').subscribe({
       next: async (data) => {
         this.roleList = data;
@@ -32,6 +34,13 @@ export class OnBoardingPageComponent {
           ...role,
           icon: this.getRandomIcon()
         }));
+      },
+      error: (err) => console.error('Error:', err),
+    });
+    // getting products List
+    this.apiService.get<any>('list_products').subscribe({
+      next: async (data) => {
+        this.productsList = data;
       },
       error: (err) => console.error('Error:', err),
     });
@@ -100,8 +109,8 @@ export class OnBoardingPageComponent {
 
   }
   goToPersonalizeDashboardSection() {
-    this.disableProductsSection = !this.disableProductsSection;
-    this.hiddenPersonalizeDashboardSection = !this.hiddenPersonalizeDashboardSection; 
+    // this.disableProductsSection = !this.disableProductsSection;
+    this.hiddenPersonalizeDashboardSection = false; 
   }
 
   goToPervSection() {

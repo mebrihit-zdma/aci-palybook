@@ -38,16 +38,16 @@
                                         <span  class=" w-5 h-5 material-icons">{{item.icon}}</span>
                                     </div>
                                     <input 
-                                    type="radio" 
-                                    name="products" 
-                                    [value]="item.name" 
-                                    class="absolute top-[24px] right-[24px]" 
-                                    (change)="roleAnswered()" 
-                                    [(ngModel)]="selectedRoleList">
+                                        type="radio" 
+                                        name="roleList" 
+                                        [value]="item.name" 
+                                        class="absolute top-[24px] right-[24px]" 
+                                        (change)="roleAnswered()" 
+                                        [(ngModel)]="selectedRoleList"/>
                                 </div>
                                 <div>
                                     <p class="text-base font-semibold mt-[12px] mb-[6px]">{{item.name}}</p>
-                                    <p class="text-xs font-medium">{{item.description
+                                    <p class="text-xs font-medium text-[#727272]">{{item.description
                                     }}</p>
                                 </div>
                             </label>
@@ -73,48 +73,24 @@
                             </div>
                         </div>
                         <div class="flex gap-[8px] justify-center md:justify-end">
-                            <label class="bg-white flex justify-center items-center py-[8px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm gap-[32px] relative disabled on-boarding">
-                                <div class="flex flex-col gap-[8px] me-[32px] py-[8px]">
+                            <label class="bg-white flex justify-center items-center p-[12px] border border-[#D5D7DA] rounded-[12px] text-sm gap-[32px] relative on-boarding" (click)="goToPersonalizeDashboardSection()"
+                            [ngClass]="selectedProduct === item.name ? 'gradient-border' : ''"
+                            *ngFor="let item of productsList">
+                                <input
+                                    type="radio" 
+                                    name="products"
+                                    [value]="item.name"
+                                    class="absolute top-[8px] right-[8px]"
+                                    [(ngModel)]="selectedProduct"
+                                    />
+                                <div class="flex flex-col gap-[8px] me-[28px] py-[8px] ps-[8px]">
                                     <div class="text-base text-[#2A282F] leading-[18px] font-semibold">
-                                        <p>Connetic - </p>
-                                        <p class="">Low Value</p>
+                                        <p class="break-words whitespace-normal w-[150px]">{{item.name}}</p>
                                     </div>
-                                    <div class="text-[#A8A6AC] text-sm leading-[18px]">
-                                        <p class="">Connetic</p>
-                                        <p class="">V-1.0</p>
+                                    <div class="text-[#727272] text-sm leading-[18px]">
+                                        <p class="break-words whitespace-normal w-[150px]">{{item.description}}</p>
                                     </div>
                                 </div>
-                                <input
-                                    type="checkbox"
-                                    name="products"
-                                    value="lowValue"
-                                    class="absolute top-[8px] right-[8px]"
-                                    [checked]="selectedProduct.includes('lowValue')"
-                                    (change)="toggleProduct('lowValue')"
-                                    (change)="productsAnswered()"
-                                />
-                            </label>
-                            <label class="bg-white flex justify-center items-center py-[8px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm gap-[32px] relative on-boarding" (click)="goToPersonalizeDashboardSection()"
-                            [ngClass]="selectedProduct.includes('highValue') ? 'gradient-border' : ''">
-                                <div class="flex flex-col gap-[8px] me-[32px] py-[8px]">
-                                    <div class="text-base text-[#2A282F] leading-[18px] font-semibold">
-                                        <p>Connetic -</p>
-                                        <p class="">High Value </p>
-                                    </div>
-                                    <div class="text-[#A8A6AC] text-sm leading-[18px]">
-                                        <p class="">Connetic</p>
-                                        <p class="">V-1.0</p>
-                                    </div>
-                                </div>
-                                <input
-                                    type="checkbox"
-                                    name="products"
-                                    value="highValue"
-                                    class="absolute top-[8px] right-[8px]"
-                                    [checked]="selectedProduct.includes('highValue')"
-                                    (change)="toggleProduct('highValue')"
-                                    (change)="productsAnswered()"
-                                />
                             </label>
                         </div>
                     </div>
@@ -152,18 +128,6 @@
                             </label>
                         </div>
                     </div>
-                    <!-- Exit and next button -->
-                    <!--/* <div class="flex justify-between w-full">
-                        <button (click)="goToWelcomePage()" class="bg-white flex justify-center items-center py-[8px] px-[24px]  border border-[#D5D7DA] rounded-[8px] text-sm">
-                            Exit
-                        </button>
-                        <div class="flex gap-[24px]" [ngClass]="!hiddenPersonalizeDashboardSection? 'block' : 'hidden'">
-                            <button (click)="goToDashboard()" class="text-primary font-bold text-sm">Skip</button>
-                            <button (click)="goToDashboard()" class="bg-white flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] text-sm" [ngClass]="!isPersonalizeDashboardNextButtonActive? 'disabled' : 'activeButton'">
-                                Next
-                            </button>
-                        </div>
-                    </div> */-->
                 </div>
             </div>
             <!-- Exit and next button -->
