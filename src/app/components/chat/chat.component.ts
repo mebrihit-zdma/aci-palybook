@@ -37,10 +37,12 @@ export class ChatComponent {
 
   createShortcutPrompt = false;
   products: string[] = [];
+  selectedProduct: string = '';
   constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService){}
 
   ngOnInit() {
     this.products = this.onboardingService.getProductList()
+    this.selectedProduct = this.onboardingService.getSelectedProduct();
     // selected question from chat history
     this.chatService.click$.subscribe(() => {
       this.getChat(this.chatService.getChatId());
@@ -55,12 +57,11 @@ export class ChatComponent {
   }
 
   isProductDropdownOpen = false;
-  selectedProduct = 'Select Product';
   toggleProductDropdown() {
     this.isProductDropdownOpen = !this.isProductDropdownOpen;
   }
-  selectProduct(template: string) {
-    this.selectedProduct = template;
+  selectProduct(product: string) {
+    this.selectedProduct = product;
     this.isProductDropdownOpen = false;
   }
   // post a question and get answer using api call

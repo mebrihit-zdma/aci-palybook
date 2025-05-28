@@ -31,8 +31,10 @@ export class DocumentationComponent {
   documentationGeneratedPage = false; 
 
   products: string[] = [];
+  selectedProduct: string = "";
 
   constructor(private userService: UserService, private tooltipService: TooltipService, private documentationService: DocumentationService, private router: Router, private onboardingService: OnboardingService ) {}
+
   ngOnInit() {
     // this.userService.userName$.subscribe(name => {
     //   this.userName = name;
@@ -41,13 +43,12 @@ export class DocumentationComponent {
     //   this.userRole = role;
     // });
     this.products = this.onboardingService.getProductList();
+    this.selectedProduct = this.onboardingService.getSelectedProduct();
     this.sourcesTemplateTooltipDone = this.tooltipService.getSkipTooltipValue();
     // documentation Pages
     this.documentationLandingPage = this.documentationService.getDocumentationLandingPage();
     this.documentationGeneratingPage = this.documentationService.getDocumentationGeneratingPage(); 
     this.documentationGeneratedPage = this.documentationService.getDocumentationGeneratedPage(); 
-
-    console.log("this.documentationService.getDocumentationGeneratingPage(): ", this.documentationGeneratingPage,)
   }
   
   // goToDocumentationLandingPage() {
@@ -82,8 +83,6 @@ export class DocumentationComponent {
   isProductDropdownOpen = false;
   isFilterDropdownOpen = false;
   selectedTemplate = 'Select Template';
-  selectedProduct = 'Select Product';
-
   templates = ['User Manual', 'Release Notes'];
   filters =['Type', 'Status', 'Published date', 'Created by'];
   toggleDropdown() {
@@ -105,8 +104,8 @@ export class DocumentationComponent {
     this.isFilterDropdownOpen = !this.isFilterDropdownOpen;
   }
 
-  selectProduct(template: string) {
-    this.selectedProduct = template;
+  selectProduct(product: string) {
+    this.selectedProduct = product;
     this.isProductDropdownOpen = false;
   }
 
