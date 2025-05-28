@@ -21,6 +21,11 @@ export class OnBoardingPageComponent {
   userRole: string | null = 'Product Owner';
   roleList: any[] = [];
   productsList: any[] = [];
+
+  selectedRole: string = '';
+  selectedRoleList: string = '';
+  selectedPersonalize: string[] = [];
+  selectedProduct: string = "";
   ngOnInit(): void {
     // this.userService.userRole$.subscribe(role => {
     //   this.userRole = role;
@@ -44,7 +49,6 @@ export class OnBoardingPageComponent {
       },
       error: (err) => console.error('Error:', err),
     });
-
   }
 
   givenRoleList = false;
@@ -124,19 +128,7 @@ export class OnBoardingPageComponent {
   goToWelcomePage() {
     this.router.navigate(['/welcome-page']);
   }
-  selectedRole: string = '';
-  selectedRoleList: string = '';
-  selectedProduct: string[] = [];
-  selectedPersonalize: string[] = [];
-  toggleProduct(value: string) {
-    const index = this.selectedProduct.indexOf(value);
-    if (index === -1) {
-      this.selectedProduct.push(value);
-    } else {
-      this.selectedProduct.splice(index, 1);
-    }
-  }
-
+  
   togglePersonalize(value: string) {
     const index = this.selectedPersonalize.indexOf(value);
     if (index === -1) {
@@ -144,5 +136,9 @@ export class OnBoardingPageComponent {
     } else {
       this.selectedPersonalize.splice(index, 1);
     }
+  }
+
+  onProductSelected() {
+    console.log('Selected product:', this.selectedProduct);
   }
 }

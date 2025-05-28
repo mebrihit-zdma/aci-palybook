@@ -82,6 +82,7 @@
                                     [value]="item.name"
                                     class="absolute top-[8px] right-[8px]"
                                     [(ngModel)]="selectedProduct"
+                                    (change)="onProductSelected()"
                                     />
                                 <div class="flex flex-col gap-[8px] me-[28px] py-[8px] ps-[8px]">
                                     <div class="text-base text-[#2A282F] leading-[18px] font-semibold">
