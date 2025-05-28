@@ -7,8 +7,20 @@ import { Subject } from 'rxjs';
 export class ChatService {
 
   constructor() { }
-
+  private newChatHistory: boolean = false;
   private chatId: string = '';
+
+  //click event
+  private clickSubject = new Subject<void>();
+  click$ = this.clickSubject.asObservable();
+
+  setNewChatHistory(newChatHistory: boolean) {
+    this.newChatHistory = newChatHistory;
+  }
+
+  getNewChatHistory(): boolean {
+    return this.newChatHistory;
+  }
 
   setChatId(chatId: string) {
     this.chatId = chatId;
@@ -17,9 +29,6 @@ export class ChatService {
   getChatId(): string {
     return this.chatId;
   }
-//click event
-  private clickSubject = new Subject<void>();
-  click$ = this.clickSubject.asObservable();
 
   emitClick() {
     this.clickSubject.next();

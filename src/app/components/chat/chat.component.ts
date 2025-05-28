@@ -44,6 +44,10 @@ export class ChatComponent {
     this.products = this.onboardingService.getProductList()
     this.selectedProduct = this.onboardingService.getSelectedProduct();
     // selected question from chat history
+  
+    if(this.chatService.getNewChatHistory()){
+      this.createShortcutPrompt = true;
+    }
     this.chatService.click$.subscribe(() => {
       this.createShortcutPrompt = true;
       this.getChat(this.chatService.getChatId());

@@ -39,6 +39,7 @@ export class ChatHistoryComponent {
   selectChat(chatId: string) {
     this.chatService.setChatId(chatId);
     this.chatService.emitClick();
+    this.chatService.setNewChatHistory(true);
     this.router.navigate(['/dashboard-page/chat']);
   }
 
