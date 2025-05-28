@@ -50,13 +50,12 @@ export class DashboardComponent {
     this.documentationGeneratedPage = this.documentationService.getDocumentationGeneratedPage(); 
   }
   isProductDropdownOpen = false;
-  selectedProduct = 'Select Product';
-  products = ['Connectic - High Value V1.0', 'Connectic - Low Value V1.0'];
+  products = ['High Value Payments', 'Instant Payments'];
   toggleProductDropdown() {
     this.isProductDropdownOpen = !this.isProductDropdownOpen;
   }
-  selectProduct(template: string) {
-    this.selectedProduct = template;
+  selectProduct(product: string) {
+    this.selectedProductFromOnboarding = product;
     this.isProductDropdownOpen = false;
   }
   // cards data

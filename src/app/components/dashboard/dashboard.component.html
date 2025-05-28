@@ -12,7 +12,7 @@
                         type="button"
                         (click)="toggleProductDropdown()"
                         class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-sm font-medium h-[100%] whitespace-nowrap overflow-hidden truncate w-[18ch]">
-                        {{ selectedProduct }}
+                        {{ selectedProductFromOnboarding || 'Select a product'}}
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             class="h-5 w-5 text-gray-500"
