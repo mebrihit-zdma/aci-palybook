@@ -7,6 +7,7 @@ import { ReleaseHistoryTableComponent } from '../../components/tables/release-hi
 import { BugFixesTableComponent } from '../../components/tables/bug-fixes-table/bug-fixes-table.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { UserService } from '../../services/user.service';
+import { OnboardingService } from '../../services/onboarding.service';
 import { TooltipService } from '../../services/tooltip.service';
 import { DocumentationService } from '../../services/documentation.service';
 import { Router } from '@angular/router';
@@ -19,16 +20,21 @@ import { Router } from '@angular/router';
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent {
-  constructor(private userService: UserService, private tooltipService: TooltipService,  private documentationService: DocumentationService, private router: Router ) {}
+
+  constructor(private userService: UserService, private tooltipService: TooltipService,  private documentationService: DocumentationService, private router: Router, private onboardingService: OnboardingService ) {}
+
   listNumber = 2;
   // userName: string | null = null;
   // userRole: string | null = null;
   userName: string | null = 'User Name';
   userRole: string | null = 'Product Owner';
+
   // documentation Pages
   documentationLandingPage = false;
   documentationGeneratingPage = false; 
   documentationGeneratedPage = false; 
+
+  selectedProductFromOnboarding: string = "";
   ngOnInit() {
     // this.userService.userName$.subscribe(name => {
     //   this.userName = name;
@@ -36,6 +42,8 @@ export class DashboardComponent {
     // this.userService.userRole$.subscribe(role => {
     //   this.userRole = role;
     // });
+
+    this.selectedProductFromOnboarding = this.onboardingService.getSelectedProduct();
     // this.skipTooltipValue = this.tooltipService.getSkipTooltipValue();
     this.documentationLandingPage = this.documentationService.getDocumentationLandingPage();
     this.documentationGeneratingPage = this.documentationService.getDocumentationGeneratingPage(); 

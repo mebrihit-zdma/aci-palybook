@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { ApiService } from '../../services/api.service';
+import { OnboardingService } from '../../services/onboarding.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -15,7 +16,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class OnBoardingPageComponent {
   
-  constructor(private userService: UserService, private router: Router, private apiService: ApiService, ) {}
+  constructor(private userService: UserService, private router: Router, private apiService: ApiService, private onboardingService: OnboardingService ) {}
 
   // userRole: string | null = null;
   userRole: string | null = 'Product Owner';
@@ -30,7 +31,7 @@ export class OnBoardingPageComponent {
     // this.userService.userRole$.subscribe(role => {
     //   this.userRole = role;
     // });
-    // getting role List
+    // getting role List the from api
     this.apiService.get<any>('list_personas').subscribe({
       next: async (data) => {
         this.roleList = data;
@@ -42,7 +43,7 @@ export class OnBoardingPageComponent {
       },
       error: (err) => console.error('Error:', err),
     });
-    // getting products List
+    // getting products List the from api
     this.apiService.get<any>('list_products').subscribe({
       next: async (data) => {
         this.productsList = data;
@@ -139,6 +140,6 @@ export class OnBoardingPageComponent {
   }
 
   onProductSelected() {
-    console.log('Selected product:', this.selectedProduct);
+    this.onboardingService.setSelectedProduct(this.selectedProduct)
   }
 }
