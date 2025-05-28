@@ -10,7 +10,7 @@ import { LoginService } from './services/login.service';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 // Required for MSAL
-import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfiguration } from '@azure/msal-angular';
+// import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfiguration } from '@azure/msal-angular';
 import { InteractionStatus, RedirectRequest } from '@azure/msal-browser';
 
 @Component({

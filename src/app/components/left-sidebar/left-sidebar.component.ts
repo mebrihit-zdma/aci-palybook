@@ -5,8 +5,9 @@ import { UserService } from '../../services/user.service';
 import { LoginService } from '../../services/login.service';
 import { ChatHistoryComponent } from '../../components/chat-history/chat-history.component';
 import { ChatService } from '../../services/chat.service';
-import { MsalService } from '@azure/msal-angular';
+// import { MsalService } from '@azure/msal-angular';
 import { DocumentationService } from '../../services/documentation.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,9 +20,11 @@ import { DocumentationService } from '../../services/documentation.service';
 export class LeftSidebarComponent {
   
   loginDisplay: boolean = false;
-  constructor(private userService: UserService, private loginService: LoginService, private chatService: ChatService, private authService: MsalService, private documentationService: DocumentationService) {
-    this.loginDisplay= this.loginService.getLoginDisplay();
-  }
+  // constructor(private userService: UserService, private loginService: LoginService, private chatService: ChatService, private authService: MsalService, private documentationService: DocumentationService) {
+  //   this.loginDisplay= this.loginService.getLoginDisplay();
+  // }
+
+  constructor(private userService: UserService, private loginService: LoginService, private chatService: ChatService, private documentationService: DocumentationService, private router: Router) {}
   
   // userName: string | null = null;
   // userRole: string | null = null;
@@ -107,6 +110,7 @@ export class LeftSidebarComponent {
   // start new chat click event listener 
   startNewChat(){
     this.chatService.startNewChatEmitClick();
+    this.router.navigate(['/dashboard-page/chat']);
   };
 
   // Log the user out

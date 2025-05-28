@@ -40,8 +40,8 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 import {
   MSAL_INSTANCE,
   MSAL_GUARD_CONFIG,
-  MsalService,
-  MsalGuard,
+  // MsalService,
+  // MsalGuard,
   MsalBroadcastService
 } from '@azure/msal-angular';
 
@@ -73,8 +73,8 @@ export const appConfig: ApplicationConfig = {
       provide: MSAL_GUARD_CONFIG,
       useFactory: msalGuardConfigFactory
     },
-    MsalService,
-    MsalGuard,
+    // MsalService,
+    // MsalGuard,
     MsalBroadcastService
   ]
 };
