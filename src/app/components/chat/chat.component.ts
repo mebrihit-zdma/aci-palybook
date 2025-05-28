@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject,  OnInit, signal, Input   } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { ChatService } from '../../services/chat.service';
+import { OnboardingService } from '../../services/onboarding.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 
@@ -35,11 +36,26 @@ export class ChatComponent {
   messages: ChatMessage[] = [];
 
   createShortcutPrompt = false;
+  products: string[] = [];
+  constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService){}
 
-  constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer){}
+  ngOnInit() {
+    this.products = this.onboardingService.getProductList()
+    // selected question from chat history
+    this.chatService.click$.subscribe(() => {
+      this.getChat(this.chatService.getChatId());
+    });
+    // start new chat on clicking the Start New Chat button
+    this.chatService.startNewChatClick$.subscribe(() => {
+      this.sources = [];
+      this.messages = [];
+      this.createSessionId(this.userService.getUserId());
+      this.createShortcutPrompt = false;
+    });
+  }
+
   isProductDropdownOpen = false;
   selectedProduct = 'Select Product';
-  products = ['Connectic - High Value V1.0', 'Connectic - Low Value V1.0'];
   toggleProductDropdown() {
     this.isProductDropdownOpen = !this.isProductDropdownOpen;
   }
@@ -124,20 +140,7 @@ export class ChatComponent {
       error: (err) => console.error('Error:', err),
     });
   }
-  ngOnInit() {
-    // selected question from chat history
-    this.chatService.click$.subscribe(() => {
-      this.getChat(this.chatService.getChatId());
-    });
-    // start new chat on clicking the Start New Chat button
-    this.chatService.startNewChatClick$.subscribe(() => {
-      this.sources = [];
-      this.messages = [];
-      this.createSessionId(this.userService.getUserId());
-      this.createShortcutPrompt = false;
-    });
-  }
-
+ 
   // few prompts
   chatPrompts = [
     { source: "Suggested by AI", 

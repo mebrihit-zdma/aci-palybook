@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { TooltipService } from '../../services/tooltip.service';
 import { UserService } from '../../services/user.service';
 import { DocumentationService } from '../../services/documentation.service';
+import { OnboardingService } from '../../services/onboarding.service';
 import { ReleaseHistoryTableComponent } from '../../components/tables/release-history-table/release-history-table.component';
 import { BugFixesTableComponent } from '../../components/tables/bug-fixes-table/bug-fixes-table.component';
 import { Router } from '@angular/router';
@@ -29,7 +30,9 @@ export class DocumentationComponent {
   documentationGeneratingPage = false; 
   documentationGeneratedPage = false; 
 
-  constructor(private userService: UserService, private tooltipService: TooltipService, private documentationService: DocumentationService, private router: Router ) {}
+  products: string[] = [];
+
+  constructor(private userService: UserService, private tooltipService: TooltipService, private documentationService: DocumentationService, private router: Router, private onboardingService: OnboardingService ) {}
   ngOnInit() {
     // this.userService.userName$.subscribe(name => {
     //   this.userName = name;
@@ -37,6 +40,7 @@ export class DocumentationComponent {
     // this.userService.userRole$.subscribe(role => {
     //   this.userRole = role;
     // });
+    this.products = this.onboardingService.getProductList();
     this.sourcesTemplateTooltipDone = this.tooltipService.getSkipTooltipValue();
     // documentation Pages
     this.documentationLandingPage = this.documentationService.getDocumentationLandingPage();
@@ -81,9 +85,7 @@ export class DocumentationComponent {
   selectedProduct = 'Select Product';
 
   templates = ['User Manual', 'Release Notes'];
-  products = ['Connectic - High Value V1.0', 'Connectic - Low Value V1.0'];
   filters =['Type', 'Status', 'Published date', 'Created by'];
-
   toggleDropdown() {
     this.isOpen = !this.isOpen;
   }
