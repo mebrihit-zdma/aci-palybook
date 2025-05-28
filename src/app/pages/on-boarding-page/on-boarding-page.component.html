@@ -107,23 +107,23 @@
                     </div>
                     <!-- personalize your dashboard radio button section -->
                     <div class="flex justify-end">
-                        <div class="sm:w-[90%] gap-[8px] grid grid-cols-1 sm:grid-cols-2">
-                            <label class="bg-white flex justify-center items-center py-[12px] px-[12px]  border border-[#D5D7DA] rounded-[12px] gap-[16px] cursor-pointer relative on-boarding" *ngFor="let data of personalizeDashboard"
-                            [ngClass]="selectedPersonalize.includes(data.title) ? 'gradient-border' : ''">
+                        <div class="gap-[8px] grid grid-cols-1 sm:grid-cols-2">
+                            <label class="bg-white flex justify-center items-center py-[12px] px-[12px]  border border-[#D5D7DA] rounded-[12px] gap-[16px] cursor-pointer relative on-boarding" *ngFor="let data of widgetsList"
+                            [ngClass]="selectedPersonalize.includes(data.name) ? 'gradient-border' : ''">
                                 <div class="flex">
                                     <span class="w-[48px] h-[48px] bg-[url('./app/resources/icons/blue-lightning-bolts.svg')]"></span>
                                 </div>
                                 <div class="flex flex-col gap-[2px] me-[32px]">
-                                    <p class="text-base font-bold">{{data.title}}</p>
-                                    <p class="text-[#727272] text-sm">{{data.description}}</p>
+                                    <p class="text-base font-bold break-words whitespace-normal w-[300px]">{{data.name}}</p>
+                                    <p class="text-[#727272] text-sm break-words whitespace-normal w-[300px]">{{data.description}}</p>
                                 </div>
                                 <input
                                     type="checkbox"
                                     name="personalize"
-                                    [value]="data.title"
+                                    [value]="data.name"
                                     class="absolute top-[10px] right-[10px]"
-                                    [checked]="selectedPersonalize.includes(data.title)"
-                                    (change)="togglePersonalize(data.title)"
+                                    [checked]="selectedPersonalize.includes(data.name)"
+                                    (change)="togglePersonalize(data.name)"
                                     (change)="personalizeDashboardAnswered()"
                                 />
                             </label>

@@ -22,6 +22,7 @@ export class OnBoardingPageComponent {
   userRole: string | null = 'Product Owner';
   roleList: any[] = [];
   productsList: any[] = [];
+  widgetsList: any[] = [];
 
   selectedRole: string = '';
   selectedRoleList: string = '';
@@ -113,13 +114,23 @@ export class OnBoardingPageComponent {
   }
 
   goToPoductsSection() {
-    // this.disableRoleSection = !this.disableRoleSection;
-    // this.hiddenProductsSection = !this.hiddenProductsSection; 
     this.hiddenProductsSection = false; 
 
   }
   goToPersonalizeDashboardSection() {
-    // this.disableProductsSection = !this.disableProductsSection;
+     // getting widgets List the from api
+     this.apiService.get<any>('list_widgets').subscribe({
+      next: async (data) => {
+        // this.widgetsList = data;
+        // console.log(" data widgets: ", data)
+
+        // Get only the first 4 items
+        this.widgetsList = data.slice(0, 4);
+        console.log("First 4 widgets:", this.widgetsList);
+
+      },
+      error: (err) => console.error('Error:', err),
+    });
     this.hiddenPersonalizeDashboardSection = false; 
   }
 

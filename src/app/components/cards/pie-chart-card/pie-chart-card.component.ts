@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pie-chart-card',
@@ -18,4 +19,10 @@ export class PieChartCardComponent {
   explodeSlices = false;
   doughnut = true;
   arcWidth = 0.2; // Controls thickness of the ring
+
+  constructor( private router: Router ) {}
+
+  viewMore(){
+    this.router.navigate(['/dashboard-page/chat']);
+  }
 }
