@@ -46,7 +46,7 @@ export class DashboardComponent {
 
     this.products = this.onboardingService.getProductList();
     this.selectedProduct = this.onboardingService.getSelectedProduct();
-    // this.skipTooltipValue = this.tooltipService.getSkipTooltipValue();
+    
     this.documentationLandingPage = this.documentationService.getDocumentationLandingPage();
     this.documentationGeneratingPage = this.documentationService.getDocumentationGeneratingPage(); 
     this.documentationGeneratedPage = this.documentationService.getDocumentationGeneratedPage(); 

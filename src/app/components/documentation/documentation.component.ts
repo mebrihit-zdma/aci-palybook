@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
-import { TooltipService } from '../../services/tooltip.service';
 import { UserService } from '../../services/user.service';
 import { DocumentationService } from '../../services/documentation.service';
 import { OnboardingService } from '../../services/onboarding.service';
@@ -33,7 +32,7 @@ export class DocumentationComponent {
   products: string[] = [];
   selectedProduct: string = "";
 
-  constructor(private userService: UserService, private tooltipService: TooltipService, private documentationService: DocumentationService, private router: Router, private onboardingService: OnboardingService ) {}
+  constructor(private userService: UserService, private documentationService: DocumentationService, private router: Router, private onboardingService: OnboardingService ) {}
 
   ngOnInit() {
     // this.userService.userName$.subscribe(name => {
@@ -44,7 +43,7 @@ export class DocumentationComponent {
     // });
     this.products = this.onboardingService.getProductList();
     this.selectedProduct = this.onboardingService.getSelectedProduct();
-    this.sourcesTemplateTooltipDone = this.tooltipService.getSkipTooltipValue();
+    
     // documentation Pages
     this.documentationLandingPage = this.documentationService.getDocumentationLandingPage();
     this.documentationGeneratingPage = this.documentationService.getDocumentationGeneratingPage(); 
@@ -148,51 +147,10 @@ export class DocumentationComponent {
 
   handleFiles(files: FileList) {
     for (let i = 0; i < files.length; i++) {
-      // this.sources.push({ source: files[i].name });
       this.PdfSources.push({ PdfSources: files[i].name });
     }
   }
-  // tooltip
-  skipTooltipValue = false;
-  sourcesTemplateTooltip = false;
-  exportPublishTooltip = false;
-  generateTooltip =false;
-  editorTooltip =false;
-
-  sourcesTemplateTooltipDone = false;
-  exportPublishTooltipDone = false;
-  generateTooltipDone = false;
-  editorTooltipDone = false;
-
-  // Template Sources Tooltip
-  skipSourcesTemplateTooltip(){
-    this.sourcesTemplateTooltipDone = true;
-  }
-  // Generate Tooltip
-  goToGenerateTooltip(){
-    this.sourcesTemplateTooltipDone = true;
-    this.generateTooltip = true;
-  }
-  skipGenerateTooltip(){
-    this.generateTooltipDone = true;
-  }
-  // Editor Tooltip
-  goToEditorTooltip(){
-    this.generateTooltipDone = true;
-    this.editorTooltip = true;
-  }
-  skipEditorTooltip(){
-    this.editorTooltipDone = true;
-  }
-  // Export Publish Tooltip
-  goToExportPublishTooltip(){
-    this.editorTooltipDone = true;
-    this.exportPublishTooltip = true;
-  }
-  doneWithTooltip(){
-    this.exportPublishTooltipDone = true;
-  }
-
+  
   isModalOpen = false; // Initial state (modal is closed)
   openModal() {
     this.isModalOpen = true;
