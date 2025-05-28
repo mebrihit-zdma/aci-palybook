@@ -47,6 +47,11 @@ export class OnBoardingPageComponent {
     this.apiService.get<any>('list_products').subscribe({
       next: async (data) => {
         this.productsList = data;
+
+        // Extract only the names (if needed for a dropdown or list)
+        const productNames = data.map((product: any) => product.name);
+          // Set the array of product names
+        this.onboardingService.setProductList(productNames); // must be string[]
       },
       error: (err) => console.error('Error:', err),
     });

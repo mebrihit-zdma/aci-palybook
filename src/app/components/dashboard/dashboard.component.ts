@@ -35,6 +35,7 @@ export class DashboardComponent {
   documentationGeneratedPage = false; 
 
   selectedProductFromOnboarding: string = "";
+  products: string[] = [];
   ngOnInit() {
     // this.userService.userName$.subscribe(name => {
     //   this.userName = name;
@@ -43,6 +44,7 @@ export class DashboardComponent {
     //   this.userRole = role;
     // });
 
+    this.products = this.onboardingService.getProductList();
     this.selectedProductFromOnboarding = this.onboardingService.getSelectedProduct();
     // this.skipTooltipValue = this.tooltipService.getSkipTooltipValue();
     this.documentationLandingPage = this.documentationService.getDocumentationLandingPage();
@@ -50,7 +52,6 @@ export class DashboardComponent {
     this.documentationGeneratedPage = this.documentationService.getDocumentationGeneratedPage(); 
   }
   isProductDropdownOpen = false;
-  products = ['High Value Payments', 'Instant Payments'];
   toggleProductDropdown() {
     this.isProductDropdownOpen = !this.isProductDropdownOpen;
   }
