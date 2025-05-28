@@ -10,10 +10,6 @@ export class ChatService {
   private newChatHistory: boolean = false;
   private chatId: string = '';
 
-  //click event
-  private clickSubject = new Subject<void>();
-  click$ = this.clickSubject.asObservable();
-
   setNewChatHistory(newChatHistory: boolean) {
     this.newChatHistory = newChatHistory;
   }
@@ -30,6 +26,10 @@ export class ChatService {
     return this.chatId;
   }
 
+  //click event
+  private clickSubject = new Subject<void>();
+  click$ = this.clickSubject.asObservable();
+  
   emitClick() {
     this.clickSubject.next();
   }
