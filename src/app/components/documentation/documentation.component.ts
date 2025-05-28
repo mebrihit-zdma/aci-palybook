@@ -51,27 +51,15 @@ export class DocumentationComponent {
     this.documentationGeneratedPage = this.documentationService.getDocumentationGeneratedPage(); 
   }
   
-  // goToDocumentationLandingPage() {
-  //   this.documentationLandingPage = true;
-  //   this.documentationGeneratingPage = false; 
-  //   this.documentationGeneratedPage = false; 
-  // }
-  // goToDocumentationGeneratingPage() {
-  //   this.documentationService.setDocumentationLandingPage(false);
-  //   this.documentationService.setDocumentationGeneratingPage(true); 
-  //   this.documentationService.setDocumentationGeneratedPage(false); 
-  // }
   goToDocumentationGeneratedPage() {
     this.documentationService.setDocumentationLandingPage(false);
-    this.documentationService.setDocumentationGeneratingPage(false); 
-    // this.documentationService.setDocumentationGeneratedPage(true); 
+    this.documentationService.setDocumentationGeneratingPage(false);  
     this.documentationGeneratedPage = true;
     this.documentationLandingPage = false;
     this.documentationGeneratingPage = false;
   }
   goToDocumentationGeneratingPage(){
     this.documentationService.setDocumentationLandingPage(false);
-    // this.documentationService.setDocumentationGeneratingPage(false); 
     this.documentationService.setDocumentationGeneratedPage(false); 
     this.documentationGeneratedPage = false;
     this.documentationLandingPage = false;
