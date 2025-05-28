@@ -3,6 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ApiService } from '../../services/api.service';
 import { ChatService } from '../../services/chat.service';
 import { ChatHistory } from '../../models/chat.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat-history',
@@ -14,7 +15,7 @@ import { ChatHistory } from '../../models/chat.model';
 export class ChatHistoryComponent {
   chatHistory: ChatHistory[] = [];
 
-  constructor(private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer){}
+  constructor(private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private router: Router){}
   
   userId: string = "get_all_chats";
  
@@ -38,7 +39,7 @@ export class ChatHistoryComponent {
   selectChat(chatId: string) {
     this.chatService.setChatId(chatId);
     this.chatService.emitClick();
-    
+    this.router.navigate(['/dashboard-page/chat']);
   }
 
 }

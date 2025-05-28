@@ -78,7 +78,7 @@
                       @if (!isLeftSidebarCollapsed()) {
                         <span class="text-[#000000] font-normal text-sm">{{ item.label }}</span>
                       }
-                      <!-- text  tooltip section -->
+                      <!-- text chat tooltip section -->
                       @if (isLeftSidebarCollapsed()) {
                         <span 
                           class="tooltip-text text-[#FFFFFF] bg-[#3D3B3B] rounded-sm py-[4px] px-[8px] font-normal text-sm absolute  left-[112%]">
@@ -87,6 +87,7 @@
                       }
                     </span>
                     <hr class="text-[#DFDFDF80]">
+                    <!-- chat history -->
                     @if (!isLeftSidebarCollapsed()) {
                       <div *ngIf="item.label === 'Chat History'" class="h-[250px]">
                         <app-chat-history/>
