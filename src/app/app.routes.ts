@@ -8,9 +8,12 @@ import { OnBoardingPageComponent } from './pages/on-boarding-page/on-boarding-pa
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { MsalGuard } from '@azure/msal-angular';
 
+import { authGuard } from './keycloak.guard';
+
 export const routes: Routes = [
     { path: '', redirectTo: 'welcome-page', pathMatch: 'full' },
     { path: 'welcome-page', component: WelcomePageComponent},
+    { path: 'welcome-page', component: WelcomePageComponent, canActivate: [authGuard] },
     // { path: 'welcome-page',component: WelcomePageComponent, canActivate: [MsalGuard]},
     { path: 'on-boarding-page', component: OnBoardingPageComponent },
     { path: 'dashboard-page', 
