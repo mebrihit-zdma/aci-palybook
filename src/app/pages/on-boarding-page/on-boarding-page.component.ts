@@ -28,6 +28,7 @@ export class OnBoardingPageComponent {
   selectedRoleList: string = '';
   selectedPersonalize: string[] = [];
   selectedProduct: string = "";
+  personaId: string = "";
   ngOnInit(): void {
     // this.userService.userRole$.subscribe(role => {
     //   this.userRole = role;
@@ -113,21 +114,18 @@ export class OnBoardingPageComponent {
     this.isPersonalizeDashboardNextButtonActive = true
   }
 
-  goToPoductsSection() {
+  goToPoductsSection(id: string) {
+    this.personaId = id;
+    console.log('Selected item ID:', this.personaId);
     this.hiddenProductsSection = false; 
 
   }
   goToPersonalizeDashboardSection() {
-     // getting widgets List the from api
-     this.apiService.get<any>('list_widgets').subscribe({
+     // getting widgets List of a persona from api
+    this.apiService.get<any>(`get_persona/${this.personaId}`).subscribe({
       next: async (data) => {
-        // this.widgetsList = data;
-        // console.log(" data widgets: ", data)
-
-        // Get only the first 4 items
-        this.widgetsList = data.slice(0, 4);
-        console.log("First 4 widgets:", this.widgetsList);
-
+        this.widgetsList = data.widgets;
+        console.log("First 4 widgets:", data.widgets);
       },
       error: (err) => console.error('Error:', err),
     });
