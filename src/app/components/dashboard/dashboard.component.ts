@@ -36,6 +36,7 @@ export class DashboardComponent {
 
   selectedProduct: string = "";
   products: string[] = [];
+  widgetsList: string[] = [];
   ngOnInit() {
     // this.userService.userName$.subscribe(name => {
     //   this.userName = name;
@@ -44,12 +45,15 @@ export class DashboardComponent {
     //   this.userRole = role;
     // });
 
+    this.widgetsList = this.onboardingService.getSelectedWidgetsList()
     this.products = this.onboardingService.getProductList();
     this.selectedProduct = this.onboardingService.getSelectedProduct();
     
     this.documentationLandingPage = this.documentationService.getDocumentationLandingPage();
     this.documentationGeneratingPage = this.documentationService.getDocumentationGeneratingPage(); 
     this.documentationGeneratedPage = this.documentationService.getDocumentationGeneratedPage(); 
+
+    console.log("this.widgetsList dash: ", this.widgetsList)
   }
   isProductDropdownOpen = false;
   toggleProductDropdown() {

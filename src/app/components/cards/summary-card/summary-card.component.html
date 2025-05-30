@@ -5,8 +5,8 @@
             <p class="text-xs font-medium py-[4px] px-[8px] bg-[#24D7DA4D] rounded-[3.5px]" [ngClass]="(data.latest)? '' : 'hidden'" >{{data.latest}}</p>
             
         </div>
-        <p class="mb-[-8px] text-[16px] font-bold">{{ data.title }}</p>
-        <p class="text-[#666F8D] text-sm mb-[-8px]">{{ data.subTitle }}</p>
+        <p class="mb-[-8px] text-[16px] font-bold">{{ data.name }}</p>
+        <p class="text-[#666F8D] text-sm mb-[-8px]">{{ data.description }}</p>
         <ul class="list-disc text-[#666F8D] text-sm flex flex-col gap-[8px] ml-[24px]">
             <li *ngFor="let givenList of data.updateList">{{ givenList }}</li>
         </ul>
@@ -16,7 +16,8 @@
         <hr class="border-none h-[1px] bg-[#e2e8f0]">
         <button class="flex gap-[4px]" (click)="viewMore()">
             <div class="w-[23px] h-[23px] scale-[0.7] bg-[url('./app/resources/icons/blue-stars.svg')]"></div>
-            <p class="text-sm text-primary font-bold flex items-center">{{ data.moreInfo }}</p>
+            <p class="text-sm text-primary font-bold flex items-center">View More</p>
+            <!--/* <p class="text-sm text-primary font-bold flex items-center">{{ data.moreInfo }}</p> */-->
         </button>
     </div>
 </div>
