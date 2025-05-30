@@ -9,7 +9,8 @@ export class OnboardingService {
 
   private selectedProduct: string = '';
   private productList: string[] = [];
-  private selectedWidgetsList: string[] = [];
+  private selectedWidgetList: string[] = [];
+  private personaWidgetList: string[] = [];
 
   setSelectedProduct(selectedProduct: string) {
     this.selectedProduct = selectedProduct;
@@ -27,11 +28,19 @@ export class OnboardingService {
     return this.productList;
   }
 
-  setSelectedWidgetsList(selectedWidgetsList: string[]): void {
-    this.selectedWidgetsList = selectedWidgetsList;
+  setSelectedWidgetList(selectedWidgetList: string[]): void {
+    this.selectedWidgetList = selectedWidgetList;
   }
 
-  getSelectedWidgetsList(): string[] {
-    return this.selectedWidgetsList;
+  getSelectedWidgetList(): string[] {
+    return this.selectedWidgetList;
+  }
+
+  setPersonaWidgetList(personaWidgetList: string[]): void {
+    this.personaWidgetList = personaWidgetList;
+  }
+
+  getPersonaWidgetList(): string[] {
+    return this.personaWidgetList;
   }
 }

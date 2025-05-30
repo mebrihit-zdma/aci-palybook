@@ -122,6 +122,7 @@ export class OnBoardingPageComponent {
     this.apiService.get<any>(`get_persona/${this.personaId}`).subscribe({
       next: async (data) => {
         this.widgetsList = data.widgets;
+        this.onboardingService.setPersonaWidgetList(data.widgets)
       },
       error: (err) => console.error('Error:', err),
     });
@@ -156,6 +157,6 @@ export class OnBoardingPageComponent {
   
   selectedWidgets(){
     const widgetsList = this.widgetsList.filter(w => this.selectedPersonalize.includes(w.name))
-    this.onboardingService.setSelectedWidgetsList(widgetsList);
+    this.onboardingService.setSelectedWidgetList(widgetsList);
   }
 }
