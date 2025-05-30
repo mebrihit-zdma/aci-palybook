@@ -33,7 +33,7 @@ export class OnBoardingPageComponent {
     // this.userService.userRole$.subscribe(role => {
     //   this.userRole = role;
     // });
-    // getting role List the from api
+    // getting role List from api
     this.apiService.get<any>('list_personas').subscribe({
       next: async (data) => {
         this.roleList = data;
@@ -49,11 +49,8 @@ export class OnBoardingPageComponent {
     this.apiService.get<any>('list_products').subscribe({
       next: async (data) => {
         this.productsList = data;
-
-        // Extract only the names (if needed for a dropdown or list)
         const productNames = data.map((product: any) => product.name);
-          // Set the array of product names
-        this.onboardingService.setProductList(productNames); // must be string[]
+        this.onboardingService.setProductList(productNames);
       },
       error: (err) => console.error('Error:', err),
     });
@@ -125,7 +122,6 @@ export class OnBoardingPageComponent {
     this.apiService.get<any>(`get_persona/${this.personaId}`).subscribe({
       next: async (data) => {
         this.widgetsList = data.widgets;
-        console.log("First 4 widgets:", data.widgets);
       },
       error: (err) => console.error('Error:', err),
     });
@@ -137,6 +133,7 @@ export class OnBoardingPageComponent {
   }
   
   goToDashboard() {
+    this.selectedWidgets();
     this.router.navigate(['/dashboard-page']);
   }
 
@@ -155,5 +152,10 @@ export class OnBoardingPageComponent {
 
   onProductSelected() {
     this.onboardingService.setSelectedProduct(this.selectedProduct)
+  }
+  
+  selectedWidgets(){
+    const widgetsList = this.widgetsList.filter(w => this.selectedPersonalize.includes(w.name))
+    this.onboardingService.setSelectedWidgetsList(widgetsList);
   }
 }
