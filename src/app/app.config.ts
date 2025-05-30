@@ -36,16 +36,6 @@ import { provideRouter, withEnabledBlockingInitialNavigation } from '@angular/ro
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { provideZoneChangeDetection } from '@angular/core';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-
-import {
-  MSAL_INSTANCE,
-  MSAL_GUARD_CONFIG,
-  // MsalService,
-  // MsalGuard,
-  MsalBroadcastService
-} from '@azure/msal-angular';
-
-import { msalInstanceFactory, msalGuardConfigFactory } from './msal-config';
 import { routes } from './app.routes';
 
 
@@ -55,27 +45,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi()),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideClientHydration(withEventReplay()),
-
-    {
-      provide: MSAL_INSTANCE,
-      useFactory: () => {
-        const platformId = inject(PLATFORM_ID);  // Get platformId
-        if (isPlatformBrowser(platformId)) {
-          return msalInstanceFactory(platformId);  // Pass platformId to the factory
-        } else {
-          console.warn('MSAL_INSTANCE not created: running on server');
-          return {} as any;  // SSR fallback
-        }
-      },
-      deps: [PLATFORM_ID]  // Add platformId as dependency
-    },
-    {
-      provide: MSAL_GUARD_CONFIG,
-      useFactory: msalGuardConfigFactory
-    },
-    // MsalService,
-    // MsalGuard,
-    MsalBroadcastService
   ]
 };
 

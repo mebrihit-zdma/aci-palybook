@@ -6,7 +6,7 @@ import { ChatComponent } from './components/chat/chat.component';
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 import { OnBoardingPageComponent } from './pages/on-boarding-page/on-boarding-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
-import { MsalGuard } from '@azure/msal-angular';
+// import { MsalGuard } from '@azure/msal-angular';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'welcome-page', pathMatch: 'full' },
