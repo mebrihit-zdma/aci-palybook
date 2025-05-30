@@ -95,13 +95,7 @@ export class OnBoardingPageComponent {
   disableProductsSection = false;
   disablePersonalizeDashboardSection = false;
 
-  isRoleNextButtonActive = false
-  isProductsNextButtonActive = false
   isPersonalizeDashboardNextButtonActive = false
-
-  productsAnswered(){
-    this.isProductsNextButtonActive = true
-  }
 
   personalizeDashboardAnswered(){
     this.isPersonalizeDashboardNextButtonActive = true
@@ -117,6 +111,7 @@ onRoleSelected(item: any): void {
   this.apiService.get<any>(`get_persona/${item.id}`).subscribe({
     next: (data) => {
       this.widgetsList = data.widgets;
+      this.onboardingService.setPersonaWidgetList(data.widgets)
     },
     error: (err) => console.error('Error fetching widgets:', err),
   });
