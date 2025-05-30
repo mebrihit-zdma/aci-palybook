@@ -18,11 +18,11 @@
                     <div class="flex justify-center md:justify-end">
                         <div class="flex gap-[8px]">
                             <label class="bg-white flex justify-center items-center py-[8px] px-[16px]  border border-[#D5D7DA] rounded-[12px] text-sm gap-[8px] on-boarding" (click)="goToPoductsSection('userRole')" (click)="hideRoleList()" [ngClass]="selectedRole === 'yes' ? 'gradient-border' : ''">
-                                <input type="radio" id="yes" name="role" value="yes" (change)="roleAnswered()" [(ngModel)]="selectedRole">
+                                <input type="radio" id="yes" name="role" value="yes"[(ngModel)]="selectedRole">
                                 Yes, that’s correct
                             </label>
                             <label class="bg-white flex justify-center items-center py-[8px] px-[16px]  border border-[#D5D7DA] rounded-[12px] text-sm gap-[8px] on-boarding" (click)="showRoleList()" [ngClass]="selectedRole === 'no' ? 'gradient-border' : ''">
-                                <input type="radio" id="no" name="role" value="no" (change)="roleAnswered()" [(ngModel)]="selectedRole">
+                                <input type="radio" id="no" name="role" value="no"[(ngModel)]="selectedRole">
                                 No, I want to change it
                             </label>
                         </div>
@@ -42,7 +42,7 @@
                                         name="roleList" 
                                         [value]="item.name" 
                                         class="absolute top-[24px] right-[24px]" 
-                                        (change)="roleAnswered()" 
+                                        (change)="onRoleSelected(item)" 
                                         [(ngModel)]="selectedRoleList"/>
                                 </div>
                                 <div>

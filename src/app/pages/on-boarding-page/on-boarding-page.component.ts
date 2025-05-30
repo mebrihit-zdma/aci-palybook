@@ -99,10 +99,6 @@ export class OnBoardingPageComponent {
   isProductsNextButtonActive = false
   isPersonalizeDashboardNextButtonActive = false
 
-  roleAnswered(){
-    this.isRoleNextButtonActive = true
-  }
-
   productsAnswered(){
     this.isProductsNextButtonActive = true
   }
@@ -113,19 +109,20 @@ export class OnBoardingPageComponent {
 
   goToPoductsSection(id: string) {
     this.personaId = id;
-    console.log('Selected item ID:', this.personaId);
     this.hiddenProductsSection = false; 
-
   }
+onRoleSelected(item: any): void {
+  this.selectedRoleList = item.name;
+  // Option B: Fetch from API
+  this.apiService.get<any>(`get_persona/${item.id}`).subscribe({
+    next: (data) => {
+      this.widgetsList = data.widgets;
+    },
+    error: (err) => console.error('Error fetching widgets:', err),
+  });
+}
+
   goToPersonalizeDashboardSection() {
-     // getting widgets List of a persona from api
-    this.apiService.get<any>(`get_persona/${this.personaId}`).subscribe({
-      next: async (data) => {
-        this.widgetsList = data.widgets;
-        this.onboardingService.setPersonaWidgetList(data.widgets)
-      },
-      error: (err) => console.error('Error:', err),
-    });
     this.hiddenPersonalizeDashboardSection = false; 
   }
 
