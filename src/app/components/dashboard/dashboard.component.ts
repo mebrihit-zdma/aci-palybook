@@ -281,4 +281,12 @@ export class DashboardComponent {
       this.selectedCustomizeWidgets.splice(index, 1);
     }
   }
+
+  saveCustomizeWidgets(){
+    this.selectedWidgetList = this.selectedCustomizeWidgets
+  }
+  restoreTodefault(){
+    this.selectedWidgetList = this.onboardingService.getSelectedWidgetList();
+  }
+
 }

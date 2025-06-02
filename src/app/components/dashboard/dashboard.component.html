@@ -237,22 +237,31 @@
         <!-- Modal body -->
         <div class="p-4 pb-[150px] modalContent h-[100%]">
             <ul class="my-4 space-y-3">
-                <li *ngFor="let upDate of personaWidgetList">
+                <li *ngFor="let givenDate of personaWidgetList">
                     <div  class="flex justify-center items-center w-[100%]">
                         <div class="listIcon"></div>
                         <!--/* blue border */-->
-                        <div class="flex flex-col p-3 text-base text-gray-900 rounded-lg  hover:bg-gray-500 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white gradient-border w-[98%]">
+                        <div class="flex flex-col p-3 text-base text-gray-900 rounded-lg dark:text-white w-[98%] border border-[#D5D7DA]"
+                        [ngClass]="selectedCustomizeWidgets.includes(givenDate) ? 'gradient-border' : ''">
                             <div class="flex justify-between" >
                                 <p class="text-[12.8px] font-bold text-gray-500 dark:text-gray-400">What’s New (Latest Updates in the Product)</p>
                                 <label class="inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" value="" class="sr-only peer"/>
-                                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
+                                    <input 
+                                        class=""
+                                        type="checkbox" 
+                                        name="customizeWidgets"
+                                        [value]="givenDate"
+                                        [checked]="selectedCustomizeWidgets.includes(givenDate)"
+                                        (change)="toggleCustomizeWidgets(givenDate)"
+                                        />
+                                    <!--/* <input type="checkbox" value="" class="sr-only peer"/>
+                                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div> */-->
                                 </label>
                             </div>
                             <p class="text-[9.61px] font-normal text-gray-500 dark:text-gray-400 pb-4">See highlights of new features and improvements..</p>
                             <div class="flex flex-col justify-between gap-6">
                                 <div class="w-[70%]">
-                                    <app-summary-card class="modalProductLatest" [data]="upDate" />
+                                    <app-summary-card class="modalProductLatest" [data]="givenDate" />
                                 </div>
                                 <div style="width: 25%"> </div>
                             </div>
@@ -282,12 +291,12 @@
             </ul>
         </div>
         <!-- Modal footer -->
-        <div class="flex items-center p-4 bottom-0 absolute bg-white w-full">
+        <div class="flex items-center py-4 px-9 ps-11 bottom-0 absolute bg-white w-full">
             <div class="flex justify-between w-full mt-[10px] gap-[12px]">
-                <button class="bg-white flex justify-center items-center py-[8px] px-[24px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[168px] h-[44px]">
+                <button class="bg-white flex justify-center items-center py-[8px] px-[24px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[220px] h-[44px]" (click)="restoreTodefault()">
                     Restore to default
                 </button>
-                <button class="activeButton flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[168px] h-[44px]">
+                <button class="activeButton flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] text-sm w-[220px] h-[44px]" (click)="saveCustomizeWidgets()">
                     Save
                 </button>
             </div>
