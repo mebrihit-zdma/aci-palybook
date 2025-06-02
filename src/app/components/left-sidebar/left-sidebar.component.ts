@@ -53,7 +53,11 @@ export class LeftSidebarComponent {
     // documentation Pages
     this.documentationLandingPage = this.documentationService.getDocumentationLandingPage();
     this.documentationGeneratingPage = this.documentationService.getDocumentationGeneratingPage(); 
-    this.documentationGeneratedPage = this.documentationService.getDocumentationGeneratedPage(); 
+    this.documentationGeneratedPage = this.documentationService.getDocumentationGeneratedPage();
+    
+    this.searchChatService.searchValue$.subscribe(value => {
+      this.searchValue = value; // ensures sync with the service
+    });
   }
 
   isLeftSidebarCollapsed = input.required<boolean>();

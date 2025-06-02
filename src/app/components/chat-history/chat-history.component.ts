@@ -21,6 +21,15 @@ export class ChatHistoryComponent {
   constructor(private apiService: ApiService, private chatService: ChatService, private searchChatService: SearchChatService, private sanitizer: DomSanitizer, private router: Router){}
   
   userId: string = "get_all_chats";
+
+  ngOnInit() {
+    this.getChatHistory(this.userId);
+    this.searchChatService.searchValue$.subscribe(value => {
+      this.searchValue = value;
+      this.applyFilter();
+    });
+    
+  }
  
   getChatHistory(userId: string) {
     this.apiService.get<any>(userId).subscribe({
@@ -34,18 +43,11 @@ export class ChatHistoryComponent {
       error: (err) => console.error('Error:', err),
     });
   }
-  
-  ngOnInit() {
-    this.getChatHistory(this.userId);
-    this.searchChatService.searchValue$.subscribe(value => {
-      this.searchValue = value;
-      this.applyFilter();
-    });
-    
-  }
+
   applyFilter() {
+    const search = this.searchValue.trim().toLowerCase();
     this.filteredChatHistory = this.chatHistory.filter(chat =>
-      chat.question.toLowerCase().includes(this.searchValue)
+      chat.question.toLowerCase().includes(search)
     );
   }
   
@@ -54,6 +56,7 @@ export class ChatHistoryComponent {
     this.chatService.setChatId(chatId);
     this.chatService.emitClick();
     this.chatService.setNewChatHistory(true);
+    this.searchChatService.setSearchValue(''); // Clear SearchValue
     this.router.navigate(['/dashboard-page/chat']);
   }
 

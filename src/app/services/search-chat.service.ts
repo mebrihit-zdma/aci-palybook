@@ -6,17 +6,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class SearchChatService {
 
-  // private searchValue: string = '';
-  // constructor() { }
-
-  // setSearchValue(searchValue: string) {
-  //   this.searchValue = searchValue;
-  // }
-
-  // getSearchValue(): string {
-  //   return this.searchValue;
-  // }
-
   private searchValueSubject = new BehaviorSubject<string>('');
   searchValue$ = this.searchValueSubject.asObservable();
 
