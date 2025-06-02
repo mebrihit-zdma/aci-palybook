@@ -245,7 +245,7 @@
                             <div class="flex justify-between" >
                                 <p class="text-[12.8px] font-bold text-gray-500 dark:text-gray-400">What’s New (Latest Updates in the Product)</p>
                                 <label class="inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" value="" class="sr-only peer">
+                                    <input type="checkbox" value="" class="sr-only peer"/>
                                     <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
                                 </label>
                             </div>
@@ -254,35 +254,11 @@
                                 <div class="w-[70%]">
                                     <app-summary-card class="modalProductLatest" [data]="upDate" />
                                 </div>
-                                <!--/* <div *ngFor="let upDate of productLatestUpdates">
-                                    <app-summary-card  class="modalProductLatest" [data]="upDate"/>
-                                </div> */-->
                                 <div style="width: 25%"> </div>
                             </div>
                         </div>
                     </div>
                 </li>
-                <!--/* <li>
-                    <div  class="flex justify-center items-center w-[100%]">
-                        <div class="listIcon"></div>
-                        <div class="flex flex-col p-3 text-base text-gray-900 rounded-lg  hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white gradient-border w-[98%]">
-                            <div class="flex justify-between" >
-                                <p class="text-[12.8px] font-bold text-gray-500 dark:text-gray-400">What’s New (Latest Updates in the Product)</p>
-                                <label class="inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" value="" class="sr-only peer">
-                                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
-                                </label>
-                            </div>
-                            <p class="text-[9.61px] font-normal text-gray-500 dark:text-gray-400 pb-4">See highlights of new features and improvements..</p>
-                            <div class="flex justify-between " >
-                                <div *ngFor="let upDate of releaseNotesSummary">
-                                    <app-summary-card class="modalReleaseLatest" [data]="upDate"/>
-                                </div>
-                                <div style="width: 25%"> </div>
-                            </div>
-                        </div>
-                    </div>
-                </li> */-->
                 <!--/* table */-->
                 <li>
                     <div  class="flex justify-center items-center w-[100%]">
@@ -303,27 +279,6 @@
                         </div>
                     </div>
                 </li>
-                <!--/* <li>
-                    <div  class="flex justify-center items-center w-[100%] gap-[8px]">
-                        <div class="listIcon"></div>
-                        <div class="flex flex-col p-3 text-base text-gray-900 rounded-lg  hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white gradient-border w-[98%]">
-                            <div class="flex justify-between" >
-                                <p class="text-[12.8px] font-bold text-gray-500 dark:text-gray-400">What’s New (Latest Updates in the Product)</p>
-                                <label class="inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" value="" class="sr-only peer">
-                                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
-                                </label>
-                            </div>
-                            <p class="text-[9.61px] font-normal text-gray-500 dark:text-gray-400 pb-4">See highlights of new features and improvements..</p>
-                            <div class="flex justify-between " >
-                                <div *ngFor="let data of pieData">
-                                    <app-pie-chart-card class="modalPieChartCard" [data]="data"/>
-                                </div>
-                                <div style="width: 15%"> </div>
-                            </div>
-                        </div>
-                    </div>
-                </li> */-->
             </ul>
         </div>
         <!-- Modal footer -->

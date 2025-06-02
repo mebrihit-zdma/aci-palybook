@@ -37,6 +37,7 @@ export class DashboardComponent {
   products: string[] = [];
   personaWidgetList: string[] = [];
   selectedWidgetList: string[] = [];
+  selectedCustomizeWidgets: string[] = [];
   ngOnInit() {
     // this.userService.userName$.subscribe(name => {
     //   this.userName = name;
@@ -271,5 +272,13 @@ export class DashboardComponent {
   }
   dashboardStartNewChat(){
     this.router.navigate(['/dashboard-page/chat']);
+  }
+  toggleCustomizeWidgets(value: string) {
+    const index = this.selectedCustomizeWidgets.indexOf(value);
+    if (index === -1) {
+      this.selectedCustomizeWidgets.push(value);
+    } else {
+      this.selectedCustomizeWidgets.splice(index, 1);
+    }
   }
 }

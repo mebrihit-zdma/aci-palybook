@@ -421,7 +421,7 @@ gap: 2px !important;
 }
 
 .gradient-border {
-  position: relative;
+  /* position: relative; */
   border: 1px solid transparent;
   border-radius: 12px;
   background-clip: padding-box, border-box;
