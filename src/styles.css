@@ -480,4 +480,9 @@ input:checked + .slider:before {
   -ms-transform: translateX(22px);
   -o-transform: translateX(22px);
 }
+.custom-highlight {
+  color: #000; 
+  font-weight: 600; 
+}
+
 

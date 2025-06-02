@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ApiService } from '../../services/api.service';
 import { ChatService } from '../../services/chat.service';
 import { SearchChatService } from '../../services/search-chat.service';
@@ -15,9 +15,12 @@ import { CommonModule } from '@angular/common';
   styleUrl: './chat-history.component.css'
 })
 export class ChatHistoryComponent {
+
   chatHistory: ChatHistory[] = [];
   searchValue: string = '';
-  filteredChatHistory: ChatHistory[] = [];
+  // filteredChatHistory: ChatHistory[] = [];
+  filteredChatHistory: (ChatHistory & { highlightedQuestion: SafeHtml })[] = [];
+
   constructor(private apiService: ApiService, private chatService: ChatService, private searchChatService: SearchChatService, private sanitizer: DomSanitizer, private router: Router){}
   
   userId: string = "get_all_chats";
@@ -44,12 +47,44 @@ export class ChatHistoryComponent {
     });
   }
 
+  // applyFilter() {
+  //   const search = this.searchValue.trim().toLowerCase();
+  //   this.filteredChatHistory = this.chatHistory.filter(chat =>
+  //     chat.question.toLowerCase().includes(search)
+  //   );
+  // }
   applyFilter() {
-    const search = this.searchValue.trim().toLowerCase();
-    this.filteredChatHistory = this.chatHistory.filter(chat =>
-      chat.question.toLowerCase().includes(search)
-    );
+    const search = this.searchValue.toLowerCase().trim();
+  
+    this.filteredChatHistory = this.chatHistory
+      .filter(chat => chat.question.toLowerCase().includes(search))
+      .map(chat => ({
+        ...chat,
+        highlightedQuestion: this.getHighlightedText(chat.question, search)
+      }));
   }
+
+  // getHighlightedText(text: string, search: string): SafeHtml {
+  //   if (!search) return this.sanitizer.bypassSecurityTrustHtml(text);
+  
+  //   const regex = new RegExp(`(${search})`, 'gi');
+  //   const highlighted = text.replace(regex, `<mark>$1</mark>`);
+  
+  //   return this.sanitizer.bypassSecurityTrustHtml(highlighted);
+  // }
+  getHighlightedText(text: string, search: string): SafeHtml {
+    if (!search) return this.sanitizer.bypassSecurityTrustHtml(text);
+  
+    const regex = new RegExp(`(${search})`, 'gi');
+    const highlighted = text.replace(
+      regex,
+      `<span class="custom-highlight">$1</span>`
+    );
+  
+    return this.sanitizer.bypassSecurityTrustHtml(highlighted);
+  }
+  
+  
   
   // selected question from chat history
   selectChat(chatId: string) {
