@@ -64,38 +64,62 @@
             </ul>
           }
           <!-- chat sidebar list -->
-          @for (item of chatItems; let i = $index; track item) {
-            <ul class="w-full">
-                <li class="w-full">
-                    <span
-                    class="flex gap-x-2 items-center rounded-2xl px-3 py-2 relative cursor-pointer"
-                    [ngClass]="isLeftSidebarCollapsed() ? 'tooltip-btn' : ''"
-                    routerLinkActive="active"
-                    [routerLinkActiveOptions]="{ exact: true }"
-                    (click)="item.label === 'Start New Chat' && startNewChat()"
-                    >
-                      <span class="material-icons">{{item.icon}}</span>
-                      @if (!isLeftSidebarCollapsed()) {
-                        <span class="text-[#000000] font-normal text-sm">{{ item.label }}</span>
-                      }
-                      <!-- text chat tooltip section -->
-                      @if (isLeftSidebarCollapsed()) {
-                        <span 
-                          class="tooltip-text text-[#FFFFFF] bg-[#3D3B3B] rounded-sm py-[4px] px-[8px] font-normal text-sm absolute  left-[112%]">
-                        {{ item.label }}
-                        </span>
-                      }
-                    </span>
-                    <hr class="text-[#DFDFDF80]">
-                    <!-- chat history -->
-                    @if (!isLeftSidebarCollapsed()) {
-                      <div *ngIf="item.label === 'Chat History'" class="h-[250px]">
-                        <app-chat-history/>
-                      </div>
-                    }
-                </li>
-            </ul>
-          }
+          <ul class="w-full">
+            <li class="w-full" *ngFor="let item of chatItems;">
+              <span
+                class="flex gap-x-2 items-center rounded-2xl px-3 py-2 relative cursor-pointer"
+                [ngClass]="isLeftSidebarCollapsed() ? 'tooltip-btn' : ''"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+                (click)="item.label === 'Start New Chat' && startNewChat()"
+              >
+                <!-- Search Input -->
+                <div
+                  *ngIf="item.label === 'Search Previous Chats'; else otherOption"
+                  class="flex items-center gap-[8px] text-[#666F8D] w-full"
+                >
+                  <span class="material-icons">{{ item.icon }}</span>
+                  <input
+                    type="text"
+                    [placeholder]="!isLeftSidebarCollapsed() ? item.label : ''"
+                    class="text-[#666F8D] font-normal text-sm"
+                    [(ngModel)]="searchValue"
+                    (ngModelChange)="onInputChange($event)"
+                  />
+                </div>
+
+                <!-- Other Items -->
+                <ng-template #otherOption>
+                  <span class="material-icons">{{ item.icon }}</span>
+                  <span
+                    *ngIf="!isLeftSidebarCollapsed()"
+                    class="text-[#000000] font-normal text-sm"
+                  >
+                    {{ item.label }}
+                  </span>
+                </ng-template>
+
+                <!-- Tooltip if sidebar is collapsed -->
+                <span
+                  *ngIf="isLeftSidebarCollapsed()"
+                  class="tooltip-text text-[#FFFFFF] bg-[#3D3B3B] rounded-sm py-[4px] px-[8px] font-normal text-sm absolute left-[112%]"
+                >
+                  {{ item.label }}
+                </span>
+              </span>
+
+              <hr class="text-[#DFDFDF80]" />
+
+              <!-- Chat History Section -->
+              <div
+                *ngIf="item.label === 'Chat History' && !isLeftSidebarCollapsed()"
+                class="h-[250px]"
+              >
+                <app-chat-history />
+              </div>
+            </li>
+          </ul>
+          <!--/* test */-->
         </div>
       </div>
 

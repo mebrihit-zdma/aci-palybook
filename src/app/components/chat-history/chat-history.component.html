@@ -1,12 +1,22 @@
 <div class="transition-opacity duration-500 overflow-y-auto h-[100%] px-4 flex-col">
-@for (chat of chatHistory; let i = $index; track chat) {
-    <ul>
-        <li 
-            class=" px-6 text-[#919399] text-sm py-[8px] truncate cursor-pointer" 
-            (click)="selectChat(chat.chatId)">
-            {{chat.question}}
-        </li>
-        <hr class="text-[#DFDFDF80] ">
-    </ul>
-}
+
+  <ul *ngIf="searchValue.trim() === ''">
+    <li *ngFor="let chat of chatHistory; trackBy: trackChat"
+        class="px-6 text-[#919399] text-sm py-[8px] truncate cursor-pointer"
+        (click)="selectChat(chat.chatId)">
+      {{ chat.question }}
+    </li>
+    <hr class="text-[#DFDFDF80]">
+  </ul>
+
+  <ul *ngIf="searchValue.trim() !== ''">
+    <li *ngFor="let chat of filteredChatHistory; trackBy: trackChat"
+        class="px-6 text-[#919399] text-sm py-[8px] truncate cursor-pointer"
+        (click)="selectChat(chat.chatId)">
+      {{ chat.question }}
+    </li>
+    <hr class="text-[#DFDFDF80]">
+  </ul>
+
 </div>
+
