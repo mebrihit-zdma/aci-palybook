@@ -16,22 +16,19 @@ import { CommonModule } from '@angular/common';
 })
 export class ChatHistoryComponent {
 
-  chatHistory: ChatHistory[] = [];
+  userId: string = "get_all_chats";
   searchValue: string = '';
-  // filteredChatHistory: ChatHistory[] = [];
+  chatHistory: ChatHistory[] = [];
   filteredChatHistory: (ChatHistory & { highlightedQuestion: SafeHtml })[] = [];
 
   constructor(private apiService: ApiService, private chatService: ChatService, private searchChatService: SearchChatService, private sanitizer: DomSanitizer, private router: Router){}
   
-  userId: string = "get_all_chats";
-
   ngOnInit() {
     this.getChatHistory(this.userId);
     this.searchChatService.searchValue$.subscribe(value => {
       this.searchValue = value;
       this.applyFilter();
     });
-    
   }
  
   getChatHistory(userId: string) {
@@ -47,12 +44,6 @@ export class ChatHistoryComponent {
     });
   }
 
-  // applyFilter() {
-  //   const search = this.searchValue.trim().toLowerCase();
-  //   this.filteredChatHistory = this.chatHistory.filter(chat =>
-  //     chat.question.toLowerCase().includes(search)
-  //   );
-  // }
   applyFilter() {
     const search = this.searchValue.toLowerCase().trim();
   
@@ -64,14 +55,6 @@ export class ChatHistoryComponent {
       }));
   }
 
-  // getHighlightedText(text: string, search: string): SafeHtml {
-  //   if (!search) return this.sanitizer.bypassSecurityTrustHtml(text);
-  
-  //   const regex = new RegExp(`(${search})`, 'gi');
-  //   const highlighted = text.replace(regex, `<mark>$1</mark>`);
-  
-  //   return this.sanitizer.bypassSecurityTrustHtml(highlighted);
-  // }
   getHighlightedText(text: string, search: string): SafeHtml {
     if (!search) return this.sanitizer.bypassSecurityTrustHtml(text);
   
@@ -83,8 +66,6 @@ export class ChatHistoryComponent {
   
     return this.sanitizer.bypassSecurityTrustHtml(highlighted);
   }
-  
-  
   
   // selected question from chat history
   selectChat(chatId: string) {
