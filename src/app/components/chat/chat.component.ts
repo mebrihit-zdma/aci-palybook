@@ -197,6 +197,7 @@ export class ChatComponent {
       source: "Created by you",
       question: this.createdPrompt
     })
+    this.createdPrompt = "";
   }
   openDeletePrompt(item: any){
     this.selectedPrompt = this.selectedPrompt === item ? null : item;
