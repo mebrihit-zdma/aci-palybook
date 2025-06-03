@@ -54,7 +54,6 @@
     <ul class="grid grid-cols-3 gap-4 px-[20%]" [ngClass]="(!createShortcutPrompt)? 'block' : 'hidden'">
       <li class="relative bg-white border border-[#D5D7DA] rounded-lg h-[100%] flex flex-col gap-[16px] px-[24px] py-[16px]"
       *ngFor="let item of chatPrompts">
-  
         <!-- Conditional Delete Menu -->
         <div 
           class="absolute flex flex-col gap-[8px] bg-[#000] px-[16px] py-[8px] rounded-lg w-[160px] top-[-8px] right-[8px]"
@@ -70,7 +69,6 @@
             <span class="my-auto text-[11px] text-[#fff]">Delete Prompt</span>
           </button>
         </div>
-
         <!-- Prompt Header -->
         <div class="flex justify-between">
           <p class="text-[#727272] font-medium text-[12px] my-auto">{{item.source}}</p>
@@ -79,10 +77,8 @@
             (click)="openDeletePrompt(item)">
           </button>
         </div>
-
         <p class="text-[#727272] font-medium text-[15px]">{{item.question}}</p>
       </li>
-
       <!--/* Create a shortcut Prompt */-->
       <div class="bg-white border border-[#D5D7DA] rounded-lg h-[100%] flex flex-col justify-between gap-[16px] px-[24px] py-[16px]">
         <div class="flex">
@@ -94,8 +90,10 @@
             type="text" 
             [(ngModel)]="createdPrompt"
             placeholder="|Enter your prompt" 
-            class="text-[#D9D9D9]"
-            [ngClass]="(isAddShortcutPrompt)? '' : 'hidden'"/>
+            class="text-[#000] placeholder-[#D9D9D9] px-2 py-1 rounded"
+            [ngClass]="(isAddShortcutPrompt) ? '' : 'hidden'"
+            />
+
         </div>
         <div class="flex gap-[16px] justify-between">
           <p class="text-[#727272] font-medium text-[15px] pb-[16px]" 
