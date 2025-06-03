@@ -20,3 +20,7 @@ export interface SavedChats {
     question: string;
     chatId: string;
 }
+export interface promptsLibrarylist {
+    prompt: string;
+}
+

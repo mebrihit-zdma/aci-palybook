@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject,  OnInit, signal, Input, ViewChild, ElementRef   } from '@angular/core';
+import { Component, inject,  OnInit, signal, Input, ViewChild, ElementRef, Pipe, PipeTransform} from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { ChatService } from '../../services/chat.service';
 import { OnboardingService } from '../../services/onboarding.service';
@@ -45,6 +45,8 @@ export class ChatComponent {
   isDeletePrompt =false;
   selectedPrompt: any = null;
   createdLibraryPrompt:string = "";
+  promptsLibrarySearch:string = "";
+  
   @ViewChild('promptInput') promptInput!: ElementRef<HTMLInputElement>;
 
   constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService){}
@@ -246,5 +248,24 @@ export class ChatComponent {
       prompt: this.createdLibraryPrompt
     })
     this.createdLibraryPrompt = "";
+  }
+  
+  get filteredPrompts() {
+    const query = this.promptsLibrarySearch?.toLowerCase().trim();
+    if (!query) return this.promptsLibrarylist;
+    return this.promptsLibrarylist.filter(p =>
+      p.prompt.toLowerCase().includes(query)
+    );
+  }
+  getHighlightedText(text: string, search: string): SafeHtml {
+    if (!search) return this.sanitizer.bypassSecurityTrustHtml(text);
+  
+    const regex = new RegExp(`(${search})`, 'gi');
+    const highlighted = text.replace(
+      regex,
+      `<span class="custom-highlight">$1</span>`
+    );
+  
+    return this.sanitizer.bypassSecurityTrustHtml(highlighted);
   }
 }

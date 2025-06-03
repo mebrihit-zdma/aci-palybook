@@ -169,7 +169,10 @@
                 </div>
                 <!--/* Search */-->
                 <div class="md:my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[12px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium w-[100%] justify-between">
-                    <input type="text" placeholder="Search"/>
+                    <input 
+                      type="text" 
+                      placeholder="Search"
+                      [(ngModel)]="promptsLibrarySearch "/>
                     <span class="flex justify-center items-center w-[12.4px] h-[12.4px] bg-[url('./app/resources/icons/search-icon.svg')]"></span>
                 </div>
                 <!--/* Create a Prompt */-->
@@ -185,9 +188,11 @@
                 </div>
                 <!--/* Prompt  list */-->
                 <ul class="flex flex-col gap-4 text-[#2C2D2E] w-[100%] h-[200px] overflow-y-auto pe-6">
-                  <li *ngFor="let item of promptsLibrarylist" class="flex justify-between">
-                    <p class="w-[90%]">{{item.prompt}}<P>
-                    <!--/* delete and pin button */-->
+                  <li *ngFor="let item of filteredPrompts" class="flex justify-between">
+                    <p 
+                      class="w-[90%]" 
+                      [innerHTML]="getHighlightedText(item.prompt, promptsLibrarySearch)">
+                    </p>
                     <div class="flex gap-4">
                       <button class="mt-auto mb-auto scale-[1.2] w-[16px] h-[15px] bg-[url('./app/resources/icons/prompts-library-pin-icon.svg')]">
                       </button>
