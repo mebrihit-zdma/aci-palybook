@@ -40,6 +40,9 @@ export class ChatComponent {
   createShortcutPrompt = false;
   products: string[] = [];
   selectedProduct: string = '';
+  isAddShortcutPrompt = false;
+  createdPrompt: string = "";
+
   constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService){}
 
   ngOnInit() {
@@ -182,5 +185,13 @@ export class ChatComponent {
   }
   openPromptsLibraryModel(){
     this.isPromptsLibraryModelOpen = true;
+  }
+  
+  addShortcutPrompt(){
+    this.isAddShortcutPrompt = true;
+  }
+  saveShortcutPrompt(){
+    this.isAddShortcutPrompt = false;
+    console.log("createdPrompt: ", this.createdPrompt)
   }
 }
