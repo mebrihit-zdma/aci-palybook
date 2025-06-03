@@ -43,7 +43,7 @@ export class ChatComponent {
   isAddShortcutPrompt = false;
   createdPrompt: string = "";
   isDeletePrompt =false;
-
+  selectedPrompt: any = null;
   constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService){}
 
   ngOnInit() {
@@ -198,11 +198,14 @@ export class ChatComponent {
       question: this.createdPrompt
     })
   }
-  openDeletePrompt(){
-    this.isDeletePrompt = true; 
-    console.log("this.isDeletePrompt: ", this.isDeletePrompt)
+  openDeletePrompt(item: any){
+    this.selectedPrompt = this.selectedPrompt === item ? null : item;
+  }
+  showDeletePrompt(item: any) {
+    this.selectedPrompt = this.selectedPrompt === item ? null : item;
   }
   deletePrompt(promptToDelete: any){
     this.chatPrompts = this.chatPrompts.filter(prompt => prompt !== promptToDelete);
+    this.selectedPrompt = null; 
   }
 }
