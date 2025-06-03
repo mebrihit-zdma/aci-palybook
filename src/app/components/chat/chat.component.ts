@@ -273,7 +273,14 @@ export class ChatComponent {
       item => item !== itemToDelete
     );
   }
-  selectPromptLibrary(prompt: string ){
-    console.log("prompt: ", prompt)
+  selectedPromptLibrary(prompt: string ){
+    this.postChat(prompt);
+    this.createShortcutPrompt = true;
+    this.isPromptsLibraryModelOpen = false;
+  }
+  selectedShortcutPrompt(prompt: string ){
+    this.postChat(prompt);
+    this.createShortcutPrompt = true;
+    this.isPromptsLibraryModelOpen = false;
   }
 }

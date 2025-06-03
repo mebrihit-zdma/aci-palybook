@@ -52,33 +52,42 @@
     </div>
     <!-- shortcut prompts -->
     <ul class="grid grid-cols-3 gap-4 px-[20%]" [ngClass]="(!createShortcutPrompt)? 'block' : 'hidden'">
-      <li class="relative bg-white border border-[#D5D7DA] rounded-lg h-[100%] flex flex-col gap-[16px] px-[24px] py-[16px]"
-      *ngFor="let item of promptShortcuts">
-        <!-- Conditional Delete Menu -->
+      <!-- The entire list item is clickable -->
+      <li 
+        class="relative bg-white border border-[#D5D7DA] rounded-lg h-[100%] flex flex-col gap-[16px] px-[24px] py-[16px] cursor-pointer"
+        *ngFor="let item of promptShortcuts"  
+        (click)="selectedShortcutPrompt(item.question)">
+
+        <!-- Delete menu (clicking inside shouldn't trigger parent click) -->
         <div 
           class="absolute flex flex-col gap-[8px] bg-[#000] px-[16px] py-[8px] rounded-lg w-[160px] top-[-8px] right-[8px]"
-          [ngClass]="selectedPrompt === item ? '' : 'hidden'">
-          
+          [ngClass]="selectedPrompt === item ? '' : 'hidden'"
+          (click)="$event.stopPropagation()">
+
           <button class="flex gap-[6px]">
             <span class="mt-auto mb-auto w-[9.33px] h-[12px] bg-[url('./app/resources/icons/pin-icon.svg')]"></span>
             <span class="my-auto text-[11px] text-[#fff]">Pin on Home Screen</span>
           </button>
           
-          <button class="flex gap-[6px]" (click)="deletePrompt(item)">
+          <button class="flex gap-[6px]" (click)="deletePrompt(item); $event.stopPropagation()">
             <span class="mt-auto mb-auto w-[9.33px] h-[12px] bg-[url('./app/resources/icons/delete-prompt-icon.svg')]"></span>
             <span class="my-auto text-[11px] text-[#fff]">Delete Prompt</span>
           </button>
         </div>
-        <!-- Prompt Header -->
+
+        <!-- Three-dot menu toggle -->
         <div class="flex justify-between">
           <p class="text-[#727272] font-medium text-[12px] my-auto">{{item.source}}</p>
           <button 
             class="w-[12px] h-[3px] bg-[url('./app/resources/icons/shourtcut-icon.svg')]" 
-            (click)="openDeletePrompt(item)">
+            (click)="openDeletePrompt(item); $event.stopPropagation()">
           </button>
         </div>
+
+        <!-- Prompt Text -->
         <p class="text-[#727272] font-medium text-[15px]">{{item.question}}</p>
       </li>
+
       <!--/* Create a shortcut Prompt */-->
       <div class="bg-white border border-[#D5D7DA] rounded-lg h-[100%] flex flex-col justify-between gap-[16px] px-[24px] py-[16px]">
         <div class="flex">
@@ -189,7 +198,7 @@
                 <!--/* Prompt  list */-->
                 <ul class="flex flex-col gap-4 text-[#2C2D2E] w-[100%] h-[200px] overflow-y-auto pe-6">
                   <li *ngFor="let item of filteredPrompts" class="flex justify-between cursor-pointer"
-                  (click)="selectPromptLibrary(item.prompt)">
+                  (click)="selectedPromptLibrary(item.prompt)">
                     <p 
                       class="w-[90%]" 
                       [innerHTML]="getHighlightedText(item.prompt, promptsLibrarySearch)">
@@ -198,7 +207,7 @@
                       <!--/* <button class="mt-auto mb-auto scale-[1.2] w-[16px] h-[15px] bg-[url('./app/resources/icons/prompts-library-pin-icon.svg')]">
                       </button> */-->
                       <button class="mt-auto mb-auto scale-[1.2] w-[9.33px] h-[12px] bg-[url('./app/resources/icons/delete-prompt-icon.svg')]"
-                      (click)="deleteLibraryPrompt(item)">
+                      (click)="deleteLibraryPrompt(item); $event.stopPropagation()">
                       </button>
                     </div>
                   </li>
