@@ -192,6 +192,10 @@ export class ChatComponent {
   }
   saveShortcutPrompt(){
     this.isAddShortcutPrompt = false;
+    this.chatPrompts.push({
+      source: "Created by you",
+      question: this.createdPrompt
+    })
     console.log("createdPrompt: ", this.createdPrompt)
   }
 }
