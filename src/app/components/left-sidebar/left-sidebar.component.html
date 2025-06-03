@@ -78,11 +78,11 @@
                   *ngIf="item.label === 'Search Previous Chats'; else otherOption"
                   class="flex items-center gap-[8px] text-[#666F8D] w-full"
                 >
-                  <span class="material-icons">{{ item.icon }}</span>
+                  <span class="material-icons text-[#000000]">{{ item.icon }}</span>
                   <input
                     type="text"
                     [placeholder]="!isLeftSidebarCollapsed() ? item.label : ''"
-                    class="text-[#666F8D] font-normal text-sm"
+                    class="text-[#000000] font-normal text-sm"
                     [(ngModel)]="searchValue"
                     (ngModelChange)="onInputChange($event)"
                   />
@@ -130,8 +130,8 @@
           <div class="flex gap-2">
             <!-- profile first letter section-->
             <div class="flex justify-start items-center gap-[10px]">
-                <!--/* <span class="text-primary bg-[#e9eef8] flex rounded-[200px] w-[40px] h-[40px] justify-center items-center">{{ getFirstLetter(userName) }}</span> */-->
-                <img class="border border-gray-300 rounded-[200px] w-[40px] h-[40px] justify-center items-center" *ngIf="profileImageUrl" [src]="profileImageUrl" alt="User profile picture">
+                <span class="text-primary bg-[#e9eef8] flex rounded-[200px] w-[40px] h-[40px] justify-center items-center">{{ getFirstLetter(userName) }}</span>
+                <!--/* <img class="border border-gray-300 rounded-[200px] w-[40px] h-[40px] justify-center items-center" *ngIf="profileImageUrl" [src]="profileImageUrl" alt="User profile picture"> */-->
             </div>
 
             <!-- profile name section-->
