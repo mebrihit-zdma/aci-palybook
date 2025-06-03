@@ -265,7 +265,13 @@ export class ChatComponent {
       regex,
       `<span class="custom-highlight">$1</span>`
     );
-  
     return this.sanitizer.bypassSecurityTrustHtml(highlighted);
   }
+
+  deleteLibraryPrompt(itemToDelete: { prompt: string }) {
+    this.promptsLibrarylist = this.promptsLibrarylist.filter(
+      item => item !== itemToDelete
+    );
+  }
+  
 }

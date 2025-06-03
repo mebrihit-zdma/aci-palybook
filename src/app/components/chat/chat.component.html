@@ -194,9 +194,10 @@
                       [innerHTML]="getHighlightedText(item.prompt, promptsLibrarySearch)">
                     </p>
                     <div class="flex gap-4">
-                      <button class="mt-auto mb-auto scale-[1.2] w-[16px] h-[15px] bg-[url('./app/resources/icons/prompts-library-pin-icon.svg')]">
-                      </button>
-                      <button class="mt-auto mb-auto scale-[1.2] w-[9.33px] h-[12px] bg-[url('./app/resources/icons/delete-prompt-icon.svg')]">
+                      <!--/* <button class="mt-auto mb-auto scale-[1.2] w-[16px] h-[15px] bg-[url('./app/resources/icons/prompts-library-pin-icon.svg')]">
+                      </button> */-->
+                      <button class="mt-auto mb-auto scale-[1.2] w-[9.33px] h-[12px] bg-[url('./app/resources/icons/delete-prompt-icon.svg')]"
+                      (click)="deleteLibraryPrompt(item)">
                       </button>
                     </div>
                   </li>
