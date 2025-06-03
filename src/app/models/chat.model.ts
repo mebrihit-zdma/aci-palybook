@@ -9,6 +9,7 @@ export interface ChatMessage {
     sender: 'bot' | 'user';
     text: any;
     sources?: AnswerSource[];
+    loading?: boolean;
 }
 
 export interface ChatHistory {

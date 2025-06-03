@@ -69,38 +69,50 @@
             <div class="w-[100%] lg:w-[90%] ml-auto mr-auto mb-[50px]">
               <div class="flex flex-col justify-center gap-[24px]">
                 <div *ngFor="let msg of messages">
-                  <div>
-                    <div
-                      class="flex"
-                        [ngClass]="{
-                          'justify-end': msg.sender === 'user',
-                          'flex-row': msg.sender === 'bot'
-                        }">
-                        <ng-container *ngIf="msg.sender === 'bot'">
-                          <div class="flex items-start gap-2">
-                            <span class="mt-[-4px] w-[36px] h-[36px] scale-[0.7] bg-[url('./app/resources/icons/blue-chat-icon.svg')]"></span>
-                          </div>
-                        </ng-container>
-                        <div
-                          class="bg-white flex py-[10px] px-[14px] w-[100%] lg:w-[60%] border border-[#D5D7DA] text-sm rounded-br-lg rounded-tl-lg rounded-bl-lg rounded-bl-lg" 
-                          [ngClass]="{
-                            'rounded-tl-lg rounded-tr-none  max-w-[70%] ': msg.sender === 'user',
-                            'rounded-tl-none rounded-tr-lg pl-[12px] pr-[20px] py-[20px]': msg.sender === 'bot'
-                          }">
-                          <div class="chat-answer" [innerHTML]="msg.text"></div>
-                        </div>
-                    </div>
-                    <!-- Sources Section -->
+                  <div class="flex" [ngClass]="{ 'justify-end': msg.sender === 'user', 'flex-row': msg.sender === 'bot' }">
+                    
                     <ng-container *ngIf="msg.sender === 'bot'">
-                      <div class="ml-[40px]">
-                          <p class="mt-[20px] mb-[-8px]">Sources</p>
-                          <div class="mt-4 lg:flex gap-4 lg:flex-wrap">
-                            <app-source-card class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" [data]="msg.sources"/>
-                          </div>
+                      <div class="flex items-start gap-2">
+                        <span class="mt-[-4px] w-[36px] h-[36px] scale-[0.7] bg-[url('./app/resources/icons/blue-chat-icon.svg')]"></span>
                       </div>
                     </ng-container>
-                  </div>            
+
+                    <div
+                      class="bg-white flex py-[10px] px-[14px] w-full lg:w-[60%] border border-[#D5D7DA] text-sm rounded-br-xl rounded-bl-xl rounded-tl-xl rounded-bl-xl"
+                      [ngClass]="{
+                        'rounded-tl-xl rounded-tr-none max-w-[70%] ': msg.sender === 'user',
+                        'rounded-tl-none rounded-tr-xl pl-[12px] pr-[20px] py-[20px]': msg.sender === 'bot'
+                      }">
+                      
+                      <div class="chat-answer">
+                        <ng-container *ngIf="!msg.loading; else loadingTemplate">
+                          <div [innerHTML]="msg.text"></div>
+                        </ng-container>
+                        <ng-template #loadingTemplate>
+                          <div class="flex animate-pulse text-gray-600 gap-1">
+                            <div class="typing-loader">
+                              <span></span><span></span><span></span>
+                            </div>
+                          </div>
+                        </ng-template>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Sources (only for bot and when not loading) -->
+                  <ng-container *ngIf="msg.sender === 'bot' && msg.sources && !msg.loading">
+                    <div class="ml-[40px]">
+                      <p class="mt-[20px] mb-[-8px]">Sources</p>
+                      <div class="mt-4 lg:flex gap-4 lg:flex-wrap">
+                        <app-source-card
+                          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+                          [data]="msg.sources" />
+                      </div>
+                    </div>
+                  </ng-container>
                 </div>
+
+                <!--/* testing */-->
               </div>
             </div>
             <!-- Prompts Library list -->

@@ -91,20 +91,28 @@ export class ChatComponent {
       top_k: this.top_k,
       use_cache: true
     };
+    this.messages.push({ sender: 'user', text: askedQuestion });
+    this.messages.push({
+      sender: 'bot',
+      text: '<em>...</em>', 
+      loading: true
+    });
+
     this.apiService.post<any>('chat_stream', payload, 'text').subscribe({
       next: async (data) => {
         console.log("api post data mz:", data);
         const extractAnswer = extractAnswerText(data);
         const safeAnswer = await convertMarkdown(extractAnswer, this.sanitizer);
-        
+
         let answerSource: AnswerSource[] = extractSources(data); 
-        
-        this.messages.push({ sender: 'user', text: askedQuestion });
-        this.messages.push({ 
-          sender: 'bot', 
-          text: safeAnswer, 
-          sources: answerSource 
-         });
+        // Remove the loading message
+        this.messages = this.messages.filter(msg => !msg.loading);
+        // Push the actual bot message
+        this.messages.push({
+          sender: 'bot',
+          text: safeAnswer,
+          sources: answerSource
+        });
       },
       error: (err) => console.error('Error:', err),
     });

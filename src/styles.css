@@ -480,9 +480,39 @@ input:checked + .slider:before {
   -ms-transform: translateX(22px);
   -o-transform: translateX(22px);
 }
+/* custom-highlight for chat search*/
 .custom-highlight {
   color: #000; 
   font-weight: 600; 
 }
+
+/* typing-loader */
+.typing-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+}
+
+.typing-loader span {
+  width: 10px;
+  height: 10px;
+  background-color: #a0a0a0;
+  border-radius: 50%;
+  display: inline-block;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.typing-loader span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+.typing-loader span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+.typing-loader span:nth-child(3) {
+  animation-delay: 0;
+}
+
 
 
