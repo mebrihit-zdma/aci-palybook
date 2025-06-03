@@ -42,6 +42,7 @@ export class ChatComponent {
   selectedProduct: string = '';
   isAddShortcutPrompt = false;
   createdPrompt: string = "";
+  isDeletePrompt =false;
 
   constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService){}
 
@@ -196,6 +197,12 @@ export class ChatComponent {
       source: "Created by you",
       question: this.createdPrompt
     })
-    console.log("createdPrompt: ", this.createdPrompt)
+  }
+  openDeletePrompt(){
+    this.isDeletePrompt = true; 
+    console.log("this.isDeletePrompt: ", this.isDeletePrompt)
+  }
+  deletePrompt(promptToDelete: any){
+    this.chatPrompts = this.chatPrompts.filter(prompt => prompt !== promptToDelete);
   }
 }
