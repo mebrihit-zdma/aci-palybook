@@ -164,8 +164,8 @@ export class ChatComponent {
     });
   }
  
-  // few prompts
-  chatPrompts = [
+  // shortcut Prompt
+  promptShortcuts = [
     { source: "Suggested by AI", 
       question: "What are the differences between the latest and older release notes?", 
     },
@@ -182,6 +182,30 @@ export class ChatComponent {
       question: "Generate a guide on configuring custom dashboards and reports for Connetic High value Payments", 
     },
   ];
+  promptsLibrarylist = [
+    { prompt: "Generate an API customization guide for ACI Payment Hub", 
+    },
+    { prompt: "What are the differences between the latest and older release notes?", 
+    },
+    { prompt: "Explain updates from the latest Release Notes", 
+    },
+    { prompt: "Generate a guide on configuring custom dashboards and reports for Connetic High value Payments", 
+    },
+    { prompt: "Generate an API customization guide for ACI Payment Hub", 
+    },
+    { prompt: "What are the differences between the latest and older release notes?", 
+    },
+    { prompt: "Explain updates from the latest Release Notes", 
+    },
+    { prompt: "Generate a guide on configuring custom dashboards and reports for Connetic High value Payments", 
+    },
+    { prompt: "What are the differences between the latest and older release notes?", 
+    },
+    { prompt: "Explain updates from the latest Release Notes", 
+    },
+    { prompt: "Generate a guide on configuring custom dashboards and reports for Connetic High value Payments", 
+    },
+  ]
   isPromptsLibraryModelOpen = false
   closePromptsLibraryModel(){
     this.isPromptsLibraryModelOpen = false;
@@ -199,7 +223,7 @@ export class ChatComponent {
   }
   saveShortcutPrompt(){
     this.isAddShortcutPrompt = false;
-    this.chatPrompts.push({
+    this.promptShortcuts.push({
       source: "Created by you",
       question: this.createdPrompt
     })
@@ -212,7 +236,7 @@ export class ChatComponent {
     this.selectedPrompt = this.selectedPrompt === item ? null : item;
   }
   deletePrompt(promptToDelete: any){
-    this.chatPrompts = this.chatPrompts.filter(prompt => prompt !== promptToDelete);
+    this.promptShortcuts = this.promptShortcuts.filter(prompt => prompt !== promptToDelete);
     this.selectedPrompt = null; 
   }
 }

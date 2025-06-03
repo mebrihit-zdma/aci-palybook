@@ -50,10 +50,10 @@
         <p class="text-[#30425c]" [ngClass]="(!createShortcutPrompt)? 'block' : 'hidden'">Here are a few prompts to help you kick things off!</p>
       </div>
     </div>
-    <!-- few prompts -->
+    <!-- shortcut prompts -->
     <ul class="grid grid-cols-3 gap-4 px-[20%]" [ngClass]="(!createShortcutPrompt)? 'block' : 'hidden'">
       <li class="relative bg-white border border-[#D5D7DA] rounded-lg h-[100%] flex flex-col gap-[16px] px-[24px] py-[16px]"
-      *ngFor="let item of chatPrompts">
+      *ngFor="let item of promptShortcuts">
         <!-- Conditional Delete Menu -->
         <div 
           class="absolute flex flex-col gap-[8px] bg-[#000] px-[16px] py-[8px] rounded-lg w-[160px] top-[-8px] right-[8px]"
@@ -156,7 +156,7 @@
             </div>
             <!-- Prompts Library list -->
             <div class="relative">
-              <div class="absolute bottom-0 z-50 bg-white p-[12px] border border-[#D5D7DA] rounded-[8px] gap-[16px w-[45%] flex flex-col gap-4 py-4 px-6 text-[#2C2D2E]"
+              <div class="absolute bottom-0 z-50 bg-white p-[12px] border border-[#D5D7DA] rounded-[8px] gap-[16px w-[50%] flex flex-col gap-4 py-4 px-6 text-[#2C2D2E]"
               [ngClass]="isPromptsLibraryModelOpen? 'block' : ' hidden'">
                 <div class="flex justify-between">
                     <p class="border-b-1  ">Prompts Library</p>
@@ -178,11 +178,8 @@
                   <p class="text-[#919399]">Create a Prompt</p>
                 </div>
                 <!--/* Prompt  list */-->
-                <ul class="flex flex-col gap-4 text-[#2C2D2E]">
-                  <li>Generate an API customization guide for ACI Payment Hub</li>
-                  <li>What are the differences between the latest and older release notes?</li>
-                  <li>Explain updates from the latest Release Notes</li>
-                  <li>Generate a guide on configuring custom dashboards and reports for Connetic High value Payments</li>
+                <ul class="flex flex-col gap-4 text-[#2C2D2E] w-[100%] h-[200px] overflow-y-auto">
+                  <li *ngFor="let item of promptsLibrarylist">{{item.prompt}}</li>
                 </ul>
               </div>
             </div>
