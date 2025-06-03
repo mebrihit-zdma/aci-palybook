@@ -64,7 +64,7 @@
             </ul>
           }
           <!-- chat sidebar list -->
-          <ul class="w-full">
+          <ul class="w-full" *ngIf="!isLeftSidebarCollapsed()">
             <li class="w-full" *ngFor="let item of chatItems;">
               <span
                 class="flex gap-x-2 items-center rounded-2xl px-3 py-2 relative cursor-pointer"
