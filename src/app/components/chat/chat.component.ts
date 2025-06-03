@@ -280,7 +280,7 @@ export class ChatComponent {
   }
   selectedShortcutPrompt(prompt: string ){
     this.postChat(prompt);
-    this.createShortcutPrompt = true;
+    // this.createShortcutPrompt = true;
     this.isPromptsLibraryModelOpen = false;
     this.promptsLibrarySearch = "";
   }
