@@ -282,5 +282,6 @@ export class ChatComponent {
     this.postChat(prompt);
     this.createShortcutPrompt = true;
     this.isPromptsLibraryModelOpen = false;
+    this.promptsLibrarySearch = "";
   }
 }
