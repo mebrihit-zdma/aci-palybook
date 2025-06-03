@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, inject,  OnInit, signal, Input   } from '@angular/core';
+import { Component, inject,  OnInit, signal, Input, ViewChild, ElementRef   } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { ChatService } from '../../services/chat.service';
 import { OnboardingService } from '../../services/onboarding.service';
@@ -44,6 +44,8 @@ export class ChatComponent {
   createdPrompt: string = "";
   isDeletePrompt =false;
   selectedPrompt: any = null;
+  @ViewChild('promptInput') promptInput!: ElementRef<HTMLInputElement>;
+
   constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService){}
 
   ngOnInit() {
@@ -188,8 +190,12 @@ export class ChatComponent {
     this.isPromptsLibraryModelOpen = true;
   }
   
+  // createdPrompt = '';
   addShortcutPrompt(){
     this.isAddShortcutPrompt = true;
+    setTimeout(() => {
+      this.promptInput?.nativeElement.focus();
+    }, 0);
   }
   saveShortcutPrompt(){
     this.isAddShortcutPrompt = false;

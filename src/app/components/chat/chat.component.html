@@ -83,10 +83,11 @@
       <div class="bg-white border border-[#D5D7DA] rounded-lg h-[100%] flex flex-col justify-between gap-[16px] px-[24px] py-[16px]">
         <div class="flex">
           <button class="w-[24px] h-[24px] bg-[url('./app/resources/icons/add-icon.svg')]" 
-          (click) = "addShortcutPrompt()"
-          [ngClass]="(!isAddShortcutPrompt)? '' : 'hidden'"
+            (click) = "addShortcutPrompt()"
+            [ngClass]="(!isAddShortcutPrompt)? '' : 'hidden'"
           ></button>
           <input 
+            #promptInput
             type="text" 
             [(ngModel)]="createdPrompt"
             placeholder="|Enter your prompt" 
