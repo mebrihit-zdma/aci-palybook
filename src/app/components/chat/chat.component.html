@@ -188,7 +188,8 @@
                 </div>
                 <!--/* Prompt  list */-->
                 <ul class="flex flex-col gap-4 text-[#2C2D2E] w-[100%] h-[200px] overflow-y-auto pe-6">
-                  <li *ngFor="let item of filteredPrompts" class="flex justify-between">
+                  <li *ngFor="let item of filteredPrompts" class="flex justify-between cursor-pointer"
+                  (click)="selectPromptLibrary(item.prompt)">
                     <p 
                       class="w-[90%]" 
                       [innerHTML]="getHighlightedText(item.prompt, promptsLibrarySearch)">

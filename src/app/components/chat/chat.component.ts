@@ -273,5 +273,7 @@ export class ChatComponent {
       item => item !== itemToDelete
     );
   }
-  
+  selectPromptLibrary(prompt: string ){
+    console.log("prompt: ", prompt)
+  }
 }
