@@ -44,6 +44,7 @@ export class ChatComponent {
   createdPrompt: string = "";
   isDeletePrompt =false;
   selectedPrompt: any = null;
+  createdLibraryPrompt:string = "";
   @ViewChild('promptInput') promptInput!: ElementRef<HTMLInputElement>;
 
   constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService){}
@@ -238,5 +239,12 @@ export class ChatComponent {
   deletePrompt(promptToDelete: any){
     this.promptShortcuts = this.promptShortcuts.filter(prompt => prompt !== promptToDelete);
     this.selectedPrompt = null; 
+  }
+
+  addPromptToLibrary(){
+    this.promptsLibrarylist.push({
+      prompt: this.createdLibraryPrompt
+    })
+    this.createdLibraryPrompt = "";
   }
 }

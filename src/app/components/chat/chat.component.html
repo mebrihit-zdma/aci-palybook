@@ -174,8 +174,14 @@
                 </div>
                 <!--/* Create a Prompt */-->
                 <div class="flex">
-                  <span class="w-[24px] h-[24px] scale-[0.8] bg-[url('./app/resources/icons/add-icon.svg')]"></span>
-                  <p class="text-[#919399]">Create a Prompt</p>
+                  <!--/* <span class="w-[24px] h-[24px] scale-[0.8] bg-[url('./app/resources/icons/add-icon.svg')]"></span> */-->
+                  <input 
+                    type="text" 
+                    [(ngModel)]="createdLibraryPrompt"
+                    (keydown.enter)="addPromptToLibrary()"
+                    placeholder="+ Create a Prompt" 
+                    class="text-[#000] placeholder-[#919399] px-2 py-1 rounded w-[90%] break-words whitespace-normal"
+                    />
                 </div>
                 <!--/* Prompt  list */-->
                 <ul class="flex flex-col gap-4 text-[#2C2D2E] w-[100%] h-[200px] overflow-y-auto pe-6">
@@ -183,9 +189,9 @@
                     <p class="w-[90%]">{{item.prompt}}<P>
                     <!--/* delete and pin button */-->
                     <div class="flex gap-4">
-                      <button class="mt-auto mb-auto scale-[1.3] w-[16px] h-[15px] bg-[url('./app/resources/icons/prompts-library-pin-icon.svg')]">
+                      <button class="mt-auto mb-auto scale-[1.2] w-[16px] h-[15px] bg-[url('./app/resources/icons/prompts-library-pin-icon.svg')]">
                       </button>
-                      <button class="mt-auto mb-auto scale-[1.3] w-[9.33px] h-[12px] bg-[url('./app/resources/icons/delete-prompt-icon.svg')]">
+                      <button class="mt-auto mb-auto scale-[1.2] w-[9.33px] h-[12px] bg-[url('./app/resources/icons/delete-prompt-icon.svg')]">
                       </button>
                     </div>
                   </li>
