@@ -60,9 +60,9 @@ export class OnBoardingPageComponent {
   showRoleList(){
     this.givenRoleList = true;
   }
-  hideRoleList(){
-    this.givenRoleList = false;
-  }
+  // hideRoleList(){
+  //   this.givenRoleList = false;
+  // }
   personalizeDashboard  = [
     {
       title:"Documentation History",
@@ -150,5 +150,20 @@ onRoleSelected(item: any): void {
   selectedWidgets(){
     const widgetsList = this.widgetsList.filter(w => this.selectedPersonalize.includes(w.name))
     this.onboardingService.setSelectedWidgetList(widgetsList);
+  }
+  productOwnerRole(){
+    this.apiService.get<any>(`get_persona/682f7f2b824237055c016c39`).subscribe({
+      next: (data) => {
+        this.widgetsList = data.widgets;
+        this.onboardingService.setPersonaWidgetList(data.widgets)
+      },
+      error: (err) => console.error('Error fetching widgets:', err),
+    });
+    this.goToPoductsSection('userRole');
+  }
+  skipOnboarding(){
+  
+    this.onboardingService.setSelectedWidgetList(this.widgetsList);
+    this.router.navigate(['/dashboard-page']);
   }
 }
