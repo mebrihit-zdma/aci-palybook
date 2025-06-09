@@ -14,12 +14,11 @@ export class WelcomePageComponent implements OnInit {
   
   constructor(private router: Router, private userService: UserService) {}
 
-  // userName: string | null = null;
   userName: string | null = 'User Name';
   ngOnInit(): void {
-    // this.userService.userName$.subscribe(name => {
-    //   this.userName = name;
-    // });
+    this.userService.userName$.subscribe(name => {
+      this.userName = name;
+    });
   }
   goToOnboarding() {
     this.router.navigate(['/on-boarding-page']);

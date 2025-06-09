@@ -28,24 +28,21 @@ export class LeftSidebarComponent {
 
   constructor(private userService: UserService, private loginService: LoginService, private searchChatService: SearchChatService, private chatService: ChatService, private documentationService: DocumentationService, private router: Router, private authService: MsalService) {}
   
-  // userName: string | null = null;
-  // userRole: string | null = null;
-  profileImageUrl: string | null = null;
-  // profileImageUrl: string | null = 'http://localhost:4200/48a1b773-d4f8-4c49-8379-ba1af18c37bc';
   userName: string | null = 'User Name';
   userRole: string | null = 'Product Owner';
+  profileImageUrl: string | null = null;
   searchValue: string = "";
   // documentation Pages
   documentationLandingPage = false;
   documentationGeneratingPage = false; 
   documentationGeneratedPage = false; 
   ngOnInit() {
-    // this.userService.userName$.subscribe(name => {
-    //   this.userName = name;
-    // });
-    // this.userService.userRole$.subscribe(role => {
-    //   this.userRole = role;
-    // });
+    this.userService.userName$.subscribe(name => {
+      this.userName = name;
+    });
+    this.userService.userRole$.subscribe(role => {
+      this.userRole = role;
+    });
 
     this.userService.userImageUrl$.subscribe(imageUrl => {
       this.profileImageUrl = imageUrl;

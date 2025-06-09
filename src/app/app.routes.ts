@@ -1,3 +1,4 @@
+// 
 import { Routes} from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DocumentationComponent } from './components/documentation/documentation.component';
@@ -8,8 +9,6 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
 import { MsalGuard } from '@azure/msal-angular';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'welcome-page', pathMatch: 'full' },
-    { path: 'welcome-page', component: WelcomePageComponent},
     { path: 'welcome-page',component: WelcomePageComponent, canActivate: [MsalGuard]},
     { path: 'on-boarding-page', component: OnBoardingPageComponent },
     { path: 'dashboard-page', 
@@ -22,4 +21,3 @@ export const routes: Routes = [
         ] 
     },
 ];
-

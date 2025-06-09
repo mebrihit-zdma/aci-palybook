@@ -23,8 +23,6 @@ export class DashboardComponent {
   constructor(private userService: UserService, private tooltipService: TooltipService,  private documentationService: DocumentationService, private router: Router, private onboardingService: OnboardingService ) {}
 
   listNumber = 2;
-  // userName: string | null = null;
-  // userRole: string | null = null;
   userName: string | null = 'User Name';
   userRole: string | null = 'Product Owner';
 
@@ -39,12 +37,12 @@ export class DashboardComponent {
   selectedWidgetList: string[] = [];
   selectedCustomizeWidgets: string[] = [];
   ngOnInit() {
-    // this.userService.userName$.subscribe(name => {
-    //   this.userName = name;
-    // });
-    // this.userService.userRole$.subscribe(role => {
-    //   this.userRole = role;
-    // });
+    this.userService.userName$.subscribe(name => {
+      this.userName = name;
+    });
+    this.userService.userRole$.subscribe(role => {
+      this.userRole = role;
+    });
 
     this.personaWidgetList = this.onboardingService.getPersonaWidgetList()
     this.selectedWidgetList = this.onboardingService.getSelectedWidgetList()

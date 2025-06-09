@@ -57,6 +57,7 @@ export const appConfig: ApplicationConfig = {
 
     MsalService,
     MsalBroadcastService,
+    MsalGuard                
   ]
 };
 

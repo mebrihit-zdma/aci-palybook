@@ -18,7 +18,6 @@ export class OnBoardingPageComponent {
   
   constructor(private userService: UserService, private router: Router, private apiService: ApiService, private onboardingService: OnboardingService ) {}
 
-  // userRole: string | null = null;
   userRole: string | null = 'Product Owner';
   roleList: any[] = [];
   productsList: any[] = [];
@@ -30,9 +29,9 @@ export class OnBoardingPageComponent {
   selectedProduct: string = "";
   personaId: string = "";
   ngOnInit(): void {
-    // this.userService.userRole$.subscribe(role => {
-    //   this.userRole = role;
-    // });
+    this.userService.userRole$.subscribe(role => {
+      this.userRole = role;
+    });
     // getting role List from api
     this.apiService.get<any>('list_personas').subscribe({
       next: async (data) => {
