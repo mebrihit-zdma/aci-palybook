@@ -1,32 +1,11 @@
-
-// import { RouterOutlet } from '@angular/router';
-// import { Component} from '@angular/core';
-// import { CommonModule } from '@angular/common';
-
-// @Component({
-//   selector: 'app-root',
-//   standalone: true,
-//   imports: [RouterOutlet,CommonModule],
-//   templateUrl: './app.component.html',
-//   styleUrl: './app.component.css'
-// })
-// export class AppComponent{}
-
-
-// test azure
-
-
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet,RouterModule, Router } from '@angular/router';
 import { Component, OnInit, Inject, OnDestroy,} from '@angular/core';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UserService } from './services/user.service';
 import { LoginService } from './services/login.service';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
-// Required for MSAL
 import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfiguration } from '@azure/msal-angular';
 import { InteractionStatus, RedirectRequest } from '@azure/msal-browser';
 
@@ -98,7 +77,7 @@ export class AppComponent implements OnInit, OnDestroy  {
               .then(imageBlob => {
                 const imageUrl = URL.createObjectURL(imageBlob);
                 console.log("imageUrl: ", imageUrl);
-                this.profileImageUrl = imageUrl; // bind this to your template
+                this.profileImageUrl = imageUrl; 
                 this.userService.setUserImageUrl(imageUrl);
               })
               .catch(err => console.error("Error fetching profile picture:", err));
