@@ -6,7 +6,7 @@ import { LoginService } from '../../services/login.service';
 import { SearchChatService } from '../../services/search-chat.service';
 import { ChatHistoryComponent } from '../../components/chat-history/chat-history.component';
 import { ChatService } from '../../services/chat.service';
-// import { MsalService } from '@azure/msal-angular';
+import { MsalService } from '@azure/msal-angular';
 import { DocumentationService } from '../../services/documentation.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -26,12 +26,12 @@ export class LeftSidebarComponent {
   //   this.loginDisplay= this.loginService.getLoginDisplay();
   // }
 
-  constructor(private userService: UserService, private loginService: LoginService, private searchChatService: SearchChatService, private chatService: ChatService, private documentationService: DocumentationService, private router: Router) {}
+  constructor(private userService: UserService, private loginService: LoginService, private searchChatService: SearchChatService, private chatService: ChatService, private documentationService: DocumentationService, private router: Router, private authService: MsalService) {}
   
   // userName: string | null = null;
   // userRole: string | null = null;
-  // profileImageUrl: string | null = null;
-  profileImageUrl: string | null = 'http://localhost:4200/48a1b773-d4f8-4c49-8379-ba1af18c37bc';
+  profileImageUrl: string | null = null;
+  // profileImageUrl: string | null = 'http://localhost:4200/48a1b773-d4f8-4c49-8379-ba1af18c37bc';
   userName: string | null = 'User Name';
   userRole: string | null = 'Product Owner';
   searchValue: string = "";
@@ -47,9 +47,9 @@ export class LeftSidebarComponent {
     //   this.userRole = role;
     // });
 
-    // this.userService.userImageUrl$.subscribe(imageUrl => {
-    //   this.profileImageUrl = imageUrl;
-    // });
+    this.userService.userImageUrl$.subscribe(imageUrl => {
+      this.profileImageUrl = imageUrl;
+    });
     // documentation Pages
     this.documentationLandingPage = this.documentationService.getDocumentationLandingPage();
     this.documentationGeneratingPage = this.documentationService.getDocumentationGeneratingPage(); 
@@ -125,9 +125,9 @@ export class LeftSidebarComponent {
   }
 
   // Log the user out
-  // logout() {
-  //   if(this.loginDisplay){
-  //     this.authService.logoutRedirect();
-  //   }
-  // }
+  logout() {
+    if(this.loginDisplay){
+      this.authService.logoutRedirect();
+    }
+  }
 }
