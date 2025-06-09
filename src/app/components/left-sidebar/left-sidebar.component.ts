@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user.service';
 import { LoginService } from '../../services/login.service';
@@ -8,9 +8,7 @@ import { ChatHistoryComponent } from '../../components/chat-history/chat-history
 import { ChatService } from '../../services/chat.service';
 import { MsalService } from '@azure/msal-angular';
 import { DocumentationService } from '../../services/documentation.service';
-import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-
 
 @Component({
   selector: 'app-left-sidebar',
@@ -22,11 +20,11 @@ import { FormsModule } from '@angular/forms';
 export class LeftSidebarComponent {
   
   loginDisplay: boolean = false;
-  // constructor(private userService: UserService, private loginService: LoginService, private chatService: ChatService, private authService: MsalService, private documentationService: DocumentationService) {
-  //   this.loginDisplay= this.loginService.getLoginDisplay();
-  // }
 
-  constructor(private userService: UserService, private loginService: LoginService, private searchChatService: SearchChatService, private chatService: ChatService, private documentationService: DocumentationService, private router: Router, private authService: MsalService) {}
+  constructor(private userService: UserService, private loginService: LoginService, private searchChatService: SearchChatService, private chatService: ChatService, private documentationService: DocumentationService, private router: Router, private authService: MsalService) {
+
+    // this.loginDisplay= this.loginService.getLoginDisplay();
+  }
   
   userName: string | null = 'User Name';
   userRole: string | null = 'Product Owner';
@@ -53,8 +51,10 @@ export class LeftSidebarComponent {
     this.documentationGeneratedPage = this.documentationService.getDocumentationGeneratedPage();
     
     this.searchChatService.searchValue$.subscribe(value => {
-      this.searchValue = value; // ensures sync with the service
+      this.searchValue = value; 
     });
+
+    this.loginDisplay= this.loginService.getLoginDisplay();
   }
 
   isLeftSidebarCollapsed = input.required<boolean>();

@@ -32,7 +32,7 @@ export class OnBoardingPageComponent {
     this.userService.userRole$.subscribe(role => {
       this.userRole = role;
     });
-    // getting role List from api
+    // getting role list from api
     this.apiService.get<any>('list_personas').subscribe({
       next: async (data) => {
         this.roleList = data;
@@ -44,7 +44,7 @@ export class OnBoardingPageComponent {
       },
       error: (err) => console.error('Error:', err),
     });
-    // getting products List the from api
+    // getting product list from api
     this.apiService.get<any>('list_products').subscribe({
       next: async (data) => {
         this.productsList = data;
@@ -59,27 +59,7 @@ export class OnBoardingPageComponent {
   showRoleList(){
     this.givenRoleList = true;
   }
-  // hideRoleList(){
-  //   this.givenRoleList = false;
-  // }
-  personalizeDashboard  = [
-    {
-      title:"Documentation History",
-      description :"Track the status of your documentation in one place."
-    },
-    {
-      title:"Release Notes Summary",
-      description :"Catch up on the changes from the latest  release notes that may impact your product."
-    },
-    {
-      title:"Latest Updates in the product",
-      description :"See highlights of new features and improvements."
-    },
-    {
-      title:"Bug Volume Overview",
-      description :"Monitor the number of bugs raised this month to gauge product stability."
-    },
-  ]
+
   iconList:string[]  = ["edit_document", "manage_accounts","wifi_tethering", "edit_document"]
   getRandomIcon(): string {
     const randomIndex = Math.floor(Math.random() * this.iconList.length);
@@ -88,11 +68,6 @@ export class OnBoardingPageComponent {
   // hide the questions at the beginning 
   hiddenProductsSection = true;
   hiddenPersonalizeDashboardSection = true;
-
-  // disable the questions after answered
-  disableRoleSection = false;
-  disableProductsSection = false;
-  disablePersonalizeDashboardSection = false;
 
   isPersonalizeDashboardNextButtonActive = false
 

@@ -25,6 +25,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class ChatComponent {
 
+  userName: string | null = 'User Name';
   sessionId =  'b956506-2a95-43a2-8737-c0deb90d0b75';
   userId = '8c8cda2b-cda6-41c2-927d-511d40724810';
   app_id = "67daf330d62c5ade928150d1";
@@ -52,17 +53,19 @@ export class ChatComponent {
   constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService){}
 
   ngOnInit() {
+    this.userService.userName$.subscribe(name => {
+      this.userName = name;
+    });
     this.products = this.onboardingService.getProductList()
     this.selectedProduct = this.onboardingService.getSelectedProduct();
+
     // selected question from chat history
-  
     if(this.chatService.getNewChatHistory()){
       this.createShortcutPrompt = true;
     }
     this.chatService.click$.subscribe(() => {
       this.getChat(this.chatService.getChatId());
       this.createShortcutPrompt = true;
-      // this.getChat(this.chatService.getChatId());
     });
     // start new chat on clicking the Start New Chat button
     this.chatService.startNewChatClick$.subscribe(() => {
@@ -217,7 +220,6 @@ export class ChatComponent {
     this.isPromptsLibraryModelOpen = true;
   }
   
-  // createdPrompt = '';
   addShortcutPrompt(){
     this.isAddShortcutPrompt = true;
     setTimeout(() => {
@@ -280,7 +282,6 @@ export class ChatComponent {
   }
   selectedShortcutPrompt(prompt: string ){
     this.postChat(prompt);
-    // this.createShortcutPrompt = true;
     this.isPromptsLibraryModelOpen = false;
     this.promptsLibrarySearch = "";
   }
