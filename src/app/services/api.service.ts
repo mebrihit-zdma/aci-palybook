@@ -8,7 +8,6 @@ import { environment } from '../../environments/environment';
 })
 export class ApiService {
   
-  private apiBaseUrl = environment.apiBaseUrl;
   constructor(private http: HttpClient) {}
 
   chatIdUrl = `${environment.apiBaseUrl}/api/v1/get_chat`;

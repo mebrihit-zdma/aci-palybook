@@ -27,6 +27,7 @@ export class ChatComponent {
 
   userName: string | null = 'User Name';
   sessionId =  'b956506-2a95-43a2-8737-c0deb90d0b75';
+  sessionIdDefult =  'b956506-2a95-43a2-8737-c0deb90d0b75';
   userId = '8c8cda2b-cda6-41c2-927d-511d40724810';
   app_id = "67daf330d62c5ade928150d1";
   model_name ="openai/gpt-4o";
@@ -94,13 +95,13 @@ export class ChatComponent {
   }
   // Chat Stream
   postChat(askedQuestion: string) {
-    console.log("this.userService.getUserId(): ", this.userService.getUserId())
+    console.log("user_id: ", this.userId)
+    console.log("session_id: ",this.sessionIdDefult )
     const payload = {
-      app_id: this.app_id,
-      session_id: this.sessionId,
       user_id: this.userId,
-      // user_id: this.userService.getUserId(),
-      question: askedQuestion, 
+      session_id: this.sessionIdDefult,
+      question: askedQuestion,
+      app_id: this.app_id, 
       model_name: this.model_name,
       top_k: this.top_k,
       use_cache: true
