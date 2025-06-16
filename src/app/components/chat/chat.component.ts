@@ -31,11 +31,11 @@ export class ChatComponent {
 
   userName: string | null = 'User Name';
 
-  sessionIdDefault =  'b956506-2a95-43a2-8737-c0deb90d0b75';
-  sessionId: any = "";
-
   userIdDefault = '8c8cda2b-cda6-41c2-927d-511d40724810';
+  sessionIdDefault =  'b956506-2a95-43a2-8737-c0deb90d0b75';
+
   userId: any = "";
+  sessionId: any = "";
   
   askedQuestion: string = '';
   sources: AnswerSource[] = [];
@@ -56,6 +56,9 @@ export class ChatComponent {
   constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService){}
 
   ngOnInit() {
+    this.userId = this.userService.getUserId();
+    console.log("userId: ", this.userId)
+    this.createSessionId(this.userService.getUserId());
     this.userService.userName$.subscribe(name => {
       this.userName = name;
     });
@@ -97,8 +100,8 @@ export class ChatComponent {
   }
   // Chat Stream
   postChat(askedQuestion: string) {
-    console.log("user_id default : ", this.userIdDefault)
-    console.log("session_id default : ",this.sessionIdDefault )
+    console.log("user_id: ", this.userId)
+    console.log("session_id: ",this.sessionId )
     const payload = {
       user_id: this.userIdDefault,
       session_id: this.sessionIdDefault,
@@ -168,7 +171,7 @@ export class ChatComponent {
     this.apiService.post<any>('create_session', payload, 'json').subscribe({
       next: async (data) => {
         console.log('createSession data:', data);
-        console.log('session_id:', data?.session_id);
+        console.log('session_id from createSessionId:', data?.session_id);
         this.sessionId = data?.session_id;
       },
       error: (err) => console.error('Error:', err),

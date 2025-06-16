@@ -29,6 +29,8 @@ export class ChatHistoryComponent {
       this.searchValue = value;
       this.applyFilter();
     });
+
+    this.getUserSession("8c8cda2b-cda6-41c2-927d-511d40724810", "67daf330d62c5ade928150d1"); 
   }
  
   getChatHistory(userId: string) {
@@ -39,6 +41,19 @@ export class ChatHistoryComponent {
           chatId: item.chat_id
         }));
         this.applyFilter(); // Apply filter immediately after loading
+      },
+      error: (err) => console.error('Error:', err),
+    });
+  }
+
+  getUserSession(userId: string, appId: string) {
+    const payload = {
+      user_id: userId,
+      app_id: appId, 
+    }
+    this.apiService.post<any>('get_chat_sessions_for_user_id', payload, 'text').subscribe({
+      next: async (data) => {
+        console.log("chat_sessions mz:", data);
       },
       error: (err) => console.error('Error:', err),
     });
