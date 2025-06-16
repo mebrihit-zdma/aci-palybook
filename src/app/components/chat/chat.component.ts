@@ -25,16 +25,18 @@ import { firstValueFrom } from 'rxjs';
 })
 export class ChatComponent {
 
-  userName: string | null = 'User Name';
-  sessionId =  'b956506-2a95-43a2-8737-c0deb90d0b75';
-  sessionIdDefult =  'b956506-2a95-43a2-8737-c0deb90d0b75';
-  userId = '8c8cda2b-cda6-41c2-927d-511d40724810';
   app_id = "67daf330d62c5ade928150d1";
   model_name ="openai/gpt-4o";
   top_k = 3;
 
-  // sessionId: any = "";
+  userName: string | null = 'User Name';
 
+  sessionIdDefault =  'b956506-2a95-43a2-8737-c0deb90d0b75';
+  sessionId: any = "";
+
+  userIdDefault = '8c8cda2b-cda6-41c2-927d-511d40724810';
+  userId: any = "";
+  
   askedQuestion: string = '';
   sources: AnswerSource[] = [];
   messages: ChatMessage[] = [];
@@ -95,11 +97,13 @@ export class ChatComponent {
   }
   // Chat Stream
   postChat(askedQuestion: string) {
-    console.log("user_id: ", this.userId)
-    console.log("session_id: ",this.sessionIdDefult )
+    console.log("user_id default : ", this.userIdDefault)
+    console.log("session_id default : ",this.sessionIdDefault )
     const payload = {
-      user_id: this.userId,
-      session_id: this.sessionIdDefult,
+      user_id: this.userIdDefault,
+      session_id: this.sessionIdDefault,
+      // user_id: this.userId,
+      // session_id: this.sessionId,
       question: askedQuestion,
       app_id: this.app_id, 
       model_name: this.model_name,
