@@ -1,16 +1,18 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   
+  private apiBaseUrl = environment.apiBaseUrl;
   constructor(private http: HttpClient) {}
 
-  chatIdUrl = `https://aci-playbook-peerai.azurewebsites.net/api/v1/get_chat`;
-  baseUrl = `https://aci-playbook-peerai.azurewebsites.net/api/v1`;
+  chatIdUrl = `${environment.apiBaseUrl}/api/v1/get_chat`;
+  baseUrl = `${environment.apiBaseUrl}/api/v1`;
 
   getSelectedQuestion<T>(endpoint: string): Observable<T> {
     return this.http.get<T>(`${this.chatIdUrl}/${endpoint}`);
