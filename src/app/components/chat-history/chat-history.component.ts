@@ -52,13 +52,13 @@ export class ChatHistoryComponent {
       app_id: "67daf330d62c5ade928150d1", 
     }
     this.apiService.post<any>('get_chat_sessions_for_user_id', payload).subscribe({
-      next: (data: ChatSession[]) => {
-        console.log("chat_sessions mz:", data);
-        this.chatHistory = data.map(item => ({
+      next: (data) => {
+        this.chatHistory = data.map((item: { summary: string, session_id: string }) => ({
           question: item.summary || '',
           chatId: item.session_id
         }));
         this.applyFilter();
+        console.log("chat_sessions mz:", data);
       },
       error: (err) => console.error('Error:', err),
     });
