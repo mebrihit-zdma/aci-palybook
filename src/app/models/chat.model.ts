@@ -23,4 +23,8 @@ export interface SavedChats {
 export interface promptsLibrarylist {
     prompt: string;
 }
+export interface ChatSession {
+    session_id: string;
+    summary:string;
+}
 

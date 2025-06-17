@@ -3,7 +3,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ApiService } from '../../services/api.service';
 import { ChatService } from '../../services/chat.service';
 import { SearchChatService } from '../../services/search-chat.service';
-import { ChatHistory } from '../../models/chat.model';
+import { ChatHistory, ChatSession } from '../../models/chat.model';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -24,36 +24,41 @@ export class ChatHistoryComponent {
   constructor(private apiService: ApiService, private chatService: ChatService, private searchChatService: SearchChatService, private sanitizer: DomSanitizer, private router: Router){}
   
   ngOnInit() {
-    this.getChatHistory(this.userId);
+    // this.getChatHistory(this.userId);
+    this.getUserSession("8c8cda2b-cda6-41c2-927d-511d40724810"); 
     this.searchChatService.searchValue$.subscribe(value => {
       this.searchValue = value;
       this.applyFilter();
     });
-
-    this.getUserSession("8c8cda2b-cda6-41c2-927d-511d40724810", "67daf330d62c5ade928150d1"); 
   }
  
-  getChatHistory(userId: string) {
-    this.apiService.get<any>(userId).subscribe({
-      next: (data) => {
-        this.chatHistory = data.map((item: { chat: { question: string }, chat_id: string }) => ({
-          question: item.chat?.question || '',
-          chatId: item.chat_id
-        }));
-        this.applyFilter(); // Apply filter immediately after loading
-      },
-      error: (err) => console.error('Error:', err),
-    });
-  }
+  // getChatHistory(userId: string) {
+  //   this.apiService.get<any>(userId).subscribe({
+  //     next: (data) => {
+  //       console.log("chatHistory mz:", data);
+  //       this.chatHistory = data.map((item: { chat: { question: string }, chat_id: string }) => ({
+  //         question: item.chat?.question || '',
+  //         chatId: item.chat_id
+  //       }));
+  //       this.applyFilter(); // Apply filter immediately after loading
+  //     },
+  //     error: (err) => console.error('Error:', err),
+  //   });
+  // }
 
-  getUserSession(userId: string, appId: string) {
+  getUserSession(userId: string) {
     const payload = {
       user_id: userId,
-      app_id: appId, 
+      app_id: "67daf330d62c5ade928150d1", 
     }
-    this.apiService.post<any>('get_chat_sessions_for_user_id', payload, 'text').subscribe({
-      next: async (data) => {
+    this.apiService.post<any>('get_chat_sessions_for_user_id', payload).subscribe({
+      next: (data: ChatSession[]) => {
         console.log("chat_sessions mz:", data);
+        this.chatHistory = data.map(item => ({
+          question: item.summary || '',
+          chatId: item.session_id
+        }));
+        this.applyFilter();
       },
       error: (err) => console.error('Error:', err),
     });
