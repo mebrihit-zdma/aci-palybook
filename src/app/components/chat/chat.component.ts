@@ -32,7 +32,7 @@ export class ChatComponent {
   userName: string | null = 'User Name';
 
   userIdDefault = '8c8cda2b-cda6-41c2-927d-511d40724810';
-  sessionIdDefault =  'b956506-2a95-43a2-8737-c0deb90d0b75';
+  // sessionIdDefault =  'b956506-2a95-43a2-8737-c0deb90d0b75';
 
   userId: any = "";
   sessionId: any = "";
@@ -104,9 +104,9 @@ export class ChatComponent {
     console.log("session_id: ",this.sessionId )
     const payload = {
       user_id: this.userIdDefault,
-      session_id: this.sessionIdDefault,
+      // session_id: this.sessionIdDefault,
       // user_id: this.userId,
-      // session_id: this.sessionId,
+      session_id: this.sessionId,
       question: askedQuestion,
       app_id: this.app_id, 
       model_name: this.model_name,
