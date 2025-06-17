@@ -75,21 +75,22 @@ export class OnBoardingPageComponent {
     this.isPersonalizeDashboardNextButtonActive = true
   }
 
-  goToPoductsSection(id: string) {
-    this.personaId = id;
+  goToPoductsSection(role: any) {
+    this.userService.setUserRole(role.name)
+    this.personaId = role.id;
     this.hiddenProductsSection = false; 
   }
-onRoleSelected(item: any): void {
-  this.selectedRoleList = item.name;
-  // Option B: Fetch from API
-  this.apiService.get<any>(`get_persona/${item.id}`).subscribe({
-    next: (data) => {
-      this.widgetsList = data.widgets;
-      this.onboardingService.setPersonaWidgetList(data.widgets)
-    },
-    error: (err) => console.error('Error fetching widgets:', err),
-  });
-}
+  onRoleSelected(item: any): void {
+    this.selectedRoleList = item.name;
+    // Option B: Fetch from API
+    this.apiService.get<any>(`get_persona/${item.id}`).subscribe({
+      next: (data) => {
+        this.widgetsList = data.widgets;
+        this.onboardingService.setPersonaWidgetList(data.widgets)
+      },
+      error: (err) => console.error('Error fetching widgets:', err),
+    });
+  }
 
   goToPersonalizeDashboardSection() {
     this.hiddenPersonalizeDashboardSection = false; 

@@ -13,14 +13,16 @@
                 <div class="flex flex-col gap-[32px] w-full">
                     <div class="flex">
                         <div class="mt-[-4px] w-[40px] h-[36px] sm:w-[36px] scale-[0.7] bg-[url('./app/resources/icons/blue-chat-icon.svg')]"></div>
-                        <p class="bg-white flex py-[10px] px-[12px] w-[100%] lg:w-[75%] border border-[#D5D7DA] text-sm rounded-tl-none rounded-tr-lg rounded-br-lg rounded-bl-lg sm:pe-[40px]">I see your role is &nbsp; <strong>{{userRole}}</strong>. Does that look right to you?</p>
+                        <p class="bg-white flex py-[10px] px-[12px] w-[100%] lg:w-[75%] border border-[#D5D7DA] text-sm rounded-tl-none rounded-tr-lg rounded-br-lg rounded-bl-lg sm:pe-[40px]">
+                        <!--/* I see your role is &nbsp; <strong>{{userRole}}</strong>. Does that look right to you?</p> */-->
+                        Would you mind selecting your &nbsp; <strong>role</strong>?</p>
                     </div>
-                    <div class="flex justify-center md:justify-end">
+                    <!--/* <div class="flex justify-center md:justify-end">
                         <div class="flex gap-[8px]">
-                            <!--/* <label class="bg-white flex justify-center items-center py-[8px] px-[16px]  border border-[#D5D7DA] rounded-[12px] text-sm gap-[8px] on-boarding" (click)="goToPoductsSection('userRole')" [ngClass]="selectedRole === 'yes' ? 'gradient-border' : ''">
+                            <label class="bg-white flex justify-center items-center py-[8px] px-[16px]  border border-[#D5D7DA] rounded-[12px] text-sm gap-[8px] on-boarding" (click)="goToPoductsSection('userRole')" [ngClass]="selectedRole === 'yes' ? 'gradient-border' : ''">
                                 <input type="radio" id="yes" name="role" value="yes"[(ngModel)]="selectedRole">
                                 Yes, that’s correct
-                            </label> */-->
+                            </label>
                             <label class="bg-white flex justify-center items-center py-[8px] px-[16px]  border border-[#D5D7DA] rounded-[12px] text-sm gap-[8px] on-boarding" (click)="productOwnerRole()" [ngClass]="selectedRole === 'yes' ? 'gradient-border' : ''">
                                 <input type="radio" id="yes" name="role" value="yes"[(ngModel)]="selectedRole">
                                 Yes, that’s correct
@@ -30,12 +32,12 @@
                                 No, I want to change it
                             </label>
                         </div>
-                    </div>
+                    </div> */-->
 
                     <!-- role list radio button for no section -->
-                    <div class="flex justify-center md:justify-end" [ngClass]="givenRoleList? '' : 'hidden'" >
+                    <div class="flex justify-center md:justify-end">
                         <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-[20px] sm:justify-end sm:w-[60%]">
-                            <label class="bg-white flex flex-col  py-[16px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm relative" *ngFor="let item of roleList" (click)="goToPoductsSection(item.id)" 
+                            <label class="bg-white flex flex-col  py-[16px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm relative" *ngFor="let item of roleList" (click)="goToPoductsSection(item)" 
                             [ngClass]="selectedRoleList === item.name ? 'gradient-border' : ''">
                                 <div class="flex on-boarding">
                                     <div class="w-[48px] h-[48px] bg-[#F4EBFF] rounded-full flex items-center justify-center  text-primary">
