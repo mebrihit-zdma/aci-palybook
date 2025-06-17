@@ -136,14 +136,14 @@
             <!-- profile name section-->
             @if (!isLeftSidebarCollapsed()) {
               <div class="">
-                <p class="jona text-[#414651] font-semibold text-sm">{{userName}}</p>
-                <p class="magn text-[#535862] text-sm font-normal truncate whitespace-nowrap overflow-hidden">{{userRole}}</p>
+                <p class="text-[#414651] font-semibold text-sm">{{userName}}</p>
+                <p class="text-[#535862] text-sm font-normal truncate whitespace-nowrap overflow-hidden">{{userRole}}</p>
               </div>
             }
           </div>
           <!-- profile right arrow section-->
           @if (!isLeftSidebarCollapsed()) {
-            <div class="ml-auto inline-block ">
+            <div class="ml-auto inline-block">
               <div (click)="logout()" class="w-[36px] h-[36px] rounded-[8px] mx-auto bg-[url('./app/resources/icons/right-arrow-icon.svg')]"></div>
             </div>
           }
