@@ -26,7 +26,7 @@ import { firstValueFrom } from 'rxjs';
 export class ChatComponent {
 
   app_id = "67daf330d62c5ade928150d1";
-  model_name ="openai/gpt-4o";
+  model_name ="azure/gpt-4o";
   top_k = 3;
 
   userName: string | null = 'User Name';
