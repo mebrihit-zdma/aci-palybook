@@ -12,6 +12,7 @@ import { SourceCardComponent } from '../../components/cards/source-card/source-c
 import { AnswerSource, ChatMessage } from '../../models/chat.model';
 import { extractAnswerText, convertMarkdown, extractSources } from '../../utils/chat-utils';
 import { UserService } from '../../services/user.service';
+import { StreamService } from '../../services/stream.service';
 import { firstValueFrom } from 'rxjs';
 
 
@@ -53,7 +54,7 @@ export class ChatComponent {
   
   @ViewChild('promptInput') promptInput!: ElementRef<HTMLInputElement>;
 
-  constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService){}
+  constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService, private streamService: StreamService){}
 
   ngOnInit() {
     this.userId = this.userService.getUserId();
@@ -95,7 +96,8 @@ export class ChatComponent {
   askQuestion(askedQuestion : string ) {
     const question = askedQuestion.trim();
     if (!question) return;
-    this.postChat(question);
+    // this.postChat(question);
+    this.chatStream(question); 
     this.askedQuestion = ''; 
     this.createShortcutPrompt = true;
   }
@@ -315,5 +317,33 @@ export class ChatComponent {
     this.postChat(prompt);
     this.isPromptsLibraryModelOpen = false;
     this.promptsLibrarySearch = "";
+  }
+  
+  chatResponse = '';
+  isLoading = false;
+
+  chatStream(askedQuestion: string) {
+    this.chatResponse = '';
+    this.isLoading = true;
+
+    const payload = {
+      user_id: this.userIdDefault,
+      session_id: this.sessionId,
+      question: askedQuestion,
+      app_id: this.app_id, 
+      model_name: this.model_name,
+      top_k: this.top_k,
+      use_cache: true
+    };
+
+    this.streamService.streamChatResponse(
+      payload,
+      (chunk) => this.chatResponse += chunk,    // Append each streamed chunk
+      () => this.isLoading = false,              // Done
+      (err) => {
+        console.error('Stream error:', err);
+        this.isLoading = false;
+      }
+    );
   }
 }
