@@ -130,8 +130,8 @@
           <div class="flex gap-2">
             <!-- profile first letter section-->
             <div class="flex justify-start items-center gap-[10px]">
-                <!--/* <span class="text-primary bg-[#e9eef8] flex rounded-[200px] w-[40px] h-[40px] justify-center items-center">{{ getFirstLetter(userName) }}</span> */-->
-                <img class="border border-gray-300 rounded-[200px] w-[40px] h-[40px] justify-center items-center" *ngIf="profileImageUrl" [src]="profileImageUrl" alt="User profile picture">
+                <span class="text-primary bg-[#e9eef8] flex rounded-[200px] w-[40px] h-[40px] justify-center items-center">{{ getFirstLetter(userName) }}</span>
+                <!--/* <img class="border border-gray-300 rounded-[200px] w-[40px] h-[40px] justify-center items-center" *ngIf="profileImageUrl" [src]="profileImageUrl" alt="User profile picture"> */-->
             </div>
             <!-- profile name section-->
             @if (!isLeftSidebarCollapsed()) {
@@ -142,13 +142,13 @@
             }
           </div>
           <!-- profile right arrow section-->
-          @if (!isLeftSidebarCollapsed()) {
+          <!--/* @if (!isLeftSidebarCollapsed()) {
             <div class="ml-auto inline-block">
               <div (click)="logout()" class="w-[36px] h-[36px] rounded-[8px] mx-auto bg-[url('./app/resources/icons/right-arrow-icon.svg')]"></div>
             </div>
-          }
+          } */-->
         </div>
-        UAT v1.0.2+20250604
+        UAT v1.0.2+20250618
       </div>
     </div>
   </div>

@@ -17,7 +17,8 @@ export class WelcomePageComponent implements OnInit {
   userName: string | null = 'User Name';
   ngOnInit(): void {
     this.userService.userName$.subscribe(name => {
-      this.userName = name;
+      // this.userName = name;
+      this.userName = 'Joanna'
     });
   }
   goToOnboarding() {

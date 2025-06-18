@@ -38,7 +38,8 @@ export class DashboardComponent {
   selectedCustomizeWidgets: string[] = [];
   ngOnInit() {
     this.userService.userName$.subscribe(name => {
-      this.userName = name;
+      // this.userName = name;
+      this.userName = 'Joanna'
     });
     this.userService.userRole$.subscribe(role => {
       this.userRole = role;

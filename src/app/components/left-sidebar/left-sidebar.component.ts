@@ -6,7 +6,7 @@ import { LoginService } from '../../services/login.service';
 import { SearchChatService } from '../../services/search-chat.service';
 import { ChatHistoryComponent } from '../../components/chat-history/chat-history.component';
 import { ChatService } from '../../services/chat.service';
-import { MsalService } from '@azure/msal-angular';
+// import { MsalService } from '@azure/msal-angular';
 import { DocumentationService } from '../../services/documentation.service';
 import { FormsModule } from '@angular/forms';
 
@@ -21,11 +21,14 @@ export class LeftSidebarComponent {
   
   loginDisplay: boolean = false;
 
-  constructor(private userService: UserService, private loginService: LoginService, private searchChatService: SearchChatService, private chatService: ChatService, private documentationService: DocumentationService, private router: Router, private authService: MsalService) {
+  // constructor(private userService: UserService, private loginService: LoginService, private searchChatService: SearchChatService, private chatService: ChatService, private documentationService: DocumentationService, private router: Router, private authService: MsalService) {
+
+  //   // this.loginDisplay= this.loginService.getLoginDisplay();
+  // }
+  constructor(private userService: UserService, private loginService: LoginService, private searchChatService: SearchChatService, private chatService: ChatService, private documentationService: DocumentationService, private router: Router) {
 
     // this.loginDisplay= this.loginService.getLoginDisplay();
   }
-  
   userName: string | null = 'User Name';
   userRole: string | null = 'Product Owner';
   profileImageUrl: string | null = null;
@@ -36,7 +39,8 @@ export class LeftSidebarComponent {
   documentationGeneratedPage = false; 
   ngOnInit() {
     this.userService.userName$.subscribe(name => {
-      this.userName = name;
+      // this.userName = name;
+      this.userName = 'Joanna';
     });
     this.userService.userRole$.subscribe(role => {
       this.userRole = role;
@@ -122,9 +126,9 @@ export class LeftSidebarComponent {
   }
 
   // Log the user out
-  logout() {
-    if(this.loginDisplay){
-      this.authService.logoutRedirect();
-    }
-  }
+  // logout() {
+  //   if(this.loginDisplay){
+  //     this.authService.logoutRedirect();
+  //   }
+  // }
 }

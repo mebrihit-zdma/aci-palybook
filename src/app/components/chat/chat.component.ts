@@ -60,7 +60,8 @@ export class ChatComponent {
     console.log("userId: ", this.userId)
     this.createSessionId(this.userService.getUserId());
     this.userService.userName$.subscribe(name => {
-      this.userName = name;
+      // this.userName = name;
+      this.userName = 'Joanna'
     });
     this.products = this.onboardingService.getProductList()
     this.selectedProduct = this.onboardingService.getSelectedProduct();
