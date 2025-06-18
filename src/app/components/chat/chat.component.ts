@@ -70,7 +70,8 @@ export class ChatComponent {
       this.createShortcutPrompt = true;
     }
     this.chatService.click$.subscribe(() => {
-      this.getChat(this.chatService.getChatId());
+      this.getChatSession(this.chatService.getChatId())
+      // this.getChat(this.chatService.getChatId());
       this.createShortcutPrompt = true;
     });
     // start new chat on clicking the Start New Chat button
@@ -157,6 +158,28 @@ export class ChatComponent {
           text: safeAnswer, 
           sources: answerSource 
          });
+      },
+      error: (err) => console.error('Error:', err),
+    });
+  }
+  getChatSession(session_id: string) {
+    this.apiService.get<any>(`get_session/${session_id}`).subscribe({
+      next: async (data) => {
+        console.log("getChatSession data: ", data.chat_history
+        )
+        // const raw = data.chat.answer;
+        // const extractAnswer = extractAnswerText(raw);
+        // const safeAnswer = await convertMarkdown(extractAnswer, this.sanitizer);
+        // const question = data.chat.question;
+
+        // let answerSource: AnswerSource[] = extractSources(raw); 
+        
+        // this.messages.push({ sender: 'user', text:question });
+        // this.messages.push({ 
+        //   sender: 'bot', 
+        //   text: safeAnswer, 
+        //   sources: answerSource 
+        //  });
       },
       error: (err) => console.error('Error:', err),
     });

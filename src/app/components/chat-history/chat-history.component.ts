@@ -58,7 +58,6 @@ export class ChatHistoryComponent {
           chatId: item.session_id
         }));
         this.applyFilter();
-        console.log("chat_sessions mz:", data);
       },
       error: (err) => console.error('Error:', err),
     });
@@ -89,6 +88,7 @@ export class ChatHistoryComponent {
   
   // selected question from chat history
   selectChat(chatId: string) {
+    console.log("Session Id: ", chatId)
     this.chatService.setChatId(chatId);
     this.chatService.emitClick();
     this.chatService.setNewChatHistory(true);
