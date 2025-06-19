@@ -322,15 +322,16 @@ export class ChatComponent {
   chatResponse = '';
   isLoading = false;
 
-  chatHistory: { question: string; answer: string }[] = [];
+  chatHistory: { question: string; answer: any }[] = [];
+
   chatStream(askedQuestion: string) {
     if (!askedQuestion?.trim()) return;
-
+  
     this.chatResponse = '';
     this.isLoading = true;
     const question = askedQuestion;
     this.askedQuestion = ''; // Clear input field
-
+  
     const payload = {
       user_id: this.userIdDefault,
       session_id: this.sessionId,
@@ -340,13 +341,20 @@ export class ChatComponent {
       top_k: this.top_k,
       use_cache: true
     };
-
+  
+    this.messages.push({ sender: 'user', text: askedQuestion });
+    this.messages.push({ sender: 'bot', text: '<em>...</em>', loading: true });
+  
     this.streamService.streamChatResponse(
       payload,
       chunk => this.chatResponse += chunk,
-      () => {
-        this.chatHistory.push({ question, answer: this.chatResponse });
+      async () => {
+        const extractAnswer = extractAnswerText(this.chatResponse);
+        const safeAnswer = await convertMarkdown(extractAnswer, this.sanitizer);
+  
         this.isLoading = false;
+        this.messages = this.messages.filter(msg => !msg.loading);
+        this.messages.push({ sender: 'bot', text: safeAnswer });
       },
       err => {
         console.error('Stream error:', err);
@@ -354,5 +362,6 @@ export class ChatComponent {
       }
     );
   }
+  
   
 }
