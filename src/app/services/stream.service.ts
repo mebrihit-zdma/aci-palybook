@@ -17,9 +17,7 @@ export class StreamService {
     })
       .then(response => {
         const reader = response.body?.getReader();
-        console.log("reader : ", reader )
         const decoder = new TextDecoder("utf-8");
-
         const readChunk = () => {
           reader?.read().then(({ done, value }) => {
             if (done) {

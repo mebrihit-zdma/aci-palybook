@@ -97,7 +97,7 @@ export class ChatComponent {
     const question = askedQuestion.trim();
     if (!question) return;
     // this.postChat(question);
-    this.chatStream(question); 
+    // this.chatStream(question); 
     this.askedQuestion = ''; 
     this.createShortcutPrompt = true;
   }
@@ -322,15 +322,20 @@ export class ChatComponent {
   chatResponse = '';
   isLoading = false;
 
+  chatHistory: { question: string; answer: string }[] = [];
   chatStream(askedQuestion: string) {
+    if (!askedQuestion?.trim()) return;
+
     this.chatResponse = '';
     this.isLoading = true;
+    const question = askedQuestion;
+    this.askedQuestion = ''; // Clear input field
 
     const payload = {
       user_id: this.userIdDefault,
       session_id: this.sessionId,
-      question: askedQuestion,
-      app_id: this.app_id, 
+      question,
+      app_id: this.app_id,
       model_name: this.model_name,
       top_k: this.top_k,
       use_cache: true
@@ -338,12 +343,16 @@ export class ChatComponent {
 
     this.streamService.streamChatResponse(
       payload,
-      (chunk) => this.chatResponse += chunk,    // Append each streamed chunk
-      () => this.isLoading = false,              // Done
-      (err) => {
+      chunk => this.chatResponse += chunk,
+      () => {
+        this.chatHistory.push({ question, answer: this.chatResponse });
+        this.isLoading = false;
+      },
+      err => {
         console.error('Stream error:', err);
         this.isLoading = false;
       }
     );
   }
+  
 }

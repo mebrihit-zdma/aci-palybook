@@ -513,6 +513,14 @@ input:checked + .slider:before {
 .typing-loader span:nth-child(3) {
   animation-delay: 0;
 }
+.chat-stream-output {
+  white-space: pre-wrap;
+  font-family: monospace;
+  padding: 1rem;
+  background: #f2f2f2;
+  border-radius: 6px;
+  margin-top: 1rem;
+}
 
 
 

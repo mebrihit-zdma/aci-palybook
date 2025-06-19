@@ -214,6 +214,29 @@
                 </ul>
               </div>
             </div>
+            <!--/* <pre class="chat-stream-output">{{ chatResponse }}</pre> */-->
+            <!-- Chat History -->
+            <div class="mt-4 flex flex-col gap-4">
+              <div
+                *ngFor="let chat of chatHistory"
+                class="bg-[#f7f9fc] p-4 rounded-md border border-[#e0e0e0]"
+              >
+                <p class="text-sm text-[#4a4a4a] font-medium">You:</p>
+                <p class="mb-2 text-base text-[#19213D] whitespace-pre-wrap">{{ chat.question }}</p>
+
+                <p class="text-sm text-[#4a4a4a] font-medium">AI:</p>
+                <p class="text-base text-[#3b3b3b] whitespace-pre-wrap">{{ chat.answer }}</p>
+              </div>
+
+              <!-- Active streaming response (not yet pushed to history) -->
+              <div *ngIf="chatResponse && isLoading" class="bg-[#eef3fa] p-4 rounded-md border border-[#d5d7da]">
+                <p class="text-sm text-[#4a4a4a] font-medium">You:</p>
+                <p class="mb-2 text-base text-[#19213D] whitespace-pre-wrap">{{ askedQuestion }}</p>
+
+                <p class="text-sm text-[#4a4a4a] font-medium">AI:</p>
+                <p class="text-base text-[#3b3b3b] whitespace-pre-wrap">{{ chatResponse }}</p>
+              </div>
+            </div>
             <!-- ask question input field -->
             <div class="w-[100%] flex gap-2">
               <!-- Prompts Library button -->
@@ -230,10 +253,11 @@
                       class="text-sm w-[100%]"
                       name="askedQuestion"
                       [(ngModel)]="askedQuestion"
-                      (keydown.enter)="askQuestion(askedQuestion)"
+                      (keydown.enter)="chatStream(askedQuestion)"
+                      [disabled]="isLoading"
                     />
                 </div>
-                <span class="w-[18px] h-[18.86px] bg-[url('./app/resources/icons/blue-right-arrow-icon.svg')]"></span>
+                <span class="w-[18px] h-[18.86px] bg-[url('./app/resources/icons/blue-right-arrow-icon.svg')]" (click)="chatStream(askedQuestion)"></span>
               </label>
             </div>
         </div>
