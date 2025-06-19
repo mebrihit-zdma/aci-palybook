@@ -9,8 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { marked } from 'marked';
 import { SourceCardComponent } from '../../components/cards/source-card/source-card.component';
-import { AnswerSource, ChatMessage } from '../../models/chat.model';
-import { extractAnswerText, convertMarkdown, extractSources } from '../../utils/chat-utils';
+import { AnswerSource, ChatMessage, ResponseMessage } from '../../models/chat.model';
+import { extractAnswerText, convertMarkdown, extractSources, extractResponseSources } from '../../utils/chat-utils';
 import { UserService } from '../../services/user.service';
 import { StreamService } from '../../services/stream.service';
 import { firstValueFrom } from 'rxjs';
@@ -41,6 +41,8 @@ export class ChatComponent {
   askedQuestion: string = '';
   sources: AnswerSource[] = [];
   messages: ChatMessage[] = [];
+
+  chatMessages: ResponseMessage[] = [];
 
   createShortcutPrompt = false;
   products: string[] = [];
@@ -325,6 +327,7 @@ export class ChatComponent {
   chatHistory: { question: string; answer: any }[] = [];
 
   chatStream(askedQuestion: string) {
+    this.createShortcutPrompt = true;
     if (!askedQuestion?.trim()) return;
   
     this.chatResponse = '';
@@ -342,8 +345,8 @@ export class ChatComponent {
       use_cache: true
     };
   
-    this.messages.push({ sender: 'user', text: askedQuestion });
-    this.messages.push({ sender: 'bot', text: '<em>...</em>', loading: true });
+    this.chatMessages.push({ sender: 'user', text: askedQuestion });
+    this.chatMessages.push({ sender: 'bot', text: '<em>...</em>', loading: true });
   
     this.streamService.streamChatResponse(
       payload,
@@ -351,10 +354,19 @@ export class ChatComponent {
       async () => {
         const extractAnswer = extractAnswerText(this.chatResponse);
         const safeAnswer = await convertMarkdown(extractAnswer, this.sanitizer);
-  
+        
+        let sources: { label: string; url: string }[] = [];
+        sources = extractResponseSources(this.chatResponse);
+        console.log("sources: ", sources)
+
         this.isLoading = false;
-        this.messages = this.messages.filter(msg => !msg.loading);
-        this.messages.push({ sender: 'bot', text: safeAnswer });
+        this.chatMessages = this.chatMessages.filter(msg => !msg.loading);
+        this.chatMessages.push({ 
+          sender: 'bot', 
+          text: safeAnswer,
+          sources: sources
+
+          });
       },
       err => {
         console.error('Stream error:', err);

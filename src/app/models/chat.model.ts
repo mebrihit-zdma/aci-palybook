@@ -1,10 +1,19 @@
 // chat.model.ts
+export interface ResponseSource {
+    label: string;
+    url: string;
+}
+export interface ResponseMessage {
+    sender: 'bot' | 'user';
+    text: any;
+    sources?: ResponseSource[];
+    loading?: boolean;
+}
 export interface AnswerSource {
     fileName: string;
     pageNumber: string;
     url: string;
 }
-  
 export interface ChatMessage {
     sender: 'bot' | 'user';
     text: any;

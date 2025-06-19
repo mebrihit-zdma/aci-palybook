@@ -23,3 +23,16 @@ export function extractSources(raw: string): AnswerSource[] {
     url: m[3]
   }));
 }
+
+export function extractResponseSources(markdown: string): { label: string; url: string }[] {
+  const regex = /\[(.*?)\]\((https?:\/\/.*?)\)/g;
+  const sources: { label: string; url: string }[] = [];
+
+  let match;
+  while ((match = regex.exec(markdown)) !== null) {
+    sources.push({ label: match[1], url: match[2] });
+  }
+
+  return sources;
+}
+
