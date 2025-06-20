@@ -323,7 +323,6 @@ export class ChatComponent {
   
   chatResponse = '';
   isLoading = false;
-  chatHistory:ChatResponse[] = [];
 
   chatStream(askedQuestion: string) {
     this.createShortcutPrompt = true;
@@ -364,13 +363,6 @@ export class ChatComponent {
           text: safeAnswer,
           sources: sources
         });
-        this.chatHistory.push(
-          { 
-            question: question, 
-            answer: safeAnswer,
-            sources: sources
-          }
-        );
       },
       err => {
         console.error('Stream error:', err);
