@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { marked } from 'marked';
 import { SourceCardComponent } from '../../components/cards/source-card/source-card.component';
-import { AnswerSource, ChatMessage, ResponseMessage, ChatResponse } from '../../models/chat.model';
+import { AnswerSource, ChatMessage, ResponseMessage, ChatResponse, ResponseSource } from '../../models/chat.model';
 import { extractAnswerText, convertMarkdown, extractSources, extractResponseSources } from '../../utils/chat-utils';
 import { UserService } from '../../services/user.service';
 import { StreamService } from '../../services/stream.service';
@@ -323,8 +323,6 @@ export class ChatComponent {
   
   chatResponse = '';
   isLoading = false;
-
-  // chatHistory: { question: string; answer: any }[] = [];
   chatHistory:ChatResponse[] = [];
 
   chatStream(askedQuestion: string) {
@@ -348,7 +346,7 @@ export class ChatComponent {
   
     this.chatMessages.push({ sender: 'user', text: askedQuestion });
     this.chatMessages.push({ sender: 'bot', text: '<em>...</em>', loading: true });
-  
+    
     this.streamService.streamChatResponse(
       payload,
       chunk => this.chatResponse += chunk,
@@ -356,10 +354,9 @@ export class ChatComponent {
         const extractAnswer = extractAnswerText(this.chatResponse);
         const safeAnswer = await convertMarkdown(extractAnswer, this.sanitizer);
         
-        let sources: { label: string; url: string }[] = [];
+        let sources: ResponseSource[] = [];
         sources = extractResponseSources(this.chatResponse);
-        console.log("sources: ", sources)
-
+        
         this.isLoading = false;
         this.chatMessages = this.chatMessages.filter(msg => !msg.loading);
         this.chatMessages.push({ 
