@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { marked } from 'marked';
 import { SourceCardComponent } from '../../components/cards/source-card/source-card.component';
-import { AnswerSource, ChatMessage, ResponseMessage } from '../../models/chat.model';
+import { AnswerSource, ChatMessage, ResponseMessage, ChatResponse } from '../../models/chat.model';
 import { extractAnswerText, convertMarkdown, extractSources, extractResponseSources } from '../../utils/chat-utils';
 import { UserService } from '../../services/user.service';
 import { StreamService } from '../../services/stream.service';
@@ -324,7 +324,8 @@ export class ChatComponent {
   chatResponse = '';
   isLoading = false;
 
-  chatHistory: { question: string; answer: any }[] = [];
+  // chatHistory: { question: string; answer: any }[] = [];
+  chatHistory:ChatResponse[] = [];
 
   chatStream(askedQuestion: string) {
     this.createShortcutPrompt = true;
@@ -370,6 +371,7 @@ export class ChatComponent {
           { 
             question: question, 
             answer: safeAnswer,
+            sources: sources
           }
         );
       },

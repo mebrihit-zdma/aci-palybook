@@ -3,6 +3,12 @@ export interface ResponseSource {
     label: string;
     url: string;
 }
+export interface ChatResponse {
+    question: string; 
+    answer: any;
+    sources?: ResponseSource[];
+    loading?: boolean;
+}
 export interface ResponseMessage {
     sender: 'bot' | 'user';
     text: any;
