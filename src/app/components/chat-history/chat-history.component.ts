@@ -25,7 +25,7 @@ export class ChatHistoryComponent {
   
   ngOnInit() {
     // this.getChatHistory(this.userId);
-    this.getUserSession("8c8cda2b-cda6-41c2-927d-511d40724810"); 
+    this.getUserSession("8c8cda2b-cda6-41c2-927d-511d40724810test"); 
     this.searchChatService.searchValue$.subscribe(value => {
       this.searchValue = value;
       this.applyFilter();
@@ -53,6 +53,7 @@ export class ChatHistoryComponent {
     }
     this.apiService.post<any>('get_chat_sessions_for_user_id', payload).subscribe({
       next: (data) => {
+        console.log("Session List data:", data)
         this.chatHistory = data.map((item: { summary: string, session_id: string }) => ({
           question: item.summary || '',
           chatId: item.session_id

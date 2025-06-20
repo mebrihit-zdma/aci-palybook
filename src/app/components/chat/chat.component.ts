@@ -32,10 +32,10 @@ export class ChatComponent {
 
   userName: string | null = 'User Name';
 
-  userIdDefault = '8c8cda2b-cda6-41c2-927d-511d40724810';
+  // userIdDefault = '8c8cda2b-cda6-41c2-927d-511d40724810test';
   // sessionIdDefault =  'b956506-2a95-43a2-8737-c0deb90d0b75';
 
-  userId: any = "";
+  userId: any = "8c8cda2b-cda6-41c2-927d-511d40724810test";
   sessionId: any = "";
   
   askedQuestion: string = '';
@@ -59,9 +59,10 @@ export class ChatComponent {
   constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService, private streamService: StreamService){}
 
   ngOnInit() {
-    this.userId = this.userService.getUserId();
-    console.log("userId: ", this.userId)
-    this.createSessionId(this.userService.getUserId());
+    // this.userId = this.userService.getUserId();
+    // this.createSessionId(this.userService.getUserId());
+    console.log("user id: ", this.userId)
+    this.createSessionId(this.userId);
     this.userService.userName$.subscribe(name => {
       this.userName = name;
     });
@@ -81,7 +82,9 @@ export class ChatComponent {
     this.chatService.startNewChatClick$.subscribe(() => {
       this.sources = [];
       this.messages = [];
-      this.createSessionId(this.userService.getUserId());
+      this.chatMessages = [];
+      this.createSessionId(this.userId);
+      // this.createSessionId(this.userService.getUserId());
       this.createShortcutPrompt = false;
     });
   }
@@ -108,9 +111,9 @@ export class ChatComponent {
     console.log("user_id: ", this.userId)
     console.log("session_id: ",this.sessionId )
     const payload = {
-      user_id: this.userIdDefault,
+      // user_id: this.userIdDefault,
       // session_id: this.sessionIdDefault,
-      // user_id: this.userId,
+      user_id: this.userId,
       session_id: this.sessionId,
       question: askedQuestion,
       app_id: this.app_id, 
@@ -169,21 +172,8 @@ export class ChatComponent {
   getChatSession(session_id: string) {
     this.apiService.get<any>(`get_session/${session_id}`).subscribe({
       next: async (data) => {
-        console.log("getChatSession data: ", data.chat_history
+        console.log("Session data: ", data.chat_history
         )
-        // const raw = data.chat.answer;
-        // const extractAnswer = extractAnswerText(raw);
-        // const safeAnswer = await convertMarkdown(extractAnswer, this.sanitizer);
-        // const question = data.chat.question;
-
-        // let answerSource: AnswerSource[] = extractSources(raw); 
-        
-        // this.messages.push({ sender: 'user', text:question });
-        // this.messages.push({ 
-        //   sender: 'bot', 
-        //   text: safeAnswer, 
-        //   sources: answerSource 
-        //  });
       },
       error: (err) => console.error('Error:', err),
     });
@@ -197,8 +187,7 @@ export class ChatComponent {
     };
     this.apiService.post<any>('create_session', payload, 'json').subscribe({
       next: async (data) => {
-        console.log('createSession data:', data);
-        console.log('session_id from createSessionId:', data?.session_id);
+        console.log('session id:', data?.session_id);
         this.sessionId = data?.session_id;
       },
       error: (err) => console.error('Error:', err),
@@ -334,7 +323,7 @@ export class ChatComponent {
     this.askedQuestion = ''; // Clear input field
   
     const payload = {
-      user_id: this.userIdDefault,
+      user_id: this.userId,
       session_id: this.sessionId,
       question,
       app_id: this.app_id,
@@ -350,6 +339,7 @@ export class ChatComponent {
       payload,
       chunk => this.chatResponse += chunk,
       async () => {
+        console.log("Response: ", this.chatResponse)
         const extractAnswer = extractAnswerText(this.chatResponse);
         const safeAnswer = await convertMarkdown(extractAnswer, this.sanitizer);
         
