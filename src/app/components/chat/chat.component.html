@@ -225,7 +225,8 @@
                 <p class="mb-2 text-base text-[#19213D] whitespace-pre-wrap">{{ chat.question }}</p>
 
                 <p class="text-sm text-[#4a4a4a] font-medium">AI:</p>
-                <p class="text-base text-[#3b3b3b] whitespace-pre-wrap">{{ chat.answer }}</p>
+                <div [innerHTML]="chat.answer"></div>
+                <!--/* <p class="text-base text-[#3b3b3b] whitespace-pre-wrap">{{ chat.answer }}</p> */-->
               </div>
 
               <!-- Active streaming response (not yet pushed to history) -->
@@ -234,7 +235,8 @@
                 <p class="mb-2 text-base text-[#19213D] whitespace-pre-wrap">{{ askedQuestion }}</p>
 
                 <p class="text-sm text-[#4a4a4a] font-medium">AI:</p>
-                <p class="text-base text-[#3b3b3b] whitespace-pre-wrap">{{ chatResponse }}</p>
+                <div [innerHTML]="chatResponse"></div>
+                <!--/* <p class="text-base text-[#3b3b3b] whitespace-pre-wrap">{{ chatResponse }}</p> */-->
               </div>
             </div>
             <!-- ask question input field -->

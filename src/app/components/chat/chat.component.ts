@@ -365,8 +365,13 @@ export class ChatComponent {
           sender: 'bot', 
           text: safeAnswer,
           sources: sources
-
-          });
+        });
+        this.chatHistory.push(
+          { 
+            question: question, 
+            answer: safeAnswer,
+          }
+        );
       },
       err => {
         console.error('Stream error:', err);
