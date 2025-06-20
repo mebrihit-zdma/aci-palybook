@@ -172,11 +172,11 @@ export class ChatComponent {
   getChatSession(session_id: string) {
     this.apiService.get<any>(`get_session/${session_id}`).subscribe({
       next: async (data) => {
-        console.log("Session data: ", data.chat_history
-        )
+        console.log("Session data: ", data.chat_history)
+        this.processSessionHistory(data.chat_history);
       },
-      error: (err) => console.error('Error:', err),
-    });
+        error: (err) => console.error('Error:', err),
+      });
   }
   
   // Create a session id using user id
@@ -311,14 +311,12 @@ export class ChatComponent {
   }
   
   chatResponse = '';
-  isLoading = false;
 
   chatStream(askedQuestion: string) {
     this.createShortcutPrompt = true;
     if (!askedQuestion?.trim()) return;
   
     this.chatResponse = '';
-    this.isLoading = true;
     const question = askedQuestion;
     this.askedQuestion = ''; // Clear input field
   
@@ -346,7 +344,6 @@ export class ChatComponent {
         let sources: ResponseSource[] = [];
         sources = extractResponseSources(this.chatResponse);
         
-        this.isLoading = false;
         this.chatMessages = this.chatMessages.filter(msg => !msg.loading);
         this.chatMessages.push({ 
           sender: 'bot', 
@@ -356,9 +353,36 @@ export class ChatComponent {
       },
       err => {
         console.error('Stream error:', err);
-        this.isLoading = false;
       }
     );
+  }
+
+  private async processSessionHistory(chatHistory: any[]) {
+    console.log("testnnbnnnmmmmmmm: ", chatHistory)
+    const history: any[] = [];
+
+    for (const data of chatHistory) {
+      if (data?.chat?.question) {
+        history.push({
+          sender: 'user',
+          text: data.chat.question
+        });
+      }
+
+      if (data?.chat?.answer) {
+        const extractAnswer = extractAnswerText(data.chat.answer);
+        const safeAnswer = await convertMarkdown(extractAnswer, this.sanitizer);
+        const sources = extractResponseSources(data.chat.answer);
+
+        history.push({
+          sender: 'bot',
+          text: safeAnswer,
+          sources: sources
+        });
+      }
+    }
+
+    this.chatMessages = [...history];
   }
   
   

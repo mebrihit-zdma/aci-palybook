@@ -231,7 +231,6 @@
                       name="askedQuestion"
                       [(ngModel)]="askedQuestion"
                       (keydown.enter)="chatStream(askedQuestion)"
-                      [disabled]="isLoading"
                     />
                 </div>
                 <span class="w-[18px] h-[18.86px] bg-[url('./app/resources/icons/blue-right-arrow-icon.svg')]" (click)="chatStream(askedQuestion)"></span>
