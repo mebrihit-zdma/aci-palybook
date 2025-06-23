@@ -3,7 +3,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ApiService } from '../../services/api.service';
 import { ChatService } from '../../services/chat.service';
 import { SearchChatService } from '../../services/search-chat.service';
-import { ChatHistory, ChatSessions } from '../../models/chat.model';
+import { ChatHistory} from '../../models/chat.model';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
@@ -25,13 +25,13 @@ export class ChatHistoryComponent {
   constructor(private apiService: ApiService, private chatService: ChatService, private searchChatService: SearchChatService, private sanitizer: DomSanitizer, private router: Router){}
   
   ngOnInit() {
-    this.getUserSession(this.userId); 
+    this.getUserSessions(this.userId); 
     this.searchChatService.searchValue$.subscribe(value => {
       this.searchValue = value;
       this.applyFilter();
     });
   }
-  getUserSession(userId: string) {
+  getUserSessions(userId: string) {
     const payload = {
       user_id: userId,
       app_id: "67daf330d62c5ade928150d1", 
@@ -42,7 +42,7 @@ export class ChatHistoryComponent {
         console.log("Sessions List:", data)
         this.chatHistory = data.map((item: { summary: string, session_id: string }) => ({
           question: item.summary || '',
-          chatId: item.session_id
+          sessionId: item.session_id
         }));
         this.applyFilter();
       },
@@ -74,9 +74,9 @@ export class ChatHistoryComponent {
   }
   
   // selected question from chat history
-  selectChat(chatId: string) {
-    console.log("Session Id: ", chatId)
-    this.chatService.setChatId(chatId);
+  selectChat(sessionId: string) {
+    console.log("Session Id: ", sessionId)
+    this.chatService.setSessionId(sessionId);
     this.chatService.emitClick();
     this.chatService.setNewChatHistory(true);
     this.searchChatService.setSearchValue(''); // Clear SearchValue
@@ -84,8 +84,7 @@ export class ChatHistoryComponent {
   }
 
   trackChat(index: number, chat: ChatHistory) {
-    return chat.chatId;
+    return chat.sessionId;
   }
   
-
 }

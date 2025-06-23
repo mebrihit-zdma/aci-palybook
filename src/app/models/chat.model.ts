@@ -26,10 +26,9 @@ export interface ChatMessage {
     sources?: AnswerSource[];
     loading?: boolean;
 }
-
 export interface ChatHistory {
     question: string;
-    chatId: string;
+    sessionId: string;
 }
 export interface SavedChats {
     question: string;
@@ -38,8 +37,5 @@ export interface SavedChats {
 export interface promptsLibrarylist {
     prompt: string;
 }
-export interface ChatSessions {
-    session_id: string;
-    summary:string;
-}
+
 

@@ -59,13 +59,13 @@ export class ChatComponent {
   constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService, private streamService: StreamService){}
 
   ngOnInit() {
-    // this.userId = this.userService.getUserId();
-    // this.createSessionId(this.userService.getUserId());
     console.log("user id: ", this.userId)
     this.createSessionId(this.userId);
+
     this.userService.userName$.subscribe(name => {
       this.userName = name;
     });
+
     this.products = this.onboardingService.getProductList()
     this.selectedProduct = this.onboardingService.getSelectedProduct();
 
@@ -74,8 +74,7 @@ export class ChatComponent {
       this.createShortcutPrompt = true;
     }
     this.chatService.click$.subscribe(() => {
-      this.getChatSession(this.chatService.getChatId())
-      // this.getChat(this.chatService.getChatId());
+      this.getChatSession(this.chatService.getSessionId())
       this.createShortcutPrompt = true;
     });
     // start new chat on clicking the Start New Chat button
@@ -84,7 +83,6 @@ export class ChatComponent {
       this.messages = [];
       this.chatMessages = [];
       this.createSessionId(this.userId);
-      // this.createSessionId(this.userService.getUserId());
       this.createShortcutPrompt = false;
     });
   }
@@ -147,7 +145,6 @@ export class ChatComponent {
       error: (err) => console.error('Error:', err),
     });
   }
-
   // get chat using chat id
   getChat(chat_id: string) {
     this.apiService.getSelectedQuestion<any>(chat_id).subscribe({
@@ -169,6 +166,7 @@ export class ChatComponent {
       error: (err) => console.error('Error:', err),
     });
   }
+  // get session using session id
   getChatSession(session_id: string) {
     this.apiService.get<any>(`get_session/${session_id}`).subscribe({
       next: async (data) => {

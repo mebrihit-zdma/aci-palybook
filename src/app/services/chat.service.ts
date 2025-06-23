@@ -8,7 +8,7 @@ export class ChatService {
 
   constructor() { }
   private newChatHistory: boolean = false;
-  private chatId: string = '';
+  private sessionId: string = '';
 
   setNewChatHistory(newChatHistory: boolean) {
     this.newChatHistory = newChatHistory;
@@ -18,12 +18,12 @@ export class ChatService {
     return this.newChatHistory;
   }
 
-  setChatId(chatId: string) {
-    this.chatId = chatId;
+  setSessionId(sessionId: string) {
+    this.sessionId = sessionId;
   }
 
-  getChatId(): string {
-    return this.chatId;
+  getSessionId(): string {
+    return this.sessionId;
   }
 
   //click event
