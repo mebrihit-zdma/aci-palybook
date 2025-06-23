@@ -30,7 +30,7 @@ export class ChatComponent {
 
   userName: string | null = 'User Name';
 
-  userId: any = "8c8cda2b-cda6-41c2-927d-511d40724810help";
+  userId: any = "8c8cda2b-cda6-41c2-927d-511d40724810test-v2";
   sessionId: any = "";
   
   askedQuestion: string = '';
