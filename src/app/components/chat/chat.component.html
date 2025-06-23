@@ -221,7 +221,7 @@
                 <div class="w-[20px] h-[20px] bg-[url('./app/resources/icons/prompts-library-icon.svg')]"></div>
               </button>
               <!-- question input field -->
-              <label class="w-[100%] bg-white flex items-center justify-between py-[12px] px-[12px]  border border-[#D5D7DA] rounded-[8px] gap-[16px]" (click)="chatStream(askedQuestion)">
+              <label class="w-[100%] bg-white flex items-center justify-between py-[12px] px-[12px]  border border-[#D5D7DA] rounded-[8px] gap-[16px]" (click)="askQuestion(askedQuestion)">
                 <div class="flex gap-[8px] w-[90%]">
                     <span class="w-[16px] h-[17px] scale-[0.9] bg-[url('./app/resources/icons/chat-link-icon.svg')]"></span>
                     <input 
@@ -230,10 +230,10 @@
                       class="text-sm w-[100%]"
                       name="askedQuestion"
                       [(ngModel)]="askedQuestion"
-                      (keydown.enter)="chatStream(askedQuestion)"
+                      (keydown.enter)="askQuestion(askedQuestion)"
                     />
                 </div>
-                <span class="w-[18px] h-[18.86px] bg-[url('./app/resources/icons/blue-right-arrow-icon.svg')]" (click)="chatStream(askedQuestion)"></span>
+                <span class="w-[18px] h-[18.86px] bg-[url('./app/resources/icons/blue-right-arrow-icon.svg')]" (click)="askQuestion(askedQuestion)"></span>
               </label>
             </div>
         </div>

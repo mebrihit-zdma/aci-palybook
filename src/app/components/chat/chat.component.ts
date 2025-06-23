@@ -96,14 +96,13 @@ export class ChatComponent {
     this.isProductDropdownOpen = false;
   }
   // post a question and get answer using api call
-  // askQuestion(askedQuestion : string ) {
-  //   // const question = askedQuestion.trim();
-  //   // if (!question) return;
-  //   // this.postChat(question);
-  //   // this.chatStream(question); 
-  //   // this.askedQuestion = ''; 
-  //   // this.createShortcutPrompt = true;
-  // }
+  askQuestion(askedQuestion : string ) {
+    const question = askedQuestion.trim();
+    if (!question) return;
+    this.chatStream(question); 
+    this.askedQuestion = ''; 
+    this.createShortcutPrompt = true;
+  }
   // Chat Stream
   postChat(askedQuestion: string) {
     console.log("user_id: ", this.userId)
@@ -298,12 +297,14 @@ export class ChatComponent {
     );
   }
   selectedPromptLibrary(prompt: string ){
-    this.postChat(prompt);
+    // this.postChat(prompt);
+    this.chatStream(prompt);
     this.createShortcutPrompt = true;
     this.isPromptsLibraryModelOpen = false;
   }
   selectedShortcutPrompt(prompt: string ){
-    this.postChat(prompt);
+    // this.postChat(prompt);
+    this.chatStream(prompt);
     this.isPromptsLibraryModelOpen = false;
     this.promptsLibrarySearch = "";
   }
@@ -311,9 +312,9 @@ export class ChatComponent {
   chatResponse = '';
 
   chatStream(askedQuestion: string) {
-    this.createShortcutPrompt = true;
-    this.askedQuestion = '';
-    if (!askedQuestion?.trim()) return;
+    // this.createShortcutPrompt = true;
+    // this.askedQuestion = '';
+    // if (!askedQuestion?.trim()) return;
   
     this.chatResponse = '';
     const question = askedQuestion;
