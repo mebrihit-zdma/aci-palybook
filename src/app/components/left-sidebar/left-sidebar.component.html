@@ -47,6 +47,7 @@
                     [routerLink]="item.routeLink"
                     routerLinkActive="active"
                     [routerLinkActiveOptions]="{ exact: true }"
+                    (click)="item.label === 'Chat' && chatButton()"
                     >
                       <span class="material-icons">{{item.icon}}</span>
                       @if (!isLeftSidebarCollapsed()) {

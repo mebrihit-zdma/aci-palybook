@@ -120,6 +120,10 @@ export class LeftSidebarComponent {
   onInputChange(value: string): void {
     this.searchChatService.setSearchValue(value)
   }
+  chatButton() {
+    console.log("chat button test side bar")
+    
+  }
 
   // Log the user out
   logout() {
