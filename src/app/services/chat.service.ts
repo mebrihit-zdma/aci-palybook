@@ -10,6 +10,8 @@ export class ChatService {
   private newChatHistory: boolean = false;
   private sessionId: string = '';
 
+  private isChatButton: boolean = false;
+
   setNewChatHistory(newChatHistory: boolean) {
     this.newChatHistory = newChatHistory;
   }
@@ -40,5 +42,13 @@ export class ChatService {
 
   startNewChatEmitClick() {
     this.clickNewChat.next();
+  }
+
+  setIsChatButton(isChatButton: boolean) {
+    this.isChatButton = isChatButton;
+  }
+
+  getIsChatButton(): boolean {
+    return this.isChatButton;
   }
 }

@@ -56,7 +56,9 @@ export class ChatComponent {
   ngOnInit() {
     console.log("user id: ", this.userId)
     // this.createSessionId(this.userId);
-
+    if(this.chatService.getIsChatButton()){
+      this.createSessionId(this.userId);
+    }
     this.userService.userName$.subscribe(name => {
       this.userName = name;
     });

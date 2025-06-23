@@ -121,7 +121,7 @@ export class LeftSidebarComponent {
     this.searchChatService.setSearchValue(value)
   }
   chatButton() {
-    console.log("chat button test side bar")
+    this.chatService.setIsChatButton(true)
     
   }
 
