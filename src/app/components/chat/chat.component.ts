@@ -30,7 +30,7 @@ export class ChatComponent {
 
   userName: string | null = 'User Name';
 
-  userId: any = "8c8cda2b-cda6-41c2-927d-511d40724810test";
+  userId: any = "8c8cda2b-cda6-41c2-927d-511d40724810help";
   sessionId: any = "";
   
   askedQuestion: string = '';
@@ -55,7 +55,7 @@ export class ChatComponent {
 
   ngOnInit() {
     console.log("user id: ", this.userId)
-    this.createSessionId(this.userId);
+    // this.createSessionId(this.userId);
 
     this.userService.userName$.subscribe(name => {
       this.userName = name;
