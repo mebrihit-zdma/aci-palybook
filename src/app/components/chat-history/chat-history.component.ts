@@ -53,7 +53,8 @@ export class ChatHistoryComponent {
     }
     this.apiService.post<any>('get_chat_sessions_for_user_id', payload).subscribe({
       next: (data) => {
-        console.log("Session List data:", data)
+        console.log("User id from chat history:", userId)
+        console.log("Sessions List:", data)
         this.chatHistory = data.map((item: { summary: string, session_id: string }) => ({
           question: item.summary || '',
           chatId: item.session_id

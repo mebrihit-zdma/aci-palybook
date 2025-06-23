@@ -172,7 +172,7 @@ export class ChatComponent {
   getChatSession(session_id: string) {
     this.apiService.get<any>(`get_session/${session_id}`).subscribe({
       next: async (data) => {
-        console.log("Session data: ", data.chat_history)
+        console.log("Chat within a session : ", data.chat_history)
         this.processSessionHistory(data.chat_history);
       },
         error: (err) => console.error('Error:', err),
