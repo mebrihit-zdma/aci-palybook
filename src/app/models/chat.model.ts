@@ -33,12 +33,12 @@ export interface ChatHistory {
 }
 export interface SavedChats {
     question: string;
-    chatId: string;
+    sessionId: string;
 }
 export interface promptsLibrarylist {
     prompt: string;
 }
-export interface ChatSession {
+export interface ChatSessions {
     session_id: string;
     summary:string;
 }
