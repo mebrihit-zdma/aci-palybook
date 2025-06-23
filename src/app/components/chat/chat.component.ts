@@ -1,5 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, inject,  OnInit, signal, Input, ViewChild, ElementRef, Pipe, PipeTransform} from '@angular/core';
+import { Component, ViewChild, ElementRef} from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { ChatService } from '../../services/chat.service';
 import { OnboardingService } from '../../services/onboarding.service';
@@ -7,13 +6,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { marked } from 'marked';
 import { SourceCardComponent } from '../../components/cards/source-card/source-card.component';
-import { AnswerSource, ChatMessage, ResponseMessage, ChatResponse, ResponseSource } from '../../models/chat.model';
+import { AnswerSource, ChatMessage, ResponseMessage, ResponseSource } from '../../models/chat.model';
 import { extractAnswerText, convertMarkdown, extractSources, extractResponseSources } from '../../utils/chat-utils';
 import { UserService } from '../../services/user.service';
 import { StreamService } from '../../services/stream.service';
-import { firstValueFrom } from 'rxjs';
+
 
 
 
