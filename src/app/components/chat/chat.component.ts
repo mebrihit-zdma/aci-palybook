@@ -32,8 +32,7 @@ export class ChatComponent {
 
   userId: any = "8c8cda2b-cda6-41c2-927d-511d40724810test-v2";
   sessionId: any = "";
-  chatHistorySessionId:any = "";
-  
+
   askedQuestion: string = '';
   sources: AnswerSource[] = [];
   messages: ChatMessage[] = [];
@@ -128,6 +127,7 @@ export class ChatComponent {
       next: async (data) => {
         console.log("Chat within a session : ", data.chat_history)
         this.processSessionHistory(data.chat_history);
+        this.sessionId = session_id;
       },
         error: (err) => console.error('Error:', err),
       });
