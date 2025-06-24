@@ -4,7 +4,7 @@ import { ChatService } from '../../services/chat.service';
 import { OnboardingService } from '../../services/onboarding.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
-
+import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { SourceCardComponent } from '../../components/cards/source-card/source-card.component';
 import { AnswerSource, ChatMessage, ResponseMessage, ResponseSource } from '../../models/chat.model';
@@ -51,7 +51,7 @@ export class ChatComponent {
   
   @ViewChild('promptInput') promptInput!: ElementRef<HTMLInputElement>;
 
-  constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService, private streamService: StreamService){}
+  constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService, private streamService: StreamService,  private route: ActivatedRoute, private router: Router){}
 
   ngOnInit() {
     if(this.chatService.getIsChatButton()){
@@ -64,14 +64,6 @@ export class ChatComponent {
     this.products = this.onboardingService.getProductList()
     this.selectedProduct = this.onboardingService.getSelectedProduct();
 
-    // selected question from chat history
-    if(this.chatService.getNewChatHistory()){
-      this.createShortcutPrompt = true;
-    }
-    this.chatService.click$.subscribe(() => {
-      this.getChatSession(this.chatService.getSessionId())
-      this.createShortcutPrompt = true;
-    });
     // start new chat on clicking the Start New Chat button
     this.chatService.startNewChatClick$.subscribe(() => {
       this.sources = [];
@@ -79,6 +71,19 @@ export class ChatComponent {
       this.chatMessages = [];
       this.createSessionId(this.userId);
       this.createShortcutPrompt = false;
+    });
+    // selected question from chat history
+    if(this.chatService.getNewChatHistory()){
+      this.createShortcutPrompt = true;
+    }
+    // load chat by sessionId from chat history
+    this.route.params.subscribe(() => {
+      this.getChatSession(this.chatService.getSessionId())
+    });
+    // trigger reload on emitted click on chat history
+    this.chatService.click$.subscribe(() => {
+      this.getChatSession(this.chatService.getSessionId())
+      this.createShortcutPrompt = true;
     });
   }
 
