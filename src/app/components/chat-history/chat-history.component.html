@@ -3,7 +3,7 @@
   <ul *ngIf="searchValue.trim() === ''">
     <li *ngFor="let chat of chatHistory; trackBy: trackChat"
         class="px-6 text-[#919399] text-sm py-[8px] truncate cursor-pointer"
-        (click)="selectChat(chat.sessionId)">
+        (click)="selectChat(chat.sessionId)" [title]="chat.question">
       {{ chat.question }}
     </li>
     <hr class="text-[#DFDFDF80]">
