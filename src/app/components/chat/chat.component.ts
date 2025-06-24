@@ -32,6 +32,7 @@ export class ChatComponent {
 
   userId: any = "8c8cda2b-cda6-41c2-927d-511d40724810test-v2";
   sessionId: any = "";
+  chatHistorySessionId:any = "";
   
   askedQuestion: string = '';
   sources: AnswerSource[] = [];
@@ -96,7 +97,7 @@ export class ChatComponent {
   askQuestion(askedQuestion : string ) {
     const question = askedQuestion.trim();
     if (!question) return;
-    this.chatStream(question); 
+    this.chatStream(question, this.sessionId); 
     this.askedQuestion = ''; 
     this.createShortcutPrompt = true;
   }
@@ -253,12 +254,12 @@ export class ChatComponent {
     );
   }
   selectedPromptLibrary(prompt: string ){
-    this.chatStream(prompt);
+    this.chatStream(prompt, this.sessionId);
     this.createShortcutPrompt = true;
     this.isPromptsLibraryModelOpen = false;
   }
   selectedShortcutPrompt(prompt: string ){
-    this.chatStream(prompt);
+    this.chatStream(prompt, this.sessionId);
     this.isPromptsLibraryModelOpen = false;
     this.promptsLibrarySearch = "";
   }
@@ -266,13 +267,13 @@ export class ChatComponent {
   chatResponse = '';
 
   // Chat Stream
-  chatStream(askedQuestion: string) {
+  chatStream(askedQuestion: string, sessionId: string) {
     this.chatResponse = '';
     const question = askedQuestion;
   
     const payload = {
       user_id: this.userId,
-      session_id: this.sessionId,
+      session_id: sessionId,
       question,
       app_id: this.app_id,
       model_name: this.model_name,
