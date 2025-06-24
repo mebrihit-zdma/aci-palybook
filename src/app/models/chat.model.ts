@@ -12,8 +12,10 @@ export interface ChatResponse {
 export interface ResponseMessage {
     sender: 'bot' | 'user';
     text: any;
+    follow_up_questions?: any;
     sources?: ResponseSource[];
     loading?: boolean;
+    timestamp?: string;
 }
 export interface AnswerSource {
     fileName: string;

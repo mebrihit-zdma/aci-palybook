@@ -139,6 +139,10 @@
                       <div class="chat-answer">
                         <ng-container *ngIf="!msg.loading; else loadingTemplate">
                           <div [innerHTML]="msg.text"></div>
+                          <ng-container *ngIf="msg.follow_up_questions">
+                            <strong>Follow Up Questions</strong>
+                            <div [innerHTML]="msg.follow_up_questions"></div>
+                          </ng-container>
                         </ng-container>
                         <ng-template #loadingTemplate>
                           <div class="flex animate-pulse text-gray-600 gap-1">

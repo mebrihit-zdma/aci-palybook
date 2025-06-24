@@ -7,7 +7,10 @@ export function extractAnswerText(raw: string): string {
   const match = raw.match(/<answer>([\s\S]*?)<\/answer>/);
   return match ? match[1].trim() : '';
 }
-
+export function extractfollowUpQuestions(raw: string): string {
+  const match = raw.match(/<follow_up_questions>([\s\S]*?)<\/follow_up_questions>/);
+  return match ? match[1].trim() : '';
+}
 export async function convertMarkdown(md: string, sanitizer: DomSanitizer): Promise<SafeHtml> {
   const html = await marked(md || '');
   return sanitizer.bypassSecurityTrustHtml(html);

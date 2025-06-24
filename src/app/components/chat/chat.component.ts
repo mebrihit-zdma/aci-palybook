@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { SourceCardComponent } from '../../components/cards/source-card/source-card.component';
 import { AnswerSource, ChatMessage, ResponseMessage, ResponseSource } from '../../models/chat.model';
-import { extractAnswerText, convertMarkdown, extractSources, extractResponseSources } from '../../utils/chat-utils';
+import { extractAnswerText, extractfollowUpQuestions, convertMarkdown, extractSources, extractResponseSources } from '../../utils/chat-utils';
 import { UserService } from '../../services/user.service';
 import { StreamService } from '../../services/stream.service';
 
@@ -289,6 +289,12 @@ export class ChatComponent {
         console.log("Response: ", this.chatResponse)
         const extractAnswer = extractAnswerText(this.chatResponse);
         const safeAnswer = await convertMarkdown(extractAnswer, this.sanitizer);
+
+        const followUpRaw = extractfollowUpQuestions(this.chatResponse);
+        const safeFollowUpQuestions = followUpRaw
+          ? await convertMarkdown(followUpRaw, this.sanitizer)
+          : '';
+
         
         let sources: ResponseSource[] = [];
         sources = extractResponseSources(this.chatResponse);
@@ -297,6 +303,7 @@ export class ChatComponent {
         this.chatMessages.push({ 
           sender: 'bot', 
           text: safeAnswer,
+          follow_up_questions: safeFollowUpQuestions,
           sources: sources
         });
       },
@@ -307,7 +314,7 @@ export class ChatComponent {
   }
 
   private async processSessionHistory(chatHistory: any[]) {
-    console.log("testnnbnnnmmmmmmm: ", chatHistory)
+
     const history: any[] = [];
 
     for (const data of chatHistory) {
@@ -320,12 +327,19 @@ export class ChatComponent {
 
       if (data?.chat?.answer) {
         const extractAnswer = extractAnswerText(data.chat.answer);
-        const safeAnswer = await convertMarkdown(extractAnswer, this.sanitizer);
+        const safeAnswer = await convertMarkdown(extractAnswer, this.sanitizer)
+        ;
+        const followUpRaw = extractfollowUpQuestions(this.chatResponse);
+        const safeFollowUpQuestions = followUpRaw
+          ? await convertMarkdown(followUpRaw, this.sanitizer)
+          : '';
+
         const sources = extractResponseSources(data.chat.answer);
 
         history.push({
           sender: 'bot',
           text: safeAnswer,
+          follow_up_questions: safeFollowUpQuestions,
           sources: sources
         });
       }
