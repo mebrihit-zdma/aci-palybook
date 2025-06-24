@@ -54,8 +54,6 @@ export class ChatComponent {
   constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService, private streamService: StreamService){}
 
   ngOnInit() {
-    console.log("user id: ", this.userId)
-    // this.createSessionId(this.userId);
     if(this.chatService.getIsChatButton()){
       this.createSessionId(this.userId);
     }
