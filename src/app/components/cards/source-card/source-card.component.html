@@ -4,8 +4,10 @@
         <span class="w-[24px] h-[24px] bg-[url('./app/resources/icons/pdf-icon.svg')]"></span>
         <div class="flex flex-col w-[100%]">
             <span class="font-bold text-sm whitespace-nowrap overflow-hidden text-ellipsis w-37">{{source.label}}</span>
-            <!--/* <a [href]="source.file_path" target="_blank" class="whitespace-nowrap overflow-hidden text-ellipsis text-[10.6px] text-[#030303] w-37 test">{{ source.url }}</a> */-->
-            <a class="whitespace-nowrap overflow-hidden text-ellipsis text-[10.6px] text-[#030303] w-37 test">{{ source.url }}</a>
+            <a class="whitespace-nowrap overflow-hidden text-ellipsis text-[10.6px] text-[#030303] w-37 test" 
+            [href]="source.url"
+            [attr.download]="source.label"
+            target="_blank">{{ source.url }}</a>
         </div>
         <span class="w-[18px] h-[17px] bg-[url('./app/resources/icons/sources-download-icon.svg')]"></span>
     </div>
