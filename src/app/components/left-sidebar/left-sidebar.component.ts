@@ -21,10 +21,12 @@ export class LeftSidebarComponent {
   
   loginDisplay: boolean = false;
 
-  constructor(private userService: UserService, private loginService: LoginService, private searchChatService: SearchChatService, private chatService: ChatService, private documentationService: DocumentationService, private router: Router, private authService: MsalService) {
-
-    // this.loginDisplay= this.loginService.getLoginDisplay();
+  constructor(private userService: UserService, private loginService: LoginService, private searchChatService: SearchChatService, private chatService: ChatService, private documentationService: DocumentationService, private router: Router) {
   }
+  // constructor(private userService: UserService, private loginService: LoginService, private searchChatService: SearchChatService, private chatService: ChatService, private documentationService: DocumentationService, private router: Router, private authService: MsalService) {
+
+  //   // this.loginDisplay= this.loginService.getLoginDisplay();
+  // }
   
   userName: string | null = 'User Name';
   userRole: string | null = 'Product Owner';
@@ -126,9 +128,9 @@ export class LeftSidebarComponent {
   }
 
   // Log the user out
-  logout() {
-    if(this.loginDisplay){
-      this.authService.logoutRedirect();
-    }
-  }
+  // logout() {
+  //   if(this.loginDisplay){
+  //     this.authService.logoutRedirect();
+  //   }
+  // }
 }
