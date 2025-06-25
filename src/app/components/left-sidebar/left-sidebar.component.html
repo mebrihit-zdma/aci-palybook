@@ -79,11 +79,12 @@
                   *ngIf="item.label === 'Search Previous Chats'; else otherOption"
                   class="flex items-center gap-[8px] text-[#666F8D] w-full"
                 >
-                  <span class="material-icons text-[#000000]">{{ item.icon }}</span>
+                  <span class="material-icons text-[#000000]"
+                  [ngClass]="(item.label === 'Search Previous Chats')? 'text-[#737780]' : ''">{{ item.icon }}</span>
                   <input
                     type="text"
                     [placeholder]="!isLeftSidebarCollapsed() ? item.label : ''"
-                    class="text-[#000000] font-normal text-sm"
+                    class="text-[#000000] font-normal text-sm placeholder:text-[#737780]"
                     [(ngModel)]="searchValue"
                     (ngModelChange)="onInputChange($event)"
                   />

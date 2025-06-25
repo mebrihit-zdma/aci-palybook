@@ -231,11 +231,11 @@
               <!-- question input field -->
               <label class="w-[100%] bg-white flex items-center justify-between py-[12px] px-[12px]  border border-[#D5D7DA] rounded-[8px] gap-[16px]" (click)="askQuestion(askedQuestion)">
                 <div class="flex gap-[8px] w-[90%]">
-                    <span class="w-[16px] h-[17px] scale-[0.9] bg-[url('./app/resources/icons/chat-link-icon.svg')]"></span>
+                    <!--/* <span class="w-[16px] h-[17px] scale-[0.9] bg-[url('./app/resources/icons/chat-link-icon.svg')]"></span> */-->
                     <input 
                       type="text" 
                       placeholder="Ask your question!" 
-                      class="text-sm w-[100%]"
+                      class="text-sm w-[100%] placeholder:text-[#737780]"
                       name="askedQuestion"
                       [(ngModel)]="askedQuestion"
                       (keydown.enter)="askQuestion(askedQuestion)"
