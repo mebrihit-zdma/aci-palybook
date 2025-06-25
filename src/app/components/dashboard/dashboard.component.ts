@@ -287,6 +287,7 @@ export class DashboardComponent {
   restoreTodefault(){
     this.selectedWidgetList = this.onboardingService.getSelectedWidgetList();
     this.isCustomizeWidgets = false;
+    this.selectedCustomizeWidgets = [];
   }
 
 }
