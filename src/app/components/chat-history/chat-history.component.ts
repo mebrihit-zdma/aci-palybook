@@ -90,6 +90,11 @@ export class ChatHistoryComponent {
     return chat.sessionId;
   }
   deleteSession(sessionId: string){
-    console.log("session id")
+    this.apiService.delete<any>(`delete_session/${sessionId}`).subscribe({
+      next: async (data) => {
+        console.log("deleteSession session : ", data)
+      },
+        error: (err) => console.error('Error:', err),
+      });
   }
 }
