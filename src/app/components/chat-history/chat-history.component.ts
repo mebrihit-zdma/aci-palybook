@@ -30,6 +30,12 @@ export class ChatHistoryComponent {
       this.searchValue = value;
       this.applyFilter();
     });
+    this.chatService.getNewSession$().subscribe(session => {
+      if (session) {
+        this.chatHistory.unshift(session);
+      }
+    });
+    // this.chatHistory.push(this.chatService.getNewSession())
   }
   getUserSessions(userId: string) {
     const payload = {

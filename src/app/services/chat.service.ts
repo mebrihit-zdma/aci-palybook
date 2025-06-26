@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject, Observable } from 'rxjs';
+import { ChatHistory} from '../models/chat.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,21 @@ export class ChatService {
   private sessionId: string = '';
 
   private isChatButton: boolean = false;
+
+  private newSession:ChatHistory| null = null;
+
+ 
+  private newSessionSubject = new BehaviorSubject<ChatHistory | null>(null);
+  
+
+  setNewSession(session: ChatHistory) {
+    this.newSessionSubject.next(session);
+  }
+
+  getNewSession$(): Observable<ChatHistory | null> {
+    return this.newSessionSubject.asObservable();
+  }
+
 
   setNewChatHistory(newChatHistory: boolean) {
     this.newChatHistory = newChatHistory;

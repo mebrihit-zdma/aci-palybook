@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { SourceCardComponent } from '../../components/cards/source-card/source-card.component';
-import { AnswerSource, ChatMessage, ResponseMessage, ResponseSource } from '../../models/chat.model';
+import { AnswerSource, ChatMessage, ResponseMessage, ResponseSource, ChatHistory } from '../../models/chat.model';
 import { extractAnswerText, extractfollowUpQuestions, convertMarkdown, extractSources, extractResponseSources } from '../../utils/chat-utils';
 import { UserService } from '../../services/user.service';
 import { StreamService } from '../../services/stream.service';
@@ -146,6 +146,12 @@ export class ChatComponent {
       next: async (data) => {
         console.log('session id:', data?.session_id);
         this.sessionId = data?.session_id;
+
+        const newSession:ChatHistory = {
+          question: "",
+          sessionId: data?.session_id
+        };
+        this.chatService.setNewSession(newSession)
       },
       error: (err) => console.error('Error:', err),
     });
