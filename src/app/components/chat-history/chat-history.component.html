@@ -1,13 +1,18 @@
-<div class="transition-opacity duration-500 overflow-y-auto h-[100%] px-4 flex-col">
+<div class="transition-opacity duration-500 overflow-y-auto h-[100%] px-2 flex-col">
 
   <ul *ngIf="searchValue.trim() === ''">
     <li *ngFor="let chat of chatHistory; trackBy: trackChat"
-    class="relative group px-6 text-[#919399] text-sm py-[8px] cursor-pointer"
+    class="relative group px-2 text-[#919399] text-sm py-[8px] cursor-pointer"
     (click)="selectChat(chat.sessionId)">
       <div class="w-full">
-        <span class="line-clamp-1 truncate max-w-[200px]">
-          {{ chat.question }}
-        </span>
+        <div class="flex justify-between">
+          <span class="line-clamp-1 truncate max-w-[200px]">
+            {{ chat.question }}
+          </span>
+          <button class="mt-auto mb-auto scale-[0.9] w-[9.33px] h-[12px] bg-[url('./app/resources/icons/delete-prompt-icon.svg')]"
+            (click)="deleteSession(chat.sessionId)">
+          </button>
+        </div>
         <!--/* Tooltip  */-->
         <div
           class="absolute  z-50 bg-white border border-[#D5D7DA] rounded-lg text-[#2C2D2E]

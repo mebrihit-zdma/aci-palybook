@@ -89,5 +89,7 @@ export class ChatHistoryComponent {
   trackChat(index: number, chat: ChatHistory) {
     return chat.sessionId;
   }
-  
+  deleteSession(sessionId: string){
+    console.log("session id")
+  }
 }
