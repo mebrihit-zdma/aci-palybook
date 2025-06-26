@@ -92,7 +92,8 @@ export class ChatHistoryComponent {
   deleteSession(sessionId: string){
     this.apiService.delete<any>(`delete_session/${sessionId}`).subscribe({
       next: async (data) => {
-        console.log("deleteSession session : ", data)
+          // Remove the deleted session from the local array
+        this.chatHistory = this.chatHistory.filter(session => session.sessionId !== sessionId);
       },
         error: (err) => console.error('Error:', err),
       });
