@@ -146,12 +146,6 @@ export class ChatComponent {
       next: async (data) => {
         console.log('session id:', data?.session_id);
         this.sessionId = data?.session_id;
-
-        const newSession:ChatHistory = {
-          question: "",
-          sessionId: data?.session_id
-        };
-        this.chatService.setNewSession(newSession)
       },
       error: (err) => console.error('Error:', err),
     });
@@ -317,6 +311,12 @@ export class ChatComponent {
           follow_up_questions: safeFollowUpQuestions,
           sources: sources
         });
+
+        const newSession:ChatHistory = {
+          question: askedQuestion,
+          sessionId: sessionId
+        };
+        this.chatService.setNewSession(newSession)
       },
       err => {
         console.error('Stream error:', err);

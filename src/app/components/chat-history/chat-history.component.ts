@@ -31,11 +31,10 @@ export class ChatHistoryComponent {
       this.applyFilter();
     });
     this.chatService.getNewSession$().subscribe(session => {
-      if (session) {
+      if (session && !this.chatHistory.find(s => s.sessionId === session.sessionId)) {
         this.chatHistory.unshift(session);
       }
     });
-    // this.chatHistory.push(this.chatService.getNewSession())
   }
   getUserSessions(userId: string) {
     const payload = {
