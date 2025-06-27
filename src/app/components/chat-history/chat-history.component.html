@@ -19,26 +19,21 @@
             {{ chat.question }}
           </div>
         </div>
-
-        <!--/* delete Session button */-->
-        <!--/* <button class="mt-auto mb-auto scale-[0.9] w-[9.33px] h-[12px] bg-[url('./app/resources/icons/delete-prompt-icon.svg')]"
-            (click)="deleteSession(chat.sessionId); $event.stopPropagation()">
-        </button> */-->
         <!-- Three-dot menu toggle -->
         <div class="flex justify-between">
-          <button 
-            class="mt-auto mb-auto w-[12px] h-[3px] bg-[url('./app/resources/icons/shourtcut-icon.svg')]" 
-            (click)="openDeleteSession(chat.sessionId); $event.stopPropagation()">
+          <button (click)="openDeleteSession(chat.sessionId); $event.stopPropagation()">
+            <span class="material-icons">more_horiz</span> 
           </button>
         </div>
         <div 
-          class="absolute flex flex-col gap-[8px] top-[28px] right-[8px] z-50 bg-white border border-[#D5D7DA] rounded-lg text-[#2C2D2E]
-          text-xs p-2 shadow-lg"
+          class="absolute flex flex-col top-[28px] right-[-8px] z-50 bg-white border border-[#D5D7DA] rounded-lg text-[#2C2D2E]
+          text-xs p-1 shadow-lg"
           [ngClass]="selectedSession === chat.sessionId ? '' : 'hidden'"
           (click)="$event.stopPropagation()">
-          <button class="flex gap-[6px]" (click)="deleteSession(chat.sessionId); $event.stopPropagation()">
-            <span class="mt-auto mb-auto w-[9.33px] h-[12px] bg-[url('./app/resources/icons/delete-prompt-icon.svg')]"></span>
-            <span class="my-auto text-[11px]">Delete</span>
+          <!--/* delete Session button */-->
+          <button class="flex" (click)="deleteSession(chat.sessionId); $event.stopPropagation()">
+            <span class="material-icons text-red-500 scale-[.8]">delete</span>
+            <span class="my-auto text-red-500">Delete</span>
           </button>
         </div>
       </div>
