@@ -1,8 +1,8 @@
 <div class="transition-opacity duration-500 overflow-y-auto h-[100%] px-2 flex-col">
 
-  <ul *ngIf="searchValue.trim() === ''">
+  <ul *ngIf="searchValue.trim() === ''" class="py-4">
     <li *ngFor="let chat of chatHistory; trackBy: trackChat"
-    class="relative px-2 text-[#919399] text-sm py-[8px] cursor-pointer"
+    class="relative px-2 text-[#919399] text-sm py-[8px] cursor-pointer rounded-lg hover:bg-[rgba(43,42,221,0.04)]"
     (click)="selectChat(chat.sessionId)">
       <div class="w-full flex justify-between">
         <div class="relative group">
