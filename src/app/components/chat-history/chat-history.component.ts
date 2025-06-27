@@ -103,4 +103,16 @@ export class ChatHistoryComponent {
         error: (err) => console.error('Error:', err),
       });
   }
+
+  selectedSession: any = null;
+  openDeleteSession(item: any){
+    this.selectedSession = this.selectedSession === item ? null : item;
+  }
+  showDeletePrompt(item: any) {
+    this.selectedSession = this.selectedSession === item ? null : item;
+  }
+  // deletePrompt(promptToDelete: any){
+  //   this.promptShortcuts = this.promptShortcuts.filter(prompt => prompt !== promptToDelete);
+  //   this.selectedPrompt = null; 
+  // }
 }
