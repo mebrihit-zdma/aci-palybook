@@ -246,4 +246,16 @@
             </div>
         </div>
     </div>
+    <!-- deleted session alert -->
+    <div *ngIf="showAlert" class="fixed inset-0 flex items-center justify-center z-50 bg-black/50 transition-opacity duration-300">
+      <div class="bg-white border border-gray-300 rounded-lg shadow-lg p-6 w-[300px] text-center">
+        <p class="text-gray-800">{{ alertMessage }}</p>
+        <button
+          class="mt-4 px-4 py-2 bg-primary text-white rounded hover:bg-primary"
+          (click)="showAlert = false"
+        >
+          Ok
+        </button>
+      </div>
+    </div>
 </div>

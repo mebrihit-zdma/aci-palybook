@@ -94,25 +94,20 @@ export class ChatHistoryComponent {
   trackChat(index: number, chat: ChatHistory) {
     return chat.sessionId;
   }
+ 
+  selectedSession: any = null;
+  openDeleteSession(item: any){
+    this.selectedSession = this.selectedSession === item ? null : item;
+  }
+
   deleteSession(sessionId: string){
     this.apiService.delete<any>(`delete_session/${sessionId}`).subscribe({
       next: async (data) => {
           // Remove the deleted session from the local array
         this.chatHistory = this.chatHistory.filter(session => session.sessionId !== sessionId);
+        this.chatService.setSessionDeleted(data?.message || 'Session deleted successfully')
       },
         error: (err) => console.error('Error:', err),
-      });
+    });
   }
-
-  selectedSession: any = null;
-  openDeleteSession(item: any){
-    this.selectedSession = this.selectedSession === item ? null : item;
-  }
-  showDeletePrompt(item: any) {
-    this.selectedSession = this.selectedSession === item ? null : item;
-  }
-  // deletePrompt(promptToDelete: any){
-  //   this.promptShortcuts = this.promptShortcuts.filter(prompt => prompt !== promptToDelete);
-  //   this.selectedPrompt = null; 
-  // }
 }

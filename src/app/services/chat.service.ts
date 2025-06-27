@@ -10,7 +10,6 @@ export class ChatService {
   constructor() { }
   private newChatHistory: boolean = false;
   private sessionId: string = '';
-
   private isChatButton: boolean = false;
 
   private newSession:ChatHistory| null = null;
@@ -42,6 +41,13 @@ export class ChatService {
 
   getSessionId(): string {
     return this.sessionId;
+  }
+
+  private sessionDeletedSubject = new Subject<string>();
+  sessionDeleted$ = this.sessionDeletedSubject.asObservable();
+
+  setSessionDeleted(sessionDeleted: string) {
+    this.sessionDeletedSubject.next(sessionDeleted);
   }
 
   //click event

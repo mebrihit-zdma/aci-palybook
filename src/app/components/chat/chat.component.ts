@@ -49,6 +49,9 @@ export class ChatComponent {
   createdLibraryPrompt:string = "";
   promptsLibrarySearch:string = "";
   
+  showAlert = false;
+  alertMessage = '';
+
   @ViewChild('promptInput') promptInput!: ElementRef<HTMLInputElement>;
 
   constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService, private streamService: StreamService,  private route: ActivatedRoute, private router: Router){}
@@ -84,6 +87,11 @@ export class ChatComponent {
     this.chatService.click$.subscribe(() => {
       this.getChatSession(this.chatService.getSessionId())
       this.createShortcutPrompt = true;
+    });
+
+    this.chatService.sessionDeleted$.subscribe((deletedSessionId) => {
+      this.alertMessage = deletedSessionId;
+      this.showAlert = true;
     });
   }
 
@@ -358,6 +366,5 @@ export class ChatComponent {
 
     this.chatMessages = [...history];
   }
-  
   
 }
