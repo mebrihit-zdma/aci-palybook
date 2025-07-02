@@ -30,7 +30,7 @@ export class ChatComponent {
 
   userName: string | null = 'User Name';
 
-  userId: any = "8c8cda2b-cda6-41c2-927d-511d40724810-test-v4";
+  userId: any = "8c8cda2b-cda6-41c2-927d-511d40724810-test-chat";
   sessionId: any = "";
 
   askedQuestion: string = '';
@@ -57,9 +57,10 @@ export class ChatComponent {
   constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService, private streamService: StreamService,  private route: ActivatedRoute, private router: Router){}
 
   ngOnInit() {
-    if(this.chatService.getIsChatButton()){
-      this.createSessionId(this.userId);
-    }
+    // if(this.chatService.getIsChatButton()){
+    //   this.createSessionId(this.userId);
+    // }
+    this.createSessionId(this.userId);
     this.userService.userName$.subscribe(name => {
       this.userName = name;
     });
@@ -150,10 +151,14 @@ export class ChatComponent {
       user_id: userId,
       app_id: this.app_id
     };
+    console.log('session id userId bf:', userId);
+    console.log('session id bf:');
     this.apiService.post<any>('create_session', payload, 'json').subscribe({
       next: async (data) => {
+        console.log('session id userId:', userId);
         console.log('session id:', data?.session_id);
         this.sessionId = data?.session_id;
+
       },
       error: (err) => console.error('Error:', err),
     });
