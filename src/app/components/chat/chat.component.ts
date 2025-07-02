@@ -60,6 +60,7 @@ export class ChatComponent {
     // if(this.chatService.getIsChatButton()){
     //   this.createSessionId(this.userId);
     // }
+    this.getShortcutsPrompt()
     this.createSessionId(this.userId);
     this.userService.userName$.subscribe(name => {
       this.userName = name;
@@ -165,23 +166,24 @@ export class ChatComponent {
   }
  
   // shortcut Prompt
-  promptShortcuts = [
-    { source: "Suggested by AI", 
-      question: "What are the differences between the latest and older release notes?", 
-    },
-    { source: "Suggested by AI", 
-      question: "Create a step-by-step guide on configuring ACI Payment Hub based on client-specific needs", 
-    },
-    { source: "Based on your Activity", 
-      question: "Generate an API customization guide for ACI Payment Hub", 
-    },
-    { source: "Recommended based on your Activity", 
-      question: "Generate a guide on configuring custom dashboards and reports for Connetic High value Payments", 
-    },
-    { source: "Frequently searched by you", 
-      question: "Generate a guide on configuring custom dashboards and reports for Connetic High value Payments", 
-    },
-  ];
+  promptShortcuts: any[] = []
+  // promptShortcuts = [
+  //   { source: "Suggested by AI", 
+  //     question: "What are the differences between the latest and older release notes?", 
+  //   },
+  //   { source: "Suggested by AI", 
+  //     question: "Create a step-by-step guide on configuring ACI Payment Hub based on client-specific needs", 
+  //   },
+  //   { source: "Based on your Activity", 
+  //     question: "Generate an API customization guide for ACI Payment Hub", 
+  //   },
+  //   { source: "Recommended based on your Activity", 
+  //     question: "Generate a guide on configuring custom dashboards and reports for Connetic High value Payments", 
+  //   },
+  //   { source: "Frequently searched by you", 
+  //     question: "Generate a guide on configuring custom dashboards and reports for Connetic High value Payments", 
+  //   },
+  // ];
   promptsLibrarylist = [
     { prompt: "Generate an API customization guide for ACI Payment Hub", 
     },
@@ -377,8 +379,30 @@ export class ChatComponent {
 
     this.chatMessages = [...history];
   }
+  // Follow up question
   handleFollowUp(followUpQuestion: string) {
-    console.log("Follow-up clicked:", followUpQuestion);
     this.chatStream(followUpQuestion, this.sessionId); 
   }
+  // Shortcuts prompt 
+  getShortcutsPrompt(): void {
+    this.apiService.get<any>('app/list/apps').subscribe({
+      next: (data) => {
+        const apps = data || [];
+        const preDefinedQuestions: string[] = apps[0]?.pre_defined_questions || [];
+  
+        console.log("Predefined Questions:", preDefinedQuestions);
+  
+        this.promptShortcuts = preDefinedQuestions.map((question: string) => ({
+          source: "Suggested by AI",
+          question
+        }));
+      },
+      error: (err) => {
+        console.error('Failed to fetch app list:', err);
+      }
+    });
+  }
+  
+
+
 }
