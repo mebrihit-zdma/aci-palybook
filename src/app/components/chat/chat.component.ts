@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { SourceCardComponent } from '../../components/cards/source-card/source-card.component';
-import { AnswerSource, ChatMessage, ResponseMessage, ResponseSource, ChatHistory } from '../../models/chat.model';
+import { AnswerSource, ChatMessage, ResponseMessage, ResponseSource, ChatHistory, followUpQuestions } from '../../models/chat.model';
 import { extractAnswerText, extractfollowUpQuestions, convertMarkdown, extractSources, extractResponseSources } from '../../utils/chat-utils';
 import { UserService } from '../../services/user.service';
 import { StreamService } from '../../services/stream.service';
@@ -309,19 +309,25 @@ export class ChatComponent {
         const safeAnswer = await convertMarkdown(extractAnswer, this.sanitizer);
 
         const followUpRaw = extractfollowUpQuestions(this.chatResponse);
-        const safeFollowUpQuestions = followUpRaw
-          ? await convertMarkdown(followUpRaw, this.sanitizer)
-          : '';
+        // const safeFollowUpQuestions = followUpRaw
+        //   ? await convertMarkdown(followUpRaw, this.sanitizer)
+        //   : '';
 
+          const extractedQuestions: string[] = followUpRaw
+          .split('\n')
+          .filter(line => line.trim().startsWith('-'))
+          .map(line => line.replace(/^- /, '').trim());
         
         let sources: ResponseSource[] = [];
+
         sources = extractResponseSources(this.chatResponse);
         
+        console.log("sources: ", sources); 
         this.chatMessages = this.chatMessages.filter(msg => !msg.loading);
         this.chatMessages.push({ 
           sender: 'bot', 
           text: safeAnswer,
-          follow_up_questions: safeFollowUpQuestions,
+          follow_up: extractedQuestions,
           sources: sources
         });
 
@@ -371,5 +377,8 @@ export class ChatComponent {
 
     this.chatMessages = [...history];
   }
-  
+  handleFollowUp(followUpQuestion: string) {
+    console.log("Follow-up clicked:", followUpQuestion);
+    this.chatStream(followUpQuestion, this.sessionId); 
+  }
 }

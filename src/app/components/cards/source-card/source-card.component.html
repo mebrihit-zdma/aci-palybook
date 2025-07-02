@@ -3,8 +3,11 @@
     <div class="flex justify-center items-center gap-[6px] mr-[8px] w-[100%]">
         <span class="w-[24px] h-[24px] bg-[url('./app/resources/icons/pdf-icon.svg')]"></span>
         <div class="flex flex-col w-[100%]">
-            <span class="font-bold text-sm whitespace-nowrap overflow-hidden text-ellipsis w-37">{{source.label}}</span>
-            <span class="whitespace-nowrap overflow-hidden text-ellipsis text-[10.6px] text-[#030303] w-37 test" 
+            <div class="flex items-center gap-2 font-bold text-xs">
+                <span class="block whitespace-nowrap overflow-hidden text-ellipsis w-30">{{source.label}} </span>
+                <span>| Page: {{source.page}}</span>
+            </div>
+            <span class="whitespace-nowrap overflow-hidden text-ellipsis text-[10.6px] text-[#030303] w-45 test" 
             >{{ source.url }}</span>
         </div>
         <a 

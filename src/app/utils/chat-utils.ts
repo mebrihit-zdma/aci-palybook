@@ -27,15 +27,44 @@ export function extractSources(raw: string): AnswerSource[] {
   }));
 }
 
-export function extractResponseSources(markdown: string): { label: string; url: string }[] {
+// export function extractResponseSources(markdown: string): { label: string; url: string; pageNumber?: number }[] {
+//   const regex = /\[(.*?)\]\((https?:\/\/.*?)\)/g;
+//   const sources: { label: string; url: string; pageNumber?: number }[] = [];
+
+//   let match;
+//   while ((match = regex.exec(markdown)) !== null) {
+//     sources.push({ label: match[1], url: match[2] });
+//   }
+
+//   return sources;
+// }
+export function extractResponseSources(markdown: string): { label: string; url: string; page?: number }[] {
   const regex = /\[(.*?)\]\((https?:\/\/.*?)\)/g;
-  const sources: { label: string; url: string }[] = [];
+  const sources: { label: string; url: string; page?: number }[] = [];
 
   let match;
   while ((match = regex.exec(markdown)) !== null) {
-    sources.push({ label: match[1], url: match[2] });
+    const fullLabel = match[1]; 
+    const url = match[2];
+
+    let label = fullLabel.trim();
+    let page: number | undefined = undefined;
+
+    // Extract page if format contains "| Page: xxx"
+    const pipeParts = fullLabel.split('|');
+    if (pipeParts.length === 2) {
+      label = pipeParts[0].trim();
+
+      const pageMatch = pipeParts[1].match(/Page:\s*(\d+)/i);
+      if (pageMatch) {
+        page = parseInt(pageMatch[1], 10);
+      }
+    }
+
+    sources.push({ label, url, page });
   }
 
   return sources;
 }
+
 

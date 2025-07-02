@@ -139,9 +139,13 @@
                       <div class="chat-answer">
                         <ng-container *ngIf="!msg.loading; else loadingTemplate">
                           <div [innerHTML]="msg.text"></div>
-                          <ng-container *ngIf="msg.follow_up_questions">
+                          <ng-container *ngIf="msg.follow_up?.length">
                             <strong>Follow Up Questions</strong>
-                            <div [innerHTML]="msg.follow_up_questions"></div>
+                            <ul class="mt-[8px]">
+                              <li *ngFor="let question of msg.follow_up">
+                                <p (click)="handleFollowUp(question)" class="cursor-pointer hover:underline text-primary">{{ question }}</p>
+                              </li>
+                            </ul>
                           </ng-container>
                         </ng-container>
                         <ng-template #loadingTemplate>

@@ -3,6 +3,9 @@ export interface ResponseSource {
     label: string;
     url: string;
 }
+export interface followUpQuestions {
+    question: string;
+}
 export interface ChatResponse {
     question: string; 
     answer: any;
@@ -12,8 +15,8 @@ export interface ChatResponse {
 export interface ResponseMessage {
     sender: 'bot' | 'user';
     text: any;
-    follow_up_questions?: any;
     sources?: ResponseSource[];
+    follow_up?: string[];
     loading?: boolean;
     timestamp?: string;
 }
