@@ -3,9 +3,16 @@
     <div class="flex justify-center items-center gap-[6px] mr-[8px] w-[100%]">
         <span class="w-[24px] h-[24px] bg-[url('./app/resources/icons/pdf-icon.svg')]"></span>
         <div class="flex flex-col w-[100%]">
-            <div class="flex items-center gap-2 font-bold text-xs">
-                <span class="block whitespace-nowrap overflow-hidden text-ellipsis w-30">{{source.label}} </span>
-                <span>| Page: {{source.page}}</span>
+            <div class="relative group inline-block w-[100%]">
+                <div class="flex items-center gap-2 font-bold text-xs">
+                    <span class="block whitespace-nowrap overflow-hidden text-ellipsis w-30">{{source.label}} </span>
+                    <span>| Page: {{source.page}}</span>
+                </div>
+                <!-- Source tooltip -->
+                <div class="absolute z-50 bg-white border border-[#D5D7DA] rounded-lg text-[#2C2D2E]
+                text-xs p-2 shadow-lg transition-all scale-0 group-hover:scale-100 delay-100 duration-10 w-[300px]">
+                    {{source.label}} | Page: {{source.page}}
+                </div>
             </div>
             <span class="whitespace-nowrap overflow-hidden text-ellipsis text-[10.6px] text-[#030303] w-40 test" 
             >{{ source.url }}</span>
