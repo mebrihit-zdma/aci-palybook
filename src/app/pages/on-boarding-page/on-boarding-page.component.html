@@ -14,12 +14,12 @@
                     <div class="flex">
                         <div class="mt-[-4px] w-[40px] h-[36px] sm:w-[36px] scale-[0.7] bg-[url('./app/resources/icons/blue-chat-icon.svg')]"></div>
                         <p class="bg-white flex py-[10px] px-[12px] w-[100%] border border-[#D5D7DA] text-sm rounded-tl-none rounded-tr-lg rounded-br-lg rounded-bl-lg sm:pe-[40px]">
-                        Would you mind selecting your &nbsp; <strong>role</strong>?</p>
+                        Would you mind selecting your &nbsp;<strong>role</strong>?</p>
                     </div>
-                    <!-- role list radio button section -->
+                    <!-- role list section -->
                     <div class="flex justify-center md:justify-end">
                         <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-[20px] sm:justify-end sm:w-[60%]">
-                            <label class="bg-white flex flex-col  py-[16px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm relative" *ngFor="let item of roleList" (click)="goToPoductsSection(item)" 
+                            <label class="bg-white flex flex-col py-[16px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm relative" *ngFor="let item of roleList" (click)="goToPoductsSection(item)" 
                             [ngClass]="selectedRoleList === item.name ? 'gradient-border' : ''">
                                 <div class="flex on-boarding">
                                     <div class="w-[48px] h-[48px] bg-[#F4EBFF] rounded-full flex items-center justify-center  text-primary">
@@ -29,13 +29,13 @@
                                         type="radio" 
                                         name="roleList" 
                                         [value]="item.name" 
-                                        class="absolute top-[24px] right-[24px]" 
+                                        class="absolute top-[15px] right-[15px]" 
                                         (change)="onRoleSelected(item)" 
                                         [(ngModel)]="selectedRoleList"/>
                                 </div>
                                 <div>
                                     <p class="text-base font-semibold mt-[12px] mb-[6px]">{{item.name}}</p>
-                                    <p class="text-xs font-medium text-[#727272]">{{item.description
+                                    <p class="text-sm font-medium text-[#727272]">{{item.description
                                     }}</p>
                                 </div>
                             </label>
@@ -46,32 +46,27 @@
              <!-- products section -->
             <div class="w-full ms-[-8px] md:ms-0" [ngClass]="!hiddenProductsSection? 'block' : ' hidden'">
                 <div class="flex flex-col gap-[32px] w-full">
-                    <!-- products question section -->
                     <div class="flex">
                         <div class="mt-[-4px] w-[40px] h-[36px] sm:w-[36px] scale-[0.7] bg-[url('./app/resources/icons/blue-chat-icon.svg')]"></div>
-                        <p class="bg-white flex py-[10px] px-[12px] w-[100%] border border-[#D5D7DA] text-sm rounded-tl-none rounded-tr-lg rounded-br-lg rounded-bl-lg sm:pe-[40px]" >Next, let’s set up your workspace. Select the &nbsp;<strong>products</strong> &nbsp; you are actively working on.</p>
+                        <p class="bg-white flex py-[10px] px-[12px] w-[100%] border border-[#D5D7DA] text-sm rounded-tl-none rounded-tr-lg rounded-br-lg rounded-bl-lg sm:pe-[40px]">Next, let’s set up your workspace. Select the &nbsp;<strong>products</strong> &nbsp; you are actively working on.</p>
                     </div>
-                    <!-- products checkbox button section -->
-                    <div class="flex flex-col justify-center justify-center md:justify-end">
-                        <div class="flex gap-[8px] justify-center md:justify-end">
-                            <label class="bg-white flex justify-center items-center p-[12px] border border-[#D5D7DA] rounded-[12px] text-sm gap-[32px] relative on-boarding" (click)="goToPersonalizeDashboardSection()"
+                    <!-- products list section -->
+                    <div class="flex justify-center md:justify-end">
+                        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-[20px] justify-items-end sm:w-[40%]">
+                            <label class="bg-white flex flex-col py-[16px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm text-sm relative on-boarding" (click)="goToPersonalizeDashboardSection()"
                             [ngClass]="selectedProduct === item.name ? 'gradient-border' : ''"
                             *ngFor="let item of productsList">
                                 <input
                                     type="radio" 
                                     name="products"
                                     [value]="item.name"
-                                    class="absolute top-[8px] right-[8px]"
+                                    class="absolute top-[15px] right-[15px]"
                                     [(ngModel)]="selectedProduct"
                                     (change)="onProductSelected()"
                                     />
-                                <div class="flex flex-col gap-[8px] me-[28px] py-[8px] ps-[8px]">
-                                    <div class="text-base text-[#2A282F] font-semibold leading-[18px]">
-                                        <p class="break-words whitespace-normal w-[150px]">{{item.name}}</p>
-                                    </div>
-                                    <div class="text-[#727272] text-sm leading-[18px]">
-                                        <p class="break-words whitespace-normal w-[150px]">{{item.description}}</p>
-                                    </div>
+                                <div>
+                                    <p class="text-base font-semibold mt-[12px] mb-[6px]">{{item.name}}</p>
+                                    <p class="text-sm font-medium text-[#727272]">{{item.description}}</p>
                                 </div>
                             </label>
                         </div>
@@ -81,12 +76,14 @@
             <!-- personalize your dashboard section -->
             <div class="w-full ms-[-8px] md:ms-0" [ngClass]="!hiddenPersonalizeDashboardSection? 'block' : 'hidden'">
                 <div class="flex flex-col gap-[32px] w-full">
-                    <!-- personalize your dashboard question section -->
                     <div class="flex">
                         <div class="mt-[-4px] w-[40px] h-[36px] sm:w-[36px] scale-[0.7] bg-[url('./app/resources/icons/blue-chat-icon.svg')]"></div>
-                        <p class="bg-white flex py-[10px] px-[12px] w-[100%] border border-[#D5D7DA] text-sm rounded-tl-none rounded-tr-lg rounded-br-lg rounded-bl-lg sm:pe-[40px]">Set up your dashboard by selecting the content most applicable to your work. These widget preferences can be modified later in the dashboard as needed.</p>
+                        <p class="bg-white flex py-[10px] px-[12px] w-[100%] border border-[#D5D7DA] text-sm rounded-tl-none rounded-tr-lg rounded-br-lg rounded-bl-lg sm:pe-[40px]">
+                            Set up your dashboard by selecting the content most applicable to your work. These Widget preferences can be modified later in the dashboard as needed.
+                        </p>
+
                     </div>
-                    <!-- personalize your dashboard radio button section -->
+                    <!-- widget list -->
                     <div class="flex justify-end">
                         <div class="gap-[8px] grid grid-cols-1 sm:grid-cols-2">
                             <label class="bg-white flex justify-center items-center py-[12px] px-[12px]  border border-[#D5D7DA] rounded-[12px] gap-[16px] cursor-pointer relative on-boarding" *ngFor="let data of widgetsList"
@@ -94,15 +91,15 @@
                                 <div class="flex">
                                     <span class="w-[48px] h-[48px] bg-[url('./app/resources/icons/blue-lightning-bolts.svg')]"></span>
                                 </div>
-                                <div class="flex flex-col gap-[2px] me-[32px]">
-                                    <p class="text-base text-[#2A282F] font-semibold break-words whitespace-normal w-[300px]">{{data.name}}</p>
-                                    <p class="text-[#727272] text-sm break-words whitespace-normal w-[300px]">{{data.description}}</p>
+                                <div>
+                                    <p class="text-base font-semibold mt-[12px] mb-[6px] break-words whitespace-normal w-[300px]">{{data.name}}</p>
+                                    <p class="text-sm font-medium text-[#727272] break-words whitespace-normal w-[300px]">{{data.description}}</p>
                                 </div>
                                 <input
                                     type="checkbox"
                                     name="personalize"
                                     [value]="data.name"
-                                    class="absolute top-[10px] right-[10px]"
+                                    class="absolute top-[12px] right-[15px]"
                                     [checked]="selectedPersonalize.includes(data.name)"
                                     (change)="togglePersonalize(data.name)"
                                     (change)="personalizeDashboardAnswered()"
