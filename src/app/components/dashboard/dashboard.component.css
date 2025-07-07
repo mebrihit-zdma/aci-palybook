@@ -19,3 +19,23 @@
     height: 30px;
     width: 30px;
   }
+
+
+  #toast-top-right {
+    position: fixed;
+      top: 20px;
+      right: 20px;
+  }
+  
+  #toast-notification {
+    position: absolute;
+    top: 20px;
+    right: 65px;  
+  }
+  
+  .alignUnread {
+    position: absolute;
+    right: 36px;
+    background-repeat: no-repeat;
+    top: 20px;
+  }

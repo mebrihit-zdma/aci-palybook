@@ -214,6 +214,38 @@ export class DashboardComponent {
       viewResolution: "View Resolution",
     },
   ];
+
+  
+    // notification  List data 
+    notificationListData = {inboxCount: 4,readCount:2, messages: [ 
+      { subject: "Here's What's New in ACI Connectic V1.2.3-A", 
+        content: "We've just rolled out the latest product updates. View what's new, improved, or fixed in this release.", 
+        datetimeText: "Today at 9:42 AM",
+        readStatus: false,
+
+      },
+      { subject: "Updated User Manual Now Available", 
+        content: "We've added new sections and clarified existing workflows in the user manual. Review the latest guide to stay aligned with system updates.", 
+        datetimeText: "Yesterday at 5:30 PM",
+        readStatus: false,
+
+      },
+      { subject: "Updated", 
+        content: " View what's new, improved, or fixed in this release.", 
+        datetimeText: "20th February, 2025; 4:30 PM",
+        readStatus: true,
+
+      },
+      { subject: "XXXX", 
+        content: "YYYY", 
+        datetimeText: "2nd January, 2025; 2:15 AM",
+        readStatus: true,
+
+      },
+    ]};
+
+
+    listData = this.notificationListData.messages;
   
   // tooltip
   skipTooltipValue = false;
@@ -268,6 +300,32 @@ export class DashboardComponent {
     
     this.router.navigate(['/dashboard-page/documentation']);
   }
+  
+  isNotificationList = false;
+  notificationList(){console.log("NOIFICATION")
+    this.isNotificationList =! this.isNotificationList;
+  }
+  closeNotificationList(){ 
+    this.isNotificationList = false;
+  }
+
+  
+  isViewAll = false;
+  viewAll(){ console.log("VIEWALL");
+    this.isViewAll =! this.isViewAll;
+  }
+
+  goToMarkReadAll() {
+    // console.log("MARKREAD");
+    // console.log(this.notificationListData.messages);
+
+    for (let dataUpdate of this.notificationListData.messages) {
+      //  console.log('code ' + dataUpdate.readStatus.toString());
+      dataUpdate.readStatus=true;
+      // console.log("dataUpdate", dataUpdate);
+    }
+ }  
+
   dashboardStartNewChat(){
     this.router.navigate(['/dashboard-page/chat']);
   }
