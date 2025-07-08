@@ -2,7 +2,7 @@
 
   <ul *ngIf="searchValue.trim() === ''" class="py-2">
     <li *ngFor="let chat of chatHistory; trackBy: trackChat"
-    class="relative px-4 text-[#919399] text-sm py-[8px] cursor-pointer rounded-2xl hover:bg-[#F6F6F6]"
+    class="group relative px-4 text-[#919399] text-sm py-[8px] cursor-pointer rounded-2xl hover:bg-[#F6F6F6]"
     (click)="selectChat(chat.sessionId)">
       <div class="w-full flex justify-between">
         <div class="relative group">
@@ -20,7 +20,7 @@
           </div>
         </div>
         <!-- Three-dot menu toggle -->
-        <div class="flex justify-between">
+        <div class="flex justify-between transition-all scale-0 group-hover:scale-100">
           <button 
             class="cursor-pointer" 
             (click)="openDeleteSession(chat.sessionId); $event.stopPropagation()">...
