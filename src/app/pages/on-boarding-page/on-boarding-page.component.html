@@ -1,8 +1,8 @@
 <div class="w-full h-screen flex justify-center items-center overflow-y-auto">
     <div class="p-4 h-full py-6 flex flex-col sm:w-[55%] lg:w-[68%] justify-between">
         <div class="flex flex-col gap-[10px] justify-center items-center mt-[6%]">
-            <p class="text-titlecolor font-semibold text-[32px] text-center tracking-[-0.02em] ">Let's Get Started!</p>
-            <p class="text-subtitlecolor text-[20px] font-medium text-center mb-[20px]">
+            <p class="text-title-color font-semibold text-[32px] text-center tracking-[-0.02em] ">Let's Get Started!</p>
+            <p class="text-subtitle-color text-[20px] font-medium text-center mb-[20px]">
                 Let's walk you through the essentials to help you get started.
             </p>
         </div>
@@ -19,7 +19,7 @@
                     <!-- role list section -->
                     <div class="flex justify-center md:justify-end">
                         <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-[20px] sm:justify-end sm:w-[60%]">
-                            <label class="bg-white flex flex-col py-[16px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm relative" *ngFor="let item of roleList" (click)="goToPoductsSection(item)" 
+                            <label class="cursor-pointer bg-white flex flex-col py-[16px] px-[12px] border border-[#D5D7DA] rounded-[12px] text-sm relative" *ngFor="let item of roleList" (click)="goToPoductsSection(item)" 
                             [ngClass]="selectedRoleList === item.name ? 'gradient-border' : ''">
                                 <div class="flex on-boarding">
                                     <div class="w-[48px] h-[48px] bg-[#F4EBFF] rounded-full flex items-center justify-center  text-primary">
@@ -34,8 +34,8 @@
                                         [(ngModel)]="selectedRoleList"/>
                                 </div>
                                 <div>
-                                    <p class="text-base font-semibold text-titlecolor mt-[12px] mb-[6px]">{{item.name}}</p>
-                                    <p class="text-sm font-medium text-descriptioncolor">{{item.description
+                                    <p class="text-base font-semibold text-title-color mt-[12px] mb-[6px]">{{item.name}}</p>
+                                    <p class="text-sm font-medium text-description-color">{{item.description
                                     }}</p>
                                 </div>
                             </label>
@@ -53,7 +53,7 @@
                     <!-- products list section -->
                     <div class="flex justify-center md:justify-end">
                         <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-[20px] justify-items-end sm:w-[40%]">
-                            <label class="bg-white flex flex-col py-[16px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm text-sm relative on-boarding" (click)="goToPersonalizeDashboardSection()"
+                            <label class="cursor-pointer bg-white flex flex-col py-[16px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm text-sm relative on-boarding" (click)="goToPersonalizeDashboardSection()"
                             [ngClass]="selectedProduct === item.name ? 'gradient-border' : ''"
                             *ngFor="let item of productsList">
                                 <input
@@ -65,8 +65,8 @@
                                     (change)="onProductSelected()"
                                     />
                                 <div>
-                                    <p class="text-base font-semibold text-titlecolor mt-[12px] mb-[6px]">{{item.name}}</p>
-                                    <p class="text-sm font-medium text-descriptioncolor">{{item.description}}</p>
+                                    <p class="text-base font-semibold text-title-color mt-[12px] mb-[6px]">{{item.name}}</p>
+                                    <p class="text-sm font-medium text-description-color">{{item.description}}</p>
                                 </div>
                             </label>
                         </div>
@@ -85,14 +85,14 @@
                     <!-- widget list -->
                     <div class="flex justify-end">
                         <div class="gap-[8px] grid grid-cols-1 sm:grid-cols-2">
-                            <label class="bg-white flex justify-center items-center py-[12px] px-[12px]  border border-[#D5D7DA] rounded-[12px] gap-[16px] cursor-pointer relative on-boarding" *ngFor="let data of widgetsList"
+                            <label class="cursor-pointer bg-white flex justify-center items-center py-[12px] px-[12px]  border border-[#D5D7DA] rounded-[12px] gap-[16px] relative on-boarding" *ngFor="let data of widgetsList"
                             [ngClass]="selectedPersonalize.includes(data.name) ? 'gradient-border' : ''">
                                 <div class="flex">
                                     <span class="w-[48px] h-[48px] bg-[url('./app/resources/icons/blue-lightning-bolts.svg')]"></span>
                                 </div>
                                 <div>
-                                    <p class="text-base font-semibold text-titlecolor mt-[12px] mb-[6px] break-words whitespace-normal w-[300px]">{{data.name}}</p>
-                                    <p class="text-sm font-medium text-descriptioncolor break-words whitespace-normal w-[300px]">{{data.description}}</p>
+                                    <p class="text-base font-semibold text-title-color mt-[12px] mb-[6px] break-words whitespace-normal w-[300px]">{{data.name}}</p>
+                                    <p class="text-sm font-medium text-description-color break-words whitespace-normal w-[300px]">{{data.description}}</p>
                                 </div>
                                 <input
                                     type="checkbox"
@@ -114,10 +114,14 @@
                     Exit
                 </button>
                 <div class="flex gap-[24px]" [ngClass]="!hiddenPersonalizeDashboardSection? 'block' : 'hidden'">
-                    <button (click)="skipOnboarding()" class="text-primary font-bold text-sm" [ngClass]="isPersonalizeDashboardNextButtonActive? 'disabled' : ''">Skip</button>
-                    <button (click)="goToDashboard()" class="bg-white flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] text-sm" [ngClass]="!isPersonalizeDashboardNextButtonActive? 'disabled' : 'activeButton'">
+                    <button (click)="skipOnboarding()" class="text-primary font-bold text-sm" [ngClass]="isPersonalizeDashboardNextButtonActive? 'disabled' : 'hover:text-primary-cta-hover'">Skip</button>
+                    <button (click)="goToDashboard()" class="cursor-pointer bg-white flex justify-center items-center py-[8px] px-[32px]  border border-[#D5D7DA] rounded-[8px] text-sm" [ngClass]="{
+                        'disabled-button': !isPersonalizeDashboardNextButtonActive,
+                        'active-button': isPersonalizeDashboardNextButtonActive
+                      }"
+                      >
                         Next
-                    </button>
+                    </button> 
                 </div>
             </div>
         </div>

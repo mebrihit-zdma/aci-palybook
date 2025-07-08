@@ -15,11 +15,17 @@
 
   /* color palette */
   --color-primary: #2726DD;
+  --color-secondary: #FF6632;
+
+  --color-title-color: #101828;
+  --color-subtitle-color: #30425C;
+  --color-description-color: #727272;  /* card description */
+
+  --color-warning: #FFB240;
+  --color-failure: #C33025;
   
-  --color-titlecolor: #101828;
-  --color-subtitlecolor: #30425C;
-  --color-descriptioncolor: #727272;  /* card description */
- 
+  --color-primary-cta-hover: #14136F;
+  --color-primary-cta-disabled: #D0D1D4;
 
   /* typography scale */
   --text-smalltext: 8px;
@@ -67,16 +73,26 @@ html, body{
 .disabled-button{
   opacity: 0.5;
   pointer-events: none;
-  background-color: #d5d7da;
+  background-color: var(--color-primary-cta-disabled);
   color:black;
+  border: 1px solid #A1A4AA;
+  box-shadow: 0px 1px 2px rgba(10, 13, 18, 0.05);
 }
+
 .disabled{
   opacity: 0.5;
   pointer-events: none;
 }
-.activeButton {
+.active-button {
   background-color: var(--color-primary);
   color: white;
+
+box-shadow: 0px 1px 2px rgba(10, 13, 18, 0.05);
+
+
+}
+.active-button:hover {
+  background-color: var(--color-primary-cta-hover)
 }
 /* radio buttons */
 .on-boarding > input[type="radio"] {
