@@ -36,13 +36,13 @@
           }
         </div>
         <!-- sidebar nav section -->
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col">
           <!-- dashboard sidebar list -->
-          @for (item of dashboardItems; let i = $index; track item) {
             <ul class="w-full">
-                <li class="w-full">
+              @for (item of dashboardItems; let i = $index; track item) {
+                <li class="w-full py-2">
                     <a
-                    class="flex gap-x-2 items-center rounded-2xl px-3 py-2 relative"
+                    class="flex gap-x-2 items-center rounded-2xl px-3 py-2 relative hover:bg-[#F6F6F6]"
                     [ngClass]="isLeftSidebarCollapsed() ? 'tooltip-btn' : ''"
                     [routerLink]="item.routeLink"
                     routerLinkActive="active"
@@ -62,13 +62,13 @@
                       }
                     </a>
                 </li>
+              }
             </ul>
-          }
           <!-- chat sidebar list -->
           <ul class="w-full" *ngIf="!isLeftSidebarCollapsed()">
             <li class="w-full" *ngFor="let item of chatItems;">
               <span
-                class="flex gap-x-2 items-center rounded-2xl px-3 py-2 relative cursor-pointer"
+                class="w-full flex gap-x-2 items-center rounded-2xl py-2 relative cursor-pointer"
                 [ngClass]="isLeftSidebarCollapsed() ? 'tooltip-btn' : ''"
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }"
@@ -77,7 +77,7 @@
                 <!-- Search Input -->
                 <div
                   *ngIf="item.label === 'Search Previous Chats'; else otherOption"
-                  class="flex items-center gap-[8px] text-[#666F8D] w-full"
+                  class="flex items-center gap-[8px] text-[#666F8D] w-full px-3 py-2 rounded-2xl hover:bg-[#F6F6F6]"
                 >
                   <span class="material-icons text-[#000000]"
                   [ngClass]="(item.label === 'Search Previous Chats')? 'text-[#737780]' : ''">{{ item.icon }}</span>
@@ -92,14 +92,17 @@
 
                 <!-- Other Items -->
                 <ng-template #otherOption>
-                  <span class="material-icons">{{ item.icon }}</span>
-                  <span
-                    *ngIf="!isLeftSidebarCollapsed()"
-                    class="text-[#000000] font-normal text-sm"
-                  >
-                    {{ item.label }}
-                  </span>
+                  <div class="flex gap-2 items-center rounded-2xl px-3 py-2 relative hover:bg-[#F6F6F6] w-full">
+                    <span class="material-icons">{{ item.icon }}</span>
+                    <span
+                      *ngIf="!isLeftSidebarCollapsed()"
+                      class="text-[#000000] font-normal text-sm"
+                    >
+                      {{ item.label }}
+                    </span>
+                  </div>
                 </ng-template>
+
 
                 <!-- Tooltip if sidebar is collapsed -->
                 <span
@@ -126,7 +129,7 @@
       </div>
 
       <!--user profile section -->
-      <div class="flex flex-col gap-4 btttom-stcky pb-4 bg-white absolute bottom-0 z-[200] w-[90%] rounded-2xl">
+      <div class="flex flex-col gap-4 btttom-stcky pb-4 bg-white absolute bottom-0 z-[200] w-[80%] rounded-2xl">
         <div class="bg-[#E9EAEB] h-[1px]"></div>
         <div class="flex gap-8 w-full">
           <div class="flex gap-2">
@@ -150,7 +153,7 @@
             </div>
           } */-->
         </div>
-        UAT v1.0.2+20250604
+        UAT v1.0.2+20250708
       </div>
     </div>
   </div>

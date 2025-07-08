@@ -1,12 +1,12 @@
 <div class="transition-opacity duration-500 overflow-y-auto h-[100%] px-2 flex-col">
 
-  <ul *ngIf="searchValue.trim() === ''" class="py-4">
+  <ul *ngIf="searchValue.trim() === ''" class="py-2">
     <li *ngFor="let chat of chatHistory; trackBy: trackChat"
-    class="relative px-2 text-[#919399] text-sm py-[8px] cursor-pointer hover:bg-[#F6F6F6]"
+    class="relative px-4 text-[#919399] text-sm py-[8px] cursor-pointer rounded-2xl hover:bg-[#F6F6F6]"
     (click)="selectChat(chat.sessionId)">
       <div class="w-full flex justify-between">
         <div class="relative group">
-          <span class="line-clamp-1 truncate max-w-[200px]">
+          <span class="line-clamp-1 truncate max-w-[180px]">
             {{ chat.question }}
           </span>
           <!--/* Tooltip  */-->
@@ -21,15 +21,16 @@
         </div>
         <!-- Three-dot menu toggle -->
         <div class="flex justify-between">
-          <button (click)="openDeleteSession(chat.sessionId); $event.stopPropagation()">
-            <span class="material-icons">more_horiz</span> 
+          <button 
+            class="cursor-pointer" 
+            (click)="openDeleteSession(chat.sessionId); $event.stopPropagation()">...
           </button>
         </div>
         <div 
           class="absolute flex flex-col top-[28px] right-[-8px] z-50 bg-white border border-[#D5D7DA] rounded-lg text-[#2C2D2E]
           text-xs p-1 shadow-lg"
           [ngClass]="selectedSession === chat.sessionId ? '' : 'hidden'"
-          (click)="$event.stopPropagation()">
+          (click)="$event.stopPropagation()" #menuRef>
           <!--/* delete Session button */-->
           <button class="flex" (click)="deleteSession(chat.sessionId); $event.stopPropagation()">
             <span class="material-icons scale-[.8]">delete</span>
@@ -42,9 +43,9 @@
     <hr class="text-[#DFDFDF80]">
   </ul>
 
-  <ul *ngIf="searchValue.trim() !== ''">
+  <ul *ngIf="searchValue.trim() !== ''" class="py-2">
     <li *ngFor="let chat of filteredChatHistory; trackBy: trackChat"
-        class="px-6 text-[#919399] text-sm py-[8px] truncate cursor-pointer"
+        class=" px-4 text-[#919399] text-sm py-[8px] cursor-pointer rounded-2xl hover:bg-[#F6F6F6] truncate"
         (click)="selectChat(chat.sessionId)"
         [innerHTML]="chat.highlightedQuestion">
     </li>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild} from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ApiService } from '../../services/api.service';
 import { ChatService } from '../../services/chat.service';
@@ -109,5 +109,16 @@ export class ChatHistoryComponent {
       },
         error: (err) => console.error('Error:', err),
     });
+  }
+
+  // outside click detection
+  @ViewChild('menuRef') menuRef!: ElementRef;
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const clickedInside = this.menuRef?.nativeElement.contains(event.target);
+    if (!clickedInside) {
+      this.selectedSession = null;
+    }
   }
 }

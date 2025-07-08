@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef} from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener} from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import { ChatService } from '../../services/chat.service';
 import { OnboardingService } from '../../services/onboarding.service';
@@ -403,6 +403,15 @@ export class ChatComponent {
     });
   }
   
+  // outside click detection
+  @ViewChild('menuRef') menuRef!: ElementRef;
 
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const clickedInside = this.menuRef?.nativeElement.contains(event.target);
+    if (!clickedInside) {
+      this.selectedPrompt = null;
+    }
+  }
 
 }
