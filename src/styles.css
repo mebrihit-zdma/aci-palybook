@@ -16,14 +16,13 @@
   /* color palette */
   --color-primary: #2726DD;
   --color-secondary: #FF6632;
-
   --color-title-color: #101828;
   --color-subtitle-color: #30425C;
   --color-description-color: #727272;  /* card description */
-
   --color-warning: #FFB240;
   --color-failure: #C33025;
-  
+
+  /* cta */
   --color-primary-cta-hover: #14136F;
   --color-primary-cta-disabled: #D0D1D4;
 
@@ -33,6 +32,42 @@
 
   /* break point */
   --breakpoint-3xl: 120rem;
+}
+h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-title-color); 
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-subtitle-color);
+  margin-bottom: 0.75rem;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--color-subtitle-color);
+  margin-bottom: 0.5rem;
+}
+
+h4 {
+  font-size: 18rem;
+  font-weight: 600;
+  color: var(--color-description-color);
+}
+h5 {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-description-color);
+}
+h6 {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-description-color);
 }
 
 html, body{
