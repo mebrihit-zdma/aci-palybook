@@ -5,8 +5,8 @@
             <p class="text-xs font-medium py-[4px] px-[8px] bg-[#24D7DA4D] rounded-[3.5px]" [ngClass]="(data.latest)? '' : 'hidden'" >{{data.latest}}</p>
             
         </div>
-        <p class="mb-[-8px] text-[16px] font-bold">{{ data.name }}</p>
-        <p class="text-[#666F8D] text-sm mb-[-8px]">{{ data.description }}</p>
+        <p class="mb-[-8px] text-[16px] font-bold text-title-color">{{ data.name }}</p>
+        <p class="text-description-color text-sm mb-[-8px]">{{ data.description }}</p>
         <ul class="list-disc text-[#666F8D] text-sm flex flex-col gap-[8px] ml-[24px]">
             <li *ngFor="let givenList of data.updateList">{{ givenList }}</li>
         </ul>
