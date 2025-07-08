@@ -38,32 +38,32 @@
         <!-- sidebar nav section -->
         <div class="flex flex-col">
           <!-- dashboard sidebar list -->
-            <ul class="w-full">
-              @for (item of dashboardItems; let i = $index; track item) {
-                <li class="w-full py-2">
-                    <a
-                    class="flex gap-x-2 items-center rounded-2xl px-3 py-2 relative hover:bg-[#F6F6F6]"
-                    [ngClass]="isLeftSidebarCollapsed() ? 'tooltip-btn' : ''"
-                    [routerLink]="item.routeLink"
-                    routerLinkActive="active"
-                    [routerLinkActiveOptions]="{ exact: true }"
-                    (click)="item.label === 'Chat' && chatButton()"
-                    >
-                      <span class="material-icons">{{item.icon}}</span>
-                      @if (!isLeftSidebarCollapsed()) {
-                        <span class="text-[#000000] font-normal text-sm">{{ item.label }}</span>
-                      }
-                      <!-- text  tooltip section -->
-                      @if (isLeftSidebarCollapsed()) {
-                        <span 
-                          class="tooltip-text text-[#FFFFFF] bg-[#3D3B3B] rounded-sm py-[4px] px-[8px] font-normal text-sm absolute  left-[112%]">
-                        {{ item.label }}
-                        </span>
-                      }
-                    </a>
-                </li>
-              }
-            </ul>
+          <ul class="w-full">
+            @for (item of dashboardItems; let i = $index; track item) {
+              <li class="w-full py-2">
+                  <a
+                  class="flex gap-x-2 items-center rounded-2xl px-3 py-2 relative hover:bg-[#F6F6F6]"
+                  [ngClass]="isLeftSidebarCollapsed() ? 'tooltip-btn' : ''"
+                  [routerLink]="item.routeLink"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  (click)="item.label === 'Chat' && chatButton()"
+                  >
+                    <span class="material-icons">{{item.icon}}</span>
+                    @if (!isLeftSidebarCollapsed()) {
+                      <span class="text-[#000000] font-normal text-sm">{{ item.label }}</span>
+                    }
+                    <!-- text  tooltip section -->
+                    @if (isLeftSidebarCollapsed()) {
+                      <span 
+                        class="tooltip-text text-[#FFFFFF] bg-[#3D3B3B] rounded-sm py-[4px] px-[8px] font-normal text-sm absolute  left-[112%]">
+                      {{ item.label }}
+                      </span>
+                    }
+                  </a>
+              </li>
+            }
+          </ul>
           <!-- chat sidebar list -->
           <ul class="w-full" *ngIf="!isLeftSidebarCollapsed()">
             <li class="w-full" *ngFor="let item of chatItems;">
@@ -124,7 +124,6 @@
               </div>
             </li>
           </ul>
-          <!--/* test */-->
         </div>
       </div>
 

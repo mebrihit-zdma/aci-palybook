@@ -28,8 +28,7 @@
 
   /* typography scale */
   --text-smalltext: 8px;
-  /* --text-base: 40px; */
-
+ 
   /* break point */
   --breakpoint-3xl: 120rem;
 }
