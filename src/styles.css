@@ -15,6 +15,10 @@
 
   /* color palette */
   --color-primary: #2726DD;
+  
+  --color-titlecolor: #101828;
+  --color-subtitlecolor: #30425C;
+  --color-descriptioncolor: #727272;  /* card description */
  
 
   /* typography scale */

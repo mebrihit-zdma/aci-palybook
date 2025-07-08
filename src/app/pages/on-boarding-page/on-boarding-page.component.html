@@ -1,8 +1,8 @@
 <div class="w-full h-screen flex justify-center items-center overflow-y-auto">
     <div class="p-4 h-full py-6 flex flex-col sm:w-[55%] lg:w-[68%] justify-between">
         <div class="flex flex-col gap-[10px] justify-center items-center mt-[6%]">
-            <p class="text-[#101828] font-semibold text-[32px] text-center tracking-[-0.02em] ">Let's Get Started!</p>
-            <p class="text-[#30425C] text-[20px] font-medium text-center mb-[20px]">
+            <p class="text-titlecolor font-semibold text-[32px] text-center tracking-[-0.02em] ">Let's Get Started!</p>
+            <p class="text-subtitlecolor text-[20px] font-medium text-center mb-[20px]">
                 Let's walk you through the essentials to help you get started.
             </p>
         </div>
@@ -34,8 +34,8 @@
                                         [(ngModel)]="selectedRoleList"/>
                                 </div>
                                 <div>
-                                    <p class="text-base font-semibold mt-[12px] mb-[6px]">{{item.name}}</p>
-                                    <p class="text-sm font-medium text-[#727272]">{{item.description
+                                    <p class="text-base font-semibold text-titlecolor mt-[12px] mb-[6px]">{{item.name}}</p>
+                                    <p class="text-sm font-medium text-descriptioncolor">{{item.description
                                     }}</p>
                                 </div>
                             </label>
@@ -65,8 +65,8 @@
                                     (change)="onProductSelected()"
                                     />
                                 <div>
-                                    <p class="text-base font-semibold mt-[12px] mb-[6px]">{{item.name}}</p>
-                                    <p class="text-sm font-medium text-[#727272]">{{item.description}}</p>
+                                    <p class="text-base font-semibold text-titlecolor mt-[12px] mb-[6px]">{{item.name}}</p>
+                                    <p class="text-sm font-medium text-descriptioncolor">{{item.description}}</p>
                                 </div>
                             </label>
                         </div>
@@ -91,8 +91,8 @@
                                     <span class="w-[48px] h-[48px] bg-[url('./app/resources/icons/blue-lightning-bolts.svg')]"></span>
                                 </div>
                                 <div>
-                                    <p class="text-base font-semibold mt-[12px] mb-[6px] break-words whitespace-normal w-[300px]">{{data.name}}</p>
-                                    <p class="text-sm font-medium text-[#727272] break-words whitespace-normal w-[300px]">{{data.description}}</p>
+                                    <p class="text-base font-semibold text-titlecolor mt-[12px] mb-[6px] break-words whitespace-normal w-[300px]">{{data.name}}</p>
+                                    <p class="text-sm font-medium text-descriptioncolor break-words whitespace-normal w-[300px]">{{data.description}}</p>
                                 </div>
                                 <input
                                     type="checkbox"
