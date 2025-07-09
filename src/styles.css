@@ -16,9 +16,15 @@
   /* color palette */
   --color-primary: #2726DD;
   --color-secondary: #FF6632;
+
   --color-title-color: #101828;
   --color-subtitle-color: #30425C;
   --color-description-color: #727272;  /* card description */
+
+  --color-primary-text-color: #2C2D2E;
+  --color-caption-color: #333740;
+
+  
   --color-warning: #FFB240;
   --color-failure: #C33025;
 
@@ -62,8 +68,8 @@ h5 {
 }
 h6 {
   font-size: 14px;
-  font-weight: 400;
-  color: var(--color-description-color);
+  font-weight: 600;
+  color: var(--color-primary-text-Color);
 }
 
 html, body{
@@ -439,7 +445,7 @@ gap: 2px !important;
 .modalReleaseHistoryListData > div > ul > li {
   padding-inline-start: 5px !important;
   gap: 2px !important;
-  }
+}
 
 .modalReleaseHistoryListData > div > div {
   font-size: 9px !important;
