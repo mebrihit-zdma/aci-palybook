@@ -1,5 +1,5 @@
 <div class="h-full w-full" [ngClass]="(!documentationLandingPage)? 'hidden' : 'block'">
-    <div class="flex flex-col gap-8 mx-16">
+    <div class="flex flex-col gap-8 lg:mx-16">
         <!-- dropdown section -->
         <div class="flex justify-between ml-[60px] md:ml-0">
             <div class="flex relative">
@@ -64,19 +64,19 @@
                 </div>
                 <div class="flex flex-col md:flex-row gap-4 justify-between">
                     <!-- Search Filter -->
-                    <div class="flex gap-[8px] justify-center">
+                    <div class="flex flex-col md:flex-row gap-[8px] justify-center">
                         <!--/* Search */-->
-                        <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[8px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-search-text-color text-sm font-medium w-[273px]">
+                        <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[8px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-search-text-color text-sm font-medium w-[100%] md:w-[273px]">
                             <span class="flex justify-center items-center w-[12.4px] h-[12.4px] bg-[url('./app/resources/icons/search-icon.svg')]"></span>
                             <input type="text" placeholder="Search"/>
                         </div>
                         <!-- Filter section -->
-                        <div class="relative w-70">
+                        <div class="relative w-[100%] md:w-70">
                             <!-- Filter Dropdown Button -->
                             <button
                                 type="button"
                                 (click)="toggleFilterDropdown()"
-                                class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-search-text-color text-sm font-medium w-50">
+                                class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-search-text-color text-sm font-medium w-full md:w-50">
                                 <span class="w-[18.33px] h-[18.33px] bg-[url('./app/resources/icons/filter-icon.svg')]">
                                 </span>
                                 Filter
