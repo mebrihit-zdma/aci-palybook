@@ -10,7 +10,7 @@
                       <button
                           type="button"
                           (click)="toggleProductDropdown()"
-                          class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-sm font-medium h-[100%] whitespace-nowrap overflow-hidden truncate w-[18ch]">
+                          class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%] whitespace-nowrap overflow-hidden truncate w-[18ch]">
                           {{ selectedProduct || 'Select a Product' }}
                           <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +87,7 @@
         <p class="text-description-color font-medium text-[15px] cursor-pointer" (click)="selectedShortcutPrompt(item.question)">{{item.question}}</p>
       </li>
 
-      <!--/* Create a shortcut Prompt */-->
+      <!-- Create a shortcut Prompt -->
       <div class="bg-white border border-[#D5D7DA] rounded-lg h-[100%] flex flex-col justify-between gap-[16px] px-[24px] py-[16px]">
         <div class="flex">
           <button class="w-[24px] h-[24px] bg-[url('./app/resources/icons/add-icon.svg')]" 
@@ -172,7 +172,7 @@
             </div>
             <!-- Prompts Library list -->
             <div class="relative">
-              <div class="absolute bottom-0 z-50 bg-white p-[12px] border border-[#D5D7DA] rounded-[8px] gap-[16px w-[50%] flex flex-col gap-4 py-4 px-6 text-[#2C2D2E]"
+              <div class="absolute bottom-0 z-50 bg-white p-[12px] border border-[#D5D7DA] rounded-[8px] gap-[16px w-[50%] flex flex-col gap-4 py-4 px-6 text-primary-text-color"
               [ngClass]="isPromptsLibraryModelOpen? 'block' : ' hidden'">
                 <div class="flex justify-between">
                     <p class="border-b-1  ">Prompts Library</p>
@@ -184,7 +184,7 @@
                     </button>
                 </div>
         
-                <div class="md:my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[12px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium w-[100%] justify-between">
+                <div class="md:my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[12px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-search-text-color text-sm font-medium w-[100%] justify-between">
                     <input 
                       type="text" 
                       placeholder="Search"
@@ -202,7 +202,7 @@
                     />
                 </div>
                 
-                <ul class="flex flex-col gap-4 text-[#2C2D2E] w-[100%] h-[200px] overflow-y-auto pe-6">
+                <ul class="flex flex-col gap-4 text-primary-text-color w-[100%] h-[200px] overflow-y-auto pe-6">
                   <li *ngFor="let item of filteredPrompts" class="flex justify-between cursor-pointer"
                   (click)="selectedPromptLibrary(item.prompt)">
                     <p 
@@ -223,7 +223,7 @@
               <!-- Prompts Library button -->
               <button class="bg-white  items-center justify-between p-[12px]  border border-[#D5D7DA] rounded-[8px] gap-[16px] relative group" (click)="openPromptsLibraryModel()">
                 <div class="w-[20px] h-[20px] bg-[url('./app/resources/icons/prompts-library-icon.svg')]"></div>
-                <div class="absolute top-[-32px] z-50 bg-white border border-[#D5D7DA] rounded-lg text-[#2C2D2E]
+                <div class="absolute top-[-32px] z-50 bg-white border border-[#D5D7DA] rounded-lg text-primary-text-color
                 text-xs whitespace-pre-wrap p-2 shadow-lg transition-all
                 scale-0 group-hover:scale-100">Prompts Library</div>
               </button>
