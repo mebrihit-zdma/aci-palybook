@@ -51,7 +51,7 @@
                   >
                     <span class="material-icons">{{item.icon}}</span>
                     @if (!isLeftSidebarCollapsed()) {
-                      <span class="text-[#000000] font-normal text-sm">{{ item.label }}</span>
+                      <span class="text-primary-text-color font-normal text-sm">{{ item.label }}</span>
                     }
                     <!-- text  tooltip section -->
                     @if (isLeftSidebarCollapsed()) {
@@ -79,12 +79,12 @@
                   *ngIf="item.label === 'Search Previous Chats'; else otherOption"
                   class="flex items-center gap-[8px] text-[#666F8D] w-full px-3 py-2 rounded-2xl hover:bg-[#F6F6F6]"
                 >
-                  <span class="material-icons text-[#000000]"
-                  [ngClass]="(item.label === 'Search Previous Chats')? 'text-[#737780]' : ''">{{ item.icon }}</span>
+                  <span class="material-icons text-secondary-text-color"
+                  [ngClass]="(item.label === 'Search Previous Chats')? 'text-secondary-text-color' : ''">{{ item.icon }}</span>
                   <input
                     type="text"
                     [placeholder]="!isLeftSidebarCollapsed() ? item.label : ''"
-                    class="text-[#000000] font-normal text-sm placeholder:text-[#737780]"
+                    class="text-primary-text-color font-normal text-sm placeholder:text-secondary-text-color"
                     [(ngModel)]="searchValue"
                     (ngModelChange)="onInputChange($event)"
                   />
@@ -96,7 +96,7 @@
                     <span class="material-icons">{{ item.icon }}</span>
                     <span
                       *ngIf="!isLeftSidebarCollapsed()"
-                      class="text-[#000000] font-normal text-sm"
+                      class="text-primary-text-color font-normal text-sm"
                     >
                       {{ item.label }}
                     </span>
@@ -140,8 +140,8 @@
             <!-- profile name section-->
             @if (!isLeftSidebarCollapsed()) {
               <div class="">
-                <p class="text-[#414651] font-semibold text-sm">{{userName}}</p>
-                <p class="text-[#535862] text-sm font-normal truncate whitespace-nowrap overflow-hidden">{{userRole}}</p>
+                <p class="text-title-color font-semibold text-sm">{{userName}}</p>
+                <p class="text-description-color text-sm font-normal truncate whitespace-nowrap overflow-hidden">{{userRole}}</p>
               </div>
             }
           </div>
