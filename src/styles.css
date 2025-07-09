@@ -23,8 +23,11 @@
 
   --color-primary-text-color: #2C2D2E;
   --color-secondary-text-color: #919399;
+  --color-tertiary-text-color: #333740;
 
   --color-caption-color: #333740;
+  --color-dropdown-text-color: #333740;
+  --color-search-text-color: #666f8d;
 
   
   --color-warning: #FFB240;
