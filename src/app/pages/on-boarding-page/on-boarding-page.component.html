@@ -17,7 +17,7 @@
                         Would you mind selecting your &nbsp;<strong>role</strong>?</p>
                     </div>
                     <!-- role list section -->
-                    <div class="flex justify-center md:justify-end">
+                    <div class="flex justify-center lg:justify-end">
                         <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-[20px] sm:justify-end sm:w-[60%]">
                             <label class="cursor-pointer bg-white flex flex-col py-[16px] px-[12px] border border-[#D5D7DA] rounded-[12px] text-sm relative" *ngFor="let item of roleList" (click)="goToPoductsSection(item)" 
                             [ngClass]="selectedRoleList === item.name ? 'gradient-border' : ''">
@@ -90,7 +90,7 @@
                                 <div class="flex">
                                     <span class="w-[48px] h-[48px] bg-[url('./app/resources/icons/blue-lightning-bolts.svg')]"></span>
                                 </div>
-                                <div>
+                                <div class="py-2">
                                     <p class="text-base font-semibold text-title-color mt-[12px] mb-[6px] break-words whitespace-normal w-[300px]">{{data.name}}</p>
                                     <p class="text-sm font-medium text-description-color break-words whitespace-normal w-[300px]">{{data.description}}</p>
                                 </div>
