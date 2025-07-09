@@ -1,5 +1,5 @@
 <div class="w-full h-screen flex justify-center items-center overflow-y-auto">
-    <div class="p-4 h-full py-6 flex flex-col sm:w-[55%] lg:w-[68%] justify-between">
+    <div class="p-4 h-full py-6 flex flex-col w-[100%] lg:w-[68%] justify-between">
         <div class="flex flex-col gap-[6px] justify-center items-center mt-[6%] mb-[18px]">
             <h1>Let's Get Started!</h1>
             <h3>
@@ -18,7 +18,7 @@
                     </div>
                     <!-- role list section -->
                     <div class="flex justify-center lg:justify-end">
-                        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-[20px] sm:justify-end sm:w-[60%]">
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-[20px] sm:justify-end w-[100%] lg:w-[60%]">
                             <label class="cursor-pointer bg-white flex flex-col py-[16px] px-[12px] border border-[#D5D7DA] rounded-[12px] text-sm relative" *ngFor="let item of roleList" (click)="goToPoductsSection(item)" 
                             [ngClass]="selectedRoleList === item.name ? 'gradient-border' : ''">
                                 <div class="flex on-boarding">
@@ -52,7 +52,7 @@
                     </div>
                     <!-- products list section -->
                     <div class="flex justify-center md:justify-end">
-                        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-[20px] justify-items-end sm:w-[40%]">
+                        <div class="grid grid-cols-2 gap-[20px] md:justify-items-end w-[100%] md:w-[70%] lg:w-[40%]">
                             <label class="cursor-pointer bg-white flex flex-col py-[16px] px-[12px]  border border-[#D5D7DA] rounded-[12px] text-sm text-sm relative on-boarding" (click)="goToPersonalizeDashboardSection()"
                             [ngClass]="selectedProduct === item.name ? 'gradient-border' : ''"
                             *ngFor="let item of productsList">
@@ -83,16 +83,16 @@
                         </p>
                     </div>
                     <!-- widget list -->
-                    <div class="flex justify-end">
-                        <div class="gap-[8px] grid grid-cols-1 sm:grid-cols-2">
+                    <div class="flex justify-center lg:justify-end">
+                        <div class="gap-[8px] grid grid-cols-1 md:grid-cols-2">
                             <label class="cursor-pointer bg-white flex justify-center items-center py-[12px] px-[12px]  border border-[#D5D7DA] rounded-[12px] gap-[16px] relative on-boarding" *ngFor="let data of widgetsList"
                             [ngClass]="selectedPersonalize.includes(data.name) ? 'gradient-border' : ''">
                                 <div class="flex">
                                     <span class="w-[48px] h-[48px] bg-[url('./app/resources/icons/blue-lightning-bolts.svg')]"></span>
                                 </div>
                                 <div class="py-2">
-                                    <p class="text-base font-semibold text-title-color mt-[12px] mb-[6px] break-words whitespace-normal w-[300px]">{{data.name}}</p>
-                                    <p class="text-sm font-medium text-description-color break-words whitespace-normal w-[300px]">{{data.description}}</p>
+                                    <p class="text-base font-semibold text-title-color mt-[12px] mb-[6px] break-words whitespace-normal w-[260px] md:w-[250px] lg:w-[300px]">{{data.name}}</p>
+                                    <p class="text-sm font-medium text-description-color break-words whitespace-normal w-[260px] md:w-[250px] lg:w-[300px]">{{data.description}}</p>
                                 </div>
                                 <input
                                     type="checkbox"
