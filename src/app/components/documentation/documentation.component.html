@@ -10,7 +10,7 @@
                         <button
                             type="button"
                             (click)="toggleProductDropdown()"
-                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-sm font-medium h-[100%] whitespace-nowrap overflow-hidden truncate w-[18ch]">
+                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%] whitespace-nowrap overflow-hidden truncate w-[18ch]">
                             {{ selectedProduct || 'Select a Product'}}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +54,7 @@
                     <!-- Create Documentation -->
                     <div class="flex gap-[16px] relative justify-center">
                         <div>
-                            <button class="text-white bg-primary flex items-center gap-[8px] px-[14px] py-[10px] rounded-lg  border border-[#D5D7DA]" (click)="goToDocumentationGeneratingPage()">
+                            <button class="text-white bg-primary flex items-center gap-[8px] px-[14px] py-[10px] rounded-lg  border border-[#D5D7DA] active-button" (click)="goToDocumentationGeneratingPage()">
                                 <span class="w-[18.33px] h-[18.33px] bg-[url('./app/resources/icons/white-stars.svg')]">
                                 </span>
                                 Create Documentation
@@ -66,7 +66,7 @@
                     <!-- Search Filter -->
                     <div class="flex gap-[8px] justify-center">
                         <!--/* Search */-->
-                        <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[8px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium w-[273px]">
+                        <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[8px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-search-text-color text-sm font-medium w-[273px]">
                             <span class="flex justify-center items-center w-[12.4px] h-[12.4px] bg-[url('./app/resources/icons/search-icon.svg')]"></span>
                             <input type="text" placeholder="Search"/>
                         </div>
@@ -76,7 +76,7 @@
                             <button
                                 type="button"
                                 (click)="toggleFilterDropdown()"
-                                class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium w-50">
+                                class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-search-text-color text-sm font-medium w-50">
                                 <span class="w-[18.33px] h-[18.33px] bg-[url('./app/resources/icons/filter-icon.svg')]">
                                 </span>
                                 Filter
@@ -102,7 +102,7 @@
             <div class="flex justify-between items-center" *ngIf="userRole === 'Help24 Analyst'">
                 <p class="font-medium text-base text-[#19213D]">Bug Fixes in the latest release</p>
                 <div>
-                    <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium w-[273px]">
+                    <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-search-text-color text-sm font-medium w-[273px]">
                         <span class="flex justify-center items-center w-[12.4px] h-[12.4px] bg-[url('./app/resources/icons/search-icon.svg')]"></span>
                         <span class="material-icons">search</span>
                         <input trpe="text" placeholder="Search"/>
@@ -155,7 +155,7 @@
                         <!-- Products Dropdown Button -->
                         <button
                             (click)="toggleProductDropdown()"
-                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-base h-[100%]">
+                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-base h-[100%]">
                             {{ selectedProduct || 'Select a Product' }}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -177,7 +177,7 @@
                                 <li
                                     *ngFor="let product of products"
                                     (click)="selectProduct(product)"
-                                    class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-base border-b border-gray-200 last:border-b-0">
+                                    class="text-dropdown-text-color cursor-pointer px-4 py-2 hover:bg-gray-100 text-base border-b border-gray-200 last:border-b-0">
                                     {{ product }}
                                 </li>
                             </ul>
@@ -190,7 +190,7 @@
                         <!-- Templates Dropdown Button -->
                         <button
                             (click)="toggleDropdown()"
-                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-base h-[100%]">
+                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-base h-[100%]">
                             {{ selectedTemplate }}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -208,7 +208,7 @@
                         <!-- Templates Dropdown Menu -->
                         <div
                             *ngIf="isOpen"
-                            class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                            class="text-dropdown-text-color absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
                             <ul>
                                 <li
                                     *ngFor="let template of templates"
@@ -294,7 +294,7 @@
                                 <button
                                     type="button"
                                     (click)="toggleProductDropdown()"
-                                    class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-sm font-medium h-[100%] whitespace-nowrap overflow-hidden truncate w-[18ch]">
+                                    class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%] whitespace-nowrap overflow-hidden truncate w-[18ch]">
                                     {{ selectedProduct || 'Select a Product'}}
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -329,7 +329,7 @@
                                 <!-- Template Dropdown Button -->
                                 <button
                                     (click)="toggleDropdown()"
-                                    class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-sm font-medium h-[100%]">
+                                    class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%]">
                                     {{ selectedTemplate }}
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -365,7 +365,7 @@
                                 <!-- View Sources Dropdown Button -->
                                 <button
                                     (click)="toggleViewSourcesDropdown()"
-                                    class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-[#666F8D] text-sm font-medium h-[100%]">
+                                    class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%]">
                                     View Sources
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
