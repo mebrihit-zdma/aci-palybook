@@ -302,6 +302,10 @@ html, body{
 }
 .chat-answer p, h2, h3 {
   margin-bottom: 0.5rem;
+
+  font-size: unset;
+  font-weight: unset;
+  color: unset;
 }
 
 .modalProductLatest > div {
@@ -322,7 +326,6 @@ html, body{
 .modalProductLatest > div > div > div > p {
   font-size: 9px !important;
 }
-
 .modalReleaseLatest > div {
   padding-inline: 12px !important;
 }
@@ -341,20 +344,13 @@ html, body{
 .modalReleaseLatest > div > div > div > p {
   font-size: 9px !important;
 }
-
 .modalReleaseHistoryListData > div > ul > li > div{
   font-size: 9px !important;
 }
-
 .modalReleaseHistoryListData > div > ul > li {
-padding-inline-start: 5px !important;
-gap: 2px !important;
+  padding-inline-start: 5px !important;
+  gap: 2px !important;
 }
-
-.modalReleaseHistoryListData > div > ul > li > div:nth-child(1) {
-  /* width: 10% !important; */
-}
-
 .modalReleaseHistoryListData > div > ul > li > div > span{
   font-size: 9px !important;
   padding: 2px !important;
@@ -363,46 +359,11 @@ gap: 2px !important;
   height: 20px !important;
   width: 20px !important;
 }
-.modalReleaseHistoryListData > div > ul > li {
-  padding-inline-start: 5px !important;
-  gap: 2px !important;
-}
-
 .modalReleaseHistoryListData > div > div {
   font-size: 9px !important;
 }
 
-.modalPieChartCard > div {
-  height: 260px !important;
-}
-.modalPieChartCard > div > div:nth-child(1) > div > p{
-  font-size: 9px !important;
-}
-.modalPieChartCard > div > div:nth-child(1) > div > div > p{
-  font-size: 9px !important;
-}
-/* .modalPieChartCard > div > div:nth-child(1) > div:nth-child(2) > div > div {
-  font-size: 12px !important;
-} */
-.modalPieChartCard > div > div:nth-child(1) > div:nth-child(2) {
-  margin-block: 8px !important;
-}
-.modalPieChartCard > div > div:nth-child(1) > div:nth-child(2)  > ul > li > div > span {
-  font-size: 12px !important;
-}
-.modalPieChartCard > div > div:nth-child(1) > div:nth-child(2)  > ul > li  > span {
-  font-size: 12px !important;
-  padding-left: 12px !important;
-}
-.modalPieChartCard > div > div:nth-child(2) {
-  gap: 8px !important;
-}
-.modalPieChartCard > div > div:nth-child(2) > a > p{
-  font-size: 9px !important;
-}
-
 .gradient-border {
-  /* position: relative; */
   border: 1px solid transparent;
   border-radius: 12px;
   background-clip: padding-box, border-box;
