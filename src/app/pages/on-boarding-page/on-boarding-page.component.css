@@ -6,3 +6,54 @@
     border: 1px solid #A1A4AA;
     box-shadow: 0px 1px 2px rgba(10, 13, 18, 0.05);
 } 
+/* radio buttons */
+.on-boarding > input[type="radio"] {
+    visibility:hidden;
+}
+.on-boarding > input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    content:url('../../../app/resources/icons/gray-uncheked-raido-button.svg');
+    display: inline-block;
+    visibility: visible;
+}
+.on-boarding > input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    content:url('../../../app/resources/icons/blue-checkmark-icon.svg');
+    display: inline-block;
+    visibility: visible;
+}
+.on-boarding > input[type="checkbox"] {
+    visibility:hidden;
+}
+.on-boarding > input[type='checkbox']:after {
+    width: 10px;
+    height: 10px;
+    border-radius: 15px;
+    left: -1px;
+    scale: .8;
+    position: relative;
+    content:url('../../../app/resources/icons/unchecked-checkbox-icon.svg');
+    display: inline-block;
+    visibility: visible;
+}
+.on-boarding > input[type='checkbox']:checked:after {
+    width: 10px;
+    height: 10px;
+    border-radius: 15px;
+    left: -1px;
+    scale: .8;
+    position: relative;
+    content:url('../../../app/resources/icons/blue-checkbox-icon.svg');
+    display: inline-block;
+    visibility: visible;
+}

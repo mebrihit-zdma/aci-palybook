@@ -108,63 +108,7 @@ html, body{
 .active-button:hover {
   background-color: var(--color-primary-cta-hover)
 }
-/* radio buttons */
-.on-boarding > input[type="radio"] {
-  visibility:hidden;
-}
-.on-boarding > input[type='radio']:after {
-  width: 15px;
-  height: 15px;
-  border-radius: 15px;
-  top: -2px;
-  left: -1px;
-  position: relative;
-  content:url('./app/resources/icons/gray-uncheked-raido-button.svg');
-  display: inline-block;
-  visibility: visible;
-}
-.on-boarding > input[type='radio']:checked:after {
-  width: 15px;
-  height: 15px;
-  border-radius: 15px;
-  top: -2px;
-  left: -1px;
-  position: relative;
-  content:url('./app/resources/icons/blue-checkmark-icon.svg');
-  display: inline-block;
-  visibility: visible;
-}
-.on-boarding > input[type="checkbox"] {
-  visibility:hidden;
-}
-.on-boarding > input[type='checkbox']:after {
-  width: 10px;
-  height: 10px;
-  border-radius: 15px;
-  /* top: -2px;
-  left: -1px; */
-  /* top: -5px; */
-  left: -1px;
-  scale: .8;
-  position: relative;
-  content:url('./app/resources/icons/unchecked-checkbox-icon.svg');
-  display: inline-block;
-  visibility: visible;
-}
-.on-boarding > input[type='checkbox']:checked:after {
-  width: 10px;
-  height: 10px;
-  border-radius: 15px;
-  /* top: -2px;
-  left: -1px; */
-  /* top: -5px; */
-  left: -1px;
-  scale: .8;
-  position: relative;
-  content:url('./app/resources/icons/blue-checkbox-icon.svg');
-  display: inline-block;
-  visibility: visible;
-}
+
 /* tooltip */
 .overlay {
   position: fixed;
