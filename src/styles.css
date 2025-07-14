@@ -133,39 +133,15 @@ h6 {
   box-shadow: 0px 20px 24px -4px rgba(16, 24, 40, 0.08), 0px 8px 8px -4px rgba(16, 24, 40, 0.03);
 }
 
-/* editor */
-.editor-tooltip{
-  right: 120%;
-  bottom: 0%;
-  z-index: 100;
-}
-.editor-tooltip::after,
-.editor-tooltip::before {
-  content: "";
-  position: absolute;
-  background-color: white;
-  height: 30px;
-  width: 30px;
-  top: 50%;
-  right:-30px;
-  transform: translate(-50%, -10%) rotate(45deg) scale(1);
-  -webkit-transform: translate(-50%, -10%) rotate(45deg) scale(1);
-  -moz-transform: translate(-50%, -10%) rotate(45deg) scale(1);
-  -ms-transform: translate(-50%, -10%) rotate(45deg) scale(1);
-  -o-transform: translate(-50%, -10%) rotate(45deg) scale(1);
-}
-
 /* chat section */
 .chat-answer ol {
   list-style: decimal !important;
   padding-left: 1.5rem;
 }
-
 .chat-answer ul {
   list-style: disc !important;
   padding-left: 1.5rem;
 }
-
 .chat-answer li {
   margin-bottom: 0.5rem;
 }
@@ -176,7 +152,6 @@ h6 {
   font-weight: unset;
   color: unset;
 }
-
 .modalProductLatest > div {
   padding-inline: 12px !important;
 }
