@@ -1,0 +1,8 @@
+.disabled-button{
+    opacity: 0.5;
+    pointer-events: none;
+    background-color: var(--color-primary-cta-disabled);
+    color:black;
+    border: 1px solid #A1A4AA;
+    box-shadow: 0px 1px 2px rgba(10, 13, 18, 0.05);
+} 
