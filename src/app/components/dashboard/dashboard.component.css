@@ -18,4 +18,16 @@
     background-repeat: no-repeat;
     height: 30px;
     width: 30px;
-  }
+}
+/*toggle switch styl for customize widgets */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+} 
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
