@@ -120,7 +120,7 @@
             <div class="w-[100%] lg:w-[90%] ml-auto mr-auto mb-[40px]">
               <div class="flex flex-col justify-center gap-[24px]">
                 <div *ngFor="let msg of chatMessages">
-                  <div class="flex" [ngClass]="{ 'gap-2 justify-end': msg.sender === 'user', 'flex-row': msg.sender === 'bot' }">
+                  <div class="flex" [ngClass]="{ 'gap-2 justify-end': msg.sender === 'user'}">
                     <!-- Response Icon-->
                     <ng-container *ngIf="msg.sender === 'user'">
                       <span class="flex mt-[8px] w-[14.5px] h-[14.5px]  bg-[url('./app/resources/icons/pencil-icon.svg')]"></span>
@@ -137,10 +137,10 @@
                       <!-- Response -->
                       <div class="chat-answer">
                         <ng-container *ngIf="!msg.loading; else loadingTemplate">
-                          <div [innerHTML]="msg.text"></div>
+                          <div class="mb-4" [innerHTML]="msg.text"></div>
                           <ng-container *ngIf="msg.follow_up?.length">
                             <strong>Follow Up Questions</strong>
-                            <ul class="mt-[8px]">
+                            <ul class="mt-[8px] follow-up">
                               <li *ngFor="let question of msg.follow_up">
                                 <p (click)="handleFollowUp(question)" class="cursor-pointer hover:underline text-primary">{{ question }}</p>
                               </li>
