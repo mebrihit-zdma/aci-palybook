@@ -156,40 +156,6 @@ h6 {
 .modalReleaseHistoryListData > div > div {
   font-size: 9px !important;
 }
-input:checked + .slider {
-  background-color: #282BDD;
-}
-input:checked + .slider:before {
-  transform: translateX(22px);
-  -webkit-transform: translateX(22px);
-  -moz-transform: translateX(22px);
-  -ms-transform: translateX(22px);
-  -o-transform: translateX(22px);
-}
-
-.slider {
-  position: absolute;
-  background-color: #ccc;
-  border-radius: 24px;
-  transition: 0.4s;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.slider:before {
-  content: "";
-  position: absolute;
-  height: 22px;
-  width: 22px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  transition: 0.4s;
-  border-radius: 50%;
-}
 
 /* custom-highlight for chat search*/
 .custom-highlight {
