@@ -57,3 +57,7 @@
     display: inline-block;
     visibility: visible;
 }
+.disabled{
+    opacity: 0.5;
+    pointer-events: none;
+}
