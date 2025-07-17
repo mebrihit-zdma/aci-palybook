@@ -117,6 +117,7 @@ h6 {
 .follow-up li::marker {
   color: var(--color-primary)
 }
+
 .modalProductLatest > div {
   padding-inline: 12px !important;
 }
