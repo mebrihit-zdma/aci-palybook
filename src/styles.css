@@ -118,6 +118,7 @@ h6 {
   color: var(--color-primary)
 }
 
+/* Customize Widget modal */
 .modalProductLatest > div {
   padding-inline: 12px !important;
 }
@@ -136,24 +137,7 @@ h6 {
 .modalProductLatest > div > div > div > p {
   font-size: 9px !important;
 }
-.modalReleaseLatest > div {
-  padding-inline: 12px !important;
-}
-.modalReleaseLatest > div > div > p{
-  font-size: 9px !important;
-}
-.modalReleaseLatest > div > div > ul > li{
-  font-size: 9px !important;
-}
-.modalReleaseLatest > div > div:nth-child(2) {
-  gap: 8px !important;
-}
-.modalReleaseLatest > div > div:nth-child(2) > a > p{
-  font-size: 9px !important;
-}
-.modalReleaseLatest > div > div > div > p {
-  font-size: 9px !important;
-}
+
 .modalReleaseHistoryListData > div > ul > li > div{
   font-size: 9px !important;
 }
@@ -175,7 +159,6 @@ h6 {
 input:checked + .slider {
   background-color: #282BDD;
 }
-
 input:checked + .slider:before {
   transform: translateX(22px);
   -webkit-transform: translateX(22px);
