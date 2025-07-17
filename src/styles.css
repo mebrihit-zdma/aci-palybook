@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+/* global styles, and imported files */
 
 /* google fonts family */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
@@ -107,7 +107,7 @@ h6 {
 .chat-answer li {
   margin-bottom: 0.5rem;
 }
-.chat-answer :is(h2, h3) {
+.chat-answer :is(h1, h2, h3, h4, h5, h6) {
   margin-bottom: 0.5rem;
 
   font-size: unset;
@@ -165,23 +165,6 @@ input:checked + .slider:before {
   -moz-transform: translateX(22px);
   -ms-transform: translateX(22px);
   -o-transform: translateX(22px);
-}
-.gradient-border {
-  border: 1px solid transparent;
-  border-radius: 12px;
-  background-clip: padding-box, border-box;
-  background-origin: border-box;
-  background-image:
-    linear-gradient(white, white), 
-    linear-gradient(0deg, #282BDD, #28D3DA);
-}
-.gradient-border-button:hover {
-  border: 1px solid transparent;
-  background-clip: padding-box, border-box;
-  background-origin: border-box;
-  background-image:
-    linear-gradient(white, white), 
-    linear-gradient(0deg, #282BDD, #28D3DA);
 }
 
 .slider {

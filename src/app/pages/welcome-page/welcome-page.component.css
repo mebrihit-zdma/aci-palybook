@@ -1,0 +1,17 @@
+.gradient-border {
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background-clip: padding-box, border-box;
+    background-origin: border-box;
+    background-image:
+      linear-gradient(white, white), 
+      linear-gradient(0deg, #282BDD, #28D3DA);
+}
+.gradient-border-button:hover {
+    border: 1px solid transparent;
+    background-clip: padding-box, border-box;
+    background-origin: border-box;
+    background-image:
+      linear-gradient(white, white), 
+      linear-gradient(0deg, #282BDD, #28D3DA);
+}
