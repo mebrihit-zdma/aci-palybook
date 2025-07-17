@@ -95,20 +95,6 @@ h6 {
   color: var(--color-primary-text-Color);
 }
 
-/* tooltip */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 100
-}
-.tooltip {
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  z-index: 10010;
-}
 /* dashboard model */
 .dashboard-model{
   left: calc(50% - 400px/2);
@@ -143,7 +129,6 @@ h6 {
 .follow-up li::marker {
   color: var(--color-primary)
 }
-
 .modalProductLatest > div {
   padding-inline: 12px !important;
 }
@@ -198,7 +183,17 @@ h6 {
 .modalReleaseHistoryListData > div > div {
   font-size: 9px !important;
 }
+input:checked + .slider {
+  background-color: #282BDD;
+}
 
+input:checked + .slider:before {
+  transform: translateX(22px);
+  -webkit-transform: translateX(22px);
+  -moz-transform: translateX(22px);
+  -ms-transform: translateX(22px);
+  -o-transform: translateX(22px);
+}
 .gradient-border {
   border: 1px solid transparent;
   border-radius: 12px;
@@ -241,17 +236,6 @@ h6 {
   border-radius: 50%;
 }
 
-input:checked + .slider {
-  background-color: #282BDD;
-}
-
-input:checked + .slider:before {
-  transform: translateX(22px);
-  -webkit-transform: translateX(22px);
-  -moz-transform: translateX(22px);
-  -ms-transform: translateX(22px);
-  -o-transform: translateX(22px);
-}
 /* custom-highlight for chat search*/
 .custom-highlight {
   color: #000; 
