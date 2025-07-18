@@ -15,7 +15,8 @@
   --font-Inter: "Inter", "sans-serif";
 
   /* color palette */
-  --color-primary: #2726DD;
+  /* --color-primary: #2726DD; */
+  --color-primary: #44bb40;
   --color-secondary: #FF6632;
 
   --color-title-color: #101828;
@@ -41,8 +42,6 @@
   /* typography scale */
   --text-smalltext: 8px;
  
-  /* break point */
-  --breakpoint-3xl: 120rem;
 }
 
 html, body{
