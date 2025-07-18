@@ -101,7 +101,7 @@ export class DocumentationComponent {
     { source: 'JIRA-516: Bug Fixes from latest code changes' },
     { source: 'EPIC-516: Payment Hub Security updates' }
   ];
-  sources: { source: string }[] = [];
+  sources: { newSource: string }[] = [];
   PdfSources: { PdfSources: string }[] = [];
   pdfNewSource: string = '';
 
@@ -111,7 +111,7 @@ export class DocumentationComponent {
   
   addSource() {
     if (this.newSource.trim()) {
-      this.sources.push({ source: this.newSource });
+      this.sources.push({ newSource: this.newSource });
       this.newSource = ''; // Clear input after adding
     }
     this.generateDoc = true;
