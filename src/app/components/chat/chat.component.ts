@@ -24,6 +24,7 @@ import { StreamService } from '../../services/stream.service';
 })
 export class ChatComponent {
 
+  currentDate: Date = new Date(); // gets current date/time
   app_id = "67daf330d62c5ade928150d1";
   model_name ="azure/gpt-4o";
   top_k = 3;

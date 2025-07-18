@@ -137,7 +137,7 @@
                       <!-- Response -->
                       <div class="chat-answer">
                         <ng-container *ngIf="!msg.loading; else loadingTemplate">
-                          <div class="mb-4" [innerHTML]="msg.text"></div>
+                          <div [ngClass]="{'mb-4': msg.sender === 'bot'}" [innerHTML]="msg.text"></div>
                           <ng-container *ngIf="msg.follow_up?.length">
                             <strong>Follow Up Questions</strong>
                             <ul class="mt-[8px] follow-up">
@@ -157,9 +157,10 @@
                       </div>
                     </div>
                   </div>
+                  <div *ngIf="msg.sender === 'user'" class="flex justify-end text-description-color">{{ currentDate | date: 'd/MM/yyyy, h:mm a' }}</div>
                   <ng-container *ngIf="msg.sender === 'bot' && msg.sources && !msg.loading">
                     <div class="ml-[40px]">
-                      <p class="mt-[20px] mb-[-8px]">Sources</p>
+                      <p class="mt-[20px] mb-[-8px] text-caption-color">Sources</p>
                       <div class="mt-4 lg:flex gap-4 lg:flex-wrap">
                         <app-source-card
                           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
@@ -167,6 +168,7 @@
                       </div>
                     </div>
                   </ng-container>
+                  <div *ngIf="msg.sender === 'bot'" class="flex text-description-color ml-[40px] mt-2">{{ currentDate | date: 'd/MM/yyyy, h:mm a' }}</div>
                 </div>
               </div>
             </div>
