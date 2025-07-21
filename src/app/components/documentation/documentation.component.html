@@ -487,17 +487,70 @@
     </div>
     <!-- editor section -->
     <div class="flex flex-col w-[20%] justify-center ">
-        <div class="flex-1 overflow-y-auto p-4 rounded-lg">
-            <div>
+        <div class="flex-1 rounded-lg border border-[#D5D7DA] p-4 bg-white w-fill h-full">
+            <div class="w-full h-full relative">
+                <!-- Ask DocuBot title -->
+                <div class="py-4 flex justify-between">
+                    <div class="flex gap-1 text-secondary">
+                        <span class="w-[20px] h-[20px] scale-[.8] bg-[url('./app/resources/icons/red-stars-icon.svg')]">
+                        </span>
+                        <span> Ask DocuBot</span>
+                    </div>
+                    <div class="flex">
+                        <span class="w-[20px] h-[20px] bg-[url('./app/resources/icons/black-close-icon.svg')]">
+                        </span>
+                    </div>
+                </div>
+                <!-- Ask DocuBot body -->
+                <div>
+                    <p class="bg-red-100 h-[100%] overflow-y-auto">
+                    1. Overview
+
+                    This release introduces enhanced security measures, improved payment processing speed, and new API integrations to streamline bank and merchant operations. Several bug fixes and performance optimizations have also been included.
+                    
+                    
+                    2. New Features & Enhancements
+                    
+                    FeatureDescriptionImpacted UsersEnhanced Transaction SecurityImplemented multi-layer fraud detection with AI-driven anomaly detection.Bank Operators, Compliance TeamsFaster Payment ProcessingOptimized transaction routing to reduce processing time by 20%.Merchants, IT TeamsNew API for Custom ReportsIntroduced API endpoints for real-time payment tracking and data export.Developers, Business Analysts
+                    
+                    
+                    3. Bug Fixes & Performance Improvements
+                    
+                    IssueResolutionPayment approval delays for high-volume transactions.Improved load balancing and optimized database queries.Incorrect currency conversion in multi-currency transactions.Fixed calculation logic and tested accuracy with various currencies.Help24 system lagging during peak hours.Upgraded infrastructure and optimized query processing.
+                    
+                    
+                    4. Known Issues & Workarounds
+                    
+                    
+                    Issue: Some users may experience delays when accessing new API features.Workaround: Clear cache or wait for server sync to complete within 5 minutes,Issue: Legacy integration users may see warning messages when processing transactions.Workaround: Update to the latest API version or contact support for assistance.
+                    </p>
+                </div>
+                <!-- Ask DocuBot input -->
+                <div class="w-full absolute bottom-2 z-[100]">
+                    <!-- question input field -->
+                    <label class="w-full bg-gray-01 flex flex-col gap-4 p-3 rounded-xl border border-gray-02">
+                        <input 
+                            type="text" 
+                            name="testing"
+                            placeholder="Ask your question!" 
+                            class="text-sm w-[100%] placeholder:text-[#737780]"
+                        />
+                        <div class="flex justify-between w-full">
+                            <button class="w-[16px] h-[17px]  bg-[url('./app/resources/icons/chat-link-icon.svg')]"></button>
+                            <button class="w-[18px] h-[18.86px] bg-[url('./app/resources/icons/blue-right-arrow-icon.svg')]"></button>
+                        </div>
+                    </label>
+                </div>
             </div>
         </div>
-        <div class="flex items-center justify-center">
+        <!-- Ask DocuBot button -->
+        <!--/* <div class="flex items-center justify-center">
             <button class="bg-white border border-[#D3D3D3] rounded-[36px] px-[18px] py-[12px] flex items-center gap-[12px] text-secondary">
                 <span class="w-[20px] h-[20px] bg-[url('./app/resources/icons/red-stars-icon.svg')]">
                 </span>
                 Ask DocuBot 
             </button>
-        </div>
+        </div> */-->
     </div>
 </div>
 <!-- add sources modal section -->

@@ -22,6 +22,10 @@
   --color-subtitle-color: #30425C;
   --color-description-color: #727272;  /* card description */
 
+  /* gray */
+  --color-gray-01: #f6f6f6;
+  --color-gray-02: #D0D1D4;
+
   --color-primary-text-color: #2C2D2E;
   --color-secondary-text-color: #919399;
   --color-tertiary-text-color: #333740;
@@ -36,11 +40,9 @@
 
   /* cta */
   --color-primary-cta-hover: #14136F;
-  --color-primary-cta-disabled: #D0D1D4;
+  --color-primary-cta-disabled: var(--color-gray-02);
 
-  /* typography scale */
-  --text-smalltext: 8px;
- 
+
 }
 
 html, body{
