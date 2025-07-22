@@ -271,7 +271,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="text-sm text-white bg-primary flex items-center gap-[8px] px-[14px] rounded-lg border border-[#D5D7DA] h-[41.5px]" [ngClass]="(!generateDoc)? 'disabled' : ''" (click)="goToDocumentationGeneratedPage()">
+                <button class="active-button text-sm text-white bg-primary flex items-center gap-[8px] px-[14px] rounded-lg border border-[#D5D7DA] h-[41.5px]" [ngClass]="(!generateDoc)? 'disabled' : ''" (click)="goToDocumentationGeneratedPage()">
                     <span class="w-[18.33px] h-[18.33px] scale-[0.8] bg-[url('./app/resources/icons/white-stars.svg')]">
                     </span>
                     <span>Generate</span>
@@ -418,7 +418,7 @@
                 <!-- Generate button -->
                 <div class="flex flex-col relative">
                     <div>
-                        <button class="text-sm text-white bg-primary flex items-center gap-[8px] px-[14px] rounded-lg border border-[#D5D7DA] h-[41.5px]" [ngClass]="(!generateDoc)? 'disabled' : ''" (click)="createDocument()">
+                        <button class="active-button text-sm text-white bg-primary flex items-center gap-[8px] px-[14px] rounded-lg border border-[#D5D7DA] h-[41.5px]" [ngClass]="(!generateDoc)? 'disabled' : ''" (click)="createDocument()">
                             <span class="w-[18.33px] h-[18.33px] scale-[0.8] bg-[url('./app/resources/icons/white-stars.svg')]">
                             </span>
                             <span>Generate</span>
@@ -430,12 +430,12 @@
             <div class="flex flex-col relative">
                 <div>
                     <div class="flex flex-col lg:flex-row gap-[16px] h-[100%]">
-                        <button class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[8px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium h-[100%]" (click)="exportAsText()">
+                        <button class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[8px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium h-[100%] gradient-border-button" (click)="exportAsText()">
                             <span class="w-[21.83px] h-[21.83px] bg-[url('./app/resources/icons/download-icon.svg')]">
                             </span>
                             Export
                         </button>
-                        <button class="my-auto border border-[#D5D7DA] rounded-[8px] px-[24px] py-[8px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-white text-sm font-medium bg-primary h-[100%]" [ngClass]="(displayDoc)? '' : 'disabled'">Publish</button>
+                        <button class="active-button my-auto border border-[#D5D7DA] rounded-[8px] px-[24px] py-[8px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-white text-sm font-medium bg-primary h-[100%]" [ngClass]="(displayDoc)? '' : 'disabled'">Publish</button>
                     </div>
                 </div>
             </div>
@@ -486,7 +486,7 @@
         </div>
     </div>
     <!-- editor section -->
-    <div class="flex flex-col w-[20%] justify-center ">
+    <div class="flex flex-col w-[25%] justify-center ">
         <div class="flex-1 rounded-lg border border-[#D5D7DA] p-4 bg-white w-fill h-full overflow-y-hidden">
             <div class="w-full h-full relative">
                 <!-- Ask DocuBot title -->
@@ -503,27 +503,25 @@
                         </span>
                     </div>
                 </div>
+
                 <!-- Ask DocuBot body -->
-
-                <div class="h-[80%]">
-                    <p class="h-[100%] overflow-y-auto">
-                    1. Overview
-
-                    This release introduces enhanced security measures, improved payment processing speed, and new API integrations to streamline bank and merchant operations. Several bug fixes and performance optimizations have also been included.
-                    
-                    
-                    2. New Features & Enhancements
-                    
-                    FeatureDescriptionImpacted UsersEnhanced Transaction SecurityImplemented multi-layer fraud detection with AI-driven anomaly detection.Bank Operators, Compliance TeamsFaster Payment ProcessingOptimized transaction routing to reduce processing time by 20%.Merchants, IT TeamsNew API for Custom ReportsIntroduced API endpoints for real-time payment tracking and data export.Developers, Business Analysts
-                    
-                    
-                    
-                    </p>
+                <div class="h-[80%] flex flex-col gap-4 text-sm">
+                    <div class="flex flex-col gap-4">
+                        <p>Here’s the release notes draft. </p>
+                        <p>Let me know if you’d like any revisions or improvements!</p>
+                        <div class="w-[85%] flex flex-col gap-4 p-3 rounded-xl border border-gray-02">
+                            <p class="">Draft 1: Payment Hub V1_2_3-A</p>
+                            <p class="text-xs">Saved • 20-Jun-2025, 9:15 AM</p>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="p-4 bg-gray-01 rounded-xl">Can you update Security information?</p>
+                    </div>
                 </div>
+
                 <!-- Ask DocuBot input -->
                 <div class="w-full absolute bottom-2 z-[100]">
-                    <!-- question input field -->
-                    <label class="w-full bg-gray-01 flex flex-col gap-4 p-3 rounded-xl border border-gray-02">
+                    <label class="w-full bg-gray-01 flex flex-col gap-4 p-4 rounded-xl border border-gray-02">
                         <input 
                             type="text" 
                             name="testing"
