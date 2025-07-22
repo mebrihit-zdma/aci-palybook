@@ -450,10 +450,10 @@
                 <p>
                     Release Date: March 15, 2025 
                 </p>
-                <p class="text-[#666F8D]">
+                <p class="text-caption-color">
                     Prepared By: Product Management Team 
                 </p>
-                <ul class="text-[#666F8D] flex flex-col gap-[12px]">
+                <ul class="text-caption-color flex flex-col gap-[12px]">
                     <li class="flex flex-col gap-[8px]" *ngFor="let item of generatedDocument">
                         <p>
                             {{item.title}}
@@ -471,7 +471,7 @@
                         </ul>
                     </li>
                 </ul>
-                <div class="text-[#666F8D]"> 
+                <div class="text-caption-color"> 
                     <p>
                         For further details, contact: 
                     </p>
@@ -485,7 +485,7 @@
             </div>
         </div>
     </div>
-    <!-- editor section -->
+    <!-- Chat section -->
     <div class="flex flex-col w-[25%] justify-center ">
         <div class="flex-1 rounded-lg border border-[#D5D7DA] p-4 bg-white w-fill h-full overflow-y-hidden">
             <div class="w-full h-full relative">
@@ -505,7 +505,7 @@
                 </div>
 
                 <!-- Ask DocuBot body -->
-                <div class="h-[80%] flex flex-col gap-4 text-sm">
+                <div class="h-[80%] flex flex-col gap-4 text-sm text-caption-color">
                     <div class="flex flex-col gap-4">
                         <p>Here’s the release notes draft. </p>
                         <p>Let me know if you’d like any revisions or improvements!</p>
@@ -514,9 +514,32 @@
                             <p class="text-xs">Saved • 20-Jun-2025, 9:15 AM</p>
                         </div>
                     </div>
-                    <div>
-                        <p class="p-4 bg-gray-01 rounded-xl">Can you update Security information?</p>
+                    <div class="flex flex-col gap-4">
+                        <!--/* question */-->
+                        <div>
+                            <p class="p-4 bg-gray-01 rounded-xl">Can you update Security information?</p>
+                        </div>
+                        <!--/* respond */-->
+                        <div class="flex flex-col gap-4">
+                            <p>Here’s what is updated:</p>
+                            <ul class="list-disc flex flex-col gap-4">
+                                <li class="flex flex-col gap-4">
+                                    <h6>D.UC.01: Access Shared Knowledge</h6>
+                                    <p>I need Jira tickets and associated solutions automatically centralized and accessible across teams.</p>
+                                </li>
+                                <li class="flex flex-col gap-4">
+                                    <h6>D.UC.02: Utilize Code Snippets and Samples</h6>
+                                    I need a peer-reviewed repository of reusable code snippets and examples to ensure consistency.
+                                    <p>Let me know if you’d like any revisions or improvements!</p>
+                                </li>
+                            </ul>
+                            <div class="w-[85%] flex flex-col gap-4 p-3 rounded-xl border border-gray-02 bg-gray-01">
+                                <h6 class="">Draft 1: Payment Hub V1_2_3-A</h6>
+                                <p class="text-xs">Saved • 20-Jun-2025, 9:15 AM</p>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
 
                 <!-- Ask DocuBot input -->
