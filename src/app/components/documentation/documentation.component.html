@@ -1,3 +1,4 @@
+<!-- first doc section -->
 <div class="h-full w-full" [ngClass]="(!documentationLandingPage)? 'hidden' : 'block'">
     <div class="flex flex-col gap-8 lg:mx-16">
         <!-- dropdown section -->
@@ -138,25 +139,25 @@
         </div>
     </div>
 </div>
-<!-- first doc section -->
+<!-- second doc section -->
 <div class="h-full w-full" [ngClass]="(documentationGeneratingPage)? '' : 'hidden'">
-    <div class="flex flex-col justify-center items-center mt-[8%]">
+    <div class="flex flex-col justify-center items-center mt-[5%]">
         <div class="flex flex-col justify-center items-center text-[#666f8d]">
-            <div class="flex mt-[18px] mb-6">
-                <span class="w-[110.2px] h-[74.14px] bg-[url('./app/resources/icons/docu-bot-icon.svg')]">
+            <div class="flex">
+                <span class="w-[110.2px] h-[74.14px] scale-[0.6] bg-[url('./app/resources/icons/docu-bot-icon.svg')]">
                 </span>
             </div>
-            <p class="text-[24px] font-medium">Meet DocuBot!</p>
-            <p class="text-[16px]">Your assistant for generating documentation.</p>
-            <div class="flex flex-col gap-[24px] justify-center items-center mt-6">
+            <h4>Meet DocuBot!</h4>
+            <h6>Your AI assistant for generating documentation.</h6>
+            <div class="flex flex-col gap-4 justify-center items-center mt-3">
                 <!-- select product section -->
                 <div class="flex flex-col gap-[16px]">
-                    <div class="relative w-100">
-                        <p class="text-sm">Select Product</p>
+                    <div class="relative w-90">
+                        <p class="text-xs">Select Product</p>
                         <!-- Products Dropdown Button -->
                         <button
                             (click)="toggleProductDropdown()"
-                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-base h-[100%]">
+                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm h-[100%]">
                             {{ selectedProduct || 'Select a Product' }}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -178,7 +179,7 @@
                                 <li
                                     *ngFor="let product of products"
                                     (click)="selectProduct(product)"
-                                    class="text-dropdown-text-color cursor-pointer px-4 py-2 hover:bg-gray-100 text-base border-b border-gray-200 last:border-b-0">
+                                    class="text-dropdown-text-color cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm border-b border-gray-200 last:border-b-0">
                                     {{ product }}
                                 </li>
                             </ul>
@@ -187,12 +188,12 @@
                 </div>
                 <!-- select template section -->
                 <div class="flex flex-col gap-[16px]">
-                    <div class="relative w-100">
-                        <p class="text-sm">Select Template</p>
+                    <div class="relative w-90">
+                        <p class="text-xs">Select Template</p>
                         <!-- Templates Dropdown Button -->
                         <button
                             (click)="toggleDropdown()"
-                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-base h-[100%]">
+                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm h-[100%]">
                             {{ selectedTemplate }}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -215,7 +216,7 @@
                                 <li
                                     *ngFor="let template of templates"
                                     (click)="selectTemplate(template)"
-                                    class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-base border-b border-gray-200 last:border-b-0">
+                                    class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm border-b border-gray-200 last:border-b-0">
                                     {{ template }}
                                 </li>
                             </ul>
@@ -224,13 +225,13 @@
                 </div>
                 <!-- add sources section -->
                 <div class="flex flex-col justify-start gap-[8px]">
-                    <p class="text-sm mb-[-10px]">Add Sources</p>
+                    <p class="text-xs mb-[-10px]">Add Sources</p>
                     <!-- sources list -->
-                    <ul class="flex flex-col gap-[8px] w-100">
+                    <ul class="flex flex-col gap-[8px] w-90">
                         <li class="flex w-[100%] bg-[#FAFAFA] border border-[#DFDFDF] rounded-lg py-[10px] px-[16px] gap-[8px] justify-between " *ngFor="let item of sources; let i = index">
                             <div class="flex items-center justify-center gap-[4px]">
                                 <span class="w-[24px] h-[24px] scale-[0.8] bg-[url('./app/resources/icons/green-file-uplode-icon.svg')]"></span>
-                                <span class="text-base whitespace-nowrap overflow-hidden text-ellipsis w-[25ch] flex-1 text-[#2C2D2E]">{{item.newSource}}</span>
+                                <span class="text-sm whitespace-nowrap overflow-hidden text-ellipsis w-[25ch] flex-1 text-[#2C2D2E]">{{item.newSource}}</span>
                             </div>
                             <button class="material-icons text-[#919399] ml-[0px]" (click)="deleteSource(i)">delete</button>
                         </li>
@@ -240,7 +241,7 @@
                         </span>
                         <input type="text" 
                             placeholder="Paste your URL here" 
-                            class="text-base"  
+                            class="text-sm"  
                             [(ngModel)]="newSource" 
                             (keydown.enter)="addSource()"
                         />
@@ -249,11 +250,11 @@
                 <!-- Drag and Drop or Browse -->
                 <div class="w-[100%] flex flex-col gap-2">
                     <!-- pdf sources list -->
-                    <ul class="flex flex-col gap-[8px] w-[100%] mt-12">
+                    <ul class="flex flex-col gap-[8px] w-[100%] mt-6">
                         <li class="flex w-[100%] bg-[#FAFAFA] border border-[#DFDFDF] rounded-lg py-[10px] px-[16px] gap-[8px] justify-between " *ngFor="let item of PdfSources; let i = index">
                             <div class="flex items-center justify-center gap-[4px]">
                                 <span class="w-[20px] h-[24px] scale-[0.8] bg-[url('./app/resources/icons/pdf-icon.svg')]"></span>
-                                <span class="text-base whitespace-nowrap overflow-hidden text-ellipsis w-[25ch] flex-1 text-[#2C2D2E]">{{item.PdfSources}}</span>
+                                <span class="text-sm whitespace-nowrap overflow-hidden text-ellipsis w-[25ch] flex-1 text-[#2C2D2E]">{{item.PdfSources}}</span>
                             </div>
                             <button class="material-icons text-[#919399] ml-[0px]" (click)="deleteSource(i)">delete</button>
                         </li>
@@ -280,7 +281,7 @@
         </div>
     </div>
 </div>
-<!-- second doc section -->
+<!-- third doc section -->
 <div class="overflow-y-hidden h-full w-full flex flex-col lg:flex-row gap-4" [ngClass]="(documentationGeneratedPage)? 'block' : 'hidden'">
     <!-- document generate section -->
     <div class="h-full flex flex-col gap-[16px] w-[75%]">
