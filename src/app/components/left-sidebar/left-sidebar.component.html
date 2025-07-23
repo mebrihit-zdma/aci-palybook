@@ -19,25 +19,22 @@
       [ngClass]="{ 'lg:w-20': isLeftSidebarCollapsed(), 'lg:w-65': !isLeftSidebarCollapsed() }"
       class="fixed top-0 left-0 w-65 lg:w-65 bg-white p-4 h-full rounded-2xl py-6 flex flex-col justify-between transition-transform transform lg:translate-x-0 lg:static z-10">
 
+      <!-- nav section -->
       <div class="flex flex-col gap-4">
-        <!-- playbook-logo section -->
+        <!-- logo section -->
         <div class="flex gap-16 w-full  justify-center items-center md:h-auto">
           <div class="flex gap-2">
             <span class="w-[21.69px] h-[27.9px] bg-[url('./app/resources/icons/blue-book-icon.svg')] rounded-lg">
             </span>
-            @if (!isLeftSidebarCollapsed()) {
-              <div class="text-primary font-medium text-2xl font-(family-name:BentonSans)">Playbook</div>
-            }
+            <div *ngIf="!isLeftSidebarCollapsed()" class="text-primary font-medium text-2xl font-(family-name:BentonSans)">Playbook</div>
           </div>
           <!-- close sidebar section -->
-          @if (!isLeftSidebarCollapsed()) {
-            <button class="hidden md:block w-[16.83px] h-[15.83px] mx-auto bg-[url('./app/resources/icons/sidebar-close-icon.svg')]" (click)="closeSidenav()">
-            </button>
-          }
+          <button *ngIf="!isLeftSidebarCollapsed()" class="hidden md:block w-[16.83px] h-[15.83px] mx-auto bg-[url('./app/resources/icons/sidebar-close-icon.svg')]" (click)="closeSidenav()">
+          </button>
         </div>
-        <!-- sidebar nav section -->
+        <!--  nav list section -->
         <div class="flex flex-col">
-          <!-- dashboard sidebar list -->
+          <!-- main sidebar list -->
           <ul class="w-full">
             @for (item of dashboardItems; let i = $index; track item) {
               <li class="w-full py-2">
@@ -50,16 +47,13 @@
                   (click)="item.label === 'Chat' && chatButton()"
                   >
                     <span class="material-icons">{{item.icon}}</span>
-                    @if (!isLeftSidebarCollapsed()) {
-                      <span class="text-primary-text-color font-normal text-sm">{{ item.label }}</span>
-                    }
+                    <span *ngIf="!isLeftSidebarCollapsed()" class="text-primary-text-color font-normal text-sm">{{ item.label }}</span>
                     <!-- text  tooltip section -->
-                    @if (isLeftSidebarCollapsed()) {
-                      <span 
-                        class="tooltip-text text-[#FFFFFF] bg-[#3D3B3B] rounded-sm py-[4px] px-[8px] font-normal text-sm absolute  left-[112%]">
+                    <span 
+                      *ngIf="isLeftSidebarCollapsed()"
+                      class="tooltip-text text-[#FFFFFF] bg-[#3D3B3B] rounded-sm py-[4px] px-[8px] font-normal text-sm absolute  left-[112%]">
                       {{ item.label }}
-                      </span>
-                    }
+                    </span>
                   </a>
               </li>
             }
@@ -138,30 +132,25 @@
                 <!--/* <img class="border border-gray-300 rounded-[200px] w-[40px] h-[40px] justify-center items-center" *ngIf="profileImageUrl" [src]="profileImageUrl" alt="User profile picture"> */-->
             </div>
             <!-- profile name section-->
-            @if (!isLeftSidebarCollapsed()) {
-              <div class="">
-                <p class="text-title-color font-bold text-base">{{userName}}</p>
-                <p class="text-tertiary-text-color text-sm font-normal truncate whitespace-nowrap overflow-hidden">{{userRole}}</p>
-              </div>
-            }
+            <div *ngIf="!isLeftSidebarCollapsed()" class="">
+              <p class="text-title-color font-bold text-base">{{userName}}</p>
+              <p class="text-tertiary-text-color text-sm font-normal truncate whitespace-nowrap overflow-hidden">{{userRole}}</p>
+            </div>
+            
           </div>
           <!-- profile logout section-->
-          @if (!isLeftSidebarCollapsed()) {
-            <div class="ml-auto inline-block">
-              <div (click)="logout()" class="w-[36px] h-[36px] rounded-[8px] mx-auto bg-[url('./app/resources/icons/right-arrow-icon.svg')]"></div>
-            </div>
-          }
+          <div *ngIf="!isLeftSidebarCollapsed()" class="ml-auto inline-block">
+            <div (click)="logout()" class="w-[36px] h-[36px] rounded-[8px] mx-auto bg-[url('./app/resources/icons/right-arrow-icon.svg')]"></div>
+          </div>
         </div>
         UAT v1.0.2+20250723
       </div>
     </div>
   </div>
   <!--/* close sidebar button */-->
-  @if (isLeftSidebarCollapsed()) {
-    <button class="flex mt-[30px] ml-[-10px] z-110" (click)="toggleCollapse()">
-        <span class="w-[15.83px] h-[15.83px] bg-[url('./app/resources/icons/gray-open-icon.svg')]">
-        </span>
-    </button>
-  }
+  <button *ngIf="isLeftSidebarCollapsed()" class="flex mt-[30px] ml-[-10px] z-110" (click)="toggleCollapse()">
+      <span class="w-[15.83px] h-[15.83px] bg-[url('./app/resources/icons/gray-open-icon.svg')]">
+      </span>
+  </button>
 </div>
 
