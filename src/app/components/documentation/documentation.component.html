@@ -281,9 +281,9 @@
     </div>
 </div>
 <!-- second doc section -->
-<div class="h-full w-full flex flex-col lg:flex-row gap-4" [ngClass]="(documentationGeneratedPage)? 'block' : 'hidden'">
+<div class="overflow-y-hidden h-full w-full flex flex-col lg:flex-row gap-4" [ngClass]="(documentationGeneratedPage)? 'block' : 'hidden'">
     <!-- document generate section -->
-    <div class="flex flex-col gap-[16px] w-[75%]">
+    <div class="h-full flex flex-col gap-[16px] w-[75%]">
         <div class="flex justify-between">
             <!-- Select Product, Template and Add Sources dropdown section -->
             <div class="flex flex-col lg:flex-row gap-[16px]">
@@ -435,46 +435,48 @@
             </div>
         </div>
         <!-- documentation section -->
-        <div class="bg-white flex flex-col gap-[16px] w-full h-auto rounded-lg px-6 py-8 overflow-y-auto bg-red-300">
-            <!--/* doc section */-->
-            <div class="flex flex-col gap-[12px] px-[4px]">
-                <p>
-                    Example: ACI Payment Gateway – Release Notes (Version 2.5.0) 
-                </p>
-                <p>
-                    Release Date: March 15, 2025 
-                </p>
-                <p class="text-caption-color">
-                    Prepared By: Product Management Team 
-                </p>
-                <ul class="text-caption-color flex flex-col gap-[12px]">
-                    <li class="flex flex-col gap-[8px]" *ngFor="let item of generatedDocument">
-                        <p>
-                            {{item.title}}
-                        </p>
-                        <p>
-                           {{item.description}}
-                        </p>
-                        <p>
-                           {{item.Issues}}
-                        </p>
-                        <ul class="list-disc flex flex-col gap-[12px] ml-[24px]">
-                            <li *ngFor="let issue of item.Issues">
-                                {{ issue }}
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <div class="text-caption-color"> 
+        <div  class="bg-white p-4 flex-1 rounded-lg overflow-hidden text-caption-color">
+            <div class="flex flex-col gap-[16px] w-full h-[99%] overflow-y-auto">
+                <!--/* doc section */-->
+                <div class="flex flex-col gap-[12px] px-[4px]">
                     <p>
-                        For further details, contact: 
+                        Example: ACI Payment Gateway – Release Notes (Version 2.5.0) 
                     </p>
                     <p>
-                    📧 ACI Support Team – support&#64;aci.com
+                        Release Date: March 15, 2025 
                     </p>
-                    <p>
-                    📖 Documentation & FAQs – ACI Knowledge Base
+                    <p class="text-caption-color">
+                        Prepared By: Product Management Team 
                     </p>
+                    <ul class="text-caption-color flex flex-col gap-[12px]">
+                        <li class="flex flex-col gap-[8px]" *ngFor="let item of generatedDocument">
+                            <p>
+                                {{item.title}}
+                            </p>
+                            <p>
+                            {{item.description}}
+                            </p>
+                            <p>
+                            {{item.Issues}}
+                            </p>
+                            <ul class="list-disc flex flex-col gap-[12px] ml-[24px]">
+                                <li *ngFor="let issue of item.Issues">
+                                    {{ issue }}
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="text-caption-color"> 
+                        <p>
+                            For further details, contact: 
+                        </p>
+                        <p>
+                        📧 ACI Support Team – support&#64;aci.com
+                        </p>
+                        <p>
+                        📖 Documentation & FAQs – ACI Knowledge Base
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
