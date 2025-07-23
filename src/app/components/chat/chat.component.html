@@ -157,7 +157,7 @@
                       </div>
                     </div>
                   </div>
-                  <div *ngIf="msg.sender === 'user'" class="flex justify-end text-description-color">{{ currentDate | date: 'd/MM/yyyy, h:mm a' }}</div>
+                  <div *ngIf="msg.sender === 'user'" class="flex justify-end text-description-color text-xs">{{ currentDate | date: 'd/MM/yyyy, h:mm a' }}</div>
                   <ng-container *ngIf="msg.sender === 'bot' && msg.sources && !msg.loading">
                     <div class="ml-[40px]">
                       <p class="mt-[20px] mb-[-8px] text-caption-color">Sources</p>
@@ -168,7 +168,7 @@
                       </div>
                     </div>
                   </ng-container>
-                  <div *ngIf="msg.sender === 'bot'" class="flex text-description-color ml-[40px] mt-2">{{ currentDate | date: 'd/MM/yyyy, h:mm a' }}</div>
+                  <div *ngIf="msg.sender === 'bot'" class="flex text-description-color ml-[40px] mt-2 text-xs">{{ currentDate | date: 'd/MM/yyyy, h:mm a' }}</div>
                 </div>
               </div>
             </div>
