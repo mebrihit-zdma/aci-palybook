@@ -23,7 +23,7 @@ export class DocumentationComponent {
   selectedOption1 = '';  
   selectedOption2 = '';  
   imagePath ='./app/resources/icons/paste-url-icon.svg';
-  listNumber = 5;
+  listNumber = 3;
   // documentation Pages
   documentationLandingPage = false;
   documentationGeneratingPage = false; 
