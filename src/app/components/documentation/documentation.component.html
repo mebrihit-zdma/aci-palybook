@@ -283,160 +283,154 @@
 <!-- second doc section -->
 <div class="h-full w-full flex flex-col lg:flex-row gap-4" [ngClass]="(documentationGeneratedPage)? 'block' : 'hidden'">
     <!-- document generate section -->
-    <div class="flex flex-col gap-[16px] flex-1">
+    <div class="flex flex-col gap-[16px] w-[75%]">
         <div class="flex justify-between">
             <!-- Select Product, Template and Add Sources dropdown section -->
             <div class="flex flex-col lg:flex-row gap-[16px]">
                 <div class="flex flex-col relative">
-                    <div>
-                        <div class="flex flex-col lg:flex-row gap-[16px]">
-                            <!-- Select Product dropdown section -->
-                            <div class="relative w-45">
-                                <!-- Product Dropdown Button -->
-                                <button
-                                    type="button"
-                                    (click)="toggleProductDropdown()"
-                                    class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%] whitespace-nowrap overflow-hidden truncate w-[18ch]">
-                                    {{ selectedProduct || 'Select a Product'}}
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="h-5 w-5 text-gray-500"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                        >
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                </button>
-                                <!-- Product Dropdown Menu -->
-                                <div
-                                    *ngIf="isProductDropdownOpen"
-                                    class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                                    <ul>
-                                        <li
-                                            *ngFor="let product of products"
-                                            (click)="selectProduct(product)"
-                                            class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0 whitespace-nowrap overflow-hidden text-ellipsis w-[18ch]"
-                                        >
-                                            {{ product }}
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- Select Template dropdown section -->
-                            <div class="relative w-45">
-                                <!-- Template Dropdown Button -->
-                                <button
-                                    (click)="toggleDropdown()"
-                                    class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%]">
-                                    {{ selectedTemplate }}
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="h-5 w-5 text-gray-500"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                        >
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                </button>
-
-                                <!-- Template Dropdown Menu -->
-                                <div
-                                    *ngIf="isOpen"
-                                    class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                                    <ul>
-                                        <li
-                                            *ngFor="let template of templates"
-                                            (click)="selectTemplate(template)"
-                                            class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0"
-                                        >
-                                            {{ template }}
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                             <!-- Select Template dropdown section -->
-                             <div class="relative w-45">
-                                <!-- View Sources Dropdown Button -->
-                                <button
-                                    (click)="toggleViewSourcesDropdown()"
-                                    class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%]">
-                                    View Sources
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        class="h-5 w-5 text-gray-500"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                        >
-                                        <path
-                                            fill-rule="evenodd"
-                                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                            clip-rule="evenodd"
-                                        />
-                                    </svg>
-                                </button>
-
-                                <!-- View Sources Dropdown Menu -->
-                                <div
-                                    *ngIf="isViewSourcesDropdownOpen"
-                                    class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                                    <ul >
-                                        <li 
-                                            *ngFor="let item of sources; let i = index"
-                                            class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0">
-                                            <label  class="flex gap-2 view-sources-container">
-                                                <input type="checkbox" checked="checked">
-                                                <span class="my-auto w-[28px] h-[16px] scale-[0.9] bg-[url('./app/resources/icons/green-jira-icon.svg')]">
-                                                </span>
-                                                <span
-                                                    class="whitespace-nowrap overflow-hidden text-ellipsis w-[20ch]">
-                                                    {{ item.newSource }}
-                                                </span>
-                                            </label>
-                                        </li>
-                                        <!-- Add Sources section -->
-                                        <div class="px-4 py-2 text-[#2388FF] text-sm font-medium">
-                                            <button class="flex gap-[8px]" (click)="openModal()">
-                                                <span class="w-[22px] h-[22px] bg-[url('./app/resources/icons/add-link-icon.svg')]">
-                                                </span>
-                                                Add a Sources
-                                            </button>
-                                        </div>
-                                    </ul>
-                                </div>
+                    <div class="flex flex-col lg:flex-row gap-1">
+                        <!-- Select Product dropdown section -->
+                        <div class="relative w-40">
+                            <!-- Product Dropdown Button -->
+                            <button
+                                type="button"
+                                (click)="toggleProductDropdown()"
+                                class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-2 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%]">
+                                <span class="overflow-hidden whitespace-nowrap text-ellipsis w-[15ch]">{{ selectedProduct || 'Select a Product'}}</span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5 text-gray-500"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                    >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"
+                                    />
+                                </svg>
+                            </button>
+                            <!-- Product Dropdown Menu -->
+                            <div
+                                *ngIf="isProductDropdownOpen"
+                                class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                                <ul>
+                                    <li
+                                        *ngFor="let product of products"
+                                        (click)="selectProduct(product)"
+                                        class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0 whitespace-nowrap overflow-hidden text-ellipsis w-[18ch]"
+                                    >
+                                        {{ product }}
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <!-- Generate button -->
-                <div class="flex flex-col relative">
-                    <div>
-                        <button class="active-button text-sm text-white bg-primary flex items-center gap-[8px] px-[14px] rounded-lg border border-[#D5D7DA] h-[41.5px]" [ngClass]="(!generateDoc)? 'disabled' : ''" (click)="createDocument()">
-                            <span class="w-[18.33px] h-[18.33px] scale-[0.8] bg-[url('./app/resources/icons/white-stars.svg')]">
-                            </span>
-                            <span>Generate</span>
-                        </button>
+                        <!-- Select Template dropdown section -->
+                        <div class="relative w-40">
+                            <!-- Template Dropdown Button -->
+                            <button
+                                (click)="toggleDropdown()"
+                                class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-2 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%]">
+                                {{ selectedTemplate }}
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5 text-gray-500"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                    >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"
+                                    />
+                                </svg>
+                            </button>
+
+                            <!-- Template Dropdown Menu -->
+                            <div
+                                *ngIf="isOpen"
+                                class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                                <ul>
+                                    <li
+                                        *ngFor="let template of templates"
+                                        (click)="selectTemplate(template)"
+                                        class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0"
+                                    >
+                                        {{ template }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                            <!-- Select Template dropdown section -->
+                        <div class="relative w-40">
+                            <!-- View Sources Dropdown Button -->
+                            <button
+                                (click)="toggleViewSourcesDropdown()"
+                                class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-2 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%]">
+                                View Sources
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5 text-gray-500"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                    >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"
+                                    />
+                                </svg>
+                            </button>
+
+                            <!-- View Sources Dropdown Menu -->
+                            <div
+                                *ngIf="isViewSourcesDropdownOpen"
+                                class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
+                                <ul >
+                                    <li 
+                                        *ngFor="let item of sources; let i = index"
+                                        class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0">
+                                        <label  class="flex gap-2 view-sources-container">
+                                            <input type="checkbox" checked="checked">
+                                            <span class="my-auto w-[35px] h-[16px] scale-[0.8] bg-[url('./app/resources/icons/green-jira-icon.svg')]">
+                                            </span>
+                                            <span
+                                                class="whitespace-nowrap overflow-hidden text-ellipsis w-[20ch]">
+                                                {{ item.newSource }}
+                                            </span>
+                                        </label>
+                                    </li>
+                                    <!-- Add Sources section -->
+                                    <div class="px-4 py-2 text-[#2388FF] text-xs font-medium">
+                                        <button class="flex gap-[8px] items-center" (click)="openModal()">
+                                            <span class="w-[22px] h-[22px] bg-[url('./app/resources/icons/add-link-icon.svg')]">
+                                            </span>
+                                            <span>Add a Sources</span>
+                                        </button>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- Generate button -->
+                        <div class="flex flex-col">
+                            <button class="active-button text-sm text-white bg-primary flex items-center gap-[8px] px-[14px] rounded-lg border border-[#D5D7DA]  h-[100%]" [ngClass]="(!generateDoc)? 'disabled' : ''" (click)="createDocument()">
+                                <span class="w-[18.33px] h-[18.33px] scale-[0.8] bg-[url('./app/resources/icons/white-stars.svg')]">
+                                </span>
+                                <span>Generate</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- export and publish button section -->
-            <div class="flex flex-col relative">
-                <div>
-                    <div class="flex flex-col lg:flex-row gap-[16px] h-[100%]">
-                        <button class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[8px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium h-[100%] gradient-border-button" (click)="exportAsText()">
-                            <span class="w-[21.83px] h-[21.83px] bg-[url('./app/resources/icons/download-icon.svg')]">
-                            </span>
-                            Export
-                        </button>
-                        <button class="active-button my-auto border border-[#D5D7DA] rounded-[8px] px-[24px] py-[8px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-white text-sm font-medium bg-primary h-[100%]" [ngClass]="(displayDoc)? '' : 'disabled'">Publish</button>
-                    </div>
+            <div class="flex flex-col">
+                <div class="flex flex-col lg:flex-row gap-1 h-[100%]">
+                    <button class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[8px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium h-[100%] gradient-border-button" (click)="exportAsText()">
+                        <span class="w-[21.83px] h-[21.83px] bg-[url('./app/resources/icons/download-icon.svg')]">
+                        </span>
+                        Export
+                    </button>
+                    <button class="active-button my-auto border border-[#D5D7DA] rounded-[8px] px-[24px] py-[8px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-white text-sm font-medium bg-primary h-[100%]" [ngClass]="(displayDoc)? '' : 'disabled'">Publish</button>
                 </div>
             </div>
         </div>
