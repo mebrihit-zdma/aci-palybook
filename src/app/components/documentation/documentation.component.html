@@ -482,8 +482,8 @@
         </div>
     </div>
     <!-- Chat section -->
-    <div class="flex flex-col w-[25%] justify-center ">
-        <div class="flex-1 rounded-lg border border-[#D5D7DA] p-4 bg-white w-fill h-full overflow-y-hidden">
+    <div class="flex flex-col w-[25%] justify-center items-center relative">
+        <div *ngIf="showChatBox" class="flex-1 rounded-lg border border-[#D5D7DA] p-4 bg-white w-full h-full overflow-y-hidden">
             <div class="w-full h-full relative">
                 <!-- Ask DocuBot title -->
                 <div class="py-4 flex justify-between">
@@ -494,7 +494,7 @@
                         <span class="w-[20px] h-[20px] scale-[.8] bg-[url('./app/resources/icons/info-icon.svg')]">
                         </span>
                     </div>
-                    <div class="flex">
+                    <div class="flex" (click)="showChatBox = false">
                         <span class="w-[20px] h-[20px] bg-[url('./app/resources/icons/black-close-icon.svg')]">
                         </span>
                     </div>
@@ -513,7 +513,7 @@
                     <div class="flex flex-col gap-4">
                         <!--/* question */-->
                         <div>
-                            <p class="p-4 bg-gray-01 rounded-xl">Can you update Security information?</p>
+                            <p class="p-4 bg-gray-01 border border-[#D3D3D3] rounded-bl-xl rounded-br-none rounded-tl-xl rounded-tr-xl ">Can you update Security information?</p>
                         </div>
                         <!--/* respond */-->
                         <div class="flex flex-col gap-4">
@@ -535,7 +535,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <!-- Ask DocuBot input -->
@@ -556,13 +555,11 @@
             </div>
         </div>
         <!-- Ask DocuBot button -->
-        <!--/* <div class="flex items-center justify-center">
-            <button class="bg-white border border-[#D3D3D3] rounded-[36px] px-[18px] py-[12px] flex items-center gap-[12px] text-secondary">
-                <span class="w-[20px] h-[20px] bg-[url('./app/resources/icons/red-stars-icon.svg')]">
-                </span>
-                Ask DocuBot 
-            </button>
-        </div> */-->
+        <button *ngIf="!showChatBox" class="absolute bottom-4 ml-auto mr-auto bg-white border border-[#D3D3D3] rounded-[36px] px-[18px] py-[12px] flex items-center gap-[12px] text-secondary" (click)="showChatBox = true">
+            <span class="w-[20px] h-[20px] bg-[url('./app/resources/icons/red-stars-icon.svg')]">
+            </span>
+            Ask DocuBot 
+        </button>
     </div>
 </div>
 <!-- add sources modal section -->

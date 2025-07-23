@@ -337,4 +337,6 @@ For further details, contact:
   documentationAskDocuBot(){
     this.router.navigate(['/dashboard-page/chat']);
   }
+
+  showChatBox = false;
 }
