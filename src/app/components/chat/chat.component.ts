@@ -415,4 +415,12 @@ export class ChatComponent {
     }
   }
 
+  // onClickOutside
+  @ViewChild('dropdown') dropdownRef!: ElementRef;
+  @HostListener('document:click', ['$event.target'])
+  onClickOutside(targetElement: HTMLElement) {
+    if (this.dropdownRef && !this.dropdownRef.nativeElement.contains(targetElement)) {
+      this.isProductDropdownOpen = false;
+    }
+  }
 }
