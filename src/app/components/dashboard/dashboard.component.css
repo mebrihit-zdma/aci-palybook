@@ -10,7 +10,6 @@
     margin-bottom: 0 !important;
 }
 .modalContent {
-    /* height: 650px; */
     overflow-y: scroll;
 }
 .listIcon {
@@ -240,4 +239,23 @@ input:checked + .slider:before {
     -moz-transform: translateX(22px);
     -ms-transform: translateX(22px);
     -o-transform: translateX(22px);
+}
+/* Notification */
+#toast-top-right {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+}
+  
+#toast-notification {
+    position: absolute;
+    top: 20px;
+    right: 65px;  
+}
+  
+.alignUnread {
+    position: absolute;
+    right: 36px;
+    background-repeat: no-repeat;
+    top: 20px;
 }
