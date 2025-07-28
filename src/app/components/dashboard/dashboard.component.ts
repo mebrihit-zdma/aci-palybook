@@ -329,13 +329,8 @@ export class DashboardComponent {
   }
 
   goToMarkReadAll() {
-    // console.log("MARKREAD");
-    // console.log(this.notificationListData.messages);
-
     for (let dataUpdate of this.notificationListData.messages) {
-      //  console.log('code ' + dataUpdate.readStatus.toString());
       dataUpdate.readStatus=true;
-      // console.log("dataUpdate", dataUpdate);
     }
   }
 
