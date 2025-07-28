@@ -66,6 +66,7 @@ export class DocumentationComponent {
   }
   // Select Template section
   isOpen = false;
+  isTemplatesDropdownOpen = false;
   isViewSourcesDropdownOpen = false
   isProductDropdownOpen = false;
   isFilterDropdownOpen = false;
@@ -74,6 +75,7 @@ export class DocumentationComponent {
   filters =['Type', 'Status', 'Published date', 'Created by'];
   toggleDropdown() {
     this.isOpen = !this.isOpen;
+    this.isTemplatesDropdownOpen = !this.isTemplatesDropdownOpen
   }
   toggleViewSourcesDropdown() {
     this.isViewSourcesDropdownOpen = !this.isViewSourcesDropdownOpen;
@@ -82,6 +84,7 @@ export class DocumentationComponent {
   selectTemplate(template: string) {
     this.selectedTemplate = template;
     this.isOpen = false;
+    this.isTemplatesDropdownOpen = false;
   }
 
   toggleProductDropdown() {
@@ -342,10 +345,17 @@ For further details, contact:
 
   // onClickOutside
   @ViewChild('dropdown') dropdownRef!: ElementRef;
+  @ViewChild('templatesDropdown') templatesDropdownRef!: ElementRef;
+
   @HostListener('document:click', ['$event.target'])
-  onClickOutside(targetElement: HTMLElement) {
+  onClickOutside(targetElement: HTMLElement): void {
     if (this.dropdownRef && !this.dropdownRef.nativeElement.contains(targetElement)) {
       this.isProductDropdownOpen = false;
     }
+
+    if (this.templatesDropdownRef && !this.templatesDropdownRef.nativeElement.contains(targetElement)) {
+      this.isTemplatesDropdownOpen = false;
+    }
   }
+
 }
