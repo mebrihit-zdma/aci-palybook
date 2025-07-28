@@ -6,7 +6,7 @@ import { DocumentationService } from '../../services/documentation.service';
 import { OnboardingService } from '../../services/onboarding.service';
 import { ReleaseHistoryTableComponent } from '../../components/tables/release-history-table/release-history-table.component';
 import { BugFixesTableComponent } from '../../components/tables/bug-fixes-table/bug-fixes-table.component';
-import { Router } from '@angular/router';
+import { Router, TitleStrategy } from '@angular/router';
 
 @Component({
   selector: 'app-documentation',
@@ -66,9 +66,11 @@ export class DocumentationComponent {
   }
   // Select Template section
   isOpen = false;
+  generateTemplateDropdown = false;
   isTemplatesDropdownOpen = false;
   isViewSourcesDropdownOpen = false
   isProductDropdownOpen = false;
+  isGenProductDropdownOpen = false;
   isProductDropdownBotOpen = false;
   isFilterDropdownOpen = false;
   selectedTemplate = 'Select Template';
@@ -76,6 +78,7 @@ export class DocumentationComponent {
   filters =['Type', 'Status', 'Published date', 'Created by'];
   toggleDropdown() {
     this.isOpen = !this.isOpen;
+    this.generateTemplateDropdown = !this.generateTemplateDropdown;
     this.isTemplatesDropdownOpen = !this.isTemplatesDropdownOpen
   }
   toggleViewSourcesDropdown() {
@@ -85,12 +88,14 @@ export class DocumentationComponent {
   selectTemplate(template: string) {
     this.selectedTemplate = template;
     this.isOpen = false;
+    this.generateTemplateDropdown = false;
     this.isTemplatesDropdownOpen = false;
   }
 
   toggleProductDropdown() {
     this.isProductDropdownOpen = !this.isProductDropdownOpen;
     this.isProductDropdownBotOpen = !this.isProductDropdownBotOpen;
+    this.isGenProductDropdownOpen = !this.isGenProductDropdownOpen;
   }
   toggleFilterDropdown() {
     this.isFilterDropdownOpen = !this.isFilterDropdownOpen;
@@ -99,6 +104,7 @@ export class DocumentationComponent {
   selectProduct(product: string) {
     this.selectedProduct = product;
     this.isProductDropdownOpen = false;
+    this.isGenProductDropdownOpen = false;
     this.isProductDropdownBotOpen = false;
   }
 
@@ -346,23 +352,37 @@ For further details, contact:
 
   showChatBox = false;
 
-  // onClickOutside
+  // On Clicking Outside the dropdown
   @ViewChild('dropdown') dropdownRef!: ElementRef;
   @ViewChild('templatesDropdown') templatesDropdownRef!: ElementRef;
   @ViewChild('botProductDropdown') botProductDropdownRef!: ElementRef;
+  @ViewChild('genTemplateDropdown') genTemplateDropdownRef!: ElementRef;
+  @ViewChild('genProductDropdown') genProductDropdownRef!: ElementRef;
+  @ViewChild('viewSourcesDropdown') viewSourcesDropdownRef!: ElementRef;
 
   @HostListener('document:click', ['$event.target'])
   onClickOutside(targetElement: HTMLElement): void {
+    // Product
     if (this.dropdownRef && !this.dropdownRef.nativeElement.contains(targetElement)) {
       this.isProductDropdownOpen = false;
     }
-
     if (this.botProductDropdownRef && !this.botProductDropdownRef.nativeElement.contains(targetElement)) {
       this.isProductDropdownBotOpen = false;
     }
+    if (this.genProductDropdownRef && !this.genProductDropdownRef.nativeElement.contains(targetElement)) {
+      this.isGenProductDropdownOpen = false;
+    }
 
+     // Template
     if (this.templatesDropdownRef && !this.templatesDropdownRef.nativeElement.contains(targetElement)) {
       this.isTemplatesDropdownOpen = false;
+    }
+    if (this.genTemplateDropdownRef && !this.genTemplateDropdownRef.nativeElement.contains(targetElement)) {
+      this.generateTemplateDropdown = false;
+    }
+    // Sources
+    if (this.viewSourcesDropdownRef && !this.viewSourcesDropdownRef.nativeElement.contains(targetElement)) {
+      this.isViewSourcesDropdownOpen = false;
     }
   }
 

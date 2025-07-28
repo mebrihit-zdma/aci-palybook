@@ -291,7 +291,7 @@
                 <div class="flex flex-col relative">
                     <div class="flex flex-col lg:flex-row gap-1">
                         <!-- Select Product dropdown section -->
-                        <div class="relative w-40">
+                        <div class="relative w-40" #genProductDropdown>
                             <!-- Product Dropdown Button -->
                             <button
                                 type="button"
@@ -313,7 +313,7 @@
                             </button>
                             <!-- Product Dropdown Menu -->
                             <div
-                                *ngIf="isProductDropdownOpen"
+                                *ngIf="isGenProductDropdownOpen"
                                 class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
                                 <ul>
                                     <li
@@ -327,7 +327,7 @@
                             </div>
                         </div>
                         <!-- Select Template dropdown section -->
-                        <div class="relative w-40">
+                        <div class="relative w-40" #genTemplateDropdown>
                             <!-- Template Dropdown Button -->
                             <button
                                 (click)="toggleDropdown()"
@@ -349,7 +349,7 @@
 
                             <!-- Template Dropdown Menu -->
                             <div
-                                *ngIf="isOpen"
+                                *ngIf="generateTemplateDropdown"
                                 class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
                                 <ul>
                                     <li
@@ -363,7 +363,7 @@
                             </div>
                         </div>
                             <!-- Select Template dropdown section -->
-                        <div class="relative w-40">
+                        <div class="relative w-40" #viewSourcesDropdown>
                             <!-- View Sources Dropdown Button -->
                             <button
                                 (click)="toggleViewSourcesDropdown()"
