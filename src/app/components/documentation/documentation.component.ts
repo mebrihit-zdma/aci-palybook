@@ -69,6 +69,7 @@ export class DocumentationComponent {
   isTemplatesDropdownOpen = false;
   isViewSourcesDropdownOpen = false
   isProductDropdownOpen = false;
+  isProductDropdownBotOpen = false;
   isFilterDropdownOpen = false;
   selectedTemplate = 'Select Template';
   templates = ['User Manual', 'Release Notes'];
@@ -89,6 +90,7 @@ export class DocumentationComponent {
 
   toggleProductDropdown() {
     this.isProductDropdownOpen = !this.isProductDropdownOpen;
+    this.isProductDropdownBotOpen = !this.isProductDropdownBotOpen;
   }
   toggleFilterDropdown() {
     this.isFilterDropdownOpen = !this.isFilterDropdownOpen;
@@ -97,6 +99,7 @@ export class DocumentationComponent {
   selectProduct(product: string) {
     this.selectedProduct = product;
     this.isProductDropdownOpen = false;
+    this.isProductDropdownBotOpen = false;
   }
 
   // sources section
@@ -346,11 +349,16 @@ For further details, contact:
   // onClickOutside
   @ViewChild('dropdown') dropdownRef!: ElementRef;
   @ViewChild('templatesDropdown') templatesDropdownRef!: ElementRef;
+  @ViewChild('botProductDropdown') botProductDropdownRef!: ElementRef;
 
   @HostListener('document:click', ['$event.target'])
   onClickOutside(targetElement: HTMLElement): void {
     if (this.dropdownRef && !this.dropdownRef.nativeElement.contains(targetElement)) {
       this.isProductDropdownOpen = false;
+    }
+
+    if (this.botProductDropdownRef && !this.botProductDropdownRef.nativeElement.contains(targetElement)) {
+      this.isProductDropdownBotOpen = false;
     }
 
     if (this.templatesDropdownRef && !this.templatesDropdownRef.nativeElement.contains(targetElement)) {

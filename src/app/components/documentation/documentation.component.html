@@ -151,7 +151,7 @@
             <h6>Your AI assistant for generating documentation.</h6>
             <div class="flex flex-col gap-4 justify-center items-center mt-3">
                 <!-- select product section -->
-                <div class="flex flex-col gap-[16px]">
+                <div class="flex flex-col gap-[16px]" #botProductDropdown>
                     <div class="relative w-90">
                         <p class="text-xs">Select Product</p>
                         <!-- Products Dropdown Button -->
@@ -173,7 +173,7 @@
                         </button>
                         <!-- Products Dropdown Menu -->
                         <div
-                            *ngIf="isProductDropdownOpen"
+                            *ngIf="isProductDropdownBotOpen"
                             class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
                             <ul>
                                 <li
