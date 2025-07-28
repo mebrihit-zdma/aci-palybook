@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,  ElementRef, HostListener, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { UserService } from '../../services/user.service';
@@ -339,4 +339,13 @@ For further details, contact:
   }
 
   showChatBox = false;
+
+  // onClickOutside
+  @ViewChild('dropdown') dropdownRef!: ElementRef;
+  @HostListener('document:click', ['$event.target'])
+  onClickOutside(targetElement: HTMLElement) {
+    if (this.dropdownRef && !this.dropdownRef.nativeElement.contains(targetElement)) {
+      this.isProductDropdownOpen = false;
+    }
+  }
 }
