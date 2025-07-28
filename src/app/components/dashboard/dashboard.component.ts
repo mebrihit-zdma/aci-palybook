@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,  ElementRef, HostListener, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { SummaryCardComponent } from '../../components/cards/summary-card/summary-card.component';
@@ -342,4 +342,12 @@ export class DashboardComponent {
     this.isNotificationList = false;
   }
 
+  // onClickOutside
+  @ViewChild('dropdown') dropdownRef!: ElementRef;
+  @HostListener('document:click', ['$event.target'])
+  onClickOutside(targetElement: HTMLElement) {
+    if (this.dropdownRef && !this.dropdownRef.nativeElement.contains(targetElement)) {
+      this.isProductDropdownOpen = false;
+    }
+  }
 }
