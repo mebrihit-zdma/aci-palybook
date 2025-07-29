@@ -47,3 +47,11 @@
       linear-gradient(white, white), 
       linear-gradient(0deg, #282BDD, #28D3DA);
 }
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+  
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE & Edge */
+    scrollbar-width: none;     /* Firefox */
+}

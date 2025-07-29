@@ -28,3 +28,18 @@
     position: absolute;
     bottom: 0px;
 }
+
+/* Works on Chrome, Edge, Safari */
+::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+::-webkit-scrollbar-thumb {
+    background-color: #f6f6f6; 
+    border-radius: 4px;
+}
+  
+::-webkit-scrollbar-track {
+    /* background-color: #e5e7eb; gray-200 */
+    background: transparent;
+}
