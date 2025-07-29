@@ -5,7 +5,7 @@
     class="group relative px-4 text-caption-color text-sm py-[8px] cursor-pointer rounded-2xl hover:bg-[#F6F6F6]"
     (click)="selectChat(chat.sessionId)">
       <div class="w-full flex justify-between">
-        <div class="relative group">
+        <div class="relative tooltip-btn">
           <span class="line-clamp-1 truncate max-w-[170px]">
             {{ chat.question }}
           </span>
@@ -13,7 +13,7 @@
           <div
           class="absolute z-50 bg-white border border-[#D5D7DA] rounded-lg text-primary-text-color
                   text-xs whitespace-pre-wrap p-2 shadow-lg transition-all
-                  scale-0 group-hover:scale-100 max-w-[800px]
+                  max-w-[800px] tooltip-text
                   break-words delay-900 duration-10"
           >
             {{ chat.question }}

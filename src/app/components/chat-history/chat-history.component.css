@@ -1,0 +1,6 @@
+.tooltip-text{
+    display: none;
+}
+.tooltip-btn:hover .tooltip-text{
+    display: block;
+}
