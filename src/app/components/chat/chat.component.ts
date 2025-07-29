@@ -281,6 +281,7 @@ export class ChatComponent {
     this.chatStream(prompt, this.sessionId);
     this.isPromptsLibraryModelOpen = false;
     this.promptsLibrarySearch = "";
+    this.createShortcutPrompt = true;
   }
   
   chatResponse = '';

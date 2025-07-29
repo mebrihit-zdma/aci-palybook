@@ -23,3 +23,8 @@
 .typing-loader span:nth-child(3) {
     animation-delay: 0;
 }
+
+.bottom-chat {
+    position: absolute;
+    bottom: 0px;
+}
