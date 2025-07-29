@@ -46,7 +46,7 @@
                   [routerLinkActiveOptions]="{ exact: true }"
                   (click)="item.label === 'Chat' && chatButton()"
                   >
-                    <span class="material-icons">{{item.icon}}</span>
+                    <i class="material-icons" style="font-size: 20px;">{{item.icon}}</i>
                     <span *ngIf="!isLeftSidebarCollapsed()" class="text-primary-text-color font-normal text-sm">{{ item.label }}</span>
                     <!-- text  tooltip section -->
                     <span 
@@ -73,8 +73,8 @@
                   *ngIf="item.label === 'Search Previous Chats'; else otherOption"
                   class="flex items-center gap-[8px] text-primary-text-color w-full px-3 py-2 rounded-2xl hover:bg-[#F6F6F6]"
                 >
-                  <span class="material-icons text-search-text-color"
-                  [ngClass]="(item.label === 'Search Previous Chats')? 'text-search-text-color' : ''">{{ item.icon }}</span>
+                  <i class="material-icons text-search-text-color" style="font-size: 20px;"
+                  [ngClass]="(item.label === 'Search Previous Chats')? 'text-search-text-color' : ''">{{ item.icon }}</i>
                   <input
                     type="text"
                     [placeholder]="!isLeftSidebarCollapsed() ? item.label : ''"
@@ -87,7 +87,7 @@
                 <!-- Other Items -->
                 <ng-template #otherOption>
                   <div class="flex gap-2 items-center rounded-2xl px-3 py-2 relative hover:bg-[#F6F6F6] w-full">
-                    <span class="material-icons">{{ item.icon }}</span>
+                    <i class="material-icons" style="font-size: 20px;">{{ item.icon }}</i>
                     <span
                       *ngIf="!isLeftSidebarCollapsed()"
                       class="text-primary-text-color font-normal text-sm"
