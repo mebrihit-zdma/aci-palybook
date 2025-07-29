@@ -26,9 +26,9 @@
             (click)="openDeleteSession(chat.sessionId); $event.stopPropagation()">...
           </button>
         </div>
+        <!-- delete Session -->
         <div 
-          class="absolute flex flex-col top-[28px] right-[-8px] z-50 bg-white border border-[#D5D7DA] rounded-lg text-primary-text-color
-          text-xs p-1 shadow-lg"
+          class="absolute flex flex-col top-[28px] right-[-8px] z-50 bg-white border border-[#D5D7DA] rounded-lg text-primary-text-color text-xs p-1 shadow-lg"
           [ngClass]="selectedSession === chat.sessionId ? '' : 'hidden'"
           (click)="$event.stopPropagation()" #menuRef>
           <!-- delete Session -->

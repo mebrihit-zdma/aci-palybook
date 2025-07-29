@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { SummaryCardComponent } from '../../components/cards/summary-card/summary-card.component';
 import { ReleaseHistoryTableComponent } from '../../components/tables/release-history-table/release-history-table.component';
 import { BugFixesTableComponent } from '../../components/tables/bug-fixes-table/bug-fixes-table.component';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { UserService } from '../../services/user.service';
 import { OnboardingService } from '../../services/onboarding.service';
 import { TooltipService } from '../../services/tooltip.service';
@@ -14,7 +13,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, SummaryCardComponent, NgxChartsModule, ReleaseHistoryTableComponent, BugFixesTableComponent],
+  imports: [CommonModule, FormsModule, SummaryCardComponent, ReleaseHistoryTableComponent, BugFixesTableComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
