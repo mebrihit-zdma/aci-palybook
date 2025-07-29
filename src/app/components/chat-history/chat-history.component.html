@@ -2,7 +2,7 @@
 
   <ul *ngIf="searchValue.trim() === ''" class="py-2">
     <li *ngFor="let chat of chatHistory; trackBy: trackChat"
-    class="group relative px-4 text-caption-color text-sm py-[8px] cursor-pointer rounded-2xl hover:bg-[#F6F6F6]"
+    class="group relative px-4 text-caption-color text-sm py-[8px] cursor-pointer rounded-xl hover:bg-[#F6F6F6]"
     (click)="selectChat(chat.sessionId)">
       <div class="w-full flex justify-between">
         <div class="relative tooltip-btn">
@@ -43,7 +43,7 @@
   <!-- search Values -->
   <ul *ngIf="searchValue.trim() !== ''" class="py-2">
     <li *ngFor="let chat of filteredChatHistory; trackBy: trackChat"
-        class=" px-4 text-caption-color text-sm py-[8px] cursor-pointer rounded-2xl hover:bg-[#F6F6F6] truncate"
+        class=" px-4 text-caption-color text-sm py-[8px] cursor-pointer rounded-xl hover:bg-[#F6F6F6] truncate"
         (click)="selectChat(chat.sessionId)"
         [innerHTML]="chat.highlightedQuestion">
     </li>

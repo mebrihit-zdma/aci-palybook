@@ -39,7 +39,7 @@
             @for (item of dashboardItems; let i = $index; track item) {
               <li class="w-full py-1">
                   <a
-                  class="flex gap-x-2 items-center rounded-2xl px-3 py-2 relative hover:bg-[#F6F6F6]"
+                  class="flex gap-x-2 items-center rounded-xl px-3 py-2 relative hover:bg-[#F6F6F6]"
                   [ngClass]="isLeftSidebarCollapsed() ? 'tooltip-btn' : ''"
                   [routerLink]="item.routeLink"
                   routerLinkActive="active"
@@ -62,7 +62,7 @@
           <ul class="w-full" *ngIf="!isLeftSidebarCollapsed()">
             <li class="w-full" *ngFor="let item of chatItems;">
               <span
-                class="w-full flex gap-x-2 items-center rounded-2xl py-1 relative cursor-pointer"
+                class="w-full flex gap-x-2 items-center rounded-xl py-1 relative cursor-pointer"
                 [ngClass]="isLeftSidebarCollapsed() ? 'tooltip-btn' : ''"
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }"
@@ -71,7 +71,7 @@
                 <!-- Search Input -->
                 <div
                   *ngIf="item.label === 'Search Previous Chats'; else otherOption"
-                  class="flex items-center gap-[8px] text-primary-text-color w-full px-3 py-2 rounded-2xl hover:bg-[#F6F6F6]"
+                  class="flex items-center gap-[8px] text-primary-text-color w-full px-3 py-2 rounded-xl hover:bg-[#F6F6F6]"
                 >
                   <i class="material-icons text-search-text-color" style="font-size: 20px;"
                   [ngClass]="(item.label === 'Search Previous Chats')? 'text-search-text-color' : ''">{{ item.icon }}</i>
@@ -86,7 +86,7 @@
 
                 <!-- Other Items -->
                 <ng-template #otherOption>
-                  <div class="flex gap-2 items-center rounded-2xl px-3 py-2 relative hover:bg-[#F6F6F6] w-full">
+                  <div class="flex gap-2 items-center rounded-xl px-3 py-2 relative hover:bg-[#F6F6F6] w-full">
                     <i class="material-icons" style="font-size: 20px;">{{ item.icon }}</i>
                     <span
                       *ngIf="!isLeftSidebarCollapsed()"
