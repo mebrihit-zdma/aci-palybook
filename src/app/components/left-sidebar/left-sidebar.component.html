@@ -37,7 +37,7 @@
           <!-- main sidebar list -->
           <ul class="w-full">
             @for (item of dashboardItems; let i = $index; track item) {
-              <li class="w-full py-2">
+              <li class="w-full py-1">
                   <a
                   class="flex gap-x-2 items-center rounded-2xl px-3 py-2 relative hover:bg-[#F6F6F6]"
                   [ngClass]="isLeftSidebarCollapsed() ? 'tooltip-btn' : ''"
@@ -62,7 +62,7 @@
           <ul class="w-full" *ngIf="!isLeftSidebarCollapsed()">
             <li class="w-full" *ngFor="let item of chatItems;">
               <span
-                class="w-full flex gap-x-2 items-center rounded-2xl py-2 relative cursor-pointer"
+                class="w-full flex gap-x-2 items-center rounded-2xl py-1 relative cursor-pointer"
                 [ngClass]="isLeftSidebarCollapsed() ? 'tooltip-btn' : ''"
                 routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }"
