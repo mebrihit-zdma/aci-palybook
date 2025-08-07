@@ -1,11 +1,5 @@
 /* global styles, and imported files */
 
-/* google fonts family */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-
-/* google Material icons */
-@import url('https://fonts.googleapis.com/css2?family=Material+Icons');
-
 @import "tailwindcss";
 
 @theme {
