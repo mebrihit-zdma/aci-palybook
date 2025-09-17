@@ -13,6 +13,20 @@ export class ApiService {
   chatIdUrl = `${environment.apiBaseUrl}/api/v1/get_chat`;
   baseUrl = `${environment.apiBaseUrl}/api/v1`;
 
+  documentationUrl = `https://playbook-workbench-gnduhmezc0h7gmac.eastus-01.azurewebsites.net/api/v1/generated-documents`;
+
+  // generateDocumentation<T>(data: any): Observable<T> {
+  //   return this.http.post<T>(`${this.documentationUrl}`, data, {
+  //     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  //     responseType: 'json'
+  //   });
+  // }
+  generateDocumentation(payload: FormData) {
+    return this.http.post(this.documentationUrl, payload, {
+      // 🚨 Do NOT set `Content-Type`, Angular will handle it
+    });
+  }
+
   getSelectedQuestion<T>(endpoint: string): Observable<T> {
     return this.http.get<T>(`${this.chatIdUrl}/${endpoint}`);
   }

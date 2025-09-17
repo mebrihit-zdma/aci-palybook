@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { DocumentationService } from '../../services/documentation.service';
 import { OnboardingService } from '../../services/onboarding.service';
+import { ApiService } from '../../services/api.service';
 import { ReleaseHistoryTableComponent } from '../../components/tables/release-history-table/release-history-table.component';
 import { BugFixesTableComponent } from '../../components/tables/bug-fixes-table/bug-fixes-table.component';
 import { Router, TitleStrategy } from '@angular/router';
@@ -32,7 +33,7 @@ export class DocumentationComponent {
   products: string[] = [];
   selectedProduct: string = "";
 
-  constructor(private userService: UserService, private documentationService: DocumentationService, private router: Router, private onboardingService: OnboardingService ) {}
+  constructor(private userService: UserService, private documentationService: DocumentationService, private router: Router, private onboardingService: OnboardingService, private apiService: ApiService ) {}
 
   ngOnInit() {
     // this.userService.userName$.subscribe(name => {
@@ -56,6 +57,10 @@ export class DocumentationComponent {
     this.documentationGeneratedPage = true;
     this.documentationLandingPage = false;
     this.documentationGeneratingPage = false;
+    if (this.PdfSources.length > 0) {
+      const file = this.PdfSources[0];   // 👈 first uploaded PDF
+      this.generateDocumentation(file);  // 👈 send to backend
+    }
   }
   goToDocumentationGeneratingPage(){
     this.documentationService.setDocumentationLandingPage(false);
@@ -114,7 +119,7 @@ export class DocumentationComponent {
     { source: 'EPIC-516: Payment Hub Security updates' }
   ];
   sources: { newSource: string }[] = [];
-  PdfSources: { PdfSources: string }[] = [];
+  PdfSources: File[] = [];
   pdfNewSource: string = '';
 
   newSource: string = '';
@@ -130,14 +135,17 @@ export class DocumentationComponent {
   }
 
   addPdfSource() {
-    if (this.pdfNewSource.trim()) {
-      this.PdfSources.push({ PdfSources: this.pdfNewSource });
-      this.pdfNewSource = ''; // Clear input after adding
-    }
-    this.generateDoc = true;
+    // This method is for text-based sources, not actual files
+    // Actual file handling is done through handleFiles() method
+    // If you need to add text-based sources, consider using the sources array instead
+    console.warn('addPdfSource() is deprecated. Use file upload or sources array for text-based sources.');
   }
   deleteSource(index: number) {
     this.sources.splice(index, 1);
+  }
+
+  deletePdfSource(index: number) {
+    this.PdfSources.splice(index, 1);
   }
 
   onFileSelected(event: any) {
@@ -159,7 +167,7 @@ export class DocumentationComponent {
 
   handleFiles(files: FileList) {
     for (let i = 0; i < files.length; i++) {
-      this.PdfSources.push({ PdfSources: files[i].name });
+      this.PdfSources.push(files[i]);
     }
   }
   
@@ -386,4 +394,27 @@ For further details, contact:
     }
   }
 
+  generateDocumentation(file: File) {
+    const formData = new FormData();
+  
+    // metadata
+    formData.append("product_type", "Instant Payment");
+    formData.append("template_type", "User Manual");
+    formData.append("data_sources", "test");
+    formData.append("version_number", "1.0.0");
+    formData.append("release_date", "09/17/2025");
+    formData.append("created_by", "name");
+  
+    // file
+    formData.append("files", file, file.name);
+  
+    this.apiService.generateDocumentation(formData).subscribe({
+      next: (data: any) => {
+        console.log("generateDocumentation response:", data);
+        console.log("generateDocumentation generated_content:", data.generated_content);
+        // maybe navigate or show success message
+      },
+      error: (err: any) => console.error("Error:", err),
+    });
+  }
 }
