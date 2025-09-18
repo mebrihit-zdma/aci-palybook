@@ -71,10 +71,16 @@ export class DocumentationComponent implements OnInit {
     this.documentationGeneratedPage = true;
     this.documentationLandingPage = false;
     this.documentationGeneratingPage = false;
-    if (this.PdfSources.length > 0) {
-      const file = this.PdfSources[0];  
-      this.generateDocumentation(file); 
+    
+    // Check if both PdfSources and sources arrays have content before proceeding
+    if (this.PdfSources.length > 0 && this.sources.length > 0) {
+      const file = this.PdfSources[0];
+      const givenSource = this.sources[0].newSource; 
+      this.generateDocumentation(file, givenSource); 
+    } else {
+      console.warn('Cannot generate documentation: Missing PDF files or sources');
     }
+    
   }
   goToDocumentationGeneratingPage(){
     this.documentationService.setDocumentationLandingPage(false);
@@ -149,9 +155,6 @@ export class DocumentationComponent implements OnInit {
   }
 
   addPdfSource() {
-    // This method is for text-based sources, not actual files
-    // Actual file handling is done through handleFiles() method
-    // If you need to add text-based sources, consider using the sources array instead
     console.warn('addPdfSource() is deprecated. Use file upload or sources array for text-based sources.');
   }
   deleteSource(index: number) {
@@ -374,21 +377,22 @@ For further details, contact:
 
   // Generate Documentation from API
   generatedContent: any = '';
-  generateDocumentation(file: File) {
+  generateDocumentation(file: File, source: string) {
     const today = new Date();
     const releaseDate = today.toLocaleDateString('en-US', {
       month: '2-digit',
       day: '2-digit',
       year: 'numeric'
     });
+    console.log("file.name: ", file.name, "source: ", source);
     const formData = new FormData();
+    formData.append("created_by", this.userName);
+    formData.append("release_date", releaseDate);
     formData.append("product_type", this.selectedProduct);
     formData.append("template_type", this.selectedTemplate);
-    formData.append("data_sources", "test");
-    formData.append("version_number", "1.0.0");
-    formData.append("release_date", releaseDate);
-    formData.append("created_by", this.userName);
+    formData.append("data_sources", source);
     formData.append("files", file, file.name);
+    formData.append("version_number", "1.0.0");
 
     this.apiService.generateDocumentation(formData).subscribe({
       next: (data: any) => {
