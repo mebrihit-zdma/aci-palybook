@@ -377,14 +377,19 @@ For further details, contact:
 
   // Generate Documentation from API
   generatedContent: any = '';
+  isGeneratingDocumentation: boolean = false;
   generateDocumentation(file: File, source: string) {
+    // Set loading state to true
+    this.isGeneratingDocumentation = true;
+    this.generatedContent = ''; // Clear previous content
+    
     const today = new Date();
     const releaseDate = today.toLocaleDateString('en-US', {
       month: '2-digit',
       day: '2-digit',
       year: 'numeric'
     });
-    console.log("file.name: ", file.name, "source: ", source);
+    
     const formData = new FormData();
     formData.append("created_by", this.userName);
     formData.append("release_date", releaseDate);
@@ -396,10 +401,13 @@ For further details, contact:
 
     this.apiService.generateDocumentation(formData).subscribe({
       next: (data: any) => {
-        console.log("generateDocumentation generated_content:", data.generated_content);
         this.generatedContent = data.generated_content;
+        this.isGeneratingDocumentation = false; // Set loading state to false
       },
-      error: (err: any) => console.error("Error:", err),
+      error: (err: any) => {
+        console.error("Error:", err);
+        this.isGeneratingDocumentation = false; // Set loading state to false on error
+      },
     });
   }
 

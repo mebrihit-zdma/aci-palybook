@@ -272,10 +272,14 @@
                         </div>
                     </div>
                 </div>
-                <button class="active-button text-sm text-white bg-primary flex items-center gap-[8px] px-[14px] rounded-lg border border-[#D5D7DA] h-[41.5px]" [ngClass]="(!generateDoc)? 'disabled' : ''" (click)="goToDocumentationGeneratedPage()">
-                    <span class="w-[18.33px] h-[18.33px] scale-[0.8] bg-[url('./app/resources/icons/white-stars.svg')]">
+                <button class="active-button text-sm text-white bg-primary flex items-center gap-[8px] px-[14px] rounded-lg border border-[#D5D7DA] h-[41.5px]" 
+                        [ngClass]="(!generateDoc || isGeneratingDocumentation)? 'disabled' : ''" 
+                        [disabled]="!generateDoc || isGeneratingDocumentation"
+                        (click)="goToDocumentationGeneratedPage()">
+                    <div *ngIf="isGeneratingDocumentation" class="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                    <span *ngIf="!isGeneratingDocumentation" class="w-[18.33px] h-[18.33px] scale-[0.8] bg-[url('./app/resources/icons/white-stars.svg')]">
                     </span>
-                    <span>Generate</span>
+                    <span>{{ isGeneratingDocumentation ? 'Generating...' : 'Generate' }}</span>
                 </button>
             </div>
         </div>
@@ -414,10 +418,14 @@
                         </div>
                         <!-- Generate button -->
                         <div class="flex flex-col">
-                            <button class="active-button text-sm text-white bg-primary flex items-center gap-[8px] px-[14px] rounded-lg border border-[#D5D7DA]  h-[100%]" [ngClass]="(!generateDoc)? 'disabled' : ''" (click)="createDocument()">
-                                <span class="w-[18.33px] h-[18.33px] scale-[0.8] bg-[url('./app/resources/icons/white-stars.svg')]">
+                            <button class="active-button text-sm text-white bg-primary flex items-center gap-[8px] px-[14px] rounded-lg border border-[#D5D7DA]  h-[100%]" 
+                                    [ngClass]="(!generateDoc || isGeneratingDocumentation)? 'disabled' : ''" 
+                                    [disabled]="!generateDoc || isGeneratingDocumentation"
+                                    (click)="createDocument()">
+                                <div *ngIf="isGeneratingDocumentation" class="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                                <span *ngIf="!isGeneratingDocumentation" class="w-[18.33px] h-[18.33px] scale-[0.8] bg-[url('./app/resources/icons/white-stars.svg')]">
                                 </span>
-                                <span>Generate</span>
+                                <span>{{ isGeneratingDocumentation ? 'Generating...' : 'Generate' }}</span>
                             </button>
                         </div>
                     </div>
@@ -440,17 +448,29 @@
             <div class="flex flex-col gap-[16px] w-full h-[99%] overflow-y-auto">
                 <!--/* doc section */-->
                 <div class="flex flex-col gap-[12px] px-[4px]">
-                    <markdown [data]="generatedContent"></markdown>
-                    <!-- <ng-container>
-                        <div [innerHTML]="generatedContent"></div>
-                    </ng-container>
-                    <ng-template #loadingTemplate>
+                    <!-- Loading state -->
+                    <div *ngIf="isGeneratingDocumentation" class="flex flex-col items-center justify-center h-64 gap-4">
+                        <div class="flex items-center gap-2">
+                            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                            <span class="text-lg text-gray-600">Generating documentation...</span>
+                        </div>
                         <div class="flex animate-pulse text-gray-600 gap-1">
                             <div class="typing-loader">
-                                <span></span><span></span><span></span>
+                                <span class="inline-block w-2 h-2 bg-gray-400 rounded-full animate-bounce"></span>
+                                <span class="inline-block w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.1s;"></span>
+                                <span class="inline-block w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s;"></span>
                             </div>
                         </div>
-                    </ng-template> -->
+                    </div>
+                    <!-- Generated content -->
+                    <div *ngIf="!isGeneratingDocumentation && generatedContent">
+                        <markdown [data]="generatedContent"></markdown>
+                    </div>
+                    <!-- Empty state when no content and not loading -->
+                    <div *ngIf="!isGeneratingDocumentation && !generatedContent" class="flex flex-col items-center justify-center h-64 gap-4 text-gray-500">
+                        <span class="w-[110.2px] h-[74.14px] scale-[0.6] bg-[url('./app/resources/icons/docu-bot-icon.svg')]"></span>
+                        <p class="text-lg">Click "Generate" to create your documentation</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -606,4 +626,5 @@
         </div>
     </div>
 </div>
+
 
