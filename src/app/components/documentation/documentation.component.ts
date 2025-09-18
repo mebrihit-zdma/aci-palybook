@@ -18,10 +18,8 @@ import { MarkdownModule } from 'ngx-markdown';
   styleUrl: './documentation.component.css'
 })
 export class DocumentationComponent implements OnInit {
-  // userName: string | null = null;
-  // userRole: string | null = null;
-  userName: string | null = 'User Name';
-  userRole: string | null = 'Product Owner';
+  userName: string = 'User Name';
+  userRole: string = 'Product Owner';
   selectedOption1 = '';  
   selectedOption2 = '';  
   imagePath ='./app/resources/icons/paste-url-icon.svg';
@@ -38,12 +36,12 @@ export class DocumentationComponent implements OnInit {
   constructor(private userService: UserService, private documentationService: DocumentationService, private router: Router, private onboardingService: OnboardingService, private apiService: ApiService ) {}
 
   ngOnInit() {
-    // this.userService.userName$.subscribe(name => {
-    //   this.userName = name;
-    // });
-    // this.userService.userRole$.subscribe(role => {
-    //   this.userRole = role;
-    // });
+    this.userService.userName$.subscribe(name => {
+      this.userName = name || 'User Name';
+    });
+    this.userService.userRole$.subscribe(role => {
+      this.userRole = role || 'Product Owner';
+    });
     this.products = this.onboardingService.getProductList();
     this.selectedProduct = this.onboardingService.getSelectedProduct();
     
@@ -74,8 +72,8 @@ export class DocumentationComponent implements OnInit {
     this.documentationLandingPage = false;
     this.documentationGeneratingPage = false;
     if (this.PdfSources.length > 0) {
-      const file = this.PdfSources[0];   // 👈 first uploaded PDF
-      this.generateDocumentation(file);  // 👈 send to backend
+      const file = this.PdfSources[0];  
+      this.generateDocumentation(file); 
     }
   }
   goToDocumentationGeneratingPage(){
@@ -413,9 +411,7 @@ For further details, contact:
     formData.append("data_sources", "test");
     formData.append("version_number", "1.0.0");
     formData.append("release_date", releaseDate);
-    formData.append("created_by", "name");
-
-    // file
+    formData.append("created_by", this.userName);
     formData.append("files", file, file.name);
 
     this.apiService.generateDocumentation(formData).subscribe({
