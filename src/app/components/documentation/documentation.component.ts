@@ -94,7 +94,7 @@ export class DocumentationComponent implements OnInit {
   isGenProductDropdownOpen = false;
   isProductDropdownBotOpen = false;
   isFilterDropdownOpen = false;
-  selectedTemplate = 'Select Template';
+  selectedTemplate: any = 'Select Template';
   // templates = ['User Manual', 'Release Notes'];
   filters =['Type', 'Status', 'Published date', 'Created by'];
   toggleDropdown() {
@@ -106,7 +106,7 @@ export class DocumentationComponent implements OnInit {
     this.isViewSourcesDropdownOpen = !this.isViewSourcesDropdownOpen;
     console.log("this.isViewSourcesDropdownOpen: ", this.isViewSourcesDropdownOpen)
   }
-  selectTemplate(template: string) {
+  selectTemplate(template: any) {
     this.selectedTemplate = template;
     this.isOpen = false;
     this.generateTemplateDropdown = false;
@@ -402,8 +402,8 @@ For further details, contact:
   generatedContent: any = '';
   generateDocumentation(file: File) {
     const formData = new FormData();
-    formData.append("product_type", "Instant Payment");
-    formData.append("template_type", "User Manual");
+    formData.append("product_type", this.selectedProduct);
+    formData.append("template_type", this.selectedTemplate);
     formData.append("data_sources", "test");
     formData.append("version_number", "1.0.0");
     formData.append("release_date", "09/17/2025");
