@@ -193,30 +193,6 @@ export class DocumentationComponent implements OnInit {
     this.isModalOpen = false;
   }
 
-  // doc section
-  generatedDocument =[
-    {
-      title:"1. Overview",
-      description: "This release introduces enhanced security measures, improved payment processing speed, and new API integrations to streamline bank and merchant operations. Several bug fixes and performance optimizations have also been included."
-    },
-    {
-      title: "2. New Features & Enhancements",
-      description:"FeatureDescriptionImpacted UsersEnhanced Transaction SecurityImplemented multi-layer fraud detection with AI-driven anomaly detection.Bank Operators, Compliance TeamsFaster Payment ProcessingOptimized transaction routing to reduce processing time by 20%.Merchants, IT TeamsNew API for Custom ReportsIntroduced API endpoints for real-time payment tracking and data export.Developers, Business Analysts"
-
-    },
-    {
-      title:"3. Bug Fixes & Performance Improvements",
-      description:"IssueResolutionPayment approval delays for high-volume transactions.Improved load balancing and optimized database queries.Incorrect currency conversion in multi-currency transactions.Fixed calculation logic and tested accuracy with various currencies.Help24 system lagging during peak hours.Upgraded infrastructure and optimized query processing."
-    },
-    {
-      title:"4. Known Issues & Workarounds",
-      Issues:
-        [
-          "Issue: Some users may experience delays when accessing new API features.Workaround: Clear cache or wait for server sync to complete within 5 minutes",
-          "Issue: Legacy integration users may see warning messages when processing transactions.Workaround: Update to the latest API version or contact support for assistance."
-        ]
-    },
-  ]
   createDocument() {
     this.displayDoc = true;
   }
