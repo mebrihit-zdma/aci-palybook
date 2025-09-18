@@ -1,4 +1,4 @@
-import { Component,  ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component,  ElementRef, HostListener, ViewChild, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { UserService } from '../../services/user.service';
@@ -17,7 +17,7 @@ import { MarkdownModule } from 'ngx-markdown';
   templateUrl: './documentation.component.html',
   styleUrl: './documentation.component.css'
 })
-export class DocumentationComponent {
+export class DocumentationComponent implements OnInit {
   // userName: string | null = null;
   // userRole: string | null = null;
   userName: string | null = 'User Name';
@@ -33,6 +33,7 @@ export class DocumentationComponent {
 
   products: string[] = [];
   selectedProduct: string = "";
+  templates: any[] = [];
 
   constructor(private userService: UserService, private documentationService: DocumentationService, private router: Router, private onboardingService: OnboardingService, private apiService: ApiService ) {}
 
@@ -50,6 +51,20 @@ export class DocumentationComponent {
     this.documentationLandingPage = this.documentationService.getDocumentationLandingPage();
     this.documentationGeneratingPage = this.documentationService.getDocumentationGeneratingPage(); 
     this.documentationGeneratedPage = this.documentationService.getDocumentationGeneratedPage(); 
+    
+    // Subscribe to get templates from API
+    this.apiService.getTemplates().subscribe({
+      next: (data: any) => {
+        console.log('templates: ', data.
+          documentation_types);
+        this.templates = data.documentation_types;
+      },
+      error: (err: any) => {
+        console.error('Error fetching templates:', err);
+        // Fallback to empty array or default templates
+        this.templates = [];
+      }
+    });
   }
   
   goToDocumentationGeneratedPage() {
@@ -80,7 +95,7 @@ export class DocumentationComponent {
   isProductDropdownBotOpen = false;
   isFilterDropdownOpen = false;
   selectedTemplate = 'Select Template';
-  templates = ['User Manual', 'Release Notes'];
+  // templates = ['User Manual', 'Release Notes'];
   filters =['Type', 'Status', 'Published date', 'Created by'];
   toggleDropdown() {
     this.isOpen = !this.isOpen;

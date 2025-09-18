@@ -14,6 +14,7 @@ export class ApiService {
   baseUrl = `${environment.apiBaseUrl}/api/v1`;
 
   documentationUrl = `https://playbook-workbench-gnduhmezc0h7gmac.eastus-01.azurewebsites.net/api/v1/generated-documents`;
+  templatesUrl = `https://playbook-workbench-gnduhmezc0h7gmac.eastus-01.azurewebsites.net/api/v1/documentation-types`;
 
   // generateDocumentation<T>(data: any): Observable<T> {
   //   return this.http.post<T>(`${this.documentationUrl}`, data, {
@@ -26,7 +27,9 @@ export class ApiService {
       // 🚨 Do NOT set `Content-Type`, Angular will handle it
     });
   }
-
+  getTemplates() {
+    return this.http.get(this.templatesUrl);
+  }
   getSelectedQuestion<T>(endpoint: string): Observable<T> {
     return this.http.get<T>(`${this.chatIdUrl}/${endpoint}`);
   }
