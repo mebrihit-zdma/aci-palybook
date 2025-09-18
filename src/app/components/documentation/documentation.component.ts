@@ -401,12 +401,18 @@ For further details, contact:
   // Generate Documentation from API
   generatedContent: any = '';
   generateDocumentation(file: File) {
+    const today = new Date();
+    const releaseDate = today.toLocaleDateString('en-US', {
+      month: '2-digit',
+      day: '2-digit',
+      year: 'numeric'
+    });
     const formData = new FormData();
     formData.append("product_type", this.selectedProduct);
     formData.append("template_type", this.selectedTemplate);
     formData.append("data_sources", "test");
     formData.append("version_number", "1.0.0");
-    formData.append("release_date", "09/17/2025");
+    formData.append("release_date", releaseDate);
     formData.append("created_by", "name");
 
     // file
