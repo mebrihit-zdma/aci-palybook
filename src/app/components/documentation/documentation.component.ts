@@ -8,11 +8,12 @@ import { ApiService } from '../../services/api.service';
 import { ReleaseHistoryTableComponent } from '../../components/tables/release-history-table/release-history-table.component';
 import { BugFixesTableComponent } from '../../components/tables/bug-fixes-table/bug-fixes-table.component';
 import { Router, TitleStrategy } from '@angular/router';
+import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
   selector: 'app-documentation',
   standalone: true,
-  imports: [CommonModule,FormsModule, ReleaseHistoryTableComponent, BugFixesTableComponent ],
+  imports: [CommonModule,FormsModule, ReleaseHistoryTableComponent, BugFixesTableComponent, MarkdownModule ],
   templateUrl: './documentation.component.html',
   styleUrl: './documentation.component.css'
 })
@@ -244,18 +245,6 @@ For further details, contact:
 📄 Documentation & FAQs – ACI Knowledge Base
 `;
 
-  exportAsText() {
-    const blob = new Blob([this.releaseNotes], { type: 'text/plain' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'release-notes.txt';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
-  }
-
   // release history data 
   releaseHistory = [
     { documentation: "Payment_Hub_1.2.3-A", 
@@ -394,27 +383,38 @@ For further details, contact:
     }
   }
 
+  // Generate Documentation from API
+  generatedContent: any = '';
   generateDocumentation(file: File) {
     const formData = new FormData();
-  
-    // metadata
     formData.append("product_type", "Instant Payment");
     formData.append("template_type", "User Manual");
     formData.append("data_sources", "test");
     formData.append("version_number", "1.0.0");
     formData.append("release_date", "09/17/2025");
     formData.append("created_by", "name");
-  
+
     // file
     formData.append("files", file, file.name);
-  
+
     this.apiService.generateDocumentation(formData).subscribe({
       next: (data: any) => {
-        console.log("generateDocumentation response:", data);
         console.log("generateDocumentation generated_content:", data.generated_content);
-        // maybe navigate or show success message
+        this.generatedContent = data.generated_content;
       },
       error: (err: any) => console.error("Error:", err),
     });
+  }
+
+  exportAsText() {
+    const blob = new Blob([this.releaseNotes], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'release-notes.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
   }
 }

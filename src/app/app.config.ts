@@ -4,7 +4,8 @@ import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
-import { msalInstanceFactory, msalGuardConfigFactory } from './msal-config'; 
+import { msalInstanceFactory, msalGuardConfigFactory } from './msal-config';
+import { provideMarkdown } from 'ngx-markdown'; 
 import {
   MSAL_INSTANCE,
   MSAL_GUARD_CONFIG,
@@ -39,7 +40,8 @@ export const appConfig: ApplicationConfig = {
 
     MsalService,
     MsalBroadcastService,
-    MsalGuard                
+    MsalGuard,
+    provideMarkdown()  // 👈 this registers MarkdownService                
   ]
 };
 
