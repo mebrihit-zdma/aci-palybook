@@ -54,6 +54,7 @@ export class ChatComponent {
   alertMessage = '';
 
   @ViewChild('promptInput') promptInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLDivElement>;
 
   constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService, private streamService: StreamService,  private route: ActivatedRoute, private router: Router){}
 
@@ -301,47 +302,80 @@ export class ChatComponent {
     };
   
     this.chatMessages.push({ sender: 'user', text: askedQuestion });
-    this.chatMessages.push({ sender: 'bot', text: '<em>...</em>', loading: true });
+    
+    // Add initial bot message for streaming
+    const botMessageIndex = this.chatMessages.length;
+    this.chatMessages.push({ 
+      sender: 'bot', 
+      text: '', 
+      loading: true,
+      streaming: true
+    });
     
     this.streamService.streamChatResponse(
       payload,
-      chunk => this.chatResponse += chunk,
+      async chunk => {
+        this.chatResponse += chunk;
+        
+        // Update the streaming message in real-time
+        const currentAnswer = extractAnswerText(this.chatResponse);
+        if (currentAnswer.trim()) {
+          const safeAnswer = await convertMarkdown(currentAnswer, this.sanitizer);
+          this.chatMessages[botMessageIndex] = {
+            sender: 'bot',
+            text: safeAnswer,
+            loading: false,
+            streaming: true
+          };
+          
+          // Auto-scroll to bottom during streaming
+          setTimeout(() => this.scrollToBottom(), 50);
+        }
+      },
       async () => {
         console.log("Response: ", this.chatResponse)
         const extractAnswer = extractAnswerText(this.chatResponse);
         const safeAnswer = await convertMarkdown(extractAnswer, this.sanitizer);
 
         const followUpRaw = extractfollowUpQuestions(this.chatResponse);
-        // const safeFollowUpQuestions = followUpRaw
-        //   ? await convertMarkdown(followUpRaw, this.sanitizer)
-        //   : '';
-
-          const extractedQuestions: string[] = followUpRaw
+        const extractedQuestions: string[] = followUpRaw
           .split('\n')
           .filter(line => line.trim().startsWith('-'))
           .map(line => line.replace(/^- /, '').trim());
         
         let sources: ResponseSource[] = [];
-
         sources = extractResponseSources(this.chatResponse);
         
         console.log("sources: ", sources); 
-        this.chatMessages = this.chatMessages.filter(msg => !msg.loading);
-        this.chatMessages.push({ 
+        
+        // Final update with complete response
+        this.chatMessages[botMessageIndex] = { 
           sender: 'bot', 
           text: safeAnswer,
           follow_up: extractedQuestions,
-          sources: sources
-        });
+          sources: sources,
+          loading: false,
+          streaming: false
+        };
 
         const newSession:ChatHistory = {
           question: askedQuestion,
           sessionId: sessionId
         };
-        this.chatService.setNewSession(newSession)
+        this.chatService.setNewSession(newSession);
+        
+        // Final scroll to bottom
+        setTimeout(() => this.scrollToBottom(), 100);
       },
       err => {
         console.error('Stream error:', err);
+        // Update the message to show error state
+        this.chatMessages[botMessageIndex] = {
+          sender: 'bot',
+          text: '<em>Sorry, there was an error processing your request.</em>',
+          loading: false,
+          streaming: false
+        };
       }
     );
   }
@@ -421,6 +455,17 @@ export class ChatComponent {
   onClickOutside(targetElement: HTMLElement) {
     if (this.dropdownRef && !this.dropdownRef.nativeElement.contains(targetElement)) {
       this.isProductDropdownOpen = false;
+    }
+  }
+
+  // Auto-scroll to bottom of chat
+  private scrollToBottom(): void {
+    try {
+      if (this.chatContainer) {
+        this.chatContainer.nativeElement.scrollTop = this.chatContainer.nativeElement.scrollHeight;
+      }
+    } catch (err) {
+      console.error('Error scrolling to bottom:', err);
     }
   }
 }

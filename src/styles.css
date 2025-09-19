@@ -90,18 +90,18 @@ h6 {
 }
 
 /* chat section */
-.chat-answer ol {
+.chat-answer, .generated-content ol {
   list-style: decimal !important;
   padding-left: 1.5rem;
 }
-.chat-answer ul {
+.chat-answer, .generated-content ul {
   list-style: disc !important;
   padding-left: 1.5rem;
 }
-.chat-answer li {
+.chat-answer, .generated-content li {
   margin-bottom: 0.5rem;
 }
-.chat-answer :is(h1, h2, h3, h4, h5, h6) {
+.chat-answer, .generated-content :is(h1, h2, h3, h4, h5, h6) {
   margin-bottom: 0.5rem;
 
   font-size: unset;

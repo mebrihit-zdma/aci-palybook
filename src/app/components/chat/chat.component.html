@@ -116,7 +116,7 @@
           </ul>
         </div>
         <!-- question and answer -->
-        <div class="flex flex-col justify-center gap-[24px]">
+        <div class="flex flex-col justify-center gap-[24px]" #chatContainer>
             <!-- Chat Response -->
             <div class="w-[100%] lg:w-[90%] ml-auto mr-auto mb-[40px]">
               <div class="flex flex-col justify-center gap-[24px]">
@@ -139,7 +139,9 @@
                       <div class="chat-answer">
                         <ng-container *ngIf="!msg.loading; else loadingTemplate">
                           <div [ngClass]="{'mb-4': msg.sender === 'bot'}" [innerHTML]="msg.text"></div>
-                          <ng-container *ngIf="msg.follow_up?.length">
+                          <!-- Show cursor indicator when streaming -->
+                          <span *ngIf="msg.streaming" class="inline-block w-2 h-5 bg-blue-500 animate-pulse ml-1"></span>
+                          <ng-container *ngIf="msg.follow_up?.length && !msg.streaming">
                             <strong>Follow Up Questions</strong>
                             <ul class="mt-[8px] follow-up">
                               <li *ngFor="let question of msg.follow_up">

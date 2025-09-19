@@ -18,6 +18,7 @@ export interface ResponseMessage {
     sources?: ResponseSource[];
     follow_up?: string[];
     loading?: boolean;
+    streaming?: boolean;
     timestamp?: string;
 }
 export interface AnswerSource {

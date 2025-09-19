@@ -16,23 +16,45 @@ export class StreamService {
       body: JSON.stringify(payload)
     })
       .then(response => {
-        const reader = response.body?.getReader();
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        if (!response.body) {
+          throw new Error('Response body is null');
+        }
+
+        const reader = response.body.getReader();
         const decoder = new TextDecoder("utf-8");
-        const readChunk = () => {
-          reader?.read().then(({ done, value }) => {
+        
+        const readChunk = (): void => {
+          reader.read().then(({ done, value }) => {
             if (done) {
               onDone();
               return;
             }
 
-            const chunk = decoder.decode(value, { stream: true });
-            onChunk(chunk);
-            readChunk();
+            try {
+              const chunk = decoder.decode(value, { stream: true });
+              if (chunk.trim()) { // Only process non-empty chunks
+                onChunk(chunk);
+              }
+              readChunk();
+            } catch (decodeError) {
+              console.error('Error decoding chunk:', decodeError);
+              onError(decodeError);
+            }
+          }).catch(readError => {
+            console.error('Error reading chunk:', readError);
+            onError(readError);
           });
         };
 
         readChunk();
       })
-      .catch(onError);
+      .catch(fetchError => {
+        console.error('Fetch error:', fetchError);
+        onError(fetchError);
+      });
   }
 }

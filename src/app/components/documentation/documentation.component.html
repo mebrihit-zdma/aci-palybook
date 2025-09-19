@@ -463,7 +463,7 @@
                         </div>
                     </div>
                     <!-- Generated content -->
-                    <div *ngIf="!isGeneratingDocumentation && generatedContent">
+                    <div *ngIf="!isGeneratingDocumentation && generatedContent" class="generated-content">
                         <markdown [data]="generatedContent"></markdown>
                     </div>
                     <!-- Empty state when no content and not loading -->
