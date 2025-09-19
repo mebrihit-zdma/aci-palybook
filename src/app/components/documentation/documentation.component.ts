@@ -198,6 +198,14 @@ export class DocumentationComponent implements OnInit {
 
   createDocument() {
     this.displayDoc = true;
+    // Check if both PdfSources and sources arrays have content before proceeding
+    if (this.PdfSources.length > 0 && this.sources.length > 0) {
+      const file = this.PdfSources[0];
+      const givenSource = this.sources[0].newSource; 
+      this.generateDocumentation(file, givenSource); 
+    } else {
+      console.warn('Cannot generate documentation: Missing PDF files or sources');
+    }
   }
 
   // export section
