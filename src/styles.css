@@ -89,19 +89,38 @@ h6 {
   color: var(--color-primary-text-Color);
 }
 
-/* chat section */
-.chat-answer, .generated-content ol {
+/* generated content */
+.generated-content ol {
   list-style: decimal !important;
   padding-left: 1.5rem;
 }
-.chat-answer, .generated-content ul {
+.generated-content ul {
   list-style: disc !important;
   padding-left: 1.5rem;
 }
-.chat-answer, .generated-content li {
+.generated-content li {
   margin-bottom: 0.5rem;
 }
-.chat-answer, .generated-content :is(h1, h2, h3, h4, h5, h6) {
+.generated-content :is(h1, h2, h3, h4, h5, h6) {
+  margin-bottom: 0.5rem;
+  font-size: unset;
+  font-weight: unset;
+  color: unset;
+}
+
+/* chat section */
+.chat-answer ol {
+  list-style: decimal !important;
+  padding-left: 1.5rem;
+}
+.chat-answer ul {
+  list-style: disc !important;
+  padding-left: 1.5rem;
+}
+.chat-answer li {
+  margin-bottom: 0.5rem;
+}
+.chat-answer :is(h1, h2, h3, h4, h5, h6) {
   margin-bottom: 0.5rem;
 
   font-size: unset;
