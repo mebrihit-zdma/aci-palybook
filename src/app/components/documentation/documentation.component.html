@@ -392,6 +392,7 @@
                                 *ngIf="isViewSourcesDropdownOpen"
                                 class="absolute w-full bg-white border border-gray-200 rounded-md shadow-lg z-10">
                                 <ul >
+                                    <!-- Text-based sources (URLs) -->
                                     <li 
                                         *ngFor="let item of sources; let i = index"
                                         class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0">
@@ -402,6 +403,20 @@
                                             <span
                                                 class="whitespace-nowrap overflow-hidden text-ellipsis w-[20ch]">
                                                 {{ item.newSource }}
+                                            </span>
+                                        </label>
+                                    </li>
+                                    <!-- PDF sources -->
+                                    <li 
+                                        *ngFor="let pdfItem of PdfSources; let i = index"
+                                        class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0">
+                                        <label  class="flex gap-2 view-sources-container">
+                                            <input id="pdf-source-checkbox" type="checkbox" checked="checked">
+                                            <span class="my-auto w-[20px] h-[24px] scale-[0.9]
+                                             bg-[url('./app/resources/icons/pdf-icon.svg')]"></span>
+                                            <span
+                                                class=" my-auto whitespace-nowrap overflow-hidden text-ellipsis w-[8ch]">
+                                                {{ pdfItem.name }}
                                             </span>
                                         </label>
                                     </li>
