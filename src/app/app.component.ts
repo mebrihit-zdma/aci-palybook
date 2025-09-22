@@ -5,6 +5,7 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { UserService } from './services/user.service';
 import { LoginService } from './services/login.service';
+import { ApiService } from './services/api.service';
 import { HttpClient } from '@angular/common/http';
 import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfiguration } from '@azure/msal-angular';
 import { InteractionStatus, RedirectRequest } from '@azure/msal-browser';
@@ -38,6 +39,7 @@ export class AppComponent implements OnInit, OnDestroy  {
     private loginService: LoginService,
     private http: HttpClient,
     private router: Router,
+    private apiService: ApiService,
   ) { }
 
   ngOnInit(): void {
@@ -54,7 +56,7 @@ export class AppComponent implements OnInit, OnDestroy  {
           this.authService.acquireTokenSilent(tokenRequest).subscribe({
             next: (authResult) => {
               this.accessToken = authResult.accessToken;
-              console.log("accessToken: ", this.accessToken);
+              // console.log("accessToken: ", this.accessToken);
   
               const headers = { Authorization: `Bearer ${authResult.accessToken}` };
   
@@ -90,8 +92,26 @@ export class AppComponent implements OnInit, OnDestroy  {
               })
               .catch(err => console.error("Error fetching profile picture:", err));
   
-              // Redirect to welcome page
-              this.router.navigate(['/welcome-page']);
+              // Check user settings and navigate accordingly
+              // const userId = "68d1804c09b025cb631e4323";
+              const userId = "testlast12345";
+              this.apiService.getUserSettings<any>(userId).subscribe({
+                next: (data) => {
+                  console.log("user settings data: ", data);
+                  // If user settings exist, navigate to dashboard-page
+                  if (data) {
+                    this.router.navigate(['/dashboard-page']);
+                  } else {
+                    // If no user settings, navigate to welcome-page
+                    this.router.navigate(['/welcome-page']);
+                  }
+                },
+                error: (err) => {
+                  console.error('Error getting user settings:', err);
+                  // On error, navigate to welcome-page
+                  this.router.navigate(['/welcome-page']);
+                },
+              });
             },
             error: (err) => console.error('Token error after redirect', err)
           });

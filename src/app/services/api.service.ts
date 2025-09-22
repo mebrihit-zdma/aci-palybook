@@ -21,8 +21,9 @@ export class ApiService {
   createUserSetting(payload: any) {
     return this.http.post(this.createUserSettingsUrl, payload);
   }
-  getUserSettings(payload: any) {
-    return this.http.get(this.getUserSettingsUrl, payload);
+  getUserSettings<T>(userId: any): Observable<T> {
+    return this.http.get<T>(`${this.getUserSettingsUrl}/${userId}`);
+    // return this.http.get(this.getUserSettingsUrl, userId);
   }
   generateDocumentation(payload: FormData) {
     return this.http.post(this.documentationUrl, payload, {
