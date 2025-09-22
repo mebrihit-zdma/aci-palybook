@@ -148,7 +148,7 @@ export class OnBoardingPageComponent {
     const selectedProductObj = this.productsList.find(product => product.name === this.selectedProduct);
     
     const payload = {
-      "user_id": "1234567test-v33",
+      "user_id": "1234567test-vv4",
       "personas": [
         { 
           "id": this.personaId, 
