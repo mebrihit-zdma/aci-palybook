@@ -102,6 +102,7 @@ export class OnBoardingPageComponent {
   
   goToDashboard() {
     this.selectedWidgets();
+    this.createUserSettings();
     this.router.navigate(['/dashboard-page']);
   }
 
@@ -140,5 +141,33 @@ export class OnBoardingPageComponent {
   
     this.onboardingService.setSelectedWidgetList(this.widgetsList);
     this.router.navigate(['/dashboard-page']);
+  }
+
+  createUserSettings(){
+    // Find the selected product object from the productsList
+    const selectedProductObj = this.productsList.find(product => product.name === this.selectedProduct);
+    
+    const payload = {
+      "user_id": "1234567test-v33",
+      "personas": [
+        { 
+          "id": this.personaId, 
+          "name": this.selectedRoleList,
+          "widgets": this.widgetsList
+        }
+      ],
+      "products": [
+        { 
+          "id": selectedProductObj?.id || '',
+          "name": this.selectedProduct 
+        }
+      ]
+    }
+    this.apiService.createUserSetting(payload).subscribe({
+      next: (data) => {
+        console.log("user settings data: ", data);
+      },
+      error: (err) => console.error('Error creating user settings:', err),
+    });
   }
 }

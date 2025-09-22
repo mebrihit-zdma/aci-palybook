@@ -10,12 +10,20 @@ export class ApiService {
   
   constructor(private http: HttpClient) {}
 
+  createUserSettingsUrl = `${environment.apiBaseUrl}/api/v1/create_user_settings`;
+  getUserSettingsUrl = `${environment.apiBaseUrl}/api/v1/get_user_settings`;
   chatIdUrl = `${environment.apiBaseUrl}/api/v1/get_chat`;
   baseUrl = `${environment.apiBaseUrl}/api/v1`;
 
   documentationUrl = `${environment.documentationUrl}/api/v1/generated-documents`;
   templatesUrl = `${environment.documentationUrl}/api/v1/documentation-types`;
 
+  createUserSetting(payload: any) {
+    return this.http.post(this.createUserSettingsUrl, payload);
+  }
+  getUserSettings(payload: any) {
+    return this.http.get(this.getUserSettingsUrl, payload);
+  }
   generateDocumentation(payload: FormData) {
     return this.http.post(this.documentationUrl, payload, {
     });
