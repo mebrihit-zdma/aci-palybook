@@ -148,7 +148,7 @@ export class OnBoardingPageComponent {
     const selectedProductObj = this.productsList.find(product => product.name === this.selectedProduct);
     
     const payload = {
-      "user_id": "1234567test-vv4",
+      "user_id": "1234567test-ppp-6",
       "personas": [
         { 
           "id": this.personaId, 
@@ -156,12 +156,7 @@ export class OnBoardingPageComponent {
           "widgets": this.widgetsList
         }
       ],
-      "products": [
-        { 
-          "id": selectedProductObj?.id || '',
-          "name": this.selectedProduct 
-        }
-      ]
+      "products": this.productsList
     }
     this.apiService.createUserSetting(payload).subscribe({
       next: (data) => {

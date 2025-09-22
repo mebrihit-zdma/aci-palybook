@@ -5,6 +5,7 @@ import { SummaryCardComponent } from '../../components/cards/summary-card/summar
 import { ReleaseHistoryTableComponent } from '../../components/tables/release-history-table/release-history-table.component';
 import { BugFixesTableComponent } from '../../components/tables/bug-fixes-table/bug-fixes-table.component';
 import { UserService } from '../../services/user.service';
+import { ApiService } from '../../services/api.service';
 import { OnboardingService } from '../../services/onboarding.service';
 import { TooltipService } from '../../services/tooltip.service';
 import { DocumentationService } from '../../services/documentation.service';
@@ -19,7 +20,13 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent {
 
-  constructor(private userService: UserService, private tooltipService: TooltipService,  private documentationService: DocumentationService, private router: Router, private onboardingService: OnboardingService ) {}
+  constructor(private userService: UserService, 
+    private tooltipService: TooltipService,  
+    private documentationService: DocumentationService, 
+    private router: Router, 
+    private onboardingService: OnboardingService,
+    private apiService: ApiService
+  ) {}
 
   listNumber = 2;
   userName: string | null = 'User Name';
@@ -41,6 +48,15 @@ export class DashboardComponent {
     });
     this.userService.userRole$.subscribe(role => {
       this.userRole = role;
+    });
+
+     // getting product list from api
+     this.apiService.get<any>('list_products').subscribe({
+      next: async (data) => {
+        const productNames = data.map((product: any) => product.name);
+        this.onboardingService.setProductList(productNames);
+      },
+      error: (err) => console.error('Error:', err),
     });
 
     this.personaWidgetList = this.onboardingService.getPersonaWidgetList()

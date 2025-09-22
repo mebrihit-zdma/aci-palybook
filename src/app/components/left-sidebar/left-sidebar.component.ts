@@ -24,10 +24,7 @@ export class LeftSidebarComponent {
   constructor(private userService: UserService, private loginService: LoginService, private searchChatService: SearchChatService, private chatService: ChatService, private documentationService: DocumentationService, private router: Router, private authService: MsalService) {
 
   }
-  // constructor(private userService: UserService, private loginService: LoginService, private searchChatService: SearchChatService, private chatService: ChatService, private documentationService: DocumentationService, private router: Router) {
 
-  // }
-  
   userName: string | null = 'User Name';
   userRole: string | null = 'Product Owner';
   profileImageUrl: string | null = null;

@@ -28,7 +28,6 @@ import { InteractionStatus, RedirectRequest } from '@azure/msal-browser';
 // }
 export class AppComponent implements OnInit, OnDestroy  {
   accessToken: any = "";
-  defaultUserRole: string = "Product Owner";
   private readonly _destroying$ = new Subject<void>();
   profileImageUrl:any = "";
 
@@ -67,11 +66,6 @@ export class AppComponent implements OnInit, OnDestroy  {
                 console.log("profile: ", profile);
                 this.userService.setUserID(profile.id);
                 this.userService.setUserName(profile.displayName);
-                if (profile.jobTitle != null) {
-                  this.userService.setUserRole(profile.jobTitle);
-                } else {
-                  this.userService.setUserRole(this.defaultUserRole);
-                }
               });
   
               // Fetch user profile photo
@@ -95,17 +89,24 @@ export class AppComponent implements OnInit, OnDestroy  {
               .catch(err => console.error("Error fetching profile picture:", err));
   
               // Check user settings and navigate accordingly
-              const userId = "68d1804c09b025cb631e4323";
-              // const userId = "testlast12345";
+              const userId = "68d1bed409b025cb631e4330";
+              // const userId = "testlast12345-product-test-1";
+
               this.apiService.getUserSettings<any>(userId).subscribe({
                 next: (data) => {
                   console.log("user settings data: ", data);
                   // If user settings exist, navigate to dashboard-page
                   if (data) {
+                    // set the user role
+                    this.userService.setUserRole(data.personas[0].name);
+                    // set the widgets list
                     this.onboardingService.setPersonaWidgetList(data.personas[0].widgets);
-                    console.log("user personas widgets: ", data
-                      
-                    );
+                    
+                    // set the product list
+                    const productNames = data.products.map((product: any) => product.name);
+                    this.onboardingService.setProductList(productNames);
+                    
+                    // navigate to dashboard-page
                     this.router.navigate(['/dashboard-page']);
                   } else {
                     // If no user settings, navigate to welcome-page
