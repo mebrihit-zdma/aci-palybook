@@ -288,19 +288,19 @@
 <!-- third doc section -->
 <div class="overflow-y-hidden h-full w-full flex flex-col lg:flex-row gap-4" [ngClass]="(documentationGeneratedPage)? 'block' : 'hidden'">
     <!-- document generate section -->
-    <div class="h-full flex flex-col gap-[16px] w-[75%]">
+    <div class="h-full flex flex-col gap-[16px] w-[100%]">
         <div class="flex justify-between">
             <!-- Select Product, Template and Add Sources dropdown section -->
             <div class="flex flex-col lg:flex-row gap-[16px]">
                 <div class="flex flex-col relative">
-                    <div class="flex flex-col lg:flex-row gap-1">
+                    <div class="flex flex-col lg:flex-row gap-2">
                         <!-- Select Product dropdown section -->
-                        <div class="relative w-40" #genProductDropdown>
+                        <div class="relative w-50" #genProductDropdown>
                             <!-- Product Dropdown Button -->
                             <button
                                 type="button"
                                 (click)="toggleProductDropdown()"
-                                class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-2 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%]">
+                                class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-2 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%] px-3">
                                 <span class="overflow-hidden whitespace-nowrap text-ellipsis w-[15ch]">{{ selectedProduct || 'Select a Product'}}</span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -331,12 +331,12 @@
                             </div>
                         </div>
                         <!-- Select Template dropdown section -->
-                        <div class="relative w-40" #genTemplateDropdown>
+                        <div class="relative w-50" #genTemplateDropdown>
                             <!-- Template Dropdown Button -->
                             <button
                                 (click)="toggleDropdown()"
-                                class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-2 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%]">
-                                {{ selectedTemplate }}
+                                class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-2 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%] px-3">
+                                <span class="overflow-hidden whitespace-nowrap text-ellipsis w-[15ch]">{{ selectedTemplate}}</span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     class="h-5 w-5 text-gray-500"
@@ -367,11 +367,11 @@
                             </div>
                         </div>
                             <!-- Select Template dropdown section -->
-                        <div class="relative w-40" #viewSourcesDropdown>
+                        <div class="relative w-50" #viewSourcesDropdown>
                             <!-- View Sources Dropdown Button -->
                             <button
                                 (click)="toggleViewSourcesDropdown()"
-                                class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-2 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%]">
+                                class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-2 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%] px-3">
                                 View Sources
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -448,7 +448,7 @@
             </div>
             <!-- export and publish button section -->
             <div class="flex flex-col">
-                <div class="flex flex-col lg:flex-row gap-1 h-[100%]">
+                <div class="flex flex-col lg:flex-row gap-2 h-[100%]">
                     <button class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[8px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium h-[100%] gradient-border-button" (click)="exportAsText()">
                         <span class="w-[21.83px] h-[21.83px] bg-[url('./app/resources/icons/download-icon.svg')]">
                         </span>
@@ -489,86 +489,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Chat section -->
-    <div class="flex flex-col w-[25%] justify-center items-center relative">
-        <div *ngIf="showChatBox" class="flex-1 rounded-lg border border-[#D5D7DA] p-4 bg-white w-full h-full overflow-y-hidden">
-            <div class="w-full h-full relative">
-                <!-- Ask DocuBot title -->
-                <div class="py-4 flex justify-between">
-                    <div class="flex gap-1 text-secondary items-center">
-                        <span class="w-[20px] h-[20px] scale-[.8] bg-[url('./app/resources/icons/red-stars-icon.svg')]">
-                        </span>
-                        <span> Ask DocuBot</span>
-                        <span class="w-[20px] h-[20px] scale-[.8] bg-[url('./app/resources/icons/info-icon.svg')]">
-                        </span>
-                    </div>
-                    <div class="flex" (click)="showChatBox = false">
-                        <span class="w-[20px] h-[20px] bg-[url('./app/resources/icons/black-close-icon.svg')]">
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Ask DocuBot body -->
-                <div class="h-[70%] flex flex-col gap-4 text-sm text-caption-color overflow-y-auto no-scrollbar">
-                    <div class="flex flex-col gap-4">
-                        <p>Here’s the release notes draft. </p>
-                        <p>Let me know if you’d like any revisions or improvements!</p>
-                        <div class="w-[85%] flex flex-col gap-4 p-3 rounded-xl border border-gray-02">
-                            <p class="">Draft 1: Payment Hub V1_2_3-A</p>
-                            <p class="text-xs">Saved • 20-Jun-2025, 9:15 AM</p>
-                        </div>
-                    </div>
-                    <div class="flex flex-col gap-4">
-                        <!--/* question */-->
-                        <div>
-                            <p class="p-4 bg-gray-01 border border-[#D3D3D3] rounded-bl-xl rounded-br-none rounded-tl-xl rounded-tr-xl ">Can you update Security information?</p>
-                        </div>
-                        <!--/* respond */-->
-                        <div class="flex flex-col gap-4">
-                            <p>Here’s what is updated:</p>
-                            <ul class="list-disc flex flex-col gap-4">
-                                <li class="flex flex-col gap-4">
-                                    <h6>D.UC.01: Access Shared Knowledge</h6>
-                                    <p>I need Jira tickets and associated solutions automatically centralized and accessible across teams.</p>
-                                </li>
-                                <li class="flex flex-col gap-4">
-                                    <h6>D.UC.02: Utilize Code Snippets and Samples</h6>
-                                    I need a peer-reviewed repository of reusable code snippets and examples to ensure consistency.
-                                    <p>Let me know if you’d like any revisions or improvements!</p>
-                                </li>
-                            </ul>
-                            <div class="w-[85%] flex flex-col gap-4 p-3 rounded-xl border border-gray-02 bg-gray-01">
-                                <h6 class="">Draft 1: Payment Hub V1_2_3-A</h6>
-                                <p class="text-xs">Saved • 20-Jun-2025, 9:15 AM</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Ask DocuBot input -->
-                <div class="w-full absolute bottom-2 z-[100]">
-                    <label class="w-full bg-gray-01 flex flex-col gap-4 p-4 rounded-xl border border-gray-02">
-                        <input 
-                            type="text" 
-                            name="testing"
-                            placeholder="Ask your question!" 
-                            class="text-sm w-[100%] placeholder:text-[#737780]"
-                        />
-                        <div class="flex justify-between w-full">
-                            <button class="w-[16px] h-[17px]  bg-[url('./app/resources/icons/chat-link-icon.svg')]"></button>
-                            <button class="w-[18px] h-[18.86px] bg-[url('./app/resources/icons/blue-right-arrow-icon.svg')]"></button>
-                        </div>
-                    </label>
-                </div>
-            </div>
-        </div>
-        <!-- Ask DocuBot button -->
-        <button *ngIf="!showChatBox" class="absolute bottom-4 ml-auto mr-auto bg-white border border-[#D3D3D3] rounded-[36px] px-[18px] py-[12px] flex items-center gap-[12px] text-secondary" (click)="showChatBox = true">
-            <span class="w-[20px] h-[20px] bg-[url('./app/resources/icons/red-stars-icon.svg')]">
-            </span>
-            Ask DocuBot 
-        </button>
     </div>
 </div>
 <!-- add sources modal section -->
