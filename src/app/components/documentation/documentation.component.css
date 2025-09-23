@@ -55,3 +55,113 @@
     -ms-overflow-style: none;  /* IE & Edge */
     scrollbar-width: none;     /* Firefox */
 }
+
+/* Tooltip styles for dropdown buttons */
+.dropdown-tooltip {
+    position: relative !important;
+    display: inline-block !important;
+}
+
+.dropdown-tooltip::after {
+    content: attr(data-tooltip) !important;
+    position: absolute !important;
+    bottom: 100% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background-color: #333 !important;
+    color: white !important;
+    padding: 8px 12px !important;
+    border-radius: 4px !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+    z-index: 9999 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+    pointer-events: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.3s, visibility 0.3s !important;
+    margin-bottom: 5px !important;
+}
+
+.dropdown-tooltip::before {
+    content: '' !important;
+    position: absolute !important;
+    bottom: 100% !important;
+    left: 50% !important;
+    transform: translateX(-50%) translateY(100%) !important;
+    border: 5px solid transparent !important;
+    border-top-color: #333 !important;
+    z-index: 9999 !important;
+    pointer-events: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.3s, visibility 0.3s !important;
+}
+
+.dropdown-tooltip:hover::after,
+.dropdown-tooltip:hover::before {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Alternative tooltip approach */
+.tooltip-test {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-test::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 9999;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
+.tooltip-test:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* View Sources tooltip */
+.view-sources-tooltip {
+    position: relative !important;
+}
+
+.view-sources-tooltip::after {
+    content: attr(data-tooltip) !important;
+    position: absolute !important;
+    bottom: 100% !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    background-color: #333 !important;
+    color: white !important;
+    padding: 8px 12px !important;
+    border-radius: 4px !important;
+    font-size: 12px !important;
+    white-space: nowrap !important;
+    z-index: 10000 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+    pointer-events: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: opacity 0.3s, visibility 0.3s !important;
+    margin-bottom: 5px !important;
+}
+
+.view-sources-tooltip:hover::after {
+    opacity: 1 !important;
+    visibility: visible !important;
+}

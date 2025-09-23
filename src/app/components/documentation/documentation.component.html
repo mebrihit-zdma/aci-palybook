@@ -11,7 +11,8 @@
                         <button
                             type="button"
                             (click)="toggleProductDropdown()"
-                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%] whitespace-nowrap overflow-hidden truncate w-[18ch]">
+                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%] whitespace-nowrap overflow-hidden truncate w-[18ch]"
+                            [title]="selectedProduct || 'Select a Product'">
                             {{ selectedProduct || 'Select a Product'}}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +36,7 @@
                                     *ngFor="let product of products"
                                     (click)="selectProduct(product)"
                                     class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0"
-                                >
+                                    [title]="product">
                                     {{ product }}
                                 </li>
                             </ul>
@@ -142,6 +143,17 @@
 <!-- second doc section -->
 <div class="h-full w-full" [ngClass]="(documentationGeneratingPage)? '' : 'hidden'">
     <div class="flex flex-col justify-center items-center mt-[5%]">
+        <!-- Back button -->
+        <div class="w-full max-w-4xl mb-4">
+            <button 
+                class="flex items-center gap-2 text-[#666f8d] hover:text-primary transition-colors duration-200"
+                (click)="goToDocumentationLandingPage()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                </svg>
+                Back to Documentation History
+            </button>
+        </div>
         <div class="flex flex-col justify-center items-center text-[#666f8d]">
             <div class="flex">
                 <span class="w-[110.2px] h-[74.14px] scale-[0.6] bg-[url('./app/resources/icons/docu-bot-icon.svg')]">
@@ -157,7 +169,8 @@
                         <!-- Products Dropdown Button -->
                         <button
                             (click)="toggleProductDropdown()"
-                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm h-[100%]">
+                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm h-[100%]"
+                            [title]="selectedProduct || 'Select a Product'">
                             {{ selectedProduct || 'Select a Product' }}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -179,7 +192,8 @@
                                 <li
                                     *ngFor="let product of products"
                                     (click)="selectProduct(product)"
-                                    class="text-dropdown-text-color cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm border-b border-gray-200 last:border-b-0">
+                                    class="text-dropdown-text-color cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm border-b border-gray-200 last:border-b-0"
+                                    [title]="product">
                                     {{ product }}
                                 </li>
                             </ul>
@@ -193,7 +207,8 @@
                         <!-- Templates Dropdown Button -->
                         <button
                             (click)="toggleDropdown()"
-                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm h-[100%]">
+                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm h-[100%]"
+                            [title]="selectedTemplate">
                             {{ selectedTemplate }}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -216,7 +231,8 @@
                                 <li
                                     *ngFor="let template of templates"
                                     (click)="selectTemplate(template.name)"
-                                    class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm border-b border-gray-200 last:border-b-0">
+                                    class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm border-b border-gray-200 last:border-b-0"
+                                    [title]="template.name">
                                     {{ template.name }}
                                 </li>
                             </ul>
@@ -289,6 +305,17 @@
 <div class="overflow-y-hidden h-full w-full flex flex-col lg:flex-row gap-4" [ngClass]="(documentationGeneratedPage)? 'block' : 'hidden'">
     <!-- document generate section -->
     <div class="h-full flex flex-col gap-[16px] w-[100%]">
+        <!-- Back button -->
+        <div class="mb-4">
+            <button 
+                class="flex items-center gap-2 text-[#666f8d] hover:text-primary transition-colors duration-200"
+                (click)="goToDocumentationGeneratingPage()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                </svg>
+                Back to DocuBot
+            </button>
+        </div>
         <div class="flex justify-between">
             <!-- Select Product, Template and Add Sources dropdown section -->
             <div class="flex flex-col lg:flex-row gap-[16px]">
@@ -300,7 +327,8 @@
                             <button
                                 type="button"
                                 (click)="toggleProductDropdown()"
-                                class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-2 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%] px-3">
+                                class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-2 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%] px-3"
+                                [title]="selectedProduct || 'Select a Product'">
                                 <span class="overflow-hidden whitespace-nowrap text-ellipsis w-[15ch]">{{ selectedProduct || 'Select a Product'}}</span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -324,7 +352,7 @@
                                         *ngFor="let product of products"
                                         (click)="selectProduct(product)"
                                         class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0 whitespace-nowrap overflow-hidden text-ellipsis w-[18ch]"
-                                    >
+                                        [title]="product">
                                         {{ product }}
                                     </li>
                                 </ul>
@@ -335,7 +363,8 @@
                             <!-- Template Dropdown Button -->
                             <button
                                 (click)="toggleDropdown()"
-                                class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-2 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%] px-3">
+                                class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-2 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%] px-3"
+                                [title]="selectedTemplate">
                                 <span class="overflow-hidden whitespace-nowrap text-ellipsis w-[15ch]">{{ selectedTemplate}}</span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -360,7 +389,7 @@
                                         *ngFor="let template of templates"
                                         (click)="selectTemplate(template.name)"
                                         class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0"
-                                    >
+                                        [title]="template.name">
                                         {{ template.name }}
                                     </li>
                                 </ul>
@@ -395,13 +424,15 @@
                                     <!-- Text-based sources (URLs) -->
                                     <li 
                                         *ngFor="let item of sources; let i = index"
-                                        class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0">
+                                        class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0"
+                                        [title]="item.newSource">
                                         <label  class="flex gap-2 view-sources-container">
                                             <input type="checkbox" checked="checked">
                                             <span class="my-auto w-[35px] h-[16px] scale-[0.8] bg-[url('./app/resources/icons/green-jira-icon.svg')]">
                                             </span>
                                             <span
-                                                class="whitespace-nowrap overflow-hidden text-ellipsis w-[20ch]">
+                                                class="whitespace-nowrap overflow-hidden text-ellipsis w-[20ch]"
+                                                [title]="item.newSource">
                                                 {{ item.newSource }}
                                             </span>
                                         </label>
@@ -409,13 +440,15 @@
                                     <!-- PDF sources -->
                                     <li 
                                         *ngFor="let pdfItem of PdfSources; let i = index"
-                                        class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0">
+                                        class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0"
+                                        [title]="pdfItem.name">
                                         <label  class="flex gap-2 view-sources-container">
                                             <input id="pdf-source-checkbox" type="checkbox" checked="checked">
                                             <span class="my-auto w-[20px] h-[24px] scale-[0.9]
                                              bg-[url('./app/resources/icons/pdf-icon.svg')]"></span>
                                             <span
-                                                class=" my-auto whitespace-nowrap overflow-hidden text-ellipsis w-[8ch]">
+                                                class=" my-auto whitespace-nowrap overflow-hidden text-ellipsis w-[8ch]"
+                                                [title]="pdfItem.name">
                                                 {{ pdfItem.name }}
                                             </span>
                                         </label>

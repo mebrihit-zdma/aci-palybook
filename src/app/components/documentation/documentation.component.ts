@@ -1,4 +1,4 @@
-import { Component,  ElementRef, HostListener, ViewChild, OnInit } from '@angular/core';
+import { Component,  ElementRef, HostListener, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { UserService } from '../../services/user.service';
@@ -9,6 +9,7 @@ import { ReleaseHistoryTableComponent } from '../../components/tables/release-hi
 import { BugFixesTableComponent } from '../../components/tables/bug-fixes-table/bug-fixes-table.component';
 import { Router, TitleStrategy } from '@angular/router';
 import { MarkdownModule } from 'ngx-markdown';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-documentation',
@@ -17,7 +18,7 @@ import { MarkdownModule } from 'ngx-markdown';
   templateUrl: './documentation.component.html',
   styleUrl: './documentation.component.css'
 })
-export class DocumentationComponent implements OnInit {
+export class DocumentationComponent implements OnInit, OnDestroy {
   userName: string = 'User Name';
   userRole: string = 'Product Owner';
   selectedOption1 = '';  
@@ -33,42 +34,127 @@ export class DocumentationComponent implements OnInit {
   selectedProduct: string = "";
   templates: any[] = [];
 
+  // Form data properties (will be managed by service)
+  sources: { newSource: string }[] = [];
+  PdfSources: File[] = [];
+  selectedTemplate: any = 'Select Template';
+  generatedContent: any = '';
+
+  // Subscriptions for cleanup
+  private subscriptions: Subscription[] = [];
+
   constructor(private userService: UserService, private documentationService: DocumentationService, private router: Router, private onboardingService: OnboardingService, private apiService: ApiService ) {}
 
   ngOnInit() {
-    this.userService.userName$.subscribe(name => {
-      this.userName = name || 'User Name';
-    });
-    this.userService.userRole$.subscribe(role => {
-      this.userRole = role || 'Product Owner';
-    });
+    // Subscribe to user service changes
+    this.subscriptions.push(
+      this.userService.userName$.subscribe(name => {
+        this.userName = name || 'User Name';
+      })
+    );
+    
+    this.subscriptions.push(
+      this.userService.userRole$.subscribe(role => {
+        this.userRole = role || 'Product Owner';
+      })
+    );
+    
+    // Get products and selected product
     this.products = this.onboardingService.getProductList();
     this.selectedProduct = this.onboardingService.getSelectedProduct();
     
-    // documentation Pages
+    // Subscribe to documentation service state changes
+    this.subscriptions.push(
+      this.documentationService.documentationLandingPage$.subscribe(state => {
+        this.documentationLandingPage = state;
+      })
+    );
+    
+    this.subscriptions.push(
+      this.documentationService.documentationGeneratingPage$.subscribe(state => {
+        this.documentationGeneratingPage = state;
+      })
+    );
+    
+    this.subscriptions.push(
+      this.documentationService.documentationGeneratedPage$.subscribe(state => {
+        this.documentationGeneratedPage = state;
+      })
+    );
+    
+    // Restore documentation state from service
+    this.documentationService.restoreDocumentationState();
+    
+    // Get initial state from service
     this.documentationLandingPage = this.documentationService.getDocumentationLandingPage();
     this.documentationGeneratingPage = this.documentationService.getDocumentationGeneratingPage(); 
     this.documentationGeneratedPage = this.documentationService.getDocumentationGeneratedPage(); 
     
+    // Subscribe to form data from service
+    this.subscriptions.push(
+      this.documentationService.sources$.subscribe(sources => {
+        this.sources = sources;
+      })
+    );
+    
+    this.subscriptions.push(
+      this.documentationService.pdfSources$.subscribe(pdfSources => {
+        this.PdfSources = pdfSources;
+      })
+    );
+    
+    this.subscriptions.push(
+      this.documentationService.selectedTemplate$.subscribe(template => {
+        this.selectedTemplate = template;
+      })
+    );
+    
+    this.subscriptions.push(
+      this.documentationService.selectedProduct$.subscribe(product => {
+        this.selectedProduct = product;
+      })
+    );
+    
+    this.subscriptions.push(
+      this.documentationService.generatedContent$.subscribe(content => {
+        this.generatedContent = content;
+      })
+    );
+    
+    // Get initial form data from service
+    this.sources = this.documentationService.sources;
+    this.PdfSources = this.documentationService.pdfSources;
+    this.selectedTemplate = this.documentationService.selectedTemplate;
+    this.selectedProduct = this.documentationService.selectedProduct || this.onboardingService.getSelectedProduct();
+    this.generatedContent = this.documentationService.generatedContent;
+    
     // Subscribe to get templates from API
-    this.apiService.getTemplates().subscribe({
-      next: (data: any) => {
-        console.log('templates: ', data.
-          documentation_types);
-        this.templates = data.documentation_types;
-      },
-      error: (err: any) => {
-        console.error('Error fetching templates:', err);
-        // Fallback to empty array or default templates
-        this.templates = [];
-      }
-    });
+    this.subscriptions.push(
+      this.apiService.getTemplates().subscribe({
+        next: (data: any) => {
+          console.log('templates: ', data.documentation_types);
+          this.templates = data.documentation_types;
+        },
+        error: (err: any) => {
+          console.error('Error fetching templates:', err);
+          // Fallback to empty array or default templates
+          this.templates = [];
+        }
+      })
+    );
+    
     this.userService.setIsUserHasAccountSetup(true);
+  }
+
+  ngOnDestroy() {
+    // Clean up subscriptions to prevent memory leaks
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
   
   goToDocumentationGeneratedPage() {
     this.documentationService.setDocumentationLandingPage(false);
-    this.documentationService.setDocumentationGeneratingPage(false);  
+    this.documentationService.setDocumentationGeneratingPage(false);
+    this.documentationService.setDocumentationGeneratedPage(true);
     this.documentationGeneratedPage = true;
     this.documentationLandingPage = false;
     this.documentationGeneratingPage = false;
@@ -85,10 +171,20 @@ export class DocumentationComponent implements OnInit {
   }
   goToDocumentationGeneratingPage(){
     this.documentationService.setDocumentationLandingPage(false);
-    this.documentationService.setDocumentationGeneratedPage(false); 
+    this.documentationService.setDocumentationGeneratedPage(false);
+    this.documentationService.setDocumentationGeneratingPage(true);
     this.documentationGeneratedPage = false;
     this.documentationLandingPage = false;
     this.documentationGeneratingPage = true;
+  }
+
+  goToDocumentationLandingPage() {
+    this.documentationService.setDocumentationGeneratingPage(false);
+    this.documentationService.setDocumentationGeneratedPage(false);
+    this.documentationService.setDocumentationLandingPage(true);
+    this.documentationGeneratedPage = false;
+    this.documentationLandingPage = true;
+    this.documentationGeneratingPage = false;
   }
   // Select Template section
   isOpen = false;
@@ -99,7 +195,6 @@ export class DocumentationComponent implements OnInit {
   isGenProductDropdownOpen = false;
   isProductDropdownBotOpen = false;
   isFilterDropdownOpen = false;
-  selectedTemplate: any = 'Select Template';
   filters =['Type', 'Status', 'Published date', 'Created by'];
   toggleDropdown() {
     this.isOpen = !this.isOpen;
@@ -111,7 +206,7 @@ export class DocumentationComponent implements OnInit {
     console.log("this.isViewSourcesDropdownOpen: ", this.isViewSourcesDropdownOpen)
   }
   selectTemplate(template: any) {
-    this.selectedTemplate = template;
+    this.documentationService.setSelectedTemplate(template);
     this.isOpen = false;
     this.generateTemplateDropdown = false;
     this.isTemplatesDropdownOpen = false;
@@ -127,7 +222,7 @@ export class DocumentationComponent implements OnInit {
   }
 
   selectProduct(product: string) {
-    this.selectedProduct = product;
+    this.documentationService.setSelectedProduct(product);
     this.isProductDropdownOpen = false;
     this.isGenProductDropdownOpen = false;
     this.isProductDropdownBotOpen = false;
@@ -138,8 +233,6 @@ export class DocumentationComponent implements OnInit {
     { source: 'JIRA-516: Bug Fixes from latest code changes' },
     { source: 'EPIC-516: Payment Hub Security updates' }
   ];
-  sources: { newSource: string }[] = [];
-  PdfSources: File[] = [];
   pdfNewSource: string = '';
 
   newSource: string = '';
@@ -147,7 +240,7 @@ export class DocumentationComponent implements OnInit {
 
   addSource() {
     if (this.newSource.trim()) {
-      this.sources.push({ newSource: this.newSource });
+      this.documentationService.addSource({ newSource: this.newSource });
       this.newSource = ''; // Clear input after adding
     }
     this.generateDoc = true;
@@ -157,11 +250,11 @@ export class DocumentationComponent implements OnInit {
     console.warn('addPdfSource() is deprecated. Use file upload or sources array for text-based sources.');
   }
   deleteSource(index: number) {
-    this.sources.splice(index, 1);
+    this.documentationService.removeSource(index);
   }
 
   deletePdfSource(index: number) {
-    this.PdfSources.splice(index, 1);
+    this.documentationService.removePdfSource(index);
   }
 
   onFileSelected(event: any) {
@@ -183,7 +276,7 @@ export class DocumentationComponent implements OnInit {
 
   handleFiles(files: FileList) {
     for (let i = 0; i < files.length; i++) {
-      this.PdfSources.push(files[i]);
+      this.documentationService.addPdfSource(files[i]);
     }
   }
   
@@ -382,12 +475,11 @@ For further details, contact:
   }
 
   // Generate Documentation from API
-  generatedContent: any = '';
   isGeneratingDocumentation: boolean = false;
   generateDocumentation(file: File, source: string) {
     // Set loading state to true
     this.isGeneratingDocumentation = true;
-    this.generatedContent = ''; // Clear previous content
+    this.documentationService.setGeneratedContent(''); // Clear previous content
     
     const today = new Date();
     const releaseDate = today.toLocaleDateString('en-US', {
@@ -407,7 +499,7 @@ For further details, contact:
 
     this.apiService.generateDocumentation(formData).subscribe({
       next: (data: any) => {
-        this.generatedContent = data.generated_content;
+        this.documentationService.setGeneratedContent(data.generated_content);
         this.isGeneratingDocumentation = false; // Set loading state to false
       },
       error: (err: any) => {
