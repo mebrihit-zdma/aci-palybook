@@ -63,6 +63,7 @@ export class DocumentationComponent implements OnInit {
         this.templates = [];
       }
     });
+    this.userService.setIsUserHasAccountSetup(true);
   }
   
   goToDocumentationGeneratedPage() {
@@ -99,7 +100,6 @@ export class DocumentationComponent implements OnInit {
   isProductDropdownBotOpen = false;
   isFilterDropdownOpen = false;
   selectedTemplate: any = 'Select Template';
-  // templates = ['User Manual', 'Release Notes'];
   filters =['Type', 'Status', 'Published date', 'Created by'];
   toggleDropdown() {
     this.isOpen = !this.isOpen;

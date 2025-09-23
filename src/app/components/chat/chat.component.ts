@@ -97,6 +97,7 @@ export class ChatComponent {
       this.alertMessage = deletedSessionId;
       this.showAlert = true;
     });
+    this.userService.setIsUserHasAccountSetup(true);
   }
 
   isProductDropdownOpen = false;
