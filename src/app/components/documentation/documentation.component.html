@@ -169,8 +169,7 @@
                         <!-- Products Dropdown Button -->
                         <button
                             (click)="toggleProductDropdown()"
-                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm h-[100%]"
-                            [title]="selectedProduct || 'Select a Product'">
+                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm h-[100%]">
                             {{ selectedProduct || 'Select a Product' }}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -192,8 +191,7 @@
                                 <li
                                     *ngFor="let product of products"
                                     (click)="selectProduct(product)"
-                                    class="text-dropdown-text-color cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm border-b border-gray-200 last:border-b-0"
-                                    [title]="product">
+                                    class="text-dropdown-text-color cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm border-b border-gray-200 last:border-b-0">
                                     {{ product }}
                                 </li>
                             </ul>
@@ -207,8 +205,7 @@
                         <!-- Templates Dropdown Button -->
                         <button
                             (click)="toggleDropdown()"
-                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm h-[100%]"
-                            [title]="selectedTemplate">
+                            class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm h-[100%]">
                             {{ selectedTemplate }}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -231,8 +228,7 @@
                                 <li
                                     *ngFor="let template of templates"
                                     (click)="selectTemplate(template.name)"
-                                    class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm border-b border-gray-200 last:border-b-0"
-                                    [title]="template.name">
+                                    class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm border-b border-gray-200 last:border-b-0">
                                     {{ template.name }}
                                 </li>
                             </ul>

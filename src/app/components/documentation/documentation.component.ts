@@ -6,7 +6,6 @@ import { DocumentationService } from '../../services/documentation.service';
 import { OnboardingService } from '../../services/onboarding.service';
 import { ApiService } from '../../services/api.service';
 import { ReleaseHistoryTableComponent } from '../../components/tables/release-history-table/release-history-table.component';
-import { BugFixesTableComponent } from '../../components/tables/bug-fixes-table/bug-fixes-table.component';
 import { Router, TitleStrategy } from '@angular/router';
 import { MarkdownModule } from 'ngx-markdown';
 import { Subscription } from 'rxjs';
@@ -14,7 +13,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-documentation',
   standalone: true,
-  imports: [CommonModule,FormsModule, ReleaseHistoryTableComponent, BugFixesTableComponent, MarkdownModule ],
+  imports: [CommonModule,FormsModule, ReleaseHistoryTableComponent, MarkdownModule ],
   templateUrl: './documentation.component.html',
   styleUrl: './documentation.component.css'
 })
