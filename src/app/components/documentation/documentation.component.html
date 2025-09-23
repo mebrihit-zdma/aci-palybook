@@ -49,7 +49,7 @@
         <!-- table section -->
         <div class="flex flex-col gap-4">
             <!-- release history search, filter, and create documentation section -->
-            <div class="flex flex-col gap-[8px]" *ngIf="userRole === 'Product Owner'">
+            <div class="flex flex-col gap-[8px]">
                 <div class="flex flex-col md:flex-row gap-4 justify-between">
                     <h2>Generated Documentation History</h2>
                     <!-- Create Documentation -->
@@ -100,7 +100,7 @@
                 </div>
             </div>
             <!-- bug fixes search section -->
-            <div class="flex justify-between items-center" *ngIf="userRole === 'Help24 Analyst'">
+            <!-- <div class="flex justify-between items-center" *ngIf="userRole === 'Help24 Analyst'">
                 <p class="font-medium text-base text-[#19213D]">Bug Fixes in the latest release</p>
                 <div>
                     <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-search-text-color text-sm font-medium w-[273px]">
@@ -109,15 +109,15 @@
                         <input trpe="text" placeholder="Search"/>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- release history list-->
-            <div *ngIf="userRole === 'Product Owner'">
+            <div>
                 <app-release-history-table [data]="releaseHistory" [listPerPage]="listNumber" />
             </div>
             <!-- bug fixes list-->
-            <div *ngIf="userRole === 'Help24 Analyst'">
+            <!-- <div *ngIf="userRole === 'Help24 Analyst'">
                 <app-bug-fixes-table [data]="bugFixes" />
-            </div>
+            </div> -->
         </div>
          <!-- Ask DocuBot section -->
         <div>
