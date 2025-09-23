@@ -190,7 +190,7 @@
 </div>
 
 <!--/* model section */-->
-<div class="hidden md:block">
+<div class="hidden md:block" *ngIf="!isUserHasAccountSetup">
     <div [ngClass]="(!skipTooltipValue)? 'overlay' : ''" 
     [ngClass]="!dashboardModelDone? 'overlay' : ''"></div>
     <div [ngClass]="!skipTooltipValue? 'block' : ' hidden'" 

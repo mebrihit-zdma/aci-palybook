@@ -31,6 +31,7 @@ export class DashboardComponent {
   listNumber = 2;
   userName: string | null = 'User Name';
   userRole: string | null = 'Product Owner';
+  isUserHasAccountSetup: boolean = false;
 
   // documentation Pages
   documentationLandingPage = false;
@@ -49,6 +50,7 @@ export class DashboardComponent {
     this.userService.userRole$.subscribe(role => {
       this.userRole = role;
     });
+    this.isUserHasAccountSetup = this.userService.getIsUserHasAccountSetup();
 
      // getting product list from api
      this.apiService.get<any>('list_products').subscribe({

@@ -17,6 +17,8 @@ export class UserService {
   private userImageUrlSubject = new BehaviorSubject<string | null>(null);
   userImageUrl$ = this.userImageUrlSubject.asObservable();
 
+  private isUserHasAccountSetup = false;
+
   // UserName
   setUserName(name: string) {
     this.userNameSubject.next(name);
@@ -49,4 +51,14 @@ export class UserService {
   getUserImageUrl(): string | null {
     return this.userImageUrlSubject.value;
   }
+
+
+  setIsUserHasAccountSetup(isUserHasAccountSetup: boolean) {
+    this.isUserHasAccountSetup = isUserHasAccountSetup;
+  }
+  getIsUserHasAccountSetup(): boolean {
+    return this.isUserHasAccountSetup;
+  }
+
+
 }

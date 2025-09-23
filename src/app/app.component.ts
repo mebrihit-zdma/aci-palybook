@@ -90,7 +90,7 @@ export class AppComponent implements OnInit, OnDestroy  {
   
               // Check user settings and navigate accordingly
               const userId = "68d1bed409b025cb631e4330";
-              // const userId = "testlast12345-product-test-1";
+              // const userId = "testlast12345-product-test-122";
 
               this.apiService.getUserSettings<any>(userId).subscribe({
                 next: (data) => {
@@ -105,7 +105,7 @@ export class AppComponent implements OnInit, OnDestroy  {
                     // set the product list
                     const productNames = data.products.map((product: any) => product.name);
                     this.onboardingService.setProductList(productNames);
-                    
+                    this.userService.setIsUserHasAccountSetup(true);
                     // navigate to dashboard-page
                     this.router.navigate(['/dashboard-page']);
                   } else {
