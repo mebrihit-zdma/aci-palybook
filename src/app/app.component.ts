@@ -63,7 +63,7 @@ export class AppComponent implements OnInit, OnDestroy  {
   
               // Fetch user profile
               this.http.get<any>('https://graph.microsoft.com/v1.0/me', { headers }).subscribe(profile => {
-                console.log("profile: ", profile);
+                console.log("profile : ", profile);
                 this.userService.setUserID(profile.id);
                 this.userService.setUserName(profile.displayName);
               });
@@ -89,8 +89,9 @@ export class AppComponent implements OnInit, OnDestroy  {
               .catch(err => console.error("Error fetching profile picture:", err));
   
               // Check user settings and navigate accordingly
-              const userId = "68d1bed409b025cb631e4330";
-              // const userId = "testlast12345-product-test-122";
+              // const userId = "68d1bed409b025cb631e4330";
+              const userId = "testlast12345-product-test-555";
+              // const userId = this.userService.getUserId();
 
               this.apiService.getUserSettings<any>(userId).subscribe({
                 next: (data) => {

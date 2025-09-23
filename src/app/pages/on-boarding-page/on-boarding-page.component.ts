@@ -148,6 +148,7 @@ export class OnBoardingPageComponent {
     const selectedProductObj = this.productsList.find(product => product.name === this.selectedProduct);
     
     const payload = {
+      // "user_id": this.userService.getUserId(),
       "user_id": "1234567test-ppp-6",
       "personas": [
         { 
