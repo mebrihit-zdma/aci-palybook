@@ -206,7 +206,7 @@
                         <button
                             (click)="toggleDropdown()"
                             class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-4 flex justify-between items-center text-dropdown-text-color text-sm h-[100%]">
-                            {{ selectedTemplate }}
+                            {{ selectedTemplate?.name || 'Select Template' }}
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 class="h-5 w-5 text-gray-500"
@@ -360,8 +360,8 @@
                             <button
                                 (click)="toggleDropdown()"
                                 class="w-full text-left bg-white border border-[#D5D7DA] rounded-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] py-2 px-2 flex justify-between items-center text-dropdown-text-color text-sm font-medium h-[100%] px-3"
-                                [title]="selectedTemplate">
-                                <span class="overflow-hidden whitespace-nowrap text-ellipsis w-[15ch]">{{ selectedTemplate}}</span>
+                                [title]="selectedTemplate?.name || 'Select Template'">
+                                <span class="overflow-hidden whitespace-nowrap text-ellipsis w-[15ch]">{{ selectedTemplate?.name || 'Select Template' }}</span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     class="h-5 w-5 text-gray-500"
