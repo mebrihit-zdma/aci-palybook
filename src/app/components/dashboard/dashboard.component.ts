@@ -51,19 +51,15 @@ export class DashboardComponent {
     });
     this.isUserHasAccountSetup = this.userService.getIsUserHasAccountSetup();
 
-     // getting product list from api
-     this.apiService.get<any>('list_products').subscribe({
-      next: async (data) => {
-        const productNames = data.map((product: any) => product.name);
-        this.onboardingService.setProductList(productNames);
-      },
-      error: (err) => console.error('Error:', err),
-    });
-
+    // Get products
+    if(this.onboardingService.getProductList().length > 0) {
+        this.products = this.onboardingService.getProductList();
+        this.selectedProduct = this.onboardingService.getSelectedProduct();
+    } else {
+        this.gettingProductListFromApi();
+    }
     this.personaWidgetList = this.onboardingService.getPersonaWidgetList()
     this.selectedWidgetList = this.onboardingService.getSelectedWidgetList()
-    this.products = this.onboardingService.getProductList();
-    this.selectedProduct = this.onboardingService.getSelectedProduct();
     
     this.documentationLandingPage = this.documentationService.getDocumentationLandingPage();
     this.documentationGeneratingPage = this.documentationService.getDocumentationGeneratingPage(); 
@@ -365,5 +361,13 @@ export class DashboardComponent {
     if (this.dropdownRef && !this.dropdownRef.nativeElement.contains(targetElement)) {
       this.isProductDropdownOpen = false;
     }
+  }
+  // getting product list from api
+  gettingProductListFromApi() {
+    this.apiService.get<any>('list_products').subscribe({
+      next: async (data) => {
+        this.products = data.map((product: any) => product.name);
+      },
+    });
   }
 }

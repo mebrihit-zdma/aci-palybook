@@ -67,8 +67,10 @@ export class DocumentationService {
   private sourcesSubject = new BehaviorSubject<{ newSource: string }[]>([]);
   private pdfSourcesSubject = new BehaviorSubject<File[]>([]);
   private selectedTemplateSubject = new BehaviorSubject<any>('Select Template');
+  private selectedTemplateIdSubject = new BehaviorSubject<string>('');
   private selectedProductSubject = new BehaviorSubject<string>('');
   private generatedContentSubject = new BehaviorSubject<string>('');
+  private templatesListSubject = new BehaviorSubject<any[]>([]);
 
   // Track current documentation page state
   private currentPageSubject = new BehaviorSubject<'landing' | 'generating' | 'generated'>('landing');
@@ -77,9 +79,11 @@ export class DocumentationService {
   sources$ = this.sourcesSubject.asObservable();
   pdfSources$ = this.pdfSourcesSubject.asObservable();
   selectedTemplate$ = this.selectedTemplateSubject.asObservable();
+  selectedTemplateId$ = this.selectedTemplateIdSubject.asObservable();
   selectedProduct$ = this.selectedProductSubject.asObservable();
   generatedContent$ = this.generatedContentSubject.asObservable();
   currentPage$ = this.currentPageSubject.asObservable();
+  templatesList$ = this.templatesListSubject.asObservable();
 
   // Getters for form data
   get sources(): { newSource: string }[] {
@@ -94,8 +98,16 @@ export class DocumentationService {
     return this.selectedTemplateSubject.value;
   }
 
+  get selectedTemplateId(): string {
+    return this.selectedTemplateIdSubject.value;
+  }
+
   get selectedProduct(): string {
     return this.selectedProductSubject.value;
+  }
+
+  get templatesList(): any[] {
+    return this.templatesListSubject.value;
   }
 
   get generatedContent(): string {
@@ -117,6 +129,22 @@ export class DocumentationService {
 
   setSelectedTemplate(template: any) {
     this.selectedTemplateSubject.next(template);
+    // If template is an object with id, extract the id
+    if (template && typeof template === 'object' && template.id) {
+      this.selectedTemplateIdSubject.next(template.id);
+    } else if (typeof template === 'string') {
+      // If template is just a string (name), we'll need to find the id from the templates list
+      // This will be handled in the component
+      this.selectedTemplateIdSubject.next('');
+    }
+  }
+
+  setSelectedTemplateId(templateId: string) {
+    this.selectedTemplateIdSubject.next(templateId);
+  }
+
+  setTemplatesList(templates: any[]) {
+    this.templatesListSubject.next(templates);
   }
 
   setSelectedProduct(product: string) {

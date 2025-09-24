@@ -57,11 +57,14 @@ export class DocumentationComponent implements OnInit, OnDestroy {
         this.userRole = role || 'Product Owner';
       })
     );
-    
-    // Get products and selected product
-    this.products = this.onboardingService.getProductList();
-    this.selectedProduct = this.onboardingService.getSelectedProduct();
-    
+    // Get products
+    if(this.onboardingService.getProductList().length > 0) {
+        this.products = this.onboardingService.getProductList();
+        this.selectedProduct = this.onboardingService.getSelectedProduct();
+    } else {
+        this.gettingProductListFromApi();
+    }
+   
     // Subscribe to documentation service state changes
     this.subscriptions.push(
       this.documentationService.documentationLandingPage$.subscribe(state => {
@@ -133,11 +136,13 @@ export class DocumentationComponent implements OnInit, OnDestroy {
         next: (data: any) => {
           console.log('templates: ', data.documentation_types);
           this.templates = data.documentation_types;
+          this.documentationService.setTemplatesList(data.documentation_types);
         },
         error: (err: any) => {
           console.error('Error fetching templates:', err);
           // Fallback to empty array or default templates
           this.templates = [];
+          this.documentationService.setTemplatesList([]);
         }
       })
     );
@@ -206,6 +211,7 @@ export class DocumentationComponent implements OnInit, OnDestroy {
   }
   selectTemplate(template: any) {
     this.documentationService.setSelectedTemplate(template);
+    this.documentationService.setSelectedTemplateId(template.id);
     this.isOpen = false;
     this.generateTemplateDropdown = false;
     this.isTemplatesDropdownOpen = false;
@@ -490,8 +496,8 @@ For further details, contact:
     const formData = new FormData();
     formData.append("created_by", this.userName);
     formData.append("release_date", releaseDate);
-    formData.append("product_type", this.selectedProduct);
-    formData.append("template_type", this.selectedTemplate);
+    formData.append("product_type", this.onboardingService.getSelectedProductId());
+    formData.append("template_type", this.documentationService.selectedTemplateId);
     formData.append("data_sources", source);
     formData.append("files", file, file.name);
     formData.append("version_number", "1.0.0");
@@ -518,5 +524,14 @@ For further details, contact:
     a.click();
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
+  }
+
+   // getting product list from api
+  gettingProductListFromApi() {
+    this.apiService.get<any>('list_products').subscribe({
+      next: async (data) => {
+        this.products = data.map((product: any) => product.name);
+      },
+    });
   }
 }

@@ -50,6 +50,7 @@ export class OnBoardingPageComponent {
         this.productsList = data;
         const productNames = data.map((product: any) => product.name);
         this.onboardingService.setProductList(productNames);
+        this.onboardingService.setFullProductList(data);
       },
       error: (err) => console.error('Error:', err),
     });
