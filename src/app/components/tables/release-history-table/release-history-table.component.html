@@ -4,7 +4,6 @@
             <div class="flex gap-2 justify-start items-center">
                 Documentation
             </div>
-            <!--/* <div class="flex items-center">Product</div> */-->
             <div class="flex items-center">Product Type</div>
             <div class="flex items-center">Template Type</div>
             <div class="flex items-center gap-[4px]">
@@ -22,15 +21,7 @@
                 {{ item.pdf_filename }}
             </div>
             <div class="flex items-center">{{ item.product_type }}</div>
-            <div class="flex items-center">{{ item.template_type }}
-                <!-- <span class="bg-[#ECFDF3] px-5 py-2 rounded-[16px] text-[#027A48] text-xs font-medium"
-                    [ngStyle]="{
-                        'background-color': item.status === 'Published' ? '#ECFDF3' : '#F5F5F5',
-                        'color': item.status === 'Published' ? '#027A48' : '#414651'
-                    }">
-                    {{ item.template_type }}
-                </span> -->
-            </div>
+            <div class="flex items-center">{{ item.template_type }}</div>
             <div class="flex items-center">{{ item.release_date }}</div>
             <div class="flex justify-start items-center gap-[10px]">
                 <span class="text-primary bg-[#e9eef8] flex rounded-[200px] w-[40px] h-[40px] justify-center items-center">{{ getFirstLetter(item.created_by) }}</span>

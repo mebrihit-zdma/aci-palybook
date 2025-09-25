@@ -21,6 +21,7 @@ export class ChatHistoryComponent {
 
   chatHistory: ChatHistory[] = [];
   filteredChatHistory: (ChatHistory & { highlightedQuestion: SafeHtml })[] = [];
+  selectedSession: any = null;
 
   constructor(private apiService: ApiService, private chatService: ChatService, private searchChatService: SearchChatService, private sanitizer: DomSanitizer, private router: Router){}
   
@@ -93,7 +94,6 @@ export class ChatHistoryComponent {
     return chat.sessionId;
   }
  
-  selectedSession: any = null;
   openDeleteSession(item: any){
     this.selectedSession = this.selectedSession === item ? null : item;
   }
