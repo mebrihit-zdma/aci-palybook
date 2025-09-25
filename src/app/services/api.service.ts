@@ -29,6 +29,9 @@ export class ApiService {
     return this.http.post(this.documentationUrl, payload, {
     });
   }
+  getDocumentationHistory() {
+    return this.http.get(this.documentationUrl);
+  }
   getTemplates() {
     return this.http.get(this.templatesUrl);
   }

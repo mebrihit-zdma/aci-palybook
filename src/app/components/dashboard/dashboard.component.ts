@@ -42,6 +42,7 @@ export class DashboardComponent {
   personaWidgetList: string[] = [];
   selectedWidgetList: string[] = [];
   selectedCustomizeWidgets: string[] = [];
+  releaseHistory: any[] = [];
   ngOnInit() {
     this.userService.userName$.subscribe(name => {
       this.userName = name;
@@ -63,7 +64,9 @@ export class DashboardComponent {
     
     this.documentationLandingPage = this.documentationService.getDocumentationLandingPage();
     this.documentationGeneratingPage = this.documentationService.getDocumentationGeneratingPage(); 
-    this.documentationGeneratedPage = this.documentationService.getDocumentationGeneratedPage(); 
+    this.documentationGeneratedPage = this.documentationService.getDocumentationGeneratedPage();
+    // getting documentation history from api
+    this.gettingDocumentationHistoryFromApi();
   }
   isProductDropdownOpen = false;
   toggleProductDropdown() {
@@ -128,105 +131,6 @@ export class DashboardComponent {
     }
   ]
 
-  // release history data 
-  releaseHistory = [
-    { documentation: "Payment_Hub_1.2.3-A", 
-      product: "Payment Hub", 
-      type: "Release Notes",
-      status: "In Progress",
-      deliveryDate: "Jan 02, 2025",
-      executedBy: "Gulse",
-      view: "",
-    },
-    { documentation: "Payment_Hub_1.2.3-A", 
-      product: "Payment Hub", 
-      type: "Release Notes",
-      status: "Published",
-      deliveryDate: "Jan 13, 2025",
-      executedBy: "Jeannie",
-      view: "View",
-    },
-    { documentation: "Payment_Hub_1.2.3-A", 
-      product: "Payment Hub", 
-      type: "User Manual",
-      status: "Published",
-      deliveryDate: "Jan 13, 2025",
-      executedBy: "Meera",
-      view: "View",
-    },
-    { documentation: "Payment_Hub_1.2.3-A", 
-      product: "Payment Hub", 
-      type: "User Manual",
-      status: "Published",
-      deliveryDate: "Jan 13, 2025",
-      executedBy: "Meera",
-      view: "View",
-    },
-    { documentation: "Payment_Hub_1.2.3-A", 
-      product: "Payment Hub", 
-      type: "User Manual",
-      status: "Published",
-      deliveryDate: "Jan 13, 2025",
-      executedBy: "Meera",
-      view: "View",
-    },
-    { documentation: "Payment_Hub_1.2.3-A", 
-      product: "Payment Hub", 
-      type: "User Manual",
-      status: "Published",
-      deliveryDate: "Jan 13, 2025",
-      executedBy: "Meera",
-      view: "View",
-    },
-    { documentation: "Payment_Hub_1.2.3-A", 
-      product: "Payment Hub", 
-      type: "User Manual",
-      status: "Published",
-      deliveryDate: "Jan 13, 2025",
-      executedBy: "Meera",
-      view: "View",
-    },
-  ];
-
-  // bug fixes data 
-  bugFixes = [
-    { issue: "SBI-323", 
-      description: "Slow loading times", 
-      priority: "Low",
-      status: "Fix In Progress",
-      assignedTo: "Adam",
-      viewResolution: "",
-    },
-    { issue: "SBI-321", 
-      description: "Payment approval delays for high volume", 
-      priority: "Highest",
-      status: "Resolved",
-      assignedTo: "Adam",
-      viewResolution: "View Resolution",
-    },
-    { issue: "SBI-319", 
-      description: "Performance Optimizations", 
-      priority: "High",
-      status: "Resolved",
-      assignedTo: "Adam",
-      viewResolution: "View Resolution",
-    },
-    { issue: "SBI-319", 
-      description: "Performance Optimizations", 
-      priority: "High",
-      status: "Resolved",
-      assignedTo: "Adam",
-      viewResolution: "View Resolution",
-    },
-    { issue: "SBI-319", 
-      description: "Performance Optimizations", 
-      priority: "High",
-      status: "Resolved",
-      assignedTo: "Adam",
-      viewResolution: "View Resolution",
-    },
-  ];
-  
   // tooltip
   skipTooltipValue = false;
   aciPaymentHubTooltip = false;
@@ -367,6 +271,19 @@ export class DashboardComponent {
     this.apiService.get<any>('list_products').subscribe({
       next: async (data) => {
         this.products = data.map((product: any) => product.name);
+      },
+    });
+  }
+  // getting documentation history from api
+  gettingDocumentationHistoryFromApi() {
+    this.apiService.getDocumentationHistory().subscribe({
+      next: async (data: any) => {
+        console.log("Documentation History: ", data);
+        this.releaseHistory = Array.isArray(data) ? data : [];
+      },  
+      error: (err) => {
+        console.error('Error fetching documentation history:', err);
+        this.releaseHistory = [];
       },
     });
   }

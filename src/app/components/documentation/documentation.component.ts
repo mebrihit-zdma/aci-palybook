@@ -38,7 +38,7 @@ export class DocumentationComponent implements OnInit, OnDestroy {
   PdfSources: File[] = [];
   selectedTemplate: any = 'Select Template';
   generatedContent: any = '';
-
+  releaseHistory: any[] = [];
   // Subscriptions for cleanup
   private subscriptions: Subscription[] = [];
 
@@ -147,6 +147,7 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     );
     
     this.userService.setIsUserHasAccountSetup(true);
+    this.gettingDocumentationHistoryFromApi();
   }
 
   ngOnDestroy() {
@@ -337,105 +338,7 @@ For further details, contact:
 📩 ACI Support Team – support@aci.com  
 📄 Documentation & FAQs – ACI Knowledge Base
 `;
-
-  // release history data 
-  releaseHistory = [
-    { documentation: "Payment_Hub_1.2.3-A", 
-      product: "Payment Hub", 
-      type: "Release Notes",
-      status: "In Progress",
-      deliveryDate: "",
-      executedBy: "Gulse",
-      view: "",
-    },
-    { documentation: "Payment_Hub_1.2.3-A", 
-      product: "Payment Hub", 
-      type: "Release Notes",
-      status: "Published",
-      deliveryDate: "Jan 13, 2025",
-      executedBy: "Jeannie",
-      view: "View",
-    },
-    { documentation: "Payment_Hub_1.2.3-A", 
-      product: "Payment Hub", 
-      type: "User Manual",
-      status: "Published",
-      deliveryDate: "Jan 13, 2025",
-      executedBy: "Meera",
-      view: "View",
-    },
-    { documentation: "Payment_Hub_1.2.3-A", 
-      product: "Payment Hub", 
-      type: "User Manual",
-      status: "Published",
-      deliveryDate: "Jan 13, 2025",
-      executedBy: "Meera",
-      view: "View",
-    },
-    { documentation: "Payment_Hub_1.2.3-A", 
-      product: "Payment Hub", 
-      type: "User Manual",
-      status: "Published",
-      deliveryDate: "Jan 13, 2025",
-      executedBy: "Meera",
-      view: "View",
-    },
-    { documentation: "Payment_Hub_1.2.3-A", 
-      product: "Payment Hub", 
-      type: "User Manual",
-      status: "Published",
-      deliveryDate: "Jan 13, 2025",
-      executedBy: "Meera",
-      view: "View",
-    },
-    { documentation: "Payment_Hub_1.2.3-A", 
-      product: "Payment Hub", 
-      type: "User Manual",
-      status: "Published",
-      deliveryDate: "Jan 13, 2025",
-      executedBy: "Meera",
-      view: "View",
-    },
-  ];
-
-  // bug fixes data 
-  bugFixes = [
-    { issue: "SBI-323", 
-      description: "Slow loading times", 
-      priority: "Low",
-      status: "Fix In Progress",
-      assignedTo: "Adam",
-      viewResolution: "",
-    },
-    { issue: "SBI-321", 
-      description: "Payment approval delays for high volume", 
-      priority: "Highest",
-      status: "Resolved",
-      assignedTo: "Adam",
-      viewResolution: "View Resolution",
-    },
-    { issue: "SBI-319", 
-      description: "Performance Optimizations", 
-      priority: "High",
-      status: "Resolved",
-      assignedTo: "Adam",
-      viewResolution: "View Resolution",
-    },
-    { issue: "SBI-319", 
-      description: "Performance Optimizations", 
-      priority: "High",
-      status: "Resolved",
-      assignedTo: "Adam",
-      viewResolution: "View Resolution",
-    },
-    { issue: "SBI-319", 
-      description: "Performance Optimizations", 
-      priority: "High",
-      status: "Resolved",
-      assignedTo: "Adam",
-      viewResolution: "View Resolution",
-    },
-  ];
+  // documentation ask documentaion bot
   documentationAskDocuBot(){
     this.router.navigate(['/dashboard-page/chat']);
   }
@@ -517,9 +420,6 @@ For further details, contact:
       },
       error: (err: any) => {
         console.error("API Error Details:", err);
-        console.error("Error Status:", err.status);
-        console.error("Error Message:", err.message);
-        console.error("Error Body:", err.error);
         this.isGeneratingDocumentation = false;
       },
     });
@@ -545,6 +445,19 @@ For further details, contact:
         this.products = data.map((product: any) => product.name);
         // Also set the full product list with IDs so that getSelectedProductId() works
         this.onboardingService.setFullProductList(data);
+      },
+    });
+  }
+  // getting documentation history from api
+  gettingDocumentationHistoryFromApi() {
+    this.apiService.getDocumentationHistory().subscribe({
+      next: async (data: any) => {
+        console.log("Documentation History: ", data);
+        this.releaseHistory = Array.isArray(data) ? data : [];
+      },  
+      error: (err) => {
+        console.error('Error fetching documentation history:', err);
+        this.releaseHistory = [];
       },
     });
   }
