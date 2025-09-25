@@ -76,61 +76,7 @@ export class DashboardComponent {
     this.selectedProduct = product;
     this.isProductDropdownOpen = false;
   }
-  // cards data
-  productLatestUpdates = [
-    { 
-      latestUpdate: "7th March, 2025", 
-      title: "Latest Updates in the product", 
-      subTitle:"Enhanced transaction security to prevent unauthorized access.",
-      updateList: [
-        "Improved API response times by 30% for better performance.",
-        "Introduced a new fraud detection feature to minimize risk.",
-      ],
-      moreInfo:"View More",
-      latest:"Latest"
-    },
-  ]
-  releaseNotesSummary = [
-    { 
-      latestUpdate: "2nd March, 2025", 
-      title: "Release Notes Summary", 
-      subTitle:"Added batch processing for large transactions to increase efficiency.",
-      updateList: [
-        "Improved error logging to simplify troubleshooting for failed payments.",
-        "Added support for Instant Payments in new regions, including SEPA Instant Credit Transfer.",
-      ],
-      moreInfo:"View Summary"
-    },
-  ]
-  categoryData = [
-    { 
-      title: "Total Bug Raised", 
-      bugNumber: "12", 
-      month:"This month"
-    },
-    { 
-      title: "User Engagement Metrics", 
-      bugNumber: "80%", 
-      month:"Customer Satisfaction Rate"
-    }
-  ]
-  pieData = [
-    {
-      title:'Total Bugs Raised', 
-      view: [140, 140] as [number, number],
-      pieChartData: [
-        { name: 'Critical', value: 6, color:'#6A94E5'},
-        { name: 'High', value: 2, color:'#C1D3FA'},
-        { name: 'Others', value: 4, color:'#1F4BB9'},
-      ],
-      customColors: [
-        { name: 'Critical', value: '#6A94E5' },
-        { name: 'High', value: '#C1D3FA' },
-        { name: 'Others', value: '#1F4BB9' },
-      ]
-    }
-  ]
-
+ 
   // tooltip
   skipTooltipValue = false;
   aciPaymentHubTooltip = false;
