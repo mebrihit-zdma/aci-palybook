@@ -13,8 +13,6 @@ import { UserService } from '../../services/user.service';
 import { StreamService } from '../../services/stream.service';
 
 
-
-
 @Component({
   selector: 'app-chat',
   standalone:true,
@@ -24,22 +22,17 @@ import { StreamService } from '../../services/stream.service';
 })
 export class ChatComponent {
 
-  currentDate: Date = new Date(); // gets current date/time
   app_id = "67daf330d62c5ade928150d1";
   model_name ="azure/gpt-4o";
   top_k = 3;
-
+  currentDate: Date = new Date(); // gets current date/time
   userName: string | null = 'User Name';
-
   userId: any = "8c8cda2b-cda6-41c2-927d-511d40724810-test-chat-v2";
   sessionId: any = "";
-
   askedQuestion: string = '';
   sources: AnswerSource[] = [];
   messages: ChatMessage[] = [];
-
   chatMessages: ResponseMessage[] = [];
-
   createShortcutPrompt = false;
   products: string[] = [];
   selectedProduct: string = '';
@@ -49,9 +42,12 @@ export class ChatComponent {
   selectedPrompt: any = null;
   createdLibraryPrompt:string = "";
   promptsLibrarySearch:string = "";
-  
   showAlert = false;
   alertMessage = '';
+  // shortcut Prompt
+  promptShortcuts: any[] = []
+  isPromptsLibraryModelOpen = false
+  chatResponse = '';
 
   @ViewChild('promptInput') promptInput!: ElementRef<HTMLInputElement>;
   @ViewChild('chatContainer') chatContainer!: ElementRef<HTMLDivElement>;
@@ -168,25 +164,6 @@ export class ChatComponent {
     });
   }
  
-  // shortcut Prompt
-  promptShortcuts: any[] = []
-  // promptShortcuts = [
-  //   { source: "Suggested by AI", 
-  //     question: "What are the differences between the latest and older release notes?", 
-  //   },
-  //   { source: "Suggested by AI", 
-  //     question: "Create a step-by-step guide on configuring ACI Payment Hub based on client-specific needs", 
-  //   },
-  //   { source: "Based on your Activity", 
-  //     question: "Generate an API customization guide for ACI Payment Hub", 
-  //   },
-  //   { source: "Recommended based on your Activity", 
-  //     question: "Generate a guide on configuring custom dashboards and reports for Connetic High value Payments", 
-  //   },
-  //   { source: "Frequently searched by you", 
-  //     question: "Generate a guide on configuring custom dashboards and reports for Connetic High value Payments", 
-  //   },
-  // ];
   promptsLibrarylist = [
     { prompt: "Generate an API customization guide for ACI Payment Hub", 
     },
@@ -211,14 +188,14 @@ export class ChatComponent {
     { prompt: "Generate a guide on configuring custom dashboards and reports for Connetic High value Payments", 
     },
   ]
-  isPromptsLibraryModelOpen = false
+
   closePromptsLibraryModel(){
     this.isPromptsLibraryModelOpen = false;
   }
   openPromptsLibraryModel(){
     this.isPromptsLibraryModelOpen = true;
   }
-  
+
   addShortcutPrompt(){
     this.isAddShortcutPrompt = true;
     setTimeout(() => {
@@ -285,8 +262,6 @@ export class ChatComponent {
     this.promptsLibrarySearch = "";
   }
   
-  chatResponse = '';
-
   // Chat Stream
   chatStream(askedQuestion: string, sessionId: string) {
     this.chatResponse = '';
@@ -458,7 +433,6 @@ export class ChatComponent {
       this.isProductDropdownOpen = false;
     }
   }
-
   // Auto-scroll to bottom of chat
   private scrollToBottom(): void {
     try {
