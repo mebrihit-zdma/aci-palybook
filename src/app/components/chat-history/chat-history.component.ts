@@ -43,8 +43,6 @@ export class ChatHistoryComponent {
     }
     this.apiService.post<any>('get_chat_sessions_for_user_id', payload).subscribe({
       next: (data) => {
-        console.log("User id from chat history:", userId)
-        console.log("Sessions List:", data)
         // Filter out entries with "New_Chat"
         this.chatHistory = data
         .filter((item: { summary: string }) => item.summary !== 'New_Chat')

@@ -134,7 +134,6 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.apiService.getTemplates().subscribe({
         next: (data: any) => {
-          console.log('templates: ', data.documentation_types);
           this.templates = data.documentation_types;
           this.documentationService.setTemplatesList(data.documentation_types);
         },
