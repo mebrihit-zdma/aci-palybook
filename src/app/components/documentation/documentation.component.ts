@@ -165,9 +165,7 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     
     // Check if both PdfSources and sources arrays have content before proceeding
     if (this.PdfSources.length > 0 && this.sources.length > 0) {
-      const file = this.PdfSources[0];
-      const givenSource = this.sources[0].newSource; 
-      this.generateDocumentation(file, givenSource); 
+      this.generateDocumentation(this.PdfSources, this.sources); 
     } else {
       console.warn('Cannot generate documentation: Missing PDF files or sources');
     }
@@ -228,6 +226,8 @@ export class DocumentationComponent implements OnInit, OnDestroy {
 
   selectProduct(product: string) {
     this.documentationService.setSelectedProduct(product);
+    // Also set the selected product in onboarding service to ensure product ID is set
+    this.onboardingService.setSelectedProduct(product);
     this.isProductDropdownOpen = false;
     this.isGenProductDropdownOpen = false;
     this.isProductDropdownBotOpen = false;
@@ -296,9 +296,7 @@ export class DocumentationComponent implements OnInit, OnDestroy {
   createDocument() {
     // Check if both PdfSources and sources arrays have content before proceeding
     if (this.PdfSources.length > 0 && this.sources.length > 0) {
-      const file = this.PdfSources[0];
-      const givenSource = this.sources[0].newSource; 
-      this.generateDocumentation(file, givenSource); 
+      this.generateDocumentation(this.PdfSources, this.sources); 
     } else {
       console.warn('Cannot generate documentation: Missing PDF files or sources');
     }
@@ -481,38 +479,53 @@ For further details, contact:
 
   // Generate Documentation from API
   isGeneratingDocumentation: boolean = false;
-  generateDocumentation(file: File, source: string) {
-    // Set loading state to true
+  generateDocumentation(files: File[], sources: { newSource: string }[]) {
     this.isGeneratingDocumentation = true;
-    this.documentationService.setGeneratedContent(''); // Clear previous content
-    
+    this.documentationService.setGeneratedContent('');
+  
     const today = new Date();
     const releaseDate = today.toLocaleDateString('en-US', {
       month: '2-digit',
       day: '2-digit',
       year: 'numeric'
     });
-    
+  
+    const sourceStrings = sources.map(s => s.newSource);
+  
     const formData = new FormData();
     formData.append("created_by", this.userName);
     formData.append("release_date", releaseDate);
+    formData.append("version_number", "1.0.0");
     formData.append("product_type", this.onboardingService.getSelectedProductId());
     formData.append("template_type", this.documentationService.selectedTemplateId);
-    formData.append("data_sources", source);
-    formData.append("files", file, file.name);
-    formData.append("version_number", "1.0.0");
-
+    formData.append("data_sources", JSON.stringify(sourceStrings));
+    for (let i = 0; i < files.length; i++) {
+      formData.append('files', files[i]);
+    }
+  
+    // Debug FormData contents
+    console.log("FormData contents:");
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}:`, value);
+    }
+  
     this.apiService.generateDocumentation(formData).subscribe({
       next: (data: any) => {
-        this.documentationService.setGeneratedContent(data.generated_content);
-        this.isGeneratingDocumentation = false; // Set loading state to false
+        console.log("API Response:", data);
+        this.documentationService.setGeneratedContent(data.message);
+        // this.documentationService.setGeneratedContent(data.generated_content);
+        this.isGeneratingDocumentation = false;
       },
       error: (err: any) => {
-        console.error("Error:", err);
-        this.isGeneratingDocumentation = false; // Set loading state to false on error
+        console.error("API Error Details:", err);
+        console.error("Error Status:", err.status);
+        console.error("Error Message:", err.message);
+        console.error("Error Body:", err.error);
+        this.isGeneratingDocumentation = false;
       },
     });
   }
+  
 
   exportAsText() {
     const blob = new Blob([this.releaseNotes], { type: 'text/plain' });
@@ -531,6 +544,8 @@ For further details, contact:
     this.apiService.get<any>('list_products').subscribe({
       next: async (data) => {
         this.products = data.map((product: any) => product.name);
+        // Also set the full product list with IDs so that getSelectedProductId() works
+        this.onboardingService.setFullProductList(data);
       },
     });
   }
