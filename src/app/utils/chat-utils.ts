@@ -27,17 +27,6 @@ export function extractSources(raw: string): AnswerSource[] {
   }));
 }
 
-// export function extractResponseSources(markdown: string): { label: string; url: string; pageNumber?: number }[] {
-//   const regex = /\[(.*?)\]\((https?:\/\/.*?)\)/g;
-//   const sources: { label: string; url: string; pageNumber?: number }[] = [];
-
-//   let match;
-//   while ((match = regex.exec(markdown)) !== null) {
-//     sources.push({ label: match[1], url: match[2] });
-//   }
-
-//   return sources;
-// }
 export function extractResponseSources(markdown: string): { label: string; url: string; page?: number }[] {
   const regex = /\[(.*?)\]\((https?:\/\/.*?)\)/g;
   const sources: { label: string; url: string; page?: number }[] = [];
