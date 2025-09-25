@@ -233,11 +233,6 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     this.isProductDropdownBotOpen = false;
   }
 
-  // sources section
-  viewSources = [
-    { source: 'JIRA-516: Bug Fixes from latest code changes' },
-    { source: 'EPIC-516: Payment Hub Security updates' }
-  ];
   pdfNewSource: string = '';
 
   newSource: string = '';
