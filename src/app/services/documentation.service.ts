@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class DocumentationService {
+  // skip tooltip value
   skipTooltipValue: boolean = false;
 
   // Use BehaviorSubjects to maintain state and allow subscriptions
@@ -12,10 +13,31 @@ export class DocumentationService {
   private documentationGeneratingPageSubject = new BehaviorSubject<boolean>(false);
   private documentationGeneratedPageSubject = new BehaviorSubject<boolean>(false);
 
+   // State management for user form data
+   private sourcesSubject = new BehaviorSubject<{ newSource: string }[]>([]);
+   private pdfSourcesSubject = new BehaviorSubject<File[]>([]);
+   private selectedTemplateSubject = new BehaviorSubject<any>('Select Template');
+   private selectedTemplateIdSubject = new BehaviorSubject<string>('');
+   private selectedProductSubject = new BehaviorSubject<string>('');
+   private generatedContentSubject = new BehaviorSubject<string>('');
+   private templatesListSubject = new BehaviorSubject<any[]>([]);
+ 
+   // Track current documentation page state
+   private currentPageSubject = new BehaviorSubject<'landing' | 'generating' | 'generated'>('landing');
+
   // Expose observables for components to subscribe to
   documentationLandingPage$ = this.documentationLandingPageSubject.asObservable();
   documentationGeneratingPage$ = this.documentationGeneratingPageSubject.asObservable();
   documentationGeneratedPage$ = this.documentationGeneratedPageSubject.asObservable();
+  // Expose observables for form data
+  sources$ = this.sourcesSubject.asObservable();
+  pdfSources$ = this.pdfSourcesSubject.asObservable();
+  selectedTemplate$ = this.selectedTemplateSubject.asObservable();
+  selectedTemplateId$ = this.selectedTemplateIdSubject.asObservable();
+  selectedProduct$ = this.selectedProductSubject.asObservable();
+  generatedContent$ = this.generatedContentSubject.asObservable();
+  currentPage$ = this.currentPageSubject.asObservable();
+  templatesList$ = this.templatesListSubject.asObservable();
 
   // Keep backward compatibility with getters
   get documentationLandingPage(): boolean {
@@ -62,28 +84,6 @@ export class DocumentationService {
   getDocumentationGeneratedPage(): boolean {
     return this.documentationGeneratedPageSubject.value;
   }
-
-  // State management for user form data
-  private sourcesSubject = new BehaviorSubject<{ newSource: string }[]>([]);
-  private pdfSourcesSubject = new BehaviorSubject<File[]>([]);
-  private selectedTemplateSubject = new BehaviorSubject<any>('Select Template');
-  private selectedTemplateIdSubject = new BehaviorSubject<string>('');
-  private selectedProductSubject = new BehaviorSubject<string>('');
-  private generatedContentSubject = new BehaviorSubject<string>('');
-  private templatesListSubject = new BehaviorSubject<any[]>([]);
-
-  // Track current documentation page state
-  private currentPageSubject = new BehaviorSubject<'landing' | 'generating' | 'generated'>('landing');
-
-  // Expose observables for form data
-  sources$ = this.sourcesSubject.asObservable();
-  pdfSources$ = this.pdfSourcesSubject.asObservable();
-  selectedTemplate$ = this.selectedTemplateSubject.asObservable();
-  selectedTemplateId$ = this.selectedTemplateIdSubject.asObservable();
-  selectedProduct$ = this.selectedProductSubject.asObservable();
-  generatedContent$ = this.generatedContentSubject.asObservable();
-  currentPage$ = this.currentPageSubject.asObservable();
-  templatesList$ = this.templatesListSubject.asObservable();
 
   // Getters for form data
   get sources(): { newSource: string }[] {

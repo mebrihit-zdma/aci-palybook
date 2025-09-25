@@ -8,22 +8,22 @@ import { environment } from '../../environments/environment';
 })
 export class ApiService {
   
-  constructor(private http: HttpClient) {}
-
   createUserSettingsUrl = `${environment.apiBaseUrl}/api/v1/create_user_settings`;
   getUserSettingsUrl = `${environment.apiBaseUrl}/api/v1/get_user_settings`;
   chatIdUrl = `${environment.apiBaseUrl}/api/v1/get_chat`;
   baseUrl = `${environment.apiBaseUrl}/api/v1`;
-
+  // documentation
   documentationUrl = `${environment.documentationUrl}/api/v1/generated-documents`;
   templatesUrl = `${environment.documentationUrl}/api/v1/documentation-types`;
 
+  // constructor
+  constructor(private http: HttpClient) {}
+  // create user setting
   createUserSetting(payload: any) {
     return this.http.post(this.createUserSettingsUrl, payload);
   }
   getUserSettings<T>(userId: any): Observable<T> {
     return this.http.get<T>(`${this.getUserSettingsUrl}/${userId}`);
-    // return this.http.get(this.getUserSettingsUrl, userId);
   }
   generateDocumentation(payload: FormData) {
     return this.http.post(this.documentationUrl, payload, {

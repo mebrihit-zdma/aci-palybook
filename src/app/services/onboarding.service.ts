@@ -5,14 +5,14 @@ import { Injectable } from '@angular/core';
 })
 export class OnboardingService {
 
-  constructor() { }
-
   private selectedProduct: string = '';
   private selectedProductId: string = '';
   private productList: string[] = [];
   private fullProductList: any[] = [];
   private selectedWidgetList: string[] = [];
   private personaWidgetList: string[] = [];
+
+  constructor() { }
 
   setSelectedProduct(selectedProduct: string) {
     this.selectedProduct = selectedProduct;
