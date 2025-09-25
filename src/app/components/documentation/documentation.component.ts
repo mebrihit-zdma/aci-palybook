@@ -18,32 +18,50 @@ import { Subscription } from 'rxjs';
   styleUrl: './documentation.component.css'
 })
 export class DocumentationComponent implements OnInit, OnDestroy {
+  // user data
   userName: string = 'User Name';
   userRole: string = 'Product Owner';
   selectedOption1 = '';  
   selectedOption2 = '';  
+  // list number
   imagePath ='./app/resources/icons/paste-url-icon.svg';
   listNumber = 3;
   // documentation Pages
   documentationLandingPage = false;
   documentationGeneratingPage = false; 
   documentationGeneratedPage = false; 
-
+  // products
   products: string[] = [];
   selectedProduct: string = "";
   templates: any[] = [];
-
-  // Form data properties (will be managed by service)
+  // sources
   sources: { newSource: string }[] = [];
   PdfSources: File[] = [];
   selectedTemplate: any = 'Select Template';
   generatedContent: any = '';
   releaseHistory: any[] = [];
-  // Subscriptions for cleanup
-  private subscriptions: Subscription[] = [];
+  private subscriptions: Subscription[] = []; // Subscriptions for cleanup
 
+  isOpen = false;
+  generateTemplateDropdown = false;
+  isTemplatesDropdownOpen = false;
+  isViewSourcesDropdownOpen = false
+  isProductDropdownOpen = false;
+  isGenProductDropdownOpen = false;
+  isProductDropdownBotOpen = false;
+  isFilterDropdownOpen = false;
+  pdfNewSource: string = '';
+  newSource: string = '';
+  generateDoc = false;
+  filters =['Type', 'Status', 'Published date', 'Created by'];
+  isModalOpen = false; // Initial state (modal is closed)
+  showChatBox = false;
+  isGeneratingDocumentation: boolean = false;
+
+  // constructor
   constructor(private userService: UserService, private documentationService: DocumentationService, private router: Router, private onboardingService: OnboardingService, private apiService: ApiService ) {}
 
+  // ngOnInit
   ngOnInit() {
     // Subscribe to user service changes
     this.subscriptions.push(
@@ -149,12 +167,12 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     this.userService.setIsUserHasAccountSetup(true);
     this.gettingDocumentationHistoryFromApi();
   }
-
+  // ngOnDestroy
   ngOnDestroy() {
     // Clean up subscriptions to prevent memory leaks
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
-  
+  // go to documentation generated page
   goToDocumentationGeneratedPage() {
     this.documentationService.setDocumentationLandingPage(false);
     this.documentationService.setDocumentationGeneratingPage(false);
@@ -171,6 +189,7 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     }
     
   }
+  // go to documentation generating page
   goToDocumentationGeneratingPage(){
     this.documentationService.setDocumentationLandingPage(false);
     this.documentationService.setDocumentationGeneratedPage(false);
@@ -179,7 +198,7 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     this.documentationLandingPage = false;
     this.documentationGeneratingPage = true;
   }
-
+  // go to documentation landing page
   goToDocumentationLandingPage() {
     this.documentationService.setDocumentationGeneratingPage(false);
     this.documentationService.setDocumentationGeneratedPage(false);
@@ -188,16 +207,6 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     this.documentationLandingPage = true;
     this.documentationGeneratingPage = false;
   }
-  // Select Template section
-  isOpen = false;
-  generateTemplateDropdown = false;
-  isTemplatesDropdownOpen = false;
-  isViewSourcesDropdownOpen = false
-  isProductDropdownOpen = false;
-  isGenProductDropdownOpen = false;
-  isProductDropdownBotOpen = false;
-  isFilterDropdownOpen = false;
-  filters =['Type', 'Status', 'Published date', 'Created by'];
   toggleDropdown() {
     this.isOpen = !this.isOpen;
     this.generateTemplateDropdown = !this.generateTemplateDropdown;
@@ -232,12 +241,6 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     this.isGenProductDropdownOpen = false;
     this.isProductDropdownBotOpen = false;
   }
-
-  pdfNewSource: string = '';
-
-  newSource: string = '';
-  generateDoc = false;
-
   addSource() {
     if (this.newSource.trim()) {
       this.documentationService.addSource({ newSource: this.newSource });
@@ -261,11 +264,9 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     const files = event.target.files;
     this.handleFiles(files);
   }
-
   onDragOver(event: DragEvent) {
     event.preventDefault();
   }
-
   onDrop(event: DragEvent) {
     event.preventDefault();
     const files = event.dataTransfer?.files;
@@ -273,21 +274,20 @@ export class DocumentationComponent implements OnInit, OnDestroy {
       this.handleFiles(files);
     }
   }
-
   handleFiles(files: FileList) {
     for (let i = 0; i < files.length; i++) {
       this.documentationService.addPdfSource(files[i]);
     }
   }
-  
-  isModalOpen = false; // Initial state (modal is closed)
+  // open modal
   openModal() {
     this.isModalOpen = true;
   }
+  // close modal
   closeModal() {
     this.isModalOpen = false;
   }
-
+  // create document
   createDocument() {
     // Check if both PdfSources and sources arrays have content before proceeding
     if (this.PdfSources.length > 0 && this.sources.length > 0) {
@@ -337,9 +337,6 @@ For further details, contact:
   documentationAskDocuBot(){
     this.router.navigate(['/dashboard-page/chat']);
   }
-
-  showChatBox = false;
-
   // On Clicking Outside the dropdown
   @ViewChild('dropdown') dropdownRef!: ElementRef;
   @ViewChild('templatesDropdown') templatesDropdownRef!: ElementRef;
@@ -347,7 +344,6 @@ For further details, contact:
   @ViewChild('genTemplateDropdown') genTemplateDropdownRef!: ElementRef;
   @ViewChild('genProductDropdown') genProductDropdownRef!: ElementRef;
   @ViewChild('viewSourcesDropdown') viewSourcesDropdownRef!: ElementRef;
-
   @HostListener('document:click', ['$event.target'])
   onClickOutside(targetElement: HTMLElement): void {
     // Product
@@ -373,9 +369,7 @@ For further details, contact:
       this.isViewSourcesDropdownOpen = false;
     }
   }
-
   // Generate Documentation from API
-  isGeneratingDocumentation: boolean = false;
   generateDocumentation(files: File[], sources: { newSource: string }[]) {
     this.isGeneratingDocumentation = true;
     this.documentationService.setGeneratedContent('');
@@ -419,8 +413,7 @@ For further details, contact:
       },
     });
   }
-  
-
+  // export as text
   exportAsText() {
     const blob = new Blob([this.releaseNotes], { type: 'text/plain' });
     const url = window.URL.createObjectURL(blob);
@@ -432,8 +425,7 @@ For further details, contact:
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
   }
-
-   // getting product list from api
+  // getting product list from api
   gettingProductListFromApi() {
     this.apiService.get<any>('list_products').subscribe({
       next: async (data) => {
