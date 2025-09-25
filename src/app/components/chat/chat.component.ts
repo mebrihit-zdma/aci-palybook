@@ -11,6 +11,7 @@ import { AnswerSource, ChatMessage, ResponseMessage, ResponseSource, ChatHistory
 import { extractAnswerText, extractfollowUpQuestions, convertMarkdown, extractSources, extractResponseSources } from '../../utils/chat-utils';
 import { UserService } from '../../services/user.service';
 import { StreamService } from '../../services/stream.service';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -22,12 +23,12 @@ import { StreamService } from '../../services/stream.service';
 })
 export class ChatComponent {
 
-  app_id = "67daf330d62c5ade928150d1";
-  model_name ="azure/gpt-4o";
-  top_k = 3;
+  app_id: string = "";
+  model_name: string = "";
+  top_k: number = 0;
+  userId: any = "8c8cda2b-cda6-41c2-927d-511d40724810-test-chat-v2";
   currentDate: Date = new Date(); // gets current date/time
   userName: string | null = 'User Name';
-  userId: any = "8c8cda2b-cda6-41c2-927d-511d40724810-test-chat-v2";
   sessionId: any = "";
   askedQuestion: string = '';
   sources: AnswerSource[] = [];
@@ -55,9 +56,11 @@ export class ChatComponent {
   constructor(private userService: UserService, private apiService: ApiService, private chatService: ChatService, private sanitizer: DomSanitizer, private onboardingService: OnboardingService, private streamService: StreamService,  private route: ActivatedRoute, private router: Router){}
 
   ngOnInit() {
-    // if(this.chatService.getIsChatButton()){
-    //   this.createSessionId(this.userId);
-    // }
+    // get app_id, model_name, top_k from environment
+    this.app_id = environment.app_id;
+    this.model_name = environment.model_name;
+    this.top_k = environment.top_k;
+
     this.getShortcutsPrompt()
     this.createSessionId(this.userId);
     this.userService.userName$.subscribe(name => {
