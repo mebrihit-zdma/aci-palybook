@@ -19,14 +19,6 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent {
 
-  constructor(private userService: UserService, 
-    private tooltipService: TooltipService,  
-    private documentationService: DocumentationService, 
-    private router: Router, 
-    private onboardingService: OnboardingService,
-    private apiService: ApiService
-  ) {}
-
   listNumber = 2;
   userName: string | null = 'User Name';
   userRole: string | null = 'Product Owner';
@@ -43,6 +35,29 @@ export class DashboardComponent {
   selectedWidgetList: string[] = [];
   selectedCustomizeWidgets: string[] = [];
   releaseHistory: any[] = [];
+  isProductDropdownOpen = false;
+  // tooltip
+  skipTooltipValue = false;
+  aciPaymentHubTooltip = false;
+  createDocTooltip = false;
+  startNewChatTooltip = false;
+ 
+  dashboardModelDone = false;
+  aciPaymentHubTooltipDone = false;
+  createDocTooltipDone = false;
+  startNewChatTooltipDone = false;
+  // Customize Widgets
+  isCustomizeWidgets = false;
+
+  // constructor
+  constructor(private userService: UserService, 
+    private tooltipService: TooltipService,  
+    private documentationService: DocumentationService, 
+    private router: Router, 
+    private onboardingService: OnboardingService,
+    private apiService: ApiService
+  ) {}
+  // ngOnInit
   ngOnInit() {
     this.userService.userName$.subscribe(name => {
       this.userName = name;
@@ -68,7 +83,7 @@ export class DashboardComponent {
     // getting documentation history from api
     this.gettingDocumentationHistoryFromApi();
   }
-  isProductDropdownOpen = false;
+  
   toggleProductDropdown() {
     this.isProductDropdownOpen = !this.isProductDropdownOpen;
   }
@@ -76,18 +91,7 @@ export class DashboardComponent {
     this.selectedProduct = product;
     this.isProductDropdownOpen = false;
   }
- 
   // tooltip
-  skipTooltipValue = false;
-  aciPaymentHubTooltip = false;
-  createDocTooltip = false;
-  startNewChatTooltip = false;
-
-  dashboardModelDone = false;
-  aciPaymentHubTooltipDone = false;
-  createDocTooltipDone = false;
-  startNewChatTooltipDone = false;
-
   skipTooltip(){
     this.skipTooltipValue = true;
     this.tooltipService.setSkipTooltipValue(true)
@@ -99,7 +103,6 @@ export class DashboardComponent {
   skipAciPaymentHubTooltip(){
     this.aciPaymentHubTooltipDone = true;
   }
-
   goToCreateDocTooltip(){
     this.createDocTooltip = true;
     this.aciPaymentHubTooltipDone = true;
@@ -114,9 +117,6 @@ export class DashboardComponent {
   doneWithTooltip(){
     this.startNewChatTooltipDone = true;
   }
-
-  // Customize Widgets
-  isCustomizeWidgets = false;
   customizeWidgets(){
     this.isCustomizeWidgets = true;
   }
