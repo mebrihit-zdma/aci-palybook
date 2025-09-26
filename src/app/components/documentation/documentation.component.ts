@@ -9,6 +9,7 @@ import { ReleaseHistoryTableComponent } from '../../components/tables/release-hi
 import { Router, TitleStrategy } from '@angular/router';
 import { MarkdownModule } from 'ngx-markdown';
 import { Subscription } from 'rxjs';
+import jsPDF from "jspdf";
 
 @Component({
   selector: 'app-documentation',
@@ -58,6 +59,8 @@ export class DocumentationComponent implements OnInit, OnDestroy {
   showChatBox = false;
   isGeneratingDocumentation: boolean = false;
   releaseNotes: string = '';
+  generatedFileName: string = '';
+  
 
   // constructor
   constructor(private userService: UserService, private documentationService: DocumentationService, private router: Router, private onboardingService: OnboardingService, private apiService: ApiService ) {}
@@ -403,7 +406,10 @@ export class DocumentationComponent implements OnInit, OnDestroy {
   
     this.apiService.generateDocumentation(formData).subscribe({
       next: (data: any) => {
+        console.log("API Response:", data);
         this.documentationService.setGeneratedContent(data.generated_content);
+        this.generatedFileName = data.pdf_filename;
+        console.log("fileName:", data.pdf_filename);
         this.releaseNotes = data.generated_content;
         this.isGeneratingDocumentation = false;
       },
@@ -415,15 +421,301 @@ export class DocumentationComponent implements OnInit, OnDestroy {
   }
   // export as text
   exportAsText() {
-    const blob = new Blob([this.releaseNotes], { type: 'text/plain' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'release-notes.txt';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    window.URL.revokeObjectURL(url);
+    try {
+      console.log('Starting PDF export...');
+      console.log('Release notes content:', this.releaseNotes);
+      
+      // Check if we have content to export
+      if (!this.releaseNotes || this.releaseNotes.trim() === '') {
+        console.warn('No content to export');
+        alert('No content available to export. Please generate documentation first.');
+        return;
+      }
+
+    const doc = new jsPDF();
+      const pageWidth = 190; // Page width in mm
+      const pageHeight = 280; // Page height in mm
+      const margin = 20; // Increased margin for cleaner look
+      let yPosition = margin;
+      
+      // Parse and format the markdown content
+      const formattedContent = this.parseMarkdownForPDF(this.releaseNotes);
+      console.log('Formatted content:', formattedContent);
+      
+      // Add content with proper formatting
+      for (const element of formattedContent) {
+        // Skip spacing elements
+        if (element.type === 'spacing') {
+          yPosition += element.height;
+          continue;
+        }
+        
+        // Check if we need a new page
+        if (yPosition + element.height > pageHeight - margin) {
+          doc.addPage();
+          yPosition = margin;
+        }
+        
+        // Set font based on element type - matching the clean document style
+        if (element.type === 'h1') {
+          doc.setFontSize(18); // Larger for main title
+          doc.setFont('helvetica', 'bold');
+          doc.setTextColor(0, 0, 0);
+        } else if (element.type === 'h2') {
+          doc.setFontSize(12); // Standard size for section headings
+          doc.setFont('helvetica', 'bold');
+          doc.setTextColor(0, 0, 0);
+        } else if (element.type === 'h3') {
+          doc.setFontSize(11);
+          doc.setFont('helvetica', 'bold');
+          doc.setTextColor(0, 0, 0);
+        } else if (element.type === 'h4') {
+          doc.setFontSize(10);
+          doc.setFont('helvetica', 'bold');
+          doc.setTextColor(0, 0, 0);
+        } else if (element.type === 'numbered_list') {
+          doc.setFontSize(10);
+          doc.setFont('helvetica', 'normal');
+          doc.setTextColor(0, 0, 0);
+        } else if (element.type === 'bullet_list') {
+          doc.setFontSize(10);
+          doc.setFont('helvetica', 'normal');
+          doc.setTextColor(0, 0, 0);
+        } else if (element.type === 'bold') {
+          doc.setFontSize(10);
+          doc.setFont('helvetica', 'bold');
+          doc.setTextColor(0, 0, 0);
+        } else {
+          doc.setFontSize(10);
+          doc.setFont('helvetica', 'normal');
+          doc.setTextColor(0, 0, 0);
+        }
+        
+        // Add the text with proper spacing and indentation
+        if (element.lines && element.lines.length > 0) {
+          for (const line of element.lines) {
+            if (line && line.trim()) {
+              let xPosition = margin;
+              if (element.type === 'bullet_list') {
+                xPosition = margin + 8; // Indent bullet points
+              } else if (element.type === 'numbered_list') {
+                xPosition = margin + 8; // Indent numbered items
+              }
+              doc.text(line, xPosition, yPosition);
+              yPosition += 5; // Consistent line spacing
+            }
+          }
+        } else if (element.text && element.text.trim()) {
+          let xPosition = margin;
+          if (element.type === 'bullet_list') {
+            xPosition = margin + 8;
+          } else if (element.type === 'numbered_list') {
+            xPosition = margin + 8;
+          }
+          doc.text(element.text, xPosition, yPosition);
+          yPosition += 5;
+        }
+        
+        // Add proper spacing after different element types
+        if (element.type === 'h1') {
+          yPosition += 10; // More space after main title
+        } else if (element.type.startsWith('h')) {
+          yPosition += 6; // Space after section headings
+        } else if (element.type === 'numbered_list' || element.type === 'bullet_list') {
+          yPosition += 3; // Small space after list items
+        } else if (element.type === 'text' || element.type === 'bold') {
+          yPosition += 4; // Space after paragraphs
+        }
+      }
+      
+      // Save the document
+      const fileName = this.generatedFileName ? 
+        this.generatedFileName.replace('.pdf', '') + '.pdf' : 
+        'release-notes.pdf';
+      
+      console.log('Saving PDF with filename:', fileName);
+      doc.save(fileName);
+      console.log('PDF export completed successfully');
+      
+    } catch (error) {
+      console.error('Error during PDF export:', error);
+      alert('Error exporting PDF. Please try again.');
+    }
+  }
+
+  // Parse markdown content for PDF formatting
+  private parseMarkdownForPDF(content: string): any[] {
+    if (!content || typeof content !== 'string') {
+      console.warn('Invalid content provided to parseMarkdownForPDF');
+      return [];
+    }
+
+    const elements: any[] = [];
+    const lines = content.split('\n');
+    
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+      
+      if (!line) {
+        elements.push({ type: 'spacing', height: 3 });
+        continue;
+      }
+      
+      try {
+        // Headers
+        if (line.startsWith('# ')) {
+          const text = line.substring(2).trim();
+          if (text) {
+            const cleanText = this.removeBoldMarkers(text);
+            const wrappedLines = this.wrapText(cleanText, 160);
+            elements.push({ type: 'h1', text: cleanText, lines: wrappedLines, height: wrappedLines.length * 6 + 10 });
+          }
+        } else if (line.startsWith('## ')) {
+          const text = line.substring(3).trim();
+          if (text) {
+            const cleanText = this.removeBoldMarkers(text);
+            const wrappedLines = this.wrapText(cleanText, 160);
+            elements.push({ type: 'h2', text: cleanText, lines: wrappedLines, height: wrappedLines.length * 6 + 8 });
+          }
+        } else if (line.startsWith('### ')) {
+          const text = line.substring(4).trim();
+          if (text) {
+            const cleanText = this.removeBoldMarkers(text);
+            const wrappedLines = this.wrapText(cleanText, 160);
+            elements.push({ type: 'h3', text: cleanText, lines: wrappedLines, height: wrappedLines.length * 6 + 6 });
+          }
+        } else if (line.startsWith('#### ')) {
+          const text = line.substring(5).trim();
+          if (text) {
+            const cleanText = this.removeBoldMarkers(text);
+            const wrappedLines = this.wrapText(cleanText, 160);
+            elements.push({ type: 'h4', text: cleanText, lines: wrappedLines, height: wrappedLines.length * 6 + 6 });
+          }
+        }
+        // Lists
+        else if (line.startsWith('- ') || line.startsWith('* ')) {
+          const text = line.substring(2).trim();
+          if (text) {
+            const cleanText = this.removeBoldMarkers(text);
+            const wrappedLines = this.wrapText(`• ${cleanText}`, 155);
+            elements.push({ type: 'bullet_list', text: cleanText, lines: wrappedLines, height: wrappedLines.length * 5 + 3 });
+          }
+        } else if (/^\d+\.\s/.test(line)) {
+          const match = line.match(/^(\d+)\.\s(.+)$/);
+          if (match) {
+            const number = match[1];
+            const text = match[2].trim();
+            const cleanText = this.removeBoldMarkers(text);
+            const wrappedLines = this.wrapText(`${number}. ${cleanText}`, 155);
+            elements.push({ type: 'numbered_list', text: cleanText, lines: wrappedLines, height: wrappedLines.length * 5 + 3 });
+          }
+        }
+        // Tables (basic support)
+        else if (line.includes('|')) {
+          const cells = line.split('|').map(cell => cell.trim()).filter(cell => cell);
+          if (cells.length > 1) {
+            const cleanCells = cells.map(cell => this.removeBoldMarkers(cell));
+            const tableLine = cleanCells.join(' | ');
+            const wrappedLines = this.wrapText(tableLine, 160);
+            elements.push({ type: 'table', text: tableLine, lines: wrappedLines, height: wrappedLines.length * 6 + 3 });
+          }
+        }
+        // Regular text
+        else {
+          // Check if line contains bold text
+          if (line.includes('**')) {
+            const boldElements = this.parseBoldText(line);
+            elements.push(...boldElements);
+          } else {
+            const cleanText = this.removeBoldMarkers(line);
+            const wrappedLines = this.wrapText(cleanText, 160);
+            elements.push({ type: 'text', text: cleanText, lines: wrappedLines, height: wrappedLines.length * 6 + 3 });
+          }
+        }
+      } catch (error) {
+        console.error('Error parsing line:', line, error);
+        // Fallback to regular text
+        const cleanText = this.removeBoldMarkers(line);
+        const wrappedLines = this.wrapText(cleanText, 160);
+        elements.push({ type: 'text', text: cleanText, lines: wrappedLines, height: wrappedLines.length * 6 + 3 });
+      }
+    }
+    
+    return elements;
+  }
+
+  // Remove bold markers from text
+  private removeBoldMarkers(text: string): string {
+    if (!text || typeof text !== 'string') {
+      return text;
+    }
+    return text.replace(/\*\*(.*?)\*\*/g, '$1');
+  }
+
+  // Parse bold text and return formatted elements
+  private parseBoldText(line: string): any[] {
+    const elements: any[] = [];
+    const parts = line.split(/(\*\*.*?\*\*)/g);
+    
+    for (const part of parts) {
+      if (!part) continue;
+      
+      if (part.startsWith('**') && part.endsWith('**')) {
+        // Bold text - remove ** markers
+        const boldText = part.slice(2, -2);
+        if (boldText.trim()) {
+          const wrappedLines = this.wrapText(boldText, 160);
+          elements.push({ 
+            type: 'bold', 
+            text: boldText, 
+            lines: wrappedLines, 
+            height: wrappedLines.length * 6 + 3 
+          });
+        }
+      } else if (part.trim()) {
+        // Regular text
+        const wrappedLines = this.wrapText(part, 160);
+        elements.push({ 
+          type: 'text', 
+          text: part, 
+          lines: wrappedLines, 
+          height: wrappedLines.length * 6 + 3 
+        });
+      }
+    }
+    
+    return elements;
+  }
+
+  // Helper method to wrap text
+  private wrapText(text: string, maxWidth: number): string[] {
+    if (!text || typeof text !== 'string') {
+      return [];
+    }
+
+    const words = text.split(' ');
+    const lines: string[] = [];
+    let currentLine = '';
+    
+    for (const word of words) {
+      if (!word) continue; // Skip empty words
+      
+      const testLine = currentLine + (currentLine ? ' ' : '') + word;
+      if (testLine.length <= maxWidth / 2.8) { // More precise character width for cleaner wrapping
+        currentLine = testLine;
+      } else {
+        if (currentLine) {
+          lines.push(currentLine);
+        }
+        currentLine = word;
+      }
+    }
+    
+    if (currentLine) {
+      lines.push(currentLine);
+    }
+    
+    return lines.length > 0 ? lines : [text];
   }
   // getting product list from api
   gettingProductListFromApi() {
