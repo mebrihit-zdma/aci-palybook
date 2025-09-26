@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { ApiService } from '../../services/api.service';
 import { OnboardingService } from '../../services/onboarding.service';
+import { UserRoleService } from '../../services/user-role.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -16,7 +17,13 @@ import { FormsModule } from '@angular/forms';
 })
 export class OnBoardingPageComponent {
   
-  constructor(private userService: UserService, private router: Router, private apiService: ApiService, private onboardingService: OnboardingService ) {}
+  constructor(
+    private userService: UserService, 
+    private router: Router, 
+    private apiService: ApiService, 
+    private onboardingService: OnboardingService,
+    private userRoleService: UserRoleService
+  ) {}
 
   userRole: string | null = 'Product Owner';
   roleList: any[] = [];
@@ -77,19 +84,24 @@ export class OnBoardingPageComponent {
   }
 
   goToPoductsSection(role: any) {
-    this.userService.setUserRole(role.name)
     this.personaId = role.id;
-    this.hiddenProductsSection = false; 
+    this.hiddenProductsSection = false;
+    
+    // Use the shared role selection service to set user role and fetch widgets
+    this.userRoleService.setUserRoleAndFetchWidgets(role).then((data) => {
+      this.widgetsList = data.widgetsList;
+    }).catch((err) => {
+      console.error('Error in role selection:', err);
+    });
   }
   onRoleSelected(item: any): void {
     this.selectedRoleList = item.name;
-    // Option B: Fetch from API
-    this.apiService.get<any>(`get_persona/${item.id}`).subscribe({
-      next: (data) => {
-        this.widgetsList = data.widgets;
-        this.onboardingService.setPersonaWidgetList(data.widgets)
-      },
-      error: (err) => console.error('Error fetching widgets:', err),
+    
+    // Use the shared role selection service
+    this.userRoleService.onRoleSelected(item).then((data) => {
+      this.widgetsList = data.widgetsList;
+    }).catch((err) => {
+      console.error('Error in role selection:', err);
     });
   }
 
@@ -128,16 +140,6 @@ export class OnBoardingPageComponent {
     const widgetsList = this.widgetsList.filter(w => this.selectedPersonalize.includes(w.name))
     this.onboardingService.setSelectedWidgetList(widgetsList);
   }
-  productOwnerRole(){
-    this.apiService.get<any>(`get_persona/682f7f2b824237055c016c39`).subscribe({
-      next: (data) => {
-        this.widgetsList = data.widgets;
-        this.onboardingService.setPersonaWidgetList(data.widgets)
-      },
-      error: (err) => console.error('Error fetching widgets:', err),
-    });
-    this.goToPoductsSection('userRole');
-  }
   skipOnboarding(){
   
     this.onboardingService.setSelectedWidgetList(this.widgetsList);
@@ -155,10 +157,11 @@ export class OnBoardingPageComponent {
         { 
           "id": this.personaId, 
           "name": this.selectedRoleList,
-          "widgets": this.widgetsList
+          "widgets": this.onboardingService.getSelectedWidgetList(),
         }
       ],
-      "products": this.productsList
+      "products": this.productsList,
+      // "products": this.onboardingService.getSelectedProduct(),
     }
     this.apiService.createUserSetting(payload).subscribe({
       next: (data) => {

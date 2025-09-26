@@ -74,8 +74,18 @@ export class DashboardComponent {
     } else {
         this.gettingProductListFromApi();
     }
-    this.personaWidgetList = this.onboardingService.getPersonaWidgetList()
-    this.selectedWidgetList = this.onboardingService.getSelectedWidgetList()
+    // Subscribe to persona widget list changes reactively
+    this.onboardingService.getPersonaWidgetList$().subscribe(widgetList => {
+      this.personaWidgetList = widgetList;
+    });
+    
+    // Subscribe to widget list changes reactively
+    this.onboardingService.getSelectedWidgetList$().subscribe(widgetList => {
+      this.selectedWidgetList = widgetList;
+    });
+    
+    // Initial load
+    this.selectedWidgetList = this.onboardingService.getSelectedWidgetList();
     
     this.documentationLandingPage = this.documentationService.getDocumentationLandingPage();
     this.documentationGeneratingPage = this.documentationService.getDocumentationGeneratingPage(); 
@@ -224,7 +234,6 @@ export class DashboardComponent {
   gettingDocumentationHistoryFromApi() {
     this.apiService.getDocumentationHistory().subscribe({
       next: async (data: any) => {
-        console.log("Documentation History: ", data);
         this.releaseHistory = Array.isArray(data) ? data : [];
       },  
       error: (err) => {

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,13 @@ export class OnboardingService {
   private fullProductList: any[] = [];
   private selectedWidgetList: string[] = [];
   private personaWidgetList: string[] = [];
+
+  // Reactive subjects for widget lists
+  private selectedWidgetListSubject = new BehaviorSubject<string[]>([]);
+  selectedWidgetList$ = this.selectedWidgetListSubject.asObservable();
+  
+  private personaWidgetListSubject = new BehaviorSubject<string[]>([]);
+  personaWidgetList$ = this.personaWidgetListSubject.asObservable();
 
   constructor() { }
 
@@ -49,17 +57,28 @@ export class OnboardingService {
 
   setSelectedWidgetList(selectedWidgetList: string[]): void {
     this.selectedWidgetList = selectedWidgetList;
+    this.selectedWidgetListSubject.next(selectedWidgetList);
   }
 
   getSelectedWidgetList(): string[] {
     return this.selectedWidgetList;
   }
 
+  getSelectedWidgetList$(): Observable<string[]> {
+    return this.selectedWidgetList$;
+  }
+
   setPersonaWidgetList(personaWidgetList: string[]): void {
+    console.log("OnboardingService: Setting persona widget list to:", personaWidgetList);
     this.personaWidgetList = personaWidgetList;
+    this.personaWidgetListSubject.next(personaWidgetList);
   }
 
   getPersonaWidgetList(): string[] {
     return this.personaWidgetList;
+  }
+
+  getPersonaWidgetList$(): Observable<string[]> {
+    return this.personaWidgetList$;
   }
 }

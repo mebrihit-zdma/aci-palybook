@@ -731,7 +731,6 @@ export class DocumentationComponent implements OnInit, OnDestroy {
   gettingDocumentationHistoryFromApi() {
     this.apiService.getDocumentationHistory().subscribe({
       next: async (data: any) => {
-        console.log("Documentation History: ", data);
         this.releaseHistory = Array.isArray(data) ? data : [];
       },  
       error: (err) => {

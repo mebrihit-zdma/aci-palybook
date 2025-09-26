@@ -7,6 +7,7 @@ import { UserService } from './services/user.service';
 import { LoginService } from './services/login.service';
 import { ApiService } from './services/api.service';
 import { OnboardingService } from './services/onboarding.service';
+import { UserRoleService } from './services/user-role.service';
 import { HttpClient } from '@angular/common/http';
 import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfiguration } from '@azure/msal-angular';
 import { InteractionStatus, RedirectRequest } from '@azure/msal-browser';
@@ -41,6 +42,7 @@ export class AppComponent implements OnInit, OnDestroy  {
     private router: Router,
     private apiService: ApiService,
     private onboardingService: OnboardingService,
+    private userRoleService: UserRoleService,
   ) { }
 
   ngOnInit(): void {
@@ -89,23 +91,17 @@ export class AppComponent implements OnInit, OnDestroy  {
               .catch(err => console.error("Error fetching profile picture:", err));
   
               // Check user settings and navigate accordingly
-              // const userId = "68d1bed409b025cb631e4330";
-              const userId = "testlast12345-product-test-555";
+              const userId = "68d4a2e509b025cb631e438e";
+              // const userId = "testlast12345-product-test-555";
               // const userId = this.userService.getUserId();
 
               this.apiService.getUserSettings<any>(userId).subscribe({
                 next: (data) => {
-                  console.log("user settings data: ", data);
+                  console.log("user settings data from app.component: ", data);
                   // If user settings exist, navigate to dashboard-page
                   if (data) {
-                    // set the user role
-                    this.userService.setUserRole(data.personas[0].name);
-                    // set the widgets list
-                    this.onboardingService.setPersonaWidgetList(data.personas[0].widgets);
-                    
-                    // set the product list
-                    const productNames = data.products.map((product: any) => product.name);
-                    this.onboardingService.setProductList(productNames);
+                    // Use the shared role selection service to handle role, widgets, and products
+                    this.userRoleService.setupUserFromSettings(data);
                     this.userService.setIsUserHasAccountSetup(true);
                     // navigate to dashboard-page
                     this.router.navigate(['/dashboard-page']);
