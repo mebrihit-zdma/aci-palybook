@@ -403,8 +403,8 @@ For further details, contact:
     this.apiService.generateDocumentation(formData).subscribe({
       next: (data: any) => {
         console.log("API Response:", data);
-        this.documentationService.setGeneratedContent(data.message);
-        // this.documentationService.setGeneratedContent(data.generated_content);
+        // this.documentationService.setGeneratedContent(data.message);
+        this.documentationService.setGeneratedContent(data.generated_content);
         this.isGeneratingDocumentation = false;
       },
       error: (err: any) => {
