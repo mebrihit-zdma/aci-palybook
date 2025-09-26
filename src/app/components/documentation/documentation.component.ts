@@ -57,6 +57,7 @@ export class DocumentationComponent implements OnInit, OnDestroy {
   isModalOpen = false; // Initial state (modal is closed)
   showChatBox = false;
   isGeneratingDocumentation: boolean = false;
+  releaseNotes: string = '';
 
   // constructor
   constructor(private userService: UserService, private documentationService: DocumentationService, private router: Router, private onboardingService: OnboardingService, private apiService: ApiService ) {}
@@ -298,41 +299,41 @@ export class DocumentationComponent implements OnInit, OnDestroy {
   }
 
   // export section
-  releaseNotes: string = `
-Example: ACI Payment Gateway – Release Notes (Version 2.5.0)
+//   releaseNotes: string = `
+// Example: ACI Payment Gateway – Release Notes (Version 2.5.0)
 
-Release Date: March 15, 2025
+// Release Date: March 15, 2025
 
-Prepared By: Product Management Team
+// Prepared By: Product Management Team
 
-1. Overview
-This release introduces enhanced security measures, improved payment processing speed, and new API integrations to streamline bank and merchant operations. Several bug fixes and performance optimizations have also been included.
+// 1. Overview
+// This release introduces enhanced security measures, improved payment processing speed, and new API integrations to streamline bank and merchant operations. Several bug fixes and performance optimizations have also been included.
 
-2. New Features & Enhancements
-Feature    | Description
------------|-----------------------------------------------------
-Enhanced Transaction Security | Implemented multi-layer fraud detection with AI-driven anomaly detection.
-Faster Payment Processing | Optimized transaction routing to reduce processing time by 20%.
-New API for Custom Reports | Introduced API endpoints for real-time payment tracking and data export.
+// 2. New Features & Enhancements
+// Feature    | Description
+// -----------|-----------------------------------------------------
+// Enhanced Transaction Security | Implemented multi-layer fraud detection with AI-driven anomaly detection.
+// Faster Payment Processing | Optimized transaction routing to reduce processing time by 20%.
+// New API for Custom Reports | Introduced API endpoints for real-time payment tracking and data export.
 
-3. Bug Fixes & Performance Improvements
-Issue    | Resolution
----------|-----------------------------------------------------
-Payment approval delays for high-volume transactions | Improved load balancing and optimized database queries.
-Incorrect currency conversion in multi-currency transactions | Fixed calculation logic and tested accuracy.
-Help24 system lagging during peak hours | Upgraded infrastructure and optimized query processing.
+// 3. Bug Fixes & Performance Improvements
+// Issue    | Resolution
+// ---------|-----------------------------------------------------
+// Payment approval delays for high-volume transactions | Improved load balancing and optimized database queries.
+// Incorrect currency conversion in multi-currency transactions | Fixed calculation logic and tested accuracy.
+// Help24 system lagging during peak hours | Upgraded infrastructure and optimized query processing.
 
-4. Known Issues & Workarounds
-- **Issue**: Some users may experience delays when accessing new API features.  
-  **Workaround**: Clear cache or wait for server sync to complete within 5 minutes.
+// 4. Known Issues & Workarounds
+// - **Issue**: Some users may experience delays when accessing new API features.  
+//   **Workaround**: Clear cache or wait for server sync to complete within 5 minutes.
 
-- **Issue**: Legacy integration users may see warning messages when processing transactions.  
-  **Workaround**: Update to the latest API version or contact support for assistance.
+// - **Issue**: Legacy integration users may see warning messages when processing transactions.  
+//   **Workaround**: Update to the latest API version or contact support for assistance.
 
-For further details, contact:
-📩 ACI Support Team – support@aci.com  
-📄 Documentation & FAQs – ACI Knowledge Base
-`;
+// For further details, contact:
+// 📩 ACI Support Team – support@aci.com  
+// 📄 Documentation & FAQs – ACI Knowledge Base
+// `;
   // documentation ask documentaion bot
   documentationAskDocuBot(){
     this.router.navigate(['/dashboard-page/chat']);
@@ -402,9 +403,8 @@ For further details, contact:
   
     this.apiService.generateDocumentation(formData).subscribe({
       next: (data: any) => {
-        console.log("API Response:", data);
-        // this.documentationService.setGeneratedContent(data.message);
         this.documentationService.setGeneratedContent(data.generated_content);
+        this.releaseNotes = data.generated_content;
         this.isGeneratingDocumentation = false;
       },
       error: (err: any) => {
