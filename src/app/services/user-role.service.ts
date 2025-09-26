@@ -78,9 +78,16 @@ export class UserRoleService {
     // Set the Selecte widgets list
     this.onboardingService.setSelectedWidgetList(personaData.widgets);
 
-    // Set the product list
+    // Set the product list and full product list
     const productNames = userSettingsData.products.map((product: any) => product.name);
+    console.log("userSettingsData.products: ", userSettingsData.products[0].name);
+    
+    // Set the full product list first so that setSelectedProduct can find the ID
+    this.onboardingService.setFullProductList(userSettingsData.products);
     this.onboardingService.setProductList(productNames);
+    
+    // Now set the selected product (this will also set the product ID)
+    this.onboardingService.setSelectedProduct(userSettingsData.products[0].name);
 
     // Fetch widgets from API based on role ID
     this.apiService.get<any>(`get_persona/${personaData.id}`).subscribe({

@@ -74,6 +74,11 @@ export class DashboardComponent {
     } else {
         this.gettingProductListFromApi();
     }
+    
+    // Subscribe to selected product changes reactively
+    this.onboardingService.getSelectedProduct$().subscribe(product => {
+      this.selectedProduct = product;
+    });
     // Subscribe to persona widget list changes reactively
     this.onboardingService.getPersonaWidgetList$().subscribe(widgetList => {
       this.personaWidgetList = widgetList;

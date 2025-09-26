@@ -20,14 +20,22 @@ export class OnboardingService {
   private personaWidgetListSubject = new BehaviorSubject<string[]>([]);
   personaWidgetList$ = this.personaWidgetListSubject.asObservable();
 
+  // Reactive subject for selected product
+  private selectedProductSubject = new BehaviorSubject<string>('');
+  selectedProduct$ = this.selectedProductSubject.asObservable();
+
   constructor() { }
 
   setSelectedProduct(selectedProduct: string) {
     this.selectedProduct = selectedProduct;
+    this.selectedProductSubject.next(selectedProduct);
     // Find and set the corresponding product ID
     const product = this.fullProductList.find(p => p.name === selectedProduct);
     if (product) {
       this.selectedProductId = product.id;
+      console.log('OnboardingService: Set selected product:', selectedProduct, 'with ID:', product.id);
+    } else {
+      console.warn('OnboardingService: Product not found in fullProductList:', selectedProduct, 'Available products:', this.fullProductList.map(p => p.name));
     }
   }
 
@@ -80,5 +88,9 @@ export class OnboardingService {
 
   getPersonaWidgetList$(): Observable<string[]> {
     return this.personaWidgetList$;
+  }
+
+  getSelectedProduct$(): Observable<string> {
+    return this.selectedProduct$;
   }
 }

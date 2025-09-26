@@ -86,6 +86,17 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     } else {
         this.gettingProductListFromApi();
     }
+    
+    // Subscribe to selected product changes from onboarding service (for user settings)
+    this.subscriptions.push(
+      this.onboardingService.getSelectedProduct$().subscribe(product => {
+        if (product && product !== this.selectedProduct) {
+          this.selectedProduct = product;
+          // Also update the documentation service to keep them in sync
+          this.documentationService.setSelectedProduct(product);
+        }
+      })
+    );
    
     // Subscribe to documentation service state changes
     this.subscriptions.push(
@@ -390,7 +401,6 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     const formData = new FormData();
     formData.append("created_by", this.userName);
     formData.append("release_date", releaseDate);
-    formData.append("version_number", "1.0.0");
     formData.append("product_type", this.onboardingService.getSelectedProductId());
     formData.append("template_type", this.documentationService.selectedTemplateId);
     formData.append("data_sources", JSON.stringify(sourceStrings));
