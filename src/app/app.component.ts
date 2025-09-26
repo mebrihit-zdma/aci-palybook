@@ -91,7 +91,7 @@ export class AppComponent implements OnInit, OnDestroy  {
               .catch(err => console.error("Error fetching profile picture:", err));
   
               // Check user settings and navigate accordingly
-              const userId = "68d4a2e509b025cb631e438e";
+              const userId = "68d70a8009b025cb631e440a";
               // const userId = "testlast12345-product-test-555";
               // const userId = this.userService.getUserId();
 

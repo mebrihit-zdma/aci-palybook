@@ -152,7 +152,7 @@ export class OnBoardingPageComponent {
     
     const payload = {
       // "user_id": this.userService.getUserId(),
-      "user_id": "1234567test-ppp-6",
+      "user_id": "1234567test-working-v1",
       "personas": [
         { 
           "id": this.personaId, 
