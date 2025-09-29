@@ -25,6 +25,11 @@ export class ReleaseHistoryTableComponent implements OnChanges {
     fromDate: '',
     toDate: ''
   };
+
+  // Checkbox selections for multiple filter values
+  selectedProductTypes: string[] = [];
+  selectedTemplateTypes: string[] = [];
+  selectedCreatedBy: string[] = [];
   
   // Filter dropdown states
   isProductTypeFilterOpen = false;
@@ -55,7 +60,18 @@ export class ReleaseHistoryTableComponent implements OnChanges {
     
     let filtered = [...this.data];
     
-    // Apply filters
+    // Apply checkbox filters (multiple selections)
+    if (this.selectedProductTypes.length > 0) {
+      filtered = filtered.filter(item => this.selectedProductTypes.includes(item.product_type));
+    }
+    if (this.selectedTemplateTypes.length > 0) {
+      filtered = filtered.filter(item => this.selectedTemplateTypes.includes(item.template_type));
+    }
+    if (this.selectedCreatedBy.length > 0) {
+      filtered = filtered.filter(item => this.selectedCreatedBy.includes(item.created_by));
+    }
+    
+    // Apply legacy single-value filters (for backward compatibility)
     if (this.filters.productType) {
       filtered = filtered.filter(item => item.product_type === this.filters.productType);
     }
@@ -65,6 +81,7 @@ export class ReleaseHistoryTableComponent implements OnChanges {
     if (this.filters.createdBy) {
       filtered = filtered.filter(item => item.created_by === this.filters.createdBy);
     }
+    
     // Apply date range filter
     if (this.filters.fromDate || this.filters.toDate) {
       filtered = filtered.filter(item => {
@@ -197,11 +214,18 @@ export class ReleaseHistoryTableComponent implements OnChanges {
       fromDate: '',
       toDate: ''
     };
+    // Clear checkbox selections
+    this.selectedProductTypes = [];
+    this.selectedTemplateTypes = [];
+    this.selectedCreatedBy = [];
     this.currentPage = 1;
   }
 
   hasActiveFilters(): boolean {
-    return Object.values(this.filters).some(filter => filter !== '');
+    return Object.values(this.filters).some(filter => filter !== '') ||
+           this.selectedProductTypes.length > 0 ||
+           this.selectedTemplateTypes.length > 0 ||
+           this.selectedCreatedBy.length > 0;
   }
 
   // Date filter methods
@@ -269,5 +293,77 @@ export class ReleaseHistoryTableComponent implements OnChanges {
     
     // Then toggle the requested one
     this.toggleFilter(filterType);
+  }
+
+  // Checkbox selection methods for Product Type
+  isProductTypeSelected(type: string): boolean {
+    return this.selectedProductTypes.includes(type);
+  }
+
+  toggleProductTypeSelection(type: string): void {
+    const index = this.selectedProductTypes.indexOf(type);
+    if (index > -1) {
+      this.selectedProductTypes.splice(index, 1);
+    } else {
+      this.selectedProductTypes.push(type);
+    }
+    this.currentPage = 1; // Reset to first page when filter changes
+  }
+
+  hasProductTypeSelections(): boolean {
+    return this.selectedProductTypes.length > 0;
+  }
+
+  clearProductTypeFilter(): void {
+    this.selectedProductTypes = [];
+    this.currentPage = 1;
+  }
+
+  // Checkbox selection methods for Template Type
+  isTemplateTypeSelected(type: string): boolean {
+    return this.selectedTemplateTypes.includes(type);
+  }
+
+  toggleTemplateTypeSelection(type: string): void {
+    const index = this.selectedTemplateTypes.indexOf(type);
+    if (index > -1) {
+      this.selectedTemplateTypes.splice(index, 1);
+    } else {
+      this.selectedTemplateTypes.push(type);
+    }
+    this.currentPage = 1; // Reset to first page when filter changes
+  }
+
+  hasTemplateTypeSelections(): boolean {
+    return this.selectedTemplateTypes.length > 0;
+  }
+
+  clearTemplateTypeFilter(): void {
+    this.selectedTemplateTypes = [];
+    this.currentPage = 1;
+  }
+
+  // Checkbox selection methods for Created By
+  isCreatedBySelected(creator: string): boolean {
+    return this.selectedCreatedBy.includes(creator);
+  }
+
+  toggleCreatedBySelection(creator: string): void {
+    const index = this.selectedCreatedBy.indexOf(creator);
+    if (index > -1) {
+      this.selectedCreatedBy.splice(index, 1);
+    } else {
+      this.selectedCreatedBy.push(creator);
+    }
+    this.currentPage = 1; // Reset to first page when filter changes
+  }
+
+  hasCreatedBySelections(): boolean {
+    return this.selectedCreatedBy.length > 0;
+  }
+
+  clearCreatedByFilter(): void {
+    this.selectedCreatedBy = [];
+    this.currentPage = 1;
   }
 }
