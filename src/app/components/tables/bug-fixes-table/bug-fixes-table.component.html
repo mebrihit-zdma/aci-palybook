@@ -3,9 +3,69 @@
         <li class="grid grid-cols-[0.75fr_2fr_1fr_1fr_1fr_1fr] gap-4 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]">
             <div class="flex gap-2 justify-start items-center">Issue</div>
             <div class="flex items-center">Description</div>
-            <div class="flex items-center">Priority</div>
-            <div class="flex items-center">Status</div>
-            <div class="flex items-center">Assigned to</div>
+            <div class="flex items-center gap-[4px] relative">
+                Priority
+                <button (click)="toggleFilter('priority')" class="w-[16px] h-[16px] bg-[url('./app/resources/icons/filter-icon.svg')] hover:opacity-70 transition-opacity">
+                </button>
+                <!-- Priority Filter Dropdown -->
+                <div *ngIf="isPriorityFilterOpen" class="absolute top-full left-0 mt-1 bg-white border border-[#E9EAEB] rounded-lg shadow-lg z-10 min-w-[150px]">
+                    <div class="p-2">
+                        <div class="text-xs text-gray-500 mb-2">Filter by Priority</div>
+                        <div *ngFor="let priority of uniquePriorities" 
+                             (click)="applyFilter('priority', priority)"
+                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm">
+                            {{ priority }}
+                        </div>
+                        <div *ngIf="filters.priority" 
+                             (click)="clearFilter('priority')"
+                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm text-red-600 border-t border-gray-200 mt-1">
+                            Clear Filter
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center gap-[4px] relative">
+                Status
+                <button (click)="toggleFilter('status')" class="w-[16px] h-[16px] bg-[url('./app/resources/icons/filter-icon.svg')] hover:opacity-70 transition-opacity">
+                </button>
+                <!-- Status Filter Dropdown -->
+                <div *ngIf="isStatusFilterOpen" class="absolute top-full left-0 mt-1 bg-white border border-[#E9EAEB] rounded-lg shadow-lg z-10 min-w-[150px]">
+                    <div class="p-2">
+                        <div class="text-xs text-gray-500 mb-2">Filter by Status</div>
+                        <div *ngFor="let status of uniqueStatuses" 
+                             (click)="applyFilter('status', status)"
+                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm">
+                            {{ status }}
+                        </div>
+                        <div *ngIf="filters.status" 
+                             (click)="clearFilter('status')"
+                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm text-red-600 border-t border-gray-200 mt-1">
+                            Clear Filter
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center gap-[4px] relative">
+                Assigned to
+                <button (click)="toggleFilter('assignedTo')" class="w-[16px] h-[16px] bg-[url('./app/resources/icons/filter-icon.svg')] hover:opacity-70 transition-opacity">
+                </button>
+                <!-- Assigned To Filter Dropdown -->
+                <div *ngIf="isAssignedToFilterOpen" class="absolute top-full left-0 mt-1 bg-white border border-[#E9EAEB] rounded-lg shadow-lg z-10 min-w-[150px]">
+                    <div class="p-2">
+                        <div class="text-xs text-gray-500 mb-2">Filter by Assigned To</div>
+                        <div *ngFor="let assignee of uniqueAssignedTo" 
+                             (click)="applyFilter('assignedTo', assignee)"
+                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm">
+                            {{ assignee }}
+                        </div>
+                        <div *ngIf="filters.assignedTo" 
+                             (click)="clearFilter('assignedTo')"
+                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm text-red-600 border-t border-gray-200 mt-1">
+                            Clear Filter
+                        </div>
+                    </div>
+                </div>
+            </div>
         </li>
         <li class="grid grid-cols-[0.75fr_2fr_1fr_1fr_1fr_1fr] gap-4 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]" *ngFor="let item of paginatedItems">
             <div class="flex gap-2 justify-start items-center text-primary font-semibold">
@@ -38,10 +98,38 @@
             </div>
             <div class="text-[primary] font-semibold flex items-center">{{ item.viewResolution }}</div>
         </li>
+        <!-- No results message -->
+        <li *ngIf="filteredData.length === 0 && data.length > 0" class="text-center py-8 text-gray-500">
+            <div class="flex flex-col items-center gap-2">
+                <span class="text-lg">No results found</span>
+                <span class="text-sm">Try adjusting your filters</span>
+                <button *ngIf="hasActiveFilters()" 
+                        (click)="clearAllFilters()" 
+                        class="mt-2 text-sm text-blue-600 hover:text-blue-800 underline">
+                    Clear all filters
+                </button>
+            </div>
+        </li>
+        <li *ngIf="data.length === 0" class="text-center py-8 text-gray-500">
+            <div class="flex flex-col items-center gap-2">
+                <span class="text-lg">No bug fixes found</span>
+                <span class="text-sm">No data available</span>
+            </div>
+        </li>
     </ul>
     <!-- pagination controls -->
     <div class="flex justify-between items-center ps-[24px] pe-[50px] py-[8px]">
-        <span class="text-gray-500">{{ currentPage }} of {{ totalPages }}</span>
+        <div class="flex items-center gap-4">
+            <span class="text-gray-500">{{ currentPage }} of {{ totalPages }}</span>
+            <span *ngIf="hasActiveFilters()" class="text-sm text-blue-600">
+                Showing {{ filteredData.length }} of {{ data?.length || 0 }} results
+            </span>
+            <button *ngIf="hasActiveFilters()" 
+                    (click)="clearAllFilters()" 
+                    class="text-xs text-red-600 hover:text-red-800 underline">
+                Clear all filters
+            </button>
+        </div>
         <div class="flex gap-[12px]">
             <button (click)="prevPage()" [disabled]="currentPage === 1" class="scale-[1.5]">‹</button>
             <span>Page {{ currentPage }} of {{ totalPages }}</span>

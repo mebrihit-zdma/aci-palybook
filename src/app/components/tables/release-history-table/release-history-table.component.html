@@ -4,14 +4,93 @@
             <div class="flex items-center">
                 Documentation
             </div>
-            <div class="flex items-center">Product Type</div>
-            <div class="flex items-center">Template Type</div>
-            <div class="flex items-center gap-[4px]">
-                Published date
-                <span class="w-[16px] h-[16px] bg-[url('./app/resources/icons/black-down-arrow-icon.svg')] ">
-                </span>
+            <div class="flex items-center gap-[4px] relative" #productTypeDropdown>
+                Product Type
+                <button (click)="toggleFilterExclusive('productType')" 
+                        class="w-[16px] h-[16px] bg-[url('./app/resources/icons/filter-icon.svg')] hover:opacity-70 transition-opacity cursor-pointer"
+                        [class.opacity-100]="isProductTypeFilterOpen"
+                        [class.opacity-60]="!isProductTypeFilterOpen">
+                </button>
+                <!-- Product Type Filter Dropdown -->
+                <div *ngIf="isProductTypeFilterOpen" class="absolute top-full left-0 mt-1 bg-white border border-[#E9EAEB] rounded-lg shadow-lg z-20 min-w-[150px] max-h-[200px] overflow-y-auto">
+                    <div class="p-2">
+                        <div class="text-xs text-gray-500 mb-2">Filter by Product Type</div>
+                        <div *ngFor="let type of uniqueProductTypes" 
+                             (click)="applyFilter('productType', type)"
+                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm">
+                            {{ type }}
+                        </div>
+                        <div *ngIf="filters.productType" 
+                             (click)="clearFilter('productType')"
+                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm text-red-600 border-t border-gray-200 mt-1">
+                            Clear Filter
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="flex items-center">Created by</div>
+            <div class="flex items-center gap-[4px] relative">
+                Template Type
+                <button (click)="toggleFilter('templateType')" class="w-[16px] h-[16px] bg-[url('./app/resources/icons/filter-icon.svg')] hover:opacity-70 transition-opacity">
+                </button>
+                <!-- Template Type Filter Dropdown -->
+                <div *ngIf="isTemplateTypeFilterOpen" class="absolute top-full left-0 mt-1 bg-white border border-[#E9EAEB] rounded-lg shadow-lg z-10 min-w-[150px]">
+                    <div class="p-2">
+                        <div class="text-xs text-gray-500 mb-2">Filter by Template Type</div>
+                        <div *ngFor="let type of uniqueTemplateTypes" 
+                             (click)="applyFilter('templateType', type)"
+                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm">
+                            {{ type }}
+                        </div>
+                        <div *ngIf="filters.templateType" 
+                             (click)="clearFilter('templateType')"
+                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm text-red-600 border-t border-gray-200 mt-1">
+                            Clear Filter
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center gap-[4px] relative">
+                Published date
+                <button (click)="toggleFilter('publishedDate')" class="w-[16px] h-[16px] bg-[url('./app/resources/icons/filter-icon.svg')] hover:opacity-70 transition-opacity">
+                </button>
+                <!-- Published Date Filter Dropdown -->
+                <div *ngIf="isPublishedDateFilterOpen" class="absolute top-full left-0 mt-1 bg-white border border-[#E9EAEB] rounded-lg shadow-lg z-10 min-w-[150px]">
+                    <div class="p-2">
+                        <div class="text-xs text-gray-500 mb-2">Filter by Published Date</div>
+                        <div *ngFor="let date of uniquePublishedDates" 
+                             (click)="applyFilter('publishedDate', date)"
+                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm">
+                            {{ date }}
+                        </div>
+                        <div *ngIf="filters.publishedDate" 
+                             (click)="clearFilter('publishedDate')"
+                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm text-red-600 border-t border-gray-200 mt-1">
+                            Clear Filter
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center gap-[4px] relative">
+                Created by
+                <button (click)="toggleFilter('createdBy')" class="w-[16px] h-[16px] bg-[url('./app/resources/icons/filter-icon.svg')] hover:opacity-70 transition-opacity">
+                </button>
+                <!-- Created By Filter Dropdown -->
+                <div *ngIf="isCreatedByFilterOpen" class="absolute top-full left-0 mt-1 bg-white border border-[#E9EAEB] rounded-lg shadow-lg z-10 min-w-[150px]">
+                    <div class="p-2">
+                        <div class="text-xs text-gray-500 mb-2">Filter by Created By</div>
+                        <div *ngFor="let creator of uniqueCreatedBy" 
+                             (click)="applyFilter('createdBy', creator)"
+                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm">
+                            {{ creator }}
+                        </div>
+                        <div *ngIf="filters.createdBy" 
+                             (click)="clearFilter('createdBy')"
+                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm text-red-600 border-t border-gray-200 mt-1">
+                            Clear Filter
+                        </div>
+                    </div>
+                </div>
+            </div>
         </li>
         <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_0.5fr] gap-16 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]" *ngFor="let item of paginatedItems">
              <!-- First column (filename) -->
@@ -37,6 +116,17 @@
             </div>
         </li>
         <!-- No results message -->
+        <li *ngIf="filteredData.length === 0 && data.length > 0" class="text-center py-8 text-gray-500">
+            <div class="flex flex-col items-center gap-2">
+                <span class="text-lg">No results found</span>
+                <span class="text-sm">Try adjusting your filters or search criteria</span>
+                <button *ngIf="hasActiveFilters()" 
+                        (click)="clearAllFilters()" 
+                        class="mt-2 text-sm text-blue-600 hover:text-blue-800 underline">
+                    Clear all filters
+                </button>
+            </div>
+        </li>
         <li *ngIf="data.length === 0" class="text-center py-8 text-gray-500">
             <div class="flex flex-col items-center gap-2">
                 <span class="text-lg">No documentation found</span>
@@ -46,7 +136,17 @@
     </ul>
     <!-- pagination controls -->
     <div class="flex justify-between items-center ps-[24px] pe-[50px] py-[8px]">
-        <span class="text-gray-500">{{ currentPage }} of {{ totalPages }}</span>
+        <div class="flex items-center gap-4">
+            <span class="text-gray-500">{{ currentPage }} of {{ totalPages }}</span>
+            <span *ngIf="hasActiveFilters()" class="text-sm text-blue-600">
+                Showing {{ filteredData.length }} of {{ data?.length || 0 }} results
+            </span>
+            <button *ngIf="hasActiveFilters()" 
+                    (click)="clearAllFilters()" 
+                    class="text-xs text-red-600 hover:text-red-800 underline">
+                Clear all filters
+            </button>
+        </div>
         <div class="flex gap-[12px]">
             <button (click)="prevPage()" [disabled]="currentPage === 1" class="scale-[1.5]">‹</button>
             <span>Page {{ currentPage }} of {{ totalPages }}</span>
