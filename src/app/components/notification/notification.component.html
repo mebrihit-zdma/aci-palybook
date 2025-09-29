@@ -1,0 +1,39 @@
+<!-- Bell icon -->
+<div class="flex relative">
+  <span (click)="notificationList()" class="w-[22.76px] h-[29.25px] scale-[0.7] bg-[url('./app/resources/icons/blue-bell-icon.svg')]">
+  </span>
+  <span class="absolute right-[4px] top-[8px] w-[6px] h-[6px] bg-[url('./app/resources/icons/unread-tag.svg')]"></span>
+</div>
+
+<!-- Notification Panel -->
+<div id="toast-notification" [ngClass]="isNotificationList? 'block' : ' hidden'" class="w-full max-w-md text-gray-900 bg-white shadow-sm dark:bg-gray-800 dark:text-gray-300 border border-[#E1E4EA] shadow-[0_8px_26px_rgba(0,0,0,0.12)] drop-shadow-[0_2px_6px_rgba(0,0,0,0.08)] rounded-lg z-50" role="alert">
+  <div class="flex justify-between border-b border-[#DFDFDF]">
+    <span class="mb-1 p-4 text-[20px] font-semibold text-[#0E121B]">Inbox ({{notificationListData.inboxCount}})</span>
+    <button type="button" class="text-[#919399] mb-1 p-4 " (click)="goToMarkReadAll()">Mark all as read</button>
+  </div>
+  <div class="h-[550px] overflow-y-auto">
+    <div class="flex items-start gap-[8px] px-[14px] py-[10px] duration-500  border-[#DFDFDF]" *ngFor="let data of listData | slice:0:(isViewAll ? listData.length : 3); ; index as i" [ngClass]=" {'bg-[#FAFAFA]': data.readStatus === false, 'border-b': i < listData.length, 'border-t': i === listData.length}" >
+      <div class=" relative inline-block shrink-0">
+        <span class="flex w-[32px] h-[32px] bg-[url('./app/resources/icons/alert.svg')]">
+        </span>
+      </div> 
+      <div class="ms-3 text-sm font-normal">
+        <div class="text-[14px] font-semibold text-gray-900 dark:text-white pb-4">{{data.subject}}</div>
+        <div class="text-[14px] text-[#727272] pb-4">{{data.content}}</div> 
+        <span class="text-[12px] text-[#727272] py-[16px] pb-4">{{data.datetimeText}}</span> 
+        <button class="text-[#FF6632] bg-white flex items-center gap-[8px] px-[14px] py-[10px] mt-4 mb-4 rounded-lg  border border-[#FF6632]">
+          <span class="w-[18.33px] h-[18.33px] bg-[url('./app/resources/icons/orange-stars.svg')]">
+          </span>
+          Ask DocuBot
+        </button>   
+      </div>
+      <div class="relative inline-block">
+        <span *ngIf="data.readStatus === false" class="flex w-[6px] h-[6px] bg-[url('./app/resources/icons/unread-tag.svg')]  mt-2">
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="flex items-center border-t border-[#DFDFDF]">
+    <button type="button" class="p-4"(click)="viewAll()">View all</button>
+  </div>
+</div>

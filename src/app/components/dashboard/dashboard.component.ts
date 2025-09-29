@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { SummaryCardComponent } from '../../components/cards/summary-card/summary-card.component';
 import { ReleaseHistoryTableComponent } from '../../components/tables/release-history-table/release-history-table.component';
+import { NotificationComponent } from '../notification/notification.component';
 import { UserService } from '../../services/user.service';
 import { ApiService } from '../../services/api.service';
 import { OnboardingService } from '../../services/onboarding.service';
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, SummaryCardComponent, ReleaseHistoryTableComponent],
+  imports: [CommonModule, FormsModule, SummaryCardComponent, ReleaseHistoryTableComponent, NotificationComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -169,57 +170,6 @@ export class DashboardComponent {
     this.selectedCustomizeWidgets = [];
   }
 
-  // notification  List data 
-  notificationListData = {
-    inboxCount: 4,
-    readCount:2, 
-    messages: [ 
-      { subject: "Here's What's New in ACI Connectic V1.2.3-A", 
-        content: "We've just rolled out the latest product updates. View what's new, improved, or fixed in this release.", 
-        datetimeText: "Today at 9:42 AM",
-        readStatus: false,
-
-      },
-      { subject: "Updated User Manual Now Available", 
-        content: "We've added new sections and clarified existing workflows in the user manual. Review the latest guide to stay aligned with system updates.", 
-        datetimeText: "Yesterday at 5:30 PM",
-        readStatus: false,
-
-      },
-      { subject: "Updated", 
-        content: " View what's new, improved, or fixed in this release.", 
-        datetimeText: "20th February, 2025; 4:30 PM",
-        readStatus: true,
-
-      },
-      { subject: "XXXX", 
-        content: "YYYY", 
-        datetimeText: "2nd January, 2025; 2:15 AM",
-        readStatus: true,
-
-      },
-    ]
-  };
-  listData = this.notificationListData.messages;
-
-  isViewAll = false;
-  viewAll(){ console.log("VIEWALL");
-    this.isViewAll =! this.isViewAll;
-  }
-
-  goToMarkReadAll() {
-    for (let dataUpdate of this.notificationListData.messages) {
-      dataUpdate.readStatus=true;
-    }
-  }
-
-  isNotificationList = false;
-  notificationList(){console.log("NOIFICATION")
-    this.isNotificationList =! this.isNotificationList;
-  }
-  closeNotificationList(){ 
-    this.isNotificationList = false;
-  }
 
   // onClickOutside
   @ViewChild('dropdown') dropdownRef!: ElementRef;
