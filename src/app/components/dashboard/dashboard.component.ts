@@ -135,12 +135,31 @@ export class DashboardComponent {
   doneWithTooltip(){
     this.startNewChatTooltipDone = true;
   }
+  // Customize Widgets
   customizeWidgets(){
     this.isCustomizeWidgets = true;
   }
   closeCustomizeWidgets(){
     this.isCustomizeWidgets = false;
   }
+  toggleCustomizeWidgets(value: string) {
+    const index = this.selectedCustomizeWidgets.indexOf(value);
+    if (index === -1) {
+      this.selectedCustomizeWidgets.push(value);
+    } else {
+      this.selectedCustomizeWidgets.splice(index, 1);
+    }
+  }
+  saveCustomizeWidgets(){
+    this.selectedWidgetList = this.selectedCustomizeWidgets
+    this.isCustomizeWidgets = false;
+  }
+  restoreTodefault(){
+    this.selectedWidgetList = this.onboardingService.getSelectedWidgetList();
+    this.isCustomizeWidgets = false;
+    this.selectedCustomizeWidgets = [];
+  }
+  // Documentation
   goToDocumentationGeneratingPage(){
     this.documentationService.setDocumentationLandingPage(false);
     this.documentationService.setDocumentationGeneratingPage(true); 
@@ -151,27 +170,8 @@ export class DashboardComponent {
   dashboardStartNewChat(){
     this.router.navigate(['/dashboard-page/chat']);
   }
-  toggleCustomizeWidgets(value: string) {
-    const index = this.selectedCustomizeWidgets.indexOf(value);
-    if (index === -1) {
-      this.selectedCustomizeWidgets.push(value);
-    } else {
-      this.selectedCustomizeWidgets.splice(index, 1);
-    }
-  }
-
-  saveCustomizeWidgets(){
-    this.selectedWidgetList = this.selectedCustomizeWidgets
-    this.isCustomizeWidgets = false;
-  }
-  restoreTodefault(){
-    this.selectedWidgetList = this.onboardingService.getSelectedWidgetList();
-    this.isCustomizeWidgets = false;
-    this.selectedCustomizeWidgets = [];
-  }
-
-
-  // onClickOutside
+ 
+  // On Click Outside
   @ViewChild('dropdown') dropdownRef!: ElementRef;
   @HostListener('document:click', ['$event.target'])
   onClickOutside(targetElement: HTMLElement) {
@@ -202,7 +202,6 @@ export class DashboardComponent {
       },
     });
   }
-
   // Search functionality
   onSearchChange() {
     if (!this.searchTerm.trim()) {
