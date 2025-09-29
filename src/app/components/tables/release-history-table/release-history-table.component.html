@@ -6,7 +6,7 @@
             </div>
             <div class="flex items-center gap-[4px] relative" #productTypeDropdown>
                 Product Type
-                <button (click)="toggleFilterExclusive('productType')" 
+                <button (click)="toggleFilter('productType')" 
                         class="w-[16px] h-[16px] bg-[url('./app/resources/icons/filter-icon.svg')] hover:opacity-70 transition-opacity cursor-pointer"
                         [class.opacity-100]="isProductTypeFilterOpen"
                         [class.opacity-60]="!isProductTypeFilterOpen">
