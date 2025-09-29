@@ -2,3 +2,18 @@
     opacity: 0.5;
     pointer-events: none;
 }
+
+.highlight {
+    background-color: #fef3c7;
+    color: #92400e;
+    padding: 1px 2px;
+    border-radius: 2px;
+    font-weight: 600;
+}
+
+.text-ellipsis-30 {
+    max-width: 30ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

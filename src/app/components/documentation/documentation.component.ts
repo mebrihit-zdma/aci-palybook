@@ -41,6 +41,8 @@ export class DocumentationComponent implements OnInit, OnDestroy {
   selectedTemplate: any = 'Select Template';
   generatedContent: any = '';
   releaseHistory: any[] = [];
+  filteredReleaseHistory: any[] = [];
+  searchTerm: string = '';
   private subscriptions: Subscription[] = []; // Subscriptions for cleanup
 
   isOpen = false;
@@ -742,11 +744,31 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     this.apiService.getDocumentationHistory().subscribe({
       next: async (data: any) => {
         this.releaseHistory = Array.isArray(data) ? data : [];
+        this.filteredReleaseHistory = [...this.releaseHistory];
       },  
       error: (err) => {
         console.error('Error fetching documentation history:', err);
         this.releaseHistory = [];
+        this.filteredReleaseHistory = [];
       },
     });
+  }
+
+  // Search functionality
+  onSearchChange() {
+    if (!this.searchTerm.trim()) {
+      this.filteredReleaseHistory = [...this.releaseHistory];
+    } else {
+      this.filteredReleaseHistory = this.releaseHistory.filter(item => {
+        const searchLower = this.searchTerm.toLowerCase();
+        return (
+          item.pdf_filename?.toLowerCase().includes(searchLower) ||
+          item.product_type?.toLowerCase().includes(searchLower) ||
+          item.template_type?.toLowerCase().includes(searchLower) ||
+          item.created_by?.toLowerCase().includes(searchLower) ||
+          item.release_date?.toString().toLowerCase().includes(searchLower)
+        );
+      });
+    }
   }
 }

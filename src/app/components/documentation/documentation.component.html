@@ -70,7 +70,13 @@
                         <!--/* Search */-->
                         <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[8px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-search-text-color text-sm font-medium w-[100%] md:w-[273px]">
                             <span class="flex justify-center items-center w-[12.4px] h-[12.4px] bg-[url('./app/resources/icons/search-icon.svg')]"></span>
-                            <input type="text" placeholder="Search"/>
+                            <input 
+                                type="text" 
+                                placeholder="Search documentation..." 
+                                [(ngModel)]="searchTerm"
+                                (input)="onSearchChange()"
+                                class="flex-1 outline-none bg-transparent"
+                            />
                         </div>
                         <!-- Filter section -->
                         <div class="relative w-[100%] md:w-70">
@@ -102,7 +108,7 @@
             </div>
             <!-- release history list-->
             <div>
-                <app-release-history-table [data]="releaseHistory" [listPerPage]="listNumber" />
+                <app-release-history-table [data]="filteredReleaseHistory" [listPerPage]="listNumber" />
             </div>
         </div>
          <!-- Ask DocuBot section -->

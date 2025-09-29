@@ -1,7 +1,7 @@
 <div class="bg-white border border-[#E9EAEB] rounded-xl text-sm text-caption-color text-sm pt-[4px]">
     <ul>
-        <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_0.5fr] gap-4 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]">
-            <div class="flex gap-2 justify-start items-center">
+        <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_0.5fr] gap-16 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]">
+            <div class="flex items-center">
                 Documentation
             </div>
             <div class="flex items-center">Product Type</div>
@@ -13,17 +13,30 @@
             </div>
             <div class="flex items-center">Created by</div>
         </li>
-        <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_0.5fr] gap-x-4 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]" *ngFor="let item of paginatedItems">
-            <div class="flex items-center">{{ item.pdf_filename }}</div>
-            <div class="flex items-center">{{ item.product_type }}</div>
-            <div class="flex items-center">{{ item.template_type }}</div>
-            <div class="flex items-center">{{ item.release_date | date:'MM/dd/yyyy' }}</div>
+        <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_0.5fr] gap-16 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]" *ngFor="let item of paginatedItems">
+             <!-- First column (filename) -->
+            <div class="flex items-center min-w-0">
+                <span
+                class="truncate block w-full"
+                [innerHTML]="item.pdf_filename | highlight: searchTerm"
+                ></span>
+            </div>
+            <div class="flex items-center whitespace-nowrap" [innerHTML]="item.product_type | highlight: searchTerm"></div>
+            <div class="flex items-center whitespace-nowrap" [innerHTML]="item.template_type | highlight: searchTerm"></div>
+            <div class="flex items-center whitespace-nowrap" [innerHTML]="(item.release_date | date:'MM/dd/yyyy') | highlight: searchTerm"></div>
             <div class="flex justify-start items-center gap-[10px]">
                 <span class="text-primary bg-[#e9eef8] flex rounded-[200px] w-[40px] h-[40px] justify-center items-center">{{ getFirstLetter(item.created_by) }}</span>
-                {{ item.created_by }}
+                <span class="whitespace-nowrap" [innerHTML]="item.created_by | highlight: searchTerm"></span>
             </div>
             <div class="flex items-center">
                 <a class="text-primary font-semibold" href="{{ item.pdf_url }}" target="_blank">View</a>
+            </div>
+        </li>
+        <!-- No results message -->
+        <li *ngIf="data.length === 0" class="text-center py-8 text-gray-500">
+            <div class="flex flex-col items-center gap-2">
+                <span class="text-lg">No documentation found</span>
+                <span class="text-sm">Try adjusting your search criteria</span>
             </div>
         </li>
     </ul>

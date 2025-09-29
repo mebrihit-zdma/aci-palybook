@@ -35,6 +35,8 @@ export class DashboardComponent {
   selectedWidgetList: string[] = [];
   selectedCustomizeWidgets: string[] = [];
   releaseHistory: any[] = [];
+  filteredReleaseHistory: any[] = [];
+  searchTerm: string = '';
   isProductDropdownOpen = false;
   // tooltip
   skipTooltipValue = false;
@@ -241,11 +243,31 @@ export class DashboardComponent {
       next: async (data: any) => {
         console.log('documentation history: ', data);
         this.releaseHistory = Array.isArray(data) ? data : [];
+        this.filteredReleaseHistory = [...this.releaseHistory];
       },  
       error: (err) => {
         console.error('Error fetching documentation history:', err);
         this.releaseHistory = [];
+        this.filteredReleaseHistory = [];
       },
     });
+  }
+
+  // Search functionality
+  onSearchChange() {
+    if (!this.searchTerm.trim()) {
+      this.filteredReleaseHistory = [...this.releaseHistory];
+    } else {
+      this.filteredReleaseHistory = this.releaseHistory.filter(item => {
+        const searchLower = this.searchTerm.toLowerCase();
+        return (
+          item.pdf_filename?.toLowerCase().includes(searchLower) ||
+          item.product_type?.toLowerCase().includes(searchLower) ||
+          item.template_type?.toLowerCase().includes(searchLower) ||
+          item.created_by?.toLowerCase().includes(searchLower) ||
+          item.release_date?.toString().toLowerCase().includes(searchLower)
+        );
+      });
+    }
   }
 }
