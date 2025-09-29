@@ -49,23 +49,43 @@
                     </div>
                 </div>
             </div>
-            <div class="flex items-center gap-[4px] relative">
+            <div class="flex items-center gap-[4px] relative" #publishedDateDropdown>
                 Published date
-                <button (click)="toggleFilter('publishedDate')" class="w-[16px] h-[16px] bg-[url('./app/resources/icons/filter-icon.svg')] hover:opacity-70 transition-opacity">
+                <button (click)="toggleFilter('publishedDate')" 
+                        class="w-[16px] h-[16px] bg-[url('./app/resources/icons/filter-icon.svg')] hover:opacity-70 transition-opacity cursor-pointer"
+                        [class.opacity-100]="isPublishedDateFilterOpen || hasDateFilter()"
+                        [class.opacity-60]="!isPublishedDateFilterOpen && !hasDateFilter()">
                 </button>
-                <!-- Published Date Filter Dropdown -->
-                <div *ngIf="isPublishedDateFilterOpen" class="absolute top-full left-0 mt-1 bg-white border border-[#E9EAEB] rounded-lg shadow-lg z-10 min-w-[150px]">
-                    <div class="p-2">
-                        <div class="text-xs text-gray-500 mb-2">Filter by Published Date</div>
-                        <div *ngFor="let date of uniquePublishedDates" 
-                             (click)="applyFilter('publishedDate', date)"
-                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm">
-                            {{ date }}
+                <!-- Published Date Calendar Picker -->
+                <div *ngIf="isPublishedDateFilterOpen" class="absolute top-full left-0 mt-1 bg-white border border-[#E9EAEB] rounded-lg shadow-lg z-20 min-w-[280px]">
+                    <div class="p-3">
+                        <div class="text-xs text-gray-500 mb-3">Filter by Published Date</div>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-xs text-gray-600 mb-1">From Date:</label>
+                                <input type="date" 
+                                       [(ngModel)]="filters.fromDate" 
+                                       (change)="onDateRangeChange()"
+                                       class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-600 mb-1">To Date:</label>
+                                <input type="date" 
+                                       [(ngModel)]="filters.toDate" 
+                                       (change)="onDateRangeChange()"
+                                       class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500">
+                            </div>
                         </div>
-                        <div *ngIf="filters.publishedDate" 
-                             (click)="clearFilter('publishedDate')"
-                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm text-red-600 border-t border-gray-200 mt-1">
-                            Clear Filter
+                        <div class="flex justify-between items-center mt-3 pt-2 border-t border-gray-200">
+                            <button *ngIf="hasDateFilter()" 
+                                    (click)="clearDateFilter()"
+                                    class="text-xs text-red-600 hover:text-red-800 underline">
+                                Clear Filter
+                            </button>
+                            <button (click)="closeDateFilter()"
+                                    class="text-xs text-blue-600 hover:text-blue-800 underline">
+                                Close
+                            </button>
                         </div>
                     </div>
                 </div>

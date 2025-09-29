@@ -22,7 +22,8 @@ export class ReleaseHistoryTableComponent implements OnChanges {
     productType: '',
     templateType: '',
     createdBy: '',
-    publishedDate: ''
+    fromDate: '',
+    toDate: ''
   };
   
   // Filter dropdown states
@@ -35,7 +36,6 @@ export class ReleaseHistoryTableComponent implements OnChanges {
   uniqueProductTypes: string[] = [];
   uniqueTemplateTypes: string[] = [];
   uniqueCreatedBy: string[] = [];
-  uniquePublishedDates: string[] = [];
 
   // ViewChild references for dropdown elements
   @ViewChild('productTypeDropdown') productTypeDropdown!: ElementRef;
@@ -65,10 +65,21 @@ export class ReleaseHistoryTableComponent implements OnChanges {
     if (this.filters.createdBy) {
       filtered = filtered.filter(item => item.created_by === this.filters.createdBy);
     }
-    if (this.filters.publishedDate) {
+    // Apply date range filter
+    if (this.filters.fromDate || this.filters.toDate) {
       filtered = filtered.filter(item => {
-        const itemDate = new Date(item.release_date).toLocaleDateString('en-US');
-        return itemDate === this.filters.publishedDate;
+        const itemDate = new Date(item.release_date);
+        const fromDate = this.filters.fromDate ? new Date(this.filters.fromDate) : null;
+        const toDate = this.filters.toDate ? new Date(this.filters.toDate) : null;
+        
+        if (fromDate && toDate) {
+          return itemDate >= fromDate && itemDate <= toDate;
+        } else if (fromDate) {
+          return itemDate >= fromDate;
+        } else if (toDate) {
+          return itemDate <= toDate;
+        }
+        return true;
       });
     }
     
@@ -112,16 +123,12 @@ export class ReleaseHistoryTableComponent implements OnChanges {
       this.uniqueProductTypes = [];
       this.uniqueTemplateTypes = [];
       this.uniqueCreatedBy = [];
-      this.uniquePublishedDates = [];
       return;
     }
 
     this.uniqueProductTypes = [...new Set(this.data.map((item: any) => item.product_type).filter(Boolean))] as string[];
     this.uniqueTemplateTypes = [...new Set(this.data.map((item: any) => item.template_type).filter(Boolean))] as string[];
     this.uniqueCreatedBy = [...new Set(this.data.map((item: any) => item.created_by).filter(Boolean))] as string[];
-    this.uniquePublishedDates = [...new Set(this.data.map((item: any) => 
-      new Date(item.release_date).toLocaleDateString('en-US')
-    ).filter(Boolean))] as string[];
   }
 
   toggleFilter(filterType: string) {
@@ -156,7 +163,7 @@ export class ReleaseHistoryTableComponent implements OnChanges {
         this.isCreatedByFilterOpen = false;
         break;
       case 'publishedDate':
-        this.filters.publishedDate = value;
+        // This case is no longer used with the new calendar picker
         this.isPublishedDateFilterOpen = false;
         break;
     }
@@ -175,7 +182,8 @@ export class ReleaseHistoryTableComponent implements OnChanges {
         this.filters.createdBy = '';
         break;
       case 'publishedDate':
-        this.filters.publishedDate = '';
+        this.filters.fromDate = '';
+        this.filters.toDate = '';
         break;
     }
     this.currentPage = 1; // Reset to first page when filter is cleared
@@ -186,13 +194,44 @@ export class ReleaseHistoryTableComponent implements OnChanges {
       productType: '',
       templateType: '',
       createdBy: '',
-      publishedDate: ''
+      fromDate: '',
+      toDate: ''
     };
     this.currentPage = 1;
   }
 
   hasActiveFilters(): boolean {
     return Object.values(this.filters).some(filter => filter !== '');
+  }
+
+  // Date filter methods
+  hasDateFilter(): boolean {
+    return this.filters.fromDate !== '' || this.filters.toDate !== '';
+  }
+
+  onDateRangeChange() {
+    // Validate date range
+    if (this.filters.fromDate && this.filters.toDate) {
+      const fromDate = new Date(this.filters.fromDate);
+      const toDate = new Date(this.filters.toDate);
+      
+      if (fromDate > toDate) {
+        // If from date is after to date, clear the to date
+        this.filters.toDate = '';
+      }
+    }
+    
+    this.currentPage = 1; // Reset to first page when date filter changes
+  }
+
+  clearDateFilter() {
+    this.filters.fromDate = '';
+    this.filters.toDate = '';
+    this.currentPage = 1;
+  }
+
+  closeDateFilter() {
+    this.isPublishedDateFilterOpen = false;
   }
 
   // Click outside to close dropdowns
