@@ -17,3 +17,11 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+/* Tooltip styles */
+.tooltip-text{
+    display: none;
+}
+.tooltip-btn:hover .tooltip-text{
+    display: block;
+}

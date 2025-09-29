@@ -15,11 +15,15 @@
         </li>
         <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_0.5fr] gap-16 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]" *ngFor="let item of paginatedItems">
              <!-- First column (filename) -->
-            <div class="flex items-center min-w-0">
-                <span
-                class="truncate block w-full"
-                [innerHTML]="item.pdf_filename | highlight: searchTerm"
-                ></span>
+            <div class="flex items-center min-w-0 relative tooltip-btn">
+                <a
+                class="truncate block w-full cursor-pointer"
+                [innerHTML]="item.pdf_filename | highlight: searchTerm" href="{{ item.pdf_url }}" target="_blank"
+                ></a>
+                <!-- Tooltip for filename -->
+                <div class="tooltip-text text-[#000000] bg-[#FFFFFF] rounded-sm py-[4px] px-[8px] font-normal text-sm absolute left-[0%] top-[100%] z-10 border border-[#E9EAEB]">
+                    {{ item.pdf_filename }}
+                </div>
             </div>
             <div class="flex items-center whitespace-nowrap" [innerHTML]="item.product_type | highlight: searchTerm"></div>
             <div class="flex items-center whitespace-nowrap" [innerHTML]="item.template_type | highlight: searchTerm"></div>
