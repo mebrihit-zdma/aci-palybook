@@ -1,6 +1,6 @@
 <div class="bg-white border border-[#E9EAEB] rounded-xl text-sm text-caption-color text-sm pt-[4px]">
     <ul>
-        <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr] gap-4 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]">
+        <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_0.5fr] gap-4 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]">
             <div class="flex gap-2 justify-start items-center">
                 Documentation
             </div>
@@ -13,21 +13,18 @@
             </div>
             <div class="flex items-center">Created by</div>
         </li>
-        <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr] gap-4 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]" *ngFor="let item of paginatedItems">
-            <div class="flex gap-3 justify-start items-center">
-                <input
-                    type="checkbox"
-                />
-                {{ item.pdf_filename }}
-            </div>
+        <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_0.5fr] gap-x-4 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]" *ngFor="let item of paginatedItems">
+            <div class="flex items-center">{{ item.pdf_filename }}</div>
             <div class="flex items-center">{{ item.product_type }}</div>
             <div class="flex items-center">{{ item.template_type }}</div>
-            <div class="flex items-center">{{ item.release_date }}</div>
+            <div class="flex items-center">{{ item.release_date | date:'MM/dd/yyyy' }}</div>
             <div class="flex justify-start items-center gap-[10px]">
                 <span class="text-primary bg-[#e9eef8] flex rounded-[200px] w-[40px] h-[40px] justify-center items-center">{{ getFirstLetter(item.created_by) }}</span>
                 {{ item.created_by }}
             </div>
-            <!--/* <div class="text-primary font-semibold flex items-center">{{ item.view }}</div> */-->
+            <div class="flex items-center">
+                <a class="text-primary font-semibold" href="{{ item.pdf_url }}" target="_blank">View</a>
+            </div>
         </li>
     </ul>
     <!-- pagination controls -->

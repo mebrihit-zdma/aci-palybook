@@ -1,6 +1,6 @@
 <!-- first doc section -->
 <div class="h-full w-full" [ngClass]="(!documentationLandingPage)? 'hidden' : 'block'">
-    <div class="flex flex-col gap-8 lg:mx-16">
+    <div class="flex flex-col gap-8 lg:mx-10">
         <!-- dropdown section -->
         <div class="flex justify-between ml-[60px] md:ml-0">
             <div class="flex relative">
@@ -100,25 +100,10 @@
                     </div>
                 </div>
             </div>
-            <!-- bug fixes search section -->
-            <!-- <div class="flex justify-between items-center" *ngIf="userRole === 'Help24 Analyst'">
-                <p class="font-medium text-base text-[#19213D]">Bug Fixes in the latest release</p>
-                <div>
-                    <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-search-text-color text-sm font-medium w-[273px]">
-                        <span class="flex justify-center items-center w-[12.4px] h-[12.4px] bg-[url('./app/resources/icons/search-icon.svg')]"></span>
-                        <span class="material-icons">search</span>
-                        <input trpe="text" placeholder="Search"/>
-                    </div>
-                </div>
-            </div> -->
             <!-- release history list-->
             <div>
                 <app-release-history-table [data]="releaseHistory" [listPerPage]="listNumber" />
             </div>
-            <!-- bug fixes list-->
-            <!-- <div *ngIf="userRole === 'Help24 Analyst'">
-                <app-bug-fixes-table [data]="bugFixes" />
-            </div> -->
         </div>
          <!-- Ask DocuBot section -->
         <div>
