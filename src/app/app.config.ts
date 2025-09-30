@@ -3,16 +3,11 @@ import { provideRouter, withEnabledBlockingInitialNavigation } from '@angular/ro
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { isPlatformBrowser } from '@angular/common';
-import { msalInstanceFactory, msalGuardConfigFactory } from './msal-config';
 import { provideMarkdown } from 'ngx-markdown'; 
-import {
-  MSAL_INSTANCE,
-  MSAL_GUARD_CONFIG,
-  MsalService,
-  MsalGuard,
-  MsalBroadcastService
-} from '@azure/msal-angular';
+import { importProvidersFrom } from '@angular/core';
+//keycloak
+import { KeycloakAngularModule, provideKeycloak } from 'keycloak-angular';
+import { keycloakConfig } from './keycloak.config';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -20,28 +15,20 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi()),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideClientHydration(withEventReplay()),
-    {
-      provide: MSAL_INSTANCE,
-      useFactory: () => {
-        const platformId = inject(PLATFORM_ID);
-        if (isPlatformBrowser(platformId)) {
-          return msalInstanceFactory();
-        } else {
-          console.warn('MSAL_INSTANCE not created: running on server');
-          return {} as any;
-        }
+    provideMarkdown(),
+    //keycloak
+    importProvidersFrom(KeycloakAngularModule),
+    provideKeycloak({
+      config: {
+        url: 'http://localhost:8080',        
+        realm: 'aci-playbook',                
+        clientId: 'cx-aci-playbook',          
       },
-      deps: [PLATFORM_ID]
-    },
-    {
-      provide: MSAL_GUARD_CONFIG,
-      useFactory: msalGuardConfigFactory
-    },
-
-    MsalService,
-    MsalBroadcastService,
-    MsalGuard,
-    provideMarkdown()  // 👈 this registers MarkdownService                
+      initOptions: {
+        onLoad: 'login-required',
+        checkLoginIframe: false,
+      },
+    }),               
   ]
 };
 

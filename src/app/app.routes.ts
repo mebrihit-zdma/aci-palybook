@@ -5,20 +5,20 @@ import { ChatComponent } from './components/chat/chat.component';
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 import { OnBoardingPageComponent } from './pages/on-boarding-page/on-boarding-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
-import { MsalGuard } from '@azure/msal-angular';
+import { authGuard } from './keycloak.guard';
 
 export const routes: Routes = [
-    // { path: '', redirectTo: 'welcome-page', pathMatch: 'full' },
-    // { path: 'welcome-page', component: WelcomePageComponent},
-    { path: 'welcome-page',component: WelcomePageComponent, canActivate: [MsalGuard]}, //when we use azure
+    { path: '', redirectTo: 'welcome-page', pathMatch: 'full' },
+    { path: 'welcome-page', component: WelcomePageComponent},
+    { path: 'welcome-page', component: WelcomePageComponent, canActivate: [authGuard] },
     { path: 'on-boarding-page', component: OnBoardingPageComponent },
     { path: 'dashboard-page', 
       component: DashboardPageComponent,
       children: [
-          { path: '', component: DashboardComponent },
-          { path: 'dashboard', component: DashboardComponent },
-          { path: 'documentation', component: DocumentationComponent },
-          { path: 'chat', component: ChatComponent },
-        ] 
+        { path: '', component: DashboardComponent },
+        { path: 'dashboard', component: DashboardComponent },
+        { path: 'documentation', component: DocumentationComponent },
+        { path: 'chat', component: ChatComponent },
+      ] 
     },
 ];
