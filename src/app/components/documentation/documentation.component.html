@@ -65,7 +65,7 @@
                 <div class="flex flex-col md:flex-row gap-4 justify-between">
                     <div class="flex flex-col md:flex-row gap-[8px] justify-center">
                         <!--/* Search */-->
-                        <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[8px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-search-text-color text-sm font-medium w-[100%] md:w-[273px]">
+                        <div class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[8px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-search-text-color text-sm w-[100%] md:w-[273px]">
                             <span class="flex justify-center items-center w-[12.4px] h-[12.4px] bg-[url('./app/resources/icons/search-icon.svg')]"></span>
                             <input 
                                 type="text" 
@@ -74,31 +74,6 @@
                                 (input)="onSearchChange()"
                                 class="flex-1 outline-none bg-transparent"
                             />
-                        </div>
-                        <!-- Filter section -->
-                        <div class="relative w-[100%] md:w-70">
-                            <!-- Filter Dropdown Button -->
-                            <button
-                                type="button"
-                                (click)="toggleFilterDropdown()"
-                                class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-search-text-color text-sm font-medium w-full md:w-50">
-                                <span class="w-[18.33px] h-[18.33px] bg-[url('./app/resources/icons/filter-icon.svg')]">
-                                </span>
-                                Filter
-                            </button>
-                            <!-- Filter Dropdown Menu -->
-                            <div
-                                *ngIf="isFilterDropdownOpen"
-                                class="absolute bg-white border border-gray-200 rounded-md shadow-lg z-10 w-50">
-                                <ul>
-                                    <li
-                                        *ngFor="let filter of filters"
-                                        class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0 text-[#919399]"
-                                    >
-                                        {{ filter }}
-                                    </li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </div>

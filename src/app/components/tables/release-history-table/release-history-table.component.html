@@ -1,10 +1,10 @@
 <div class="bg-white border border-[#E9EAEB] rounded-xl text-sm text-caption-color text-sm pt-[4px]">
     <ul>
         <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_0.5fr] gap-16 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]">
-            <div class="flex items-center">
+            <div class="flex items-center font-medium">
                 Documentation
             </div>
-            <div class="flex items-center gap-[4px] relative" #productTypeDropdown>
+            <div class="flex items-center gap-[4px] relative font-medium" #productTypeDropdown>
                 Product Type
                 <button (click)="toggleFilter('productType')" 
                         class="w-[16px] h-[16px] bg-[url('./app/resources/icons/filter-icon.svg')] hover:opacity-70 transition-opacity cursor-pointer"
@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex items-center gap-[4px] relative">
+            <div class="flex items-center gap-[4px] relative font-medium">
                 Template Type
                 <button (click)="toggleFilter('templateType')" class="w-[16px] h-[16px] bg-[url('./app/resources/icons/filter-icon.svg')] hover:opacity-70 transition-opacity">
                 </button>
@@ -57,7 +57,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex items-center gap-[4px] relative" #publishedDateDropdown>
+            <div class="flex items-center gap-[4px] relative font-medium" #publishedDateDropdown>
                 Published date
                 <button (click)="toggleFilter('publishedDate')" 
                         class="w-[16px] h-[16px] bg-[url('./app/resources/icons/filter-icon.svg')] hover:opacity-70 transition-opacity cursor-pointer"
@@ -100,9 +100,9 @@
                     </div>
                 </div>
             </div>
-            <div class="flex items-center gap-[4px] relative">
+            <div class="flex items-center gap-[4px] relative font-medium">
                 Created by
-                <button (click)="toggleFilter('createdBy')" class="w-[16px] h-[16px] bg-[url('./app/resources/icons/filter-icon.svg')] hover:opacity-70 transition-opacity">
+                <button (click)="toggleFilter('createdBy')" class="w-[16px] h-[16px] bg-[url('./app/resources/icons/filter-icon.svg')] hover:opacity-70 transition-opacity cursor-pointer">
                 </button>
                 <!-- Created By Filter Dropdown -->
                 <div *ngIf="isCreatedByFilterOpen" class="absolute top-full left-0 mt-1 bg-white border border-[#E9EAEB] rounded-lg shadow-lg z-10 min-w-[150px]">
