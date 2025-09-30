@@ -165,3 +165,9 @@
     opacity: 1 !important;
     visibility: visible !important;
 }
+
+/* View Sources dropdown checkbox styling */
+#jira-source-checkbox,
+#pdf-source-checkbox {
+    accent-color: #2726DD;
+}
