@@ -386,9 +386,8 @@
                                         class="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm font-medium border-b border-gray-200 last:border-b-0"
                                         [title]="item.newSource">
                                         <label  class="flex gap-2 view-sources-container">
-                                            <input type="checkbox" checked="checked">
-                                            <span class="my-auto w-[35px] h-[16px] scale-[0.8] bg-[url('./app/resources/icons/green-jira-icon.svg')]">
-                                            </span>
+                                            <input id="jira-source-checkbox" type="checkbox" checked="checked"/>
+                                            <img src="assets/icons/green-jira-icon.svg" alt="Jira Icon" />
                                             <span
                                                 class="whitespace-nowrap overflow-hidden text-ellipsis w-[20ch]"
                                                 [title]="item.newSource">
@@ -403,8 +402,7 @@
                                         [title]="pdfItem.name">
                                         <label  class="flex gap-2 view-sources-container">
                                             <input id="pdf-source-checkbox" type="checkbox" checked="checked">
-                                            <span class="my-auto w-[20px] h-[24px] scale-[0.9]
-                                             bg-[url('./app/resources/icons/pdf-icon.svg')]"></span>
+                                            <img src="assets/icons/pdf-icon.svg" style="transform: scale(0.7)" alt="Jira Icon" />
                                             <span
                                                 class=" my-auto whitespace-nowrap overflow-hidden text-ellipsis w-[8ch]"
                                                 [title]="pdfItem.name">
