@@ -216,7 +216,7 @@
                         </span>
                         <input type="text" 
                             placeholder="Paste your URL here" 
-                            class="text-sm"  
+                            class="text-sm whitespace-nowrap overflow-hidden text-ellipsis w-[25ch]"  
                             [(ngModel)]="newSource" 
                             (keydown.enter)="addSource()"
                         />

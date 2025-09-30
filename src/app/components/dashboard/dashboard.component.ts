@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { SummaryCardComponent } from '../../components/cards/summary-card/summary-card.component';
 import { ReleaseHistoryTableComponent } from '../../components/tables/release-history-table/release-history-table.component';
-import { NotificationComponent } from '../notification/notification.component';
 import { UserService } from '../../services/user.service';
 import { ApiService } from '../../services/api.service';
 import { OnboardingService } from '../../services/onboarding.service';
@@ -14,7 +13,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, SummaryCardComponent, ReleaseHistoryTableComponent, NotificationComponent],
+  imports: [CommonModule, FormsModule, SummaryCardComponent, ReleaseHistoryTableComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
