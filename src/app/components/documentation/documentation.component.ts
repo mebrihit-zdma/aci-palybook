@@ -771,4 +771,22 @@ export class DocumentationComponent implements OnInit, OnDestroy {
       });
     }
   }
+
+  // Resolve icon path based on file extension
+  getFileIcon(fileName: string): string {
+    if (!fileName) {
+      return 'assets/icons/doc-icon.png';
+    }
+    const extension = fileName.split('.').pop()?.toLowerCase();
+    switch (extension) {
+      case 'pdf':
+        return 'assets/icons/pdf-icon.svg';
+      case 'doc':
+        return 'assets/icons/doc-icon.svg';
+      case 'docx':
+        return 'assets/icons/docx-icon.svg';
+      default:
+        return 'assets/icons/doc-icon.svg';
+    }
+  }
 }
