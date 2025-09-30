@@ -1,5 +1,6 @@
 // keycloak.config.ts
 import { environment } from '../environments/environment';
+import { KeycloakOnLoad } from 'keycloak-js';
 
 export const keycloakConfig = {
   config: {
@@ -8,7 +9,7 @@ export const keycloakConfig = {
     clientId: environment.keycloak.clientId,
   },
   initOptions: {
-    onLoad: 'login-required',
+    onLoad: 'login-required' as KeycloakOnLoad,
     checkLoginIframe: false,
   },
 };

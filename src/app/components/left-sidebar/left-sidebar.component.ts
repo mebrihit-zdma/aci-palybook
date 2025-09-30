@@ -6,7 +6,6 @@ import { LoginService } from '../../services/login.service';
 import { SearchChatService } from '../../services/search-chat.service';
 import { ChatHistoryComponent } from '../../components/chat-history/chat-history.component';
 import { ChatService } from '../../services/chat.service';
-// import { MsalService } from '@azure/msal-angular';
 import { DocumentationService } from '../../services/documentation.service';
 import { FormsModule } from '@angular/forms';
 

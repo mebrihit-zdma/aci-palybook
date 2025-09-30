@@ -9,8 +9,6 @@ import { ApiService } from './services/api.service';
 import { OnboardingService } from './services/onboarding.service';
 import { UserRoleService } from './services/user-role.service';
 import { HttpClient } from '@angular/common/http';
-// import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfiguration } from '@azure/msal-angular';
-// import { InteractionStatus, RedirectRequest } from '@azure/msal-browser';
 
 @Component({
   selector: 'app-root',
@@ -19,12 +17,19 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent{
-  constructor(
-    private userService: UserService,
-  ) { }
-  ngOnInit(): void {
-    this.userService.setUserName("Joanna");
+export class AppComponent implements OnInit{
+  userFirstName: string = '';
+
+  constructor(private userService: UserService) {}
+
+  async ngOnInit(): Promise<void> {
+    await this.userService.loadUserProfile();
+
+    // ✅ Reactively get firstName
+    this.userService.userName$.subscribe(name => {
+      this.userFirstName = name ?? '';
+      console.log("firstName:", this.userFirstName);
+    });
   }
 }
 
