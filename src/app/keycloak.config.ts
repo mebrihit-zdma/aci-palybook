@@ -1,11 +1,11 @@
 // keycloak.config.ts
-import { KeycloakOptions } from 'keycloak-angular';
+import { environment } from '../environments/environment';
 
-export const keycloakConfig: KeycloakOptions = {
+export const keycloakConfig = {
   config: {
-    url: 'http://localhost:8080',
-    realm: 'aci-playbook',
-    clientId: 'cx-aci-playbook',
+    url: environment.keycloak.url,
+    realm: environment.keycloak.realm,
+    clientId: environment.keycloak.clientId,
   },
   initOptions: {
     onLoad: 'login-required',

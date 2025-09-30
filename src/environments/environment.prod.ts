@@ -8,10 +8,9 @@ export const environment = {
     // model_name
     model_name: "azure/gpt-4o",
     top_k: 3,
-    // authority
-    authority: 'https://login.microsoftonline.com/45488ed5-ce1d-4d00-87d2-144f056d15d3',
-    // redirectUri
-    redirectUri: 'http://localhost:4200',
-    // clientId
-    clientId: '9298e23f-f951-4164-ad53-92347706120b',
+    keycloak: {
+        url: 'http://localhost:8080',
+        realm: 'aci-playbook',
+        clientId: 'cx-aci-playbook'
+    },
   };
