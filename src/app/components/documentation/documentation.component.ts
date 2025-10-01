@@ -58,10 +58,15 @@ export class DocumentationComponent implements OnInit, OnDestroy {
   generateDoc = false;
   filters =['Type', 'Status', 'Published date', 'Created by'];
   isModalOpen = false; // Initial state (modal is closed)
+  isPublishModalOpen = false; // Initial state (publish modal is closed)
   showChatBox = false;
   isGeneratingDocumentation: boolean = false;
   releaseNotes: string = '';
   generatedFileName: string = '';
+  
+  // Publish modal form data
+  publishTitle: string = '';
+  publishUrl: string = '';
   
 
   // constructor
@@ -311,6 +316,38 @@ export class DocumentationComponent implements OnInit, OnDestroy {
   // close modal
   closeModal() {
     this.isModalOpen = false;
+  }
+  
+  // open publish modal
+  openPublishModal() {
+    this.isPublishModalOpen = true;
+  }
+  
+  // close publish modal
+  closePublishModal() {
+    this.isPublishModalOpen = false;
+    this.publishTitle = '';
+    this.publishUrl = '';
+  }
+  
+  // handle publish form submission
+  publishDocumentation() {
+    if (this.publishTitle.trim() && this.publishUrl.trim()) {
+      // Here you would typically make an API call to publish the documentation
+      console.log('Publishing documentation:', {
+        title: this.publishTitle,
+        url: this.publishUrl,
+        content: this.generatedContent
+      });
+      
+      // Close modal after successful publish
+      this.closePublishModal();
+      
+      // You might want to show a success message or redirect
+      alert('Documentation published successfully!');
+    } else {
+      alert('Please fill in both title and URL fields.');
+    }
   }
   // create document
   createDocument() {

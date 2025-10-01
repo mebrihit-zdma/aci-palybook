@@ -438,7 +438,7 @@
                         <img src="assets/icons/download-icon.svg" alt="download-icon" class="w-[21.83px] h-[21.83px] scale-[0.8]">
                         Export
                     </button>
-                    <button class="active-button my-auto border border-[#D5D7DA] rounded-[8px] px-[24px] py-[8px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-white text-sm font-medium bg-primary h-[100%]">Publish</button>
+                    <button class="active-button my-auto border border-[#D5D7DA] rounded-[8px] px-[24px] py-[8px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-white text-sm font-medium bg-primary h-[100%]" (click)="openPublishModal()">Publish</button>
                 </div>
             </div>
         </div>
@@ -541,6 +541,57 @@
                         Save
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- publish modal section -->
+<div class="" *ngIf="isPublishModalOpen">
+    <div class="overlay"></div>
+    <div class="">
+        <div class="flex flex-col bg-white p-[24px] gap-[16px] w-[100%] md:w-[480px] min-h-[320px] rounded-[12px] absolute publish-modal tooltip justify-between">
+            <div class="flex flex-col gap-[16px]">
+                <div class="flex items-center justify-between">
+                    <p class="font-medium text-[20px] text-[#2c2d2e]">Publish Documentation</p>
+                    <button (click)="closePublishModal()" class="flex">
+                        <span class="w-[21.69px] h-[27.9px] bg-[url('./app/resources/icons/black-close-icon.svg')] rounded-lg"></span>
+                    </button>
+                </div>
+                
+                <p class="text-base text-[#344054]">Enter the details for publishing your documentation</p>
+                
+                <!-- Title input field -->
+                <div class="flex flex-col gap-[8px]">
+                    <label class="text-sm font-medium text-[#344054]">Title of Documentation</label>
+                    <input 
+                        type="text" 
+                        placeholder="Enter documentation title" 
+                        class="w-full bg-white border border-[#D5D7DA] rounded-[8px] px-[12px] py-[10px] text-sm text-[#344054] focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                        [(ngModel)]="publishTitle"
+                    />
+                </div>
+                
+                <!-- URL input field -->
+                <div class="flex flex-col gap-[8px]">
+                    <label class="text-sm font-medium text-[#344054]">URL where the Document should be published</label>
+                    <input 
+                        type="url" 
+                        placeholder="https://example.com/documentation" 
+                        class="w-full bg-white border border-[#D5D7DA] rounded-[8px] px-[12px] py-[10px] text-sm text-[#344054] focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                        [(ngModel)]="publishUrl"
+                    />
+                </div>
+            </div>
+            
+            <!-- Action buttons -->
+            <div class="flex gap-[12px] mt-[16px] w-[100%] text-base font-medium">
+                <button class="bg-white flex justify-center items-center py-[10px] px-[24px] border border-[#D5D7DA] rounded-[8px] w-[50%] text-[#344054] hover:bg-gray-50 transition-colors" (click)="closePublishModal()">
+                    Cancel
+                </button>
+                <button class="active-button flex justify-center items-center py-[10px] px-[24px] border border-[#D5D7DA] rounded-[8px] w-[50%] text-white hover:bg-primary-cta-hover transition-colors" (click)="publishDocumentation()">
+                    Publish
+                </button>
             </div>
         </div>
     </div>
