@@ -28,7 +28,7 @@ export class UserService {
     try {
       const profile = await this.keycloak.loadUserProfile();
 
-      this.firstName = profile.firstName ?? ''; // ✅ now stored
+      this.firstName = profile.firstName ?? '';
       const fullName = [profile.firstName, profile.lastName].filter(Boolean).join(' ');
 
       this.userNameSubject.next(fullName || profile.username || null);
