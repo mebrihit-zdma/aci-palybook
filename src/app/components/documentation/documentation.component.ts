@@ -131,12 +131,14 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.documentationService.sources$.subscribe(sources => {
         this.sources = sources;
+        this.updateGenerateButtonState();
       })
     );
     
     this.subscriptions.push(
       this.documentationService.pdfSources$.subscribe(pdfSources => {
         this.PdfSources = pdfSources;
+        this.updateGenerateButtonState();
       })
     );
     
@@ -164,6 +166,9 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     this.selectedTemplate = this.documentationService.selectedTemplate;
     this.selectedProduct = this.documentationService.selectedProduct || this.onboardingService.getSelectedProduct();
     this.generatedContent = this.documentationService.generatedContent;
+    
+    // Update generate button state based on initial data
+    this.updateGenerateButtonState();
     
     // Subscribe to get templates from API
     this.subscriptions.push(
@@ -198,11 +203,11 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     this.documentationLandingPage = false;
     this.documentationGeneratingPage = false;
     
-    // Check if both PdfSources and sources arrays have content before proceeding
-    if (this.PdfSources.length > 0 && this.sources.length > 0) {
+    // Check if either PdfSources or sources arrays have content before proceeding
+    if (this.PdfSources.length > 0 || this.sources.length > 0) {
       this.generateDocumentation(this.PdfSources, this.sources); 
     } else {
-      console.warn('Cannot generate documentation: Missing PDF files or sources');
+      console.warn('Cannot generate documentation: No sources or files available');
     }
     
   }
@@ -263,7 +268,7 @@ export class DocumentationComponent implements OnInit, OnDestroy {
       this.documentationService.addSource({ newSource: this.newSource });
       this.newSource = ''; // Clear input after adding
     }
-    this.generateDoc = true;
+    this.updateGenerateButtonState();
   }
 
   addPdfSource() {
@@ -271,10 +276,12 @@ export class DocumentationComponent implements OnInit, OnDestroy {
   }
   deleteSource(index: number) {
     this.documentationService.removeSource(index);
+    this.updateGenerateButtonState();
   }
 
   deletePdfSource(index: number) {
     this.documentationService.removePdfSource(index);
+    this.updateGenerateButtonState();
   }
 
   onFileSelected(event: any) {
@@ -295,6 +302,7 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     for (let i = 0; i < files.length; i++) {
       this.documentationService.addPdfSource(files[i]);
     }
+    this.updateGenerateButtonState();
   }
   // open modal
   openModal() {
@@ -306,12 +314,17 @@ export class DocumentationComponent implements OnInit, OnDestroy {
   }
   // create document
   createDocument() {
-    // Check if both PdfSources and sources arrays have content before proceeding
-    if (this.PdfSources.length > 0 && this.sources.length > 0) {
+    // Check if either PdfSources or sources arrays have content before proceeding
+    if (this.PdfSources.length > 0 || this.sources.length > 0) {
       this.generateDocumentation(this.PdfSources, this.sources); 
     } else {
-      console.warn('Cannot generate documentation: Missing PDF files or sources');
+      console.warn('Cannot generate documentation: No sources or files available');
     }
+  }
+
+  // Update generate button state based on available sources or files
+  updateGenerateButtonState() {
+    this.generateDoc = this.PdfSources.length > 0 || this.sources.length > 0;
   }
 
   // export section

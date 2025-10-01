@@ -25,8 +25,8 @@ export class AppComponent implements OnInit{
   async ngOnInit(): Promise<void> {
     await this.userService.loadUserProfile();
 
-    // const userId = "testlast12345-product-test-555";
-    const userId = "68d70a8009b025cb631e440a"
+    const userId = "testlast12345-product-test-555";
+    // const userId = "68d70a8009b025cb631e440a"
     // const userId = this.userService.getUserId();
     this.apiService.getUserSettings<any>(userId).subscribe({
       next: async (data) => {
