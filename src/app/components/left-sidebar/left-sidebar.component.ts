@@ -8,6 +8,7 @@ import { ChatHistoryComponent } from '../../components/chat-history/chat-history
 import { ChatService } from '../../services/chat.service';
 import { DocumentationService } from '../../services/documentation.service';
 import { FormsModule } from '@angular/forms';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-left-sidebar',
@@ -20,7 +21,7 @@ export class LeftSidebarComponent {
   
   loginDisplay: boolean = false;
 
-  constructor(private userService: UserService, private loginService: LoginService, private searchChatService: SearchChatService, private chatService: ChatService, private documentationService: DocumentationService, private router: Router) {
+  constructor(private userService: UserService, private loginService: LoginService, private searchChatService: SearchChatService, private chatService: ChatService, private documentationService: DocumentationService, private router: Router, private keycloakService: KeycloakService) {
 
   }
 
@@ -124,9 +125,7 @@ export class LeftSidebarComponent {
   }
 
   // Log the user out
-  // logout() {
-  //   if(this.loginDisplay){
-  //     this.authService.logoutRedirect();
-  //   }
-  // }
+  logout() {
+    this.keycloakService.logout();
+  }
 }
