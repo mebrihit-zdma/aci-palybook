@@ -55,8 +55,7 @@
                     <div class="flex gap-[16px] relative justify-center">
                         <div>
                             <button class="text-white bg-primary flex items-center gap-[8px] px-[14px] py-[10px] rounded-lg  border border-[#D5D7DA] active-button" (click)="goToDocumentationGeneratingPage()">
-                                <span class="w-[18.33px] h-[18.33px] bg-[url('./app/resources/icons/white-stars.svg')]">
-                                </span>
+                                <img src="assets/icons/white-stars.svg" alt="white-stars" class="w-[18.33px] h-[18.33px]">
                                 Create Documentation
                             </button>
                         </div>
@@ -87,8 +86,7 @@
         <div>
             <div class="flex flex-col justify-center items-center">
                 <div class="flex mt-[12px] mb-[-8px]">
-                    <span class="w-[110.2px] h-[74.14px] scale-[0.6] bg-[url('./app/resources/icons/docu-bot-icon.svg')]">
-                    </span>
+                    <img src="assets/icons/docu-bot-icon.svg" alt="docu-bot-icon" class="w-[110.2px] h-[74.14px] scale-[0.6]">
                 </div>
                 <p class="text-sm mb-2 text-description-color">Didn’t find what you’re looking for?</p>
                 <div class="flex justify-center items-center mb-[0px]">
@@ -96,7 +94,8 @@
                         class="bg-white flex justify-center items-center py-[16px] px-[24px] gap-[16px] border border-[#D5D7DA] rounded-[16px] w-fit h-fit p-2 border gradient-border-button"
                         (click)="documentationAskDocuBot()">
                         <p>Ask DocuBot</p>
-                        <div class="w-[23px] h-[23px] bg-[url('./app/resources/icons/blue-stars.svg')]"></div>
+                        <img src="assets/icons/blue-stars.svg" alt="blue-stars" class="w-[23px] h-[23px]">
+
                     </button>
                 </div>
             </div>
@@ -119,8 +118,7 @@
         </div>
         <div class="flex flex-col justify-center items-center text-[#666f8d]">
             <div class="flex">
-                <span class="w-[110.2px] h-[74.14px] scale-[0.6] bg-[url('./app/resources/icons/docu-bot-icon.svg')]">
-                </span>
+                <img src="assets/icons/docu-bot-icon.svg" alt="docu-bot-icon" class="w-[110.2px] h-[74.14px] scale-[0.6]">
             </div>
             <h4>Meet DocuBot!</h4>
             <h6>Your AI assistant for generating documentation.</h6>
@@ -252,8 +250,7 @@
                         [disabled]="!generateDoc || isGeneratingDocumentation"
                         (click)="goToDocumentationGeneratedPage()">
                     <div *ngIf="isGeneratingDocumentation" class="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                    <span *ngIf="!isGeneratingDocumentation" class="w-[18.33px] h-[18.33px] scale-[0.8] bg-[url('./app/resources/icons/white-stars.svg')]">
-                    </span>
+                    <img src="assets/icons/white-stars.svg" alt="white-stars" class="w-[18.33px] h-[18.33px] scale-[0.8]">
                     <span>{{ isGeneratingDocumentation ? 'Generating...' : 'Generate' }}</span>
                 </button>
             </div>
@@ -413,8 +410,7 @@
                                     <!-- Add Sources section -->
                                     <div class="px-4 py-2 text-[#2388FF] text-xs font-medium">
                                         <button class="flex gap-[8px] items-center" (click)="openModal()">
-                                            <span class="w-[22px] h-[22px] bg-[url('./app/resources/icons/add-link-icon.svg')]">
-                                            </span>
+                                            <img src="assets/icons/add-link-icon.svg" alt="add-link-icon" class="w-[22px] h-[22px]">
                                             <span>Add a Sources</span>
                                         </button>
                                     </div>
@@ -428,8 +424,7 @@
                                     [disabled]="!generateDoc || isGeneratingDocumentation"
                                     (click)="createDocument()">
                                 <div *ngIf="isGeneratingDocumentation" class="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                                <span *ngIf="!isGeneratingDocumentation" class="w-[18.33px] h-[18.33px] scale-[0.8] bg-[url('./app/resources/icons/white-stars.svg')]">
-                                </span>
+                                <img src="assets/icons/white-stars.svg" alt="white-stars" class="w-[18.33px] h-[18.33px] scale-[0.8]">
                                 <span>{{ isGeneratingDocumentation ? 'Generating...' : 'Generate' }}</span>
                             </button>
                         </div>
@@ -440,8 +435,7 @@
             <div class="flex flex-col">
                 <div class="flex flex-col lg:flex-row gap-2 h-[100%]">
                     <button class="my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[16px] py-[8px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-[#666F8D] text-sm font-medium h-[100%] gradient-border-button" (click)="exportAsText()">
-                        <span class="w-[21.83px] h-[21.83px] bg-[url('./app/resources/icons/download-icon.svg')]">
-                        </span>
+                        <img src="assets/icons/download-icon.svg" alt="download-icon" class="w-[21.83px] h-[21.83px] scale-[0.8]">
                         Export
                     </button>
                     <button class="active-button my-auto border border-[#D5D7DA] rounded-[8px] px-[24px] py-[8px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-white text-sm font-medium bg-primary h-[100%]">Publish</button>
@@ -473,7 +467,7 @@
                     </div>
                     <!-- Empty state when no content and not loading -->
                     <div *ngIf="!isGeneratingDocumentation && !generatedContent" class="flex flex-col items-center justify-center h-64 gap-4 text-gray-500">
-                        <span class="w-[110.2px] h-[74.14px] scale-[0.6] bg-[url('./app/resources/icons/docu-bot-icon.svg')]"></span>
+                        <img src="assets/icons/docu-bot-icon.svg" alt="docu-bot-icon" class="w-[110.2px] h-[74.14px] scale-[0.6]">
                         <p class="text-lg">Click "Generate" to create your documentation</p>
                     </div>
                 </div>

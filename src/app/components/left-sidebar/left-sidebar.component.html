@@ -24,8 +24,7 @@
         <!-- logo section -->
         <div class="flex gap-16 w-full  justify-center items-center md:h-auto">
           <div class="flex gap-2">
-            <span class="w-[21.69px] h-[27.9px] bg-[url('./app/resources/icons/blue-book-icon.svg')] rounded-lg">
-            </span>
+            <img src="assets/icons/blue-book-icon.svg" alt="logo" class="w-[21.69px] h-[27.9px] rounded-lg">
             <div *ngIf="!isLeftSidebarCollapsed()" class="text-primary font-medium text-2xl font-(family-name:BentonSans)">Playbook</div>
           </div>
           <!-- close sidebar section -->
@@ -140,7 +139,7 @@
           </div>
           <!-- profile logout section-->
           <div *ngIf="!isLeftSidebarCollapsed()" class="ml-auto inline-block">
-            <div (click)="logout()" class="w-[36px] h-[36px] rounded-[8px] mx-auto bg-[url('./app/resources/icons/right-arrow-icon.svg')]"></div>
+            <img (click)="logout()" src="assets/icons/right-arrow-icon.svg" alt="logout" class="w-[36px] h-[36px] rounded-[8px] mx-auto">
           </div>
         </div>
       </div>

@@ -109,8 +109,7 @@
                 <div [ngClass]="!createDocTooltipDone? 'bg-[#F7F8FA] p-[16px] rounded-[8px] tooltip' : ''"
                     [ngClass]="createDocTooltip? 'bg-[#F7F8FA] p-[16px] rounded-[8px] tooltip' : ''">
                     <button class="active-button text-white bg-primary flex items-center gap-[8px] px-[14px] py-[10px] rounded-lg border border-[#D5D7DA]" (click)="goToDocumentationGeneratingPage()">
-                        <span class="w-[18.33px] h-[18.33px] bg-[url('./app/resources/icons/white-stars.svg')]">
-                        </span>
+                        <img src="assets/icons/white-stars.svg" alt="white-stars" class="w-[18.33px] h-[18.33px]">
                         Create Documentation
                     </button>
                 </div>
@@ -164,7 +163,8 @@
                 <button
                     class="bg-white flex justify-center items-center py-[16px] px-[24px] gap-[16px] border border-[#D5D7DA] rounded-[16px] w-fit h-fit p-2 border gradient-border-button" (click)="dashboardStartNewChat()">
                     <p>Start New Chat</p>
-                    <div class="w-[23px] h-[23px] bg-[url('./app/resources/icons/blue-stars.svg')]"></div>
+                    <img src="assets/icons/blue-stars.svg" alt="blue-stars" class="w-[23px] h-[23px]">
+
                 </button>
             </div>
         </div>

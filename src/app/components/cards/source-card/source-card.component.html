@@ -1,7 +1,7 @@
 
 <div *ngFor="let source of data" class="source-card p-2 rounded-lg shadow bg-white flex items-center gap-2 ">
     <div class="flex justify-center items-center gap-[6px] mr-[8px] w-[100%]">
-        <span class="w-[24px] h-[24px] bg-[url('./app/resources/icons/pdf-icon.svg')]"></span>
+        <img src="assets/icons/pdf-icon.svg" alt="pdf-icon" class="w-[24px] h-[24px]">
         <div class="flex flex-col w-[100%]">
             <div class="relative group inline-block w-[100%]">
                 <div class="flex items-center gap-2 font-bold text-xs text-title-color">
@@ -20,7 +20,7 @@
         <a 
             [href]="source.url"
             [attr.download]="source.label"
-            class="w-[18px] h-[17px] bg-[url('./app/resources/icons/sources-download-icon.svg')]">
+            class="w-[18px] h-[17px] bg-[url('assets/icons/sources-download-icon.svg')]">
         </a>
     </div>
 </div>

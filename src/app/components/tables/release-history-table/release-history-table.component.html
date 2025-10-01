@@ -7,7 +7,7 @@
             <div class="flex items-center gap-[4px] relative font-medium" #productTypeDropdown>
                 Product Type
                 <button (click)="toggleFilter('productType')" 
-                        class="w-[16px] h-[16px] bg-[url('./app/resources/icons/filter-icon.svg')] hover:opacity-70 transition-opacity cursor-pointer"
+                        class="w-[16px] h-[16px] bg-[url('assets/icons/filter-icon.svg')] hover:opacity-70 transition-opacity cursor-pointer"
                         [class.opacity-100]="isProductTypeFilterOpen"
                         [class.opacity-60]="!isProductTypeFilterOpen">
                 </button>
@@ -34,7 +34,7 @@
             </div>
             <div class="flex items-center gap-[4px] relative font-medium">
                 Template Type
-                <button (click)="toggleFilter('templateType')" class="w-[16px] h-[16px] bg-[url('./app/resources/icons/filter-icon.svg')] hover:opacity-70 transition-opacity">
+                <button (click)="toggleFilter('templateType')" class="w-[16px] h-[16px] bg-[url('assets/icons/filter-icon.svg')] hover:opacity-70 transition-opacity">
                 </button>
                 <!-- Template Type Filter Dropdown -->
                 <div *ngIf="isTemplateTypeFilterOpen" class="absolute top-full left-0 mt-1 bg-white border border-[#E9EAEB] rounded-lg shadow-lg z-10 min-w-[150px]">
@@ -60,7 +60,7 @@
             <div class="flex items-center gap-[4px] relative font-medium" #publishedDateDropdown>
                 Published date
                 <button (click)="toggleFilter('publishedDate')" 
-                        class="w-[16px] h-[16px] bg-[url('./app/resources/icons/filter-icon.svg')] hover:opacity-70 transition-opacity cursor-pointer"
+                        class="w-[16px] h-[16px] bg-[url('assets/icons/filter-icon.svg')] hover:opacity-70 transition-opacity cursor-pointer"
                         [class.opacity-100]="isPublishedDateFilterOpen || hasDateFilter()"
                         [class.opacity-60]="!isPublishedDateFilterOpen && !hasDateFilter()">
                 </button>
@@ -102,7 +102,7 @@
             </div>
             <div class="flex items-center gap-[4px] relative font-medium">
                 Created by
-                <button (click)="toggleFilter('createdBy')" class="w-[16px] h-[16px] bg-[url('./app/resources/icons/filter-icon.svg')] hover:opacity-70 transition-opacity cursor-pointer">
+                <button (click)="toggleFilter('createdBy')" class="w-[16px] h-[16px] bg-[url('assets/icons/filter-icon.svg')] hover:opacity-70 transition-opacity cursor-pointer">
                 </button>
                 <!-- Created By Filter Dropdown -->
                 <div *ngIf="isCreatedByFilterOpen" class="absolute top-full left-0 mt-1 bg-white border border-[#E9EAEB] rounded-lg shadow-lg z-10 min-w-[150px]">
