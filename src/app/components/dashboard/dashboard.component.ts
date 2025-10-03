@@ -190,7 +190,6 @@ export class DashboardComponent {
   gettingDocumentationHistoryFromApi() {
     this.apiService.getDocumentationHistory().subscribe({
       next: async (data: any) => {
-        console.log('documentation history: ', data);
         this.releaseHistory = Array.isArray(data) ? data : [];
         this.filteredReleaseHistory = [...this.releaseHistory];
       },  

@@ -77,7 +77,6 @@ export class OnboardingService {
   }
 
   setPersonaWidgetList(personaWidgetList: string[]): void {
-    console.log("OnboardingService: Setting persona widget list to:", personaWidgetList);
     this.personaWidgetList = personaWidgetList;
     this.personaWidgetListSubject.next(personaWidgetList);
   }

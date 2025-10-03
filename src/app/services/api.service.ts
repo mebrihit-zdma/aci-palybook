@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 export class ApiService {
   
   createUserSettingsUrl = `${environment.apiBaseUrl}/api/v1/create_user_settings`;
-  getUserSettingsUrl = `${environment.apiBaseUrl}/api/v1/get_user_settings`;
+  getUserSettingsUrl = `${environment.apiBaseUrl}/api/v1/org_settings`;
   chatIdUrl = `${environment.apiBaseUrl}/api/v1/get_chat`;
   baseUrl = `${environment.apiBaseUrl}/api/v1`;
   // documentation

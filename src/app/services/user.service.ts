@@ -27,7 +27,7 @@ export class UserService {
   async loadUserProfile(): Promise<void> {
     try {
       const profile = await this.keycloak.loadUserProfile();
-
+      console.log("profile from user.service: ", profile);
       this.firstName = profile.firstName ?? '';
       const fullName = [profile.firstName, profile.lastName].filter(Boolean).join(' ');
 
