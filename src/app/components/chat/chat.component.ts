@@ -47,6 +47,7 @@ export class ChatComponent {
   alertMessage = '';
   // shortcut Prompt
   promptShortcuts: any[] = []
+  promptsLibrarylist: any[] = []
   isPromptsLibraryModelOpen = false
   chatResponse = '';
 
@@ -166,31 +167,6 @@ export class ChatComponent {
       error: (err) => console.error('Error:', err),
     });
   }
- 
-  promptsLibrarylist = [
-    { prompt: "Generate an API customization guide for ACI Payment Hub", 
-    },
-    { prompt: "What are the differences between the latest and older release notes?", 
-    },
-    { prompt: "Explain updates from the latest Release Notes", 
-    },
-    { prompt: "Generate a guide on configuring custom dashboards and reports for Connetic High value Payments", 
-    },
-    { prompt: "Generate an API customization guide for ACI Payment Hub", 
-    },
-    { prompt: "What are the differences between the latest and older release notes?", 
-    },
-    { prompt: "Explain updates from the latest Release Notes", 
-    },
-    { prompt: "Generate a guide on configuring custom dashboards and reports for Connetic High value Payments", 
-    },
-    { prompt: "What are the differences between the latest and older release notes?", 
-    },
-    { prompt: "Explain updates from the latest Release Notes", 
-    },
-    { prompt: "Generate a guide on configuring custom dashboards and reports for Connetic High value Payments", 
-    },
-  ]
 
   closePromptsLibraryModel(){
     this.isPromptsLibraryModelOpen = false;
@@ -409,6 +385,9 @@ export class ChatComponent {
         this.promptShortcuts = preDefinedQuestions.map((question: string) => ({
           source: "Suggested by AI",
           question
+        }));
+        this.promptsLibrarylist = preDefinedQuestions.map((question: string) => ({
+          prompt: question,
         }));
       },
       error: (err) => {
