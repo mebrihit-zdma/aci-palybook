@@ -192,6 +192,9 @@ export class ChatComponent {
   openDeletePrompt(item: any){
     this.selectedPrompt = this.selectedPrompt === item ? null : item;
   }
+  closeDeletePrompt(){
+    this.selectedPrompt = null;
+  }
   showDeletePrompt(item: any) {
     this.selectedPrompt = this.selectedPrompt === item ? null : item;
   }

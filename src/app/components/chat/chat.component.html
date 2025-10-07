@@ -64,6 +64,18 @@
                 [ngClass]="selectedPrompt === item ? '' : 'hidden'"
                 (click)="$event.stopPropagation()" #menuRef>
 
+                <!-- Close button -->
+                <div class="flex justify-end mb-[-8px] mr-[-10px] mt-[-4px]">
+                  <button 
+                    class="w-[12px] h-[12px] flex items-center justify-center hover:opacity-70"
+                    (click)="closeDeletePrompt(); $event.stopPropagation()"
+                    title="Close menu">
+                    <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                      <path stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                  </button>
+                </div>
+
                 <button class="flex gap-[6px]">
                   <span class="mt-auto mb-auto w-[9.33px] h-[12px] bg-[url('./app/resources/icons/pin-icon.svg')]"></span>
                   <span class="my-auto text-[11px] text-[#fff]">Pin on Home Screen</span>
@@ -76,20 +88,20 @@
               </div>
 
               <!-- Three-dot menu toggle -->
-              <div class="flex justify-between">
+              <!-- <div class="flex justify-between">
                 <p class="text-description-color font-medium text-[12px] my-auto">{{item.source}}</p>
                 <button 
-                  class="cursor-pointer w-[12px] h-[3px] bg-[url('./app/resources/icons/shourtcut-icon.svg')]" 
+                  class="cursor-pointer w-[13px] h-[3px] bg-[url('/assets/icons/three-info-dotes.svg')]" 
                   (click)="openDeletePrompt(item); $event.stopPropagation()">
                 </button>
-              </div>
+              </div> -->
 
               <!-- Prompt Text -->
               <p class="text-description-color font-medium text-[15px] cursor-pointer" (click)="selectedShortcutPrompt(item.question)">{{item.question}}</p>
             </li>
 
             <!-- Create a shortcut Prompt -->
-            <div class="bg-white border border-[#D5D7DA] rounded-lg h-[100%] flex flex-col justify-between gap-[16px] px-[24px] py-[16px]">
+            <!-- <div class="bg-white border border-[#D5D7DA] rounded-lg h-[100%] flex flex-col justify-between gap-[16px] px-[24px] py-[16px]">
               <div class="flex">
                 <button class="w-[24px] h-[24px] bg-[url('./app/resources/icons/add-icon.svg')]" 
                   (click) = "addShortcutPrompt()"
@@ -112,7 +124,7 @@
                 (click) = "saveShortcutPrompt()" 
                 [ngClass]="(isAddShortcutPrompt)? '' : 'hidden'">Save</button>
               </div>
-            </div>
+            </div> -->
           </ul>
         </div>
         <!-- question and answer -->
@@ -189,15 +201,15 @@
                     </button>
                 </div>
         
-                <div class="md:my-auto bg-white border border-[#D5D7DA] rounded-[8px] px-[12px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-search-text-color text-sm font-medium w-[100%] justify-between">
+                <div class="md:my-auto  border border-[#D5D7DA] rounded-[8px] px-[12px] py-[10px] flex items-center gap-[8px] shadow-[0px_1px_2px_rgba(10,13,18,0.05)] text-search-text-color text-sm font-medium w-[100%] justify-between bg-[#f6f6f6]">
                     <input 
                       type="text" 
                       placeholder="Search"
                       [(ngModel)]="promptsLibrarySearch "/>
                     <span class="flex justify-center items-center w-[12.4px] h-[12.4px] bg-[url('./app/resources/icons/search-icon.svg')]"></span>
                 </div>
-                
-                <div class="flex">
+                  <!-- Create a Prompt -->
+                <!-- <div class="flex">
                   <input 
                     type="text" 
                     [(ngModel)]="createdLibraryPrompt"
@@ -205,7 +217,7 @@
                     placeholder="+ Create a Prompt" 
                     class="text-[#000] placeholder-[#919399] px-2 py-1 rounded w-[90%] break-words whitespace-normal"
                     />
-                </div>
+                </div> -->
                 
                 <ul class="flex flex-col gap-4 text-primary-text-color w-[100%] h-[200px] overflow-y-auto pe-6">
                   <li *ngFor="let item of filteredPrompts" class="flex justify-between cursor-pointer"
@@ -214,11 +226,12 @@
                       class="w-[90%]" 
                       [innerHTML]="getHighlightedText(item.prompt, promptsLibrarySearch)">
                     </p>
-                    <div class="flex gap-4">
+                    <!-- Delete Prompt -->
+                    <!-- <div class="flex gap-4">
                       <button class="mt-auto mb-auto scale-[1.2] w-[9.33px] h-[12px] bg-[url('./app/resources/icons/delete-prompt-icon.svg')]"
                       (click)="deleteLibraryPrompt(item); $event.stopPropagation()">
                       </button>
-                    </div>
+                    </div> -->
                   </li>
                 </ul>
               </div>
