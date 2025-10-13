@@ -86,45 +86,9 @@
                   <span class="my-auto text-[11px] text-[#fff]">Delete Prompt</span>
                 </button>
               </div>
-
-              <!-- Three-dot menu toggle -->
-              <!-- <div class="flex justify-between">
-                <p class="text-description-color font-medium text-[12px] my-auto">{{item.source}}</p>
-                <button 
-                  class="cursor-pointer w-[13px] h-[3px] bg-[url('/assets/icons/three-info-dotes.svg')]" 
-                  (click)="openDeletePrompt(item); $event.stopPropagation()">
-                </button>
-              </div> -->
-
               <!-- Prompt Text -->
               <p class="text-description-color font-medium text-[15px] cursor-pointer" (click)="selectedShortcutPrompt(item.question)">{{item.question}}</p>
             </li>
-
-            <!-- Create a shortcut Prompt -->
-            <!-- <div class="bg-white border border-[#D5D7DA] rounded-lg h-[100%] flex flex-col justify-between gap-[16px] px-[24px] py-[16px]">
-              <div class="flex">
-                <button class="w-[24px] h-[24px] bg-[url('./app/resources/icons/add-icon.svg')]" 
-                  (click) = "addShortcutPrompt()"
-                  [ngClass]="(!isAddShortcutPrompt)? '' : 'hidden'"
-                ></button>
-                <input 
-                  #promptInput
-                  type="text" 
-                  [(ngModel)]="createdPrompt"
-                  placeholder="|Enter your prompt" 
-                  class="text-[#000] placeholder-[#D9D9D9] px-2 py-1 rounded"
-                  [ngClass]="(isAddShortcutPrompt) ? '' : 'hidden'"
-                  />
-
-              </div>
-              <div class="flex gap-[16px] justify-between">
-                <p class="text-description-color font-medium text-[15px] pb-[16px]" 
-                [ngClass]="(!isAddShortcutPrompt)? '' : 'hidden'">Create a Shortcut Prompt</p>
-                <button class="text-primary ml-auto" 
-                (click) = "saveShortcutPrompt()" 
-                [ngClass]="(isAddShortcutPrompt)? '' : 'hidden'">Save</button>
-              </div>
-            </div> -->
           </ul>
         </div>
         <!-- question and answer -->
@@ -208,17 +172,6 @@
                       [(ngModel)]="promptsLibrarySearch "/>
                     <span class="flex justify-center items-center w-[12.4px] h-[12.4px] bg-[url('./app/resources/icons/search-icon.svg')]"></span>
                 </div>
-                  <!-- Create a Prompt -->
-                <!-- <div class="flex">
-                  <input 
-                    type="text" 
-                    [(ngModel)]="createdLibraryPrompt"
-                    (keydown.enter)="addPromptToLibrary()"
-                    placeholder="+ Create a Prompt" 
-                    class="text-[#000] placeholder-[#919399] px-2 py-1 rounded w-[90%] break-words whitespace-normal"
-                    />
-                </div> -->
-                
                 <ul class="flex flex-col gap-4 text-primary-text-color w-[100%] h-[200px] overflow-y-auto pe-6">
                   <li *ngFor="let item of filteredPrompts" class="flex justify-between cursor-pointer"
                   (click)="selectedPromptLibrary(item.prompt)">
@@ -226,12 +179,6 @@
                       class="w-[90%]" 
                       [innerHTML]="getHighlightedText(item.prompt, promptsLibrarySearch)">
                     </p>
-                    <!-- Delete Prompt -->
-                    <!-- <div class="flex gap-4">
-                      <button class="mt-auto mb-auto scale-[1.2] w-[9.33px] h-[12px] bg-[url('./app/resources/icons/delete-prompt-icon.svg')]"
-                      (click)="deleteLibraryPrompt(item); $event.stopPropagation()">
-                      </button>
-                    </div> -->
                   </li>
                 </ul>
               </div>
