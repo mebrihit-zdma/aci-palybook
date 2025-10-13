@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex items-center gap-[4px] relative font-medium">
+            <div class="flex items-center gap-[4px] relative font-medium" #templateTypeDropdown>
                 Template Type
                 <button (click)="toggleFilter('templateType')" class="w-[16px] h-[16px] bg-[url('assets/icons/filter-icon.svg')] hover:opacity-70 transition-opacity">
                 </button>
@@ -100,7 +100,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex items-center gap-[4px] relative font-medium">
+            <div class="flex items-center gap-[4px] relative font-medium" #createdByDropdown>
                 Created by
                 <button (click)="toggleFilter('createdBy')" class="w-[16px] h-[16px] bg-[url('assets/icons/filter-icon.svg')] hover:opacity-70 transition-opacity cursor-pointer">
                 </button>
@@ -134,7 +134,7 @@
                 [innerHTML]="item.pdf_filename | highlight: searchTerm" href="{{ item.pdf_url }}" target="_blank"
                 ></a>
                 <!-- Tooltip for filename -->
-                <div class="tooltip-text text-[#000000] bg-[#FFFFFF] rounded-sm py-[4px] px-[8px] font-normal text-sm absolute left-[0%] top-[100%] z-10 border border-[#E9EAEB]">
+                <div class="tooltip-text text-[#000000] bg-[#FFFFFF] rounded-sm py-[4px] px-[8px] font-normal text-xs absolute left-[0%] top-[100%] z-10 border border-[#E9EAEB]">
                     {{ item.pdf_filename }}
                 </div>
             </div>
