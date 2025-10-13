@@ -1,172 +1,191 @@
 <div class="bg-white border border-[#E9EAEB] rounded-xl text-sm text-caption-color text-sm pt-[4px]">
-    <ul>
-        <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_0.5fr] gap-16 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]">
-            <div class="flex items-center font-medium whitespace-nowrap">
-                Documentation
-            </div>
-            <div class="flex items-center gap-[4px] relative font-medium whitespace-nowrap" #productTypeDropdown>
-                Product Type
-                <button (click)="toggleFilter('productType')" 
-                        class="w-[16px] h-[16px] bg-[url('assets/icons/filter-icon.svg')] hover:opacity-70 transition-opacity cursor-pointer"
-                        [class.opacity-100]="isProductTypeFilterOpen"
-                        [class.opacity-60]="!isProductTypeFilterOpen">
-                </button>
-                <!-- Product Type Filter Dropdown -->
-                <div *ngIf="isProductTypeFilterOpen" class="absolute top-full left-0 mt-1 bg-white border border-[#E9EAEB] rounded-lg shadow-lg z-20 min-w-[150px] max-h-[200px] overflow-y-auto">
-                    <div class="p-2">
-                        <div class="text-xs text-gray-500 mb-2">Filter by Product Type</div>
-                        <div *ngFor="let type of uniqueProductTypes" 
-                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm flex items-center gap-2">
-                            <input type="checkbox" 
-                                   [checked]="isProductTypeSelected(type)"
-                                   (change)="toggleProductTypeSelection(type)"
-                                   class="w-4 h-4 rounded focus:ring-2"
-                                   style="accent-color: #2726DD;">
-                            <span>{{ type }}</span>
-                        </div>
-                        <div *ngIf="hasProductTypeSelections()" 
-                             (click)="clearProductTypeFilter()"
-                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm text-red-600 border-t border-gray-200 mt-1">
-                            Clear Filter
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="flex items-center gap-[4px] relative font-medium whitespace-nowrap" #templateTypeDropdown>
-                Template Type
-                <button (click)="toggleFilter('templateType')" class="w-[16px] h-[16px] bg-[url('assets/icons/filter-icon.svg')] hover:opacity-70 transition-opacity">
-                </button>
-                <!-- Template Type Filter Dropdown -->
-                <div *ngIf="isTemplateTypeFilterOpen" class="absolute top-full left-0 mt-1 bg-white border border-[#E9EAEB] rounded-lg shadow-lg z-10 min-w-[150px]">
-                    <div class="p-2">
-                        <div class="text-xs text-gray-500 mb-2">Filter by Template Type</div>
-                        <div *ngFor="let type of uniqueTemplateTypes" 
-                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm flex items-center gap-2">
-                            <input type="checkbox" 
-                                   [checked]="isTemplateTypeSelected(type)"
-                                   (change)="toggleTemplateTypeSelection(type)"
-                                   class="w-4 h-4 rounded focus:ring-2"
-                                   style="accent-color: #2726DD;">
-                            <span>{{ type }}</span>
-                        </div>
-                        <div *ngIf="hasTemplateTypeSelections()" 
-                             (click)="clearTemplateTypeFilter()"
-                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm text-red-600 border-t border-gray-200 mt-1">
-                            Clear Filter
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="flex items-center gap-[4px] relative font-medium whitespace-nowrap" #publishedDateDropdown>
-                Published date
-                <button (click)="toggleFilter('publishedDate')" 
-                        class="w-[16px] h-[16px] bg-[url('assets/icons/filter-icon.svg')] hover:opacity-70 transition-opacity cursor-pointer"
-                        [class.opacity-100]="isPublishedDateFilterOpen || hasDateFilter()"
-                        [class.opacity-60]="!isPublishedDateFilterOpen && !hasDateFilter()">
-                </button>
-                <!-- Published Date Calendar Picker -->
-                <div *ngIf="isPublishedDateFilterOpen" class="absolute top-full left-0 mt-1 bg-white border border-[#E9EAEB] rounded-lg shadow-lg z-20 min-w-[280px]">
-                    <div class="p-3">
-                        <div class="text-xs text-gray-500 mb-3">Filter by Published Date</div>
-                        <div class="space-y-3">
-                            <div>
-                                <label class="block text-xs text-gray-600 mb-1">From Date:</label>
-                                <input type="date" 
-                                       [(ngModel)]="filters.fromDate" 
-                                       (change)="onDateRangeChange()"
-                                       class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1"
-                                       style="accent-color: #2726DD;">
-                            </div>
-                            <div>
-                                <label class="block text-xs text-gray-600 mb-1">To Date:</label>
-                                <input type="date" 
-                                       [(ngModel)]="filters.toDate" 
-                                       (change)="onDateRangeChange()"
-                                       class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1"
-                                       style="accent-color: #2726DD;">
+    <table class="w-full table-fixed">
+        <thead>
+            <tr class="border-b-1 border-[#E9EAEB]">
+                <th class="py-3 px-4 ps-[24px] text-left font-medium whitespace-nowrap" style="width: 19%;">
+                    Documentation
+                </th>
+                <th class="py-3 px-4 text-left font-medium whitespace-nowrap relative" style="width: 18%;" #productTypeDropdown>
+                    <div class="flex items-center gap-[4px]">
+                        Product Type
+                        <button (click)="toggleFilter('productType')" 
+                                class="w-[16px] h-[16px] bg-[url('assets/icons/filter-icon.svg')] hover:opacity-70 transition-opacity cursor-pointer"
+                                [class.opacity-100]="isProductTypeFilterOpen"
+                                [class.opacity-60]="!isProductTypeFilterOpen">
+                        </button>
+                        <!-- Product Type Filter Dropdown -->
+                        <div *ngIf="isProductTypeFilterOpen" class="absolute top-full left-0 mt-1 bg-white border border-[#E9EAEB] rounded-lg shadow-lg z-20 min-w-[150px] max-h-[200px] overflow-y-auto">
+                            <div class="p-2">
+                                <div class="text-xs text-gray-500 mb-2">Filter by Product Type</div>
+                                <div *ngFor="let type of uniqueProductTypes" 
+                                     class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm flex items-center gap-2">
+                                    <input type="checkbox" 
+                                           [checked]="isProductTypeSelected(type)"
+                                           (change)="toggleProductTypeSelection(type)"
+                                           class="w-4 h-4 rounded focus:ring-2"
+                                           style="accent-color: #2726DD;">
+                                    <span>{{ type }}</span>
+                                </div>
+                                <div *ngIf="hasProductTypeSelections()" 
+                                     (click)="clearProductTypeFilter()"
+                                     class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm text-red-600 border-t border-gray-200 mt-1">
+                                    Clear Filter
+                                </div>
                             </div>
                         </div>
-                        <div class="flex justify-between items-center mt-3 pt-2 border-t border-gray-200">
-                            <button *ngIf="hasDateFilter()" 
-                                    (click)="clearDateFilter()"
-                                    class="text-xs text-red-600 hover:text-red-800 underline">
-                                Clear Filter
-                            </button>
-                            <button (click)="closeDateFilter()"
-                                    class="text-xs text-blue-600 hover:text-blue-800 underline">
-                                Close
-                            </button>
+                    </div>
+                </th>
+                <th class="py-3 px-4 text-left font-medium whitespace-nowrap relative" style="width: 15%;" #templateTypeDropdown>
+                    <div class="flex items-center gap-[4px]">
+                        Template Type
+                        <button (click)="toggleFilter('templateType')" class="w-[16px] h-[16px] bg-[url('assets/icons/filter-icon.svg')] hover:opacity-70 transition-opacity">
+                        </button>
+                        <!-- Template Type Filter Dropdown -->
+                        <div *ngIf="isTemplateTypeFilterOpen" class="absolute top-full left-0 mt-1 bg-white border border-[#E9EAEB] rounded-lg shadow-lg z-10 min-w-[150px]">
+                            <div class="p-2">
+                                <div class="text-xs text-gray-500 mb-2">Filter by Template Type</div>
+                                <div *ngFor="let type of uniqueTemplateTypes" 
+                                     class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm flex items-center gap-2">
+                                    <input type="checkbox" 
+                                           [checked]="isTemplateTypeSelected(type)"
+                                           (change)="toggleTemplateTypeSelection(type)"
+                                           class="w-4 h-4 rounded focus:ring-2"
+                                           style="accent-color: #2726DD;">
+                                    <span>{{ type }}</span>
+                                </div>
+                                <div *ngIf="hasTemplateTypeSelections()" 
+                                     (click)="clearTemplateTypeFilter()"
+                                     class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm text-red-600 border-t border-gray-200 mt-1">
+                                    Clear Filter
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="flex items-center gap-[4px] relative font-medium whitespace-nowrap" #createdByDropdown>
-                Created by
-                <button (click)="toggleFilter('createdBy')" class="w-[16px] h-[16px] bg-[url('assets/icons/filter-icon.svg')] hover:opacity-70 transition-opacity cursor-pointer">
-                </button>
-                <!-- Created By Filter Dropdown -->
-                <div *ngIf="isCreatedByFilterOpen" class="absolute top-full left-0 mt-1 bg-white border border-[#E9EAEB] rounded-lg shadow-lg z-10 min-w-[150px]">
-                    <div class="p-2">
-                        <div class="text-xs text-gray-500 mb-2">Filter by Created By</div>
-                        <div *ngFor="let creator of uniqueCreatedBy" 
-                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm flex items-center gap-2">
-                            <input type="checkbox" 
-                                   [checked]="isCreatedBySelected(creator)"
-                                   (change)="toggleCreatedBySelection(creator)"
-                                   class="w-4 h-4 rounded focus:ring-2"
-                                   style="accent-color: #2726DD;">
-                            <span>{{ creator }}</span>
-                        </div>
-                        <div *ngIf="hasCreatedBySelections()" 
-                             (click)="clearCreatedByFilter()"
-                             class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm text-red-600 border-t border-gray-200 mt-1">
-                            Clear Filter
+                </th>
+                <th class="py-3 px-4 text-left font-medium whitespace-nowrap relative" style="width: 15%;" #publishedDateDropdown>
+                    <div class="flex items-center gap-[4px]">
+                        Published date
+                        <button (click)="toggleFilter('publishedDate')" 
+                                class="w-[16px] h-[16px] bg-[url('assets/icons/filter-icon.svg')] hover:opacity-70 transition-opacity cursor-pointer"
+                                [class.opacity-100]="isPublishedDateFilterOpen || hasDateFilter()"
+                                [class.opacity-60]="!isPublishedDateFilterOpen && !hasDateFilter()">
+                        </button>
+                        <!-- Published Date Calendar Picker -->
+                        <div *ngIf="isPublishedDateFilterOpen" class="absolute top-full left-0 mt-1 bg-white border border-[#E9EAEB] rounded-lg shadow-lg z-20 min-w-[280px]">
+                            <div class="p-3">
+                                <div class="text-xs text-gray-500 mb-3">Filter by Published Date</div>
+                                <div class="space-y-3">
+                                    <div>
+                                        <label class="block text-xs text-gray-600 mb-1">From Date:</label>
+                                        <input type="date" 
+                                               [(ngModel)]="filters.fromDate" 
+                                               (change)="onDateRangeChange()"
+                                               class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1"
+                                               style="accent-color: #2726DD;">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs text-gray-600 mb-1">To Date:</label>
+                                        <input type="date" 
+                                               [(ngModel)]="filters.toDate" 
+                                               (change)="onDateRangeChange()"
+                                               class="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1"
+                                               style="accent-color: #2726DD;">
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center mt-3 pt-2 border-t border-gray-200">
+                                    <button *ngIf="hasDateFilter()" 
+                                            (click)="clearDateFilter()"
+                                            class="text-xs text-red-600 hover:text-red-800 underline">
+                                        Clear Filter
+                                    </button>
+                                    <button (click)="closeDateFilter()"
+                                            class="text-xs text-blue-600 hover:text-blue-800 underline">
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </li>
-        <li class="grid grid-cols-[1.5fr_1fr_1fr_1fr_1fr_0.5fr] gap-16 border-b-1 border-[#E9EAEB] py-3 px-4 ps-[24px]" *ngFor="let item of paginatedItems">
-             <!-- First column (filename) -->
-            <div class="flex items-center min-w-0 relative tooltip-btn">
-                <a
-                class="truncate block w-full cursor-pointer"
-                [innerHTML]="item.pdf_filename | highlight: searchTerm" href="{{ item.pdf_url }}" target="_blank"
-                ></a>
-                <!-- Tooltip for filename -->
-                <div class="tooltip-text text-[#000000] bg-[#FFFFFF] rounded-sm py-[4px] px-[8px] font-normal text-xs absolute left-[0%] top-[100%] z-10 border border-[#E9EAEB]">
-                    {{ item.pdf_filename }}
-                </div>
-            </div>
-            <div class="flex items-center whitespace-nowrap" [innerHTML]="item.product_type | highlight: searchTerm"></div>
-            <div class="flex items-center whitespace-nowrap" [innerHTML]="item.template_type | highlight: searchTerm"></div>
-            <div class="flex items-center whitespace-nowrap" [innerHTML]="(item.release_date | date:'MM/dd/yyyy') | highlight: searchTerm"></div>
-            <div class="flex justify-start items-center gap-[10px]">
-                <span class="text-primary bg-[#e9eef8] flex rounded-[200px] w-[40px] h-[40px] justify-center items-center">{{ getFirstLetter(item.created_by) }}</span>
-                <span class="whitespace-nowrap" [innerHTML]="item.created_by | highlight: searchTerm"></span>
-            </div>
-            <div class="flex items-center">
-                <a class="text-primary font-semibold" href="{{ item.pdf_url }}" target="_blank">View</a>
-            </div>
-        </li>
-        <!-- No results message -->
-        <li *ngIf="filteredData.length === 0 && data.length > 0" class="text-center py-8 text-gray-500">
-            <div class="flex flex-col items-center gap-2">
-                <span class="text-lg">No results found</span>
-                <span class="text-sm">Try adjusting your filters or search criteria</span>
-                <button *ngIf="hasActiveFilters()" 
-                        (click)="clearAllFilters()" 
-                        class="mt-2 text-sm text-blue-600 hover:text-blue-800 underline">
-                    Clear all filters
-                </button>
-            </div>
-        </li>
-        <li *ngIf="data.length === 0" class="text-center py-8 text-gray-500">
-            <div class="flex flex-col items-center gap-2">
-                <span class="text-lg">No documentation found</span>
-            </div>
-        </li>
-    </ul>
+                </th>
+                <th class="py-3 px-4 text-left font-medium whitespace-nowrap relative" style="width: 20%;" #createdByDropdown>
+                    <div class="flex items-center gap-[4px]">
+                        Created by
+                        <button (click)="toggleFilter('createdBy')" class="w-[16px] h-[16px] bg-[url('assets/icons/filter-icon.svg')] hover:opacity-70 transition-opacity cursor-pointer">
+                        </button>
+                        <!-- Created By Filter Dropdown -->
+                        <div *ngIf="isCreatedByFilterOpen" class="absolute top-full left-0 mt-1 bg-white border border-[#E9EAEB] rounded-lg shadow-lg z-10 min-w-[150px]">
+                            <div class="p-2">
+                                <div class="text-xs text-gray-500 mb-2">Filter by Created By</div>
+                                <div *ngFor="let creator of uniqueCreatedBy" 
+                                     class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm flex items-center gap-2">
+                                    <input type="checkbox" 
+                                           [checked]="isCreatedBySelected(creator)"
+                                           (change)="toggleCreatedBySelection(creator)"
+                                           class="w-4 h-4 rounded focus:ring-2"
+                                           style="accent-color: #2726DD;">
+                                    <span>{{ creator }}</span>
+                                </div>
+                                <div *ngIf="hasCreatedBySelections()" 
+                                     (click)="clearCreatedByFilter()"
+                                     class="px-2 py-1 hover:bg-gray-100 cursor-pointer text-sm text-red-600 border-t border-gray-200 mt-1">
+                                    Clear Filter
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th>
+                <th class="py-3 px-4 text-left font-medium whitespace-nowrap" style="width: 10%;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="border-b-1 border-[#E9EAEB]" *ngFor="let item of paginatedItems">
+                <!-- First column (filename) -->
+                <td class="py-3 px-4 ps-[24px] min-w-0 relative tooltip-btn">
+                    <a
+                    class="truncate block w-full cursor-pointer"
+                    [innerHTML]="item.pdf_filename | highlight: searchTerm" href="{{ item.pdf_url }}" target="_blank"
+                    ></a>
+                    <!-- Tooltip for filename -->
+                    <div class="tooltip-text text-[#000000] bg-[#FFFFFF] rounded-sm py-[4px] px-[8px] font-normal text-xs absolute left-[0%] top-[100%] z-10 border border-[#E9EAEB]">
+                        {{ item.pdf_filename }}
+                    </div>
+                </td>
+                <td class="py-3 px-4 whitespace-nowrap" [innerHTML]="item.product_type | highlight: searchTerm"></td>
+                <td class="py-3 px-4 whitespace-nowrap" [innerHTML]="item.template_type | highlight: searchTerm"></td>
+                <td class="py-3 px-4 whitespace-nowrap" [innerHTML]="(item.release_date | date:'MM/dd/yyyy') | highlight: searchTerm"></td>
+                <td class="py-3 px-4">
+                    <div class="flex justify-start items-center gap-[10px]">
+                        <span class="text-primary bg-[#e9eef8] flex rounded-[200px] w-[40px] h-[40px] justify-center items-center">{{ getFirstLetter(item.created_by) }}</span>
+                        <span class="whitespace-nowrap" [innerHTML]="item.created_by | highlight: searchTerm"></span>
+                    </div>
+                </td>
+                <td class="py-3 px-4">
+                    <a class="text-primary font-semibold" href="{{ item.pdf_url }}" target="_blank">View</a>
+                </td>
+            </tr>
+            <!-- No results message -->
+            <tr *ngIf="filteredData.length === 0 && data.length > 0">
+                <td colspan="6" class="text-center py-8 text-gray-500">
+                    <div class="flex flex-col items-center gap-2">
+                        <span class="text-lg">No results found</span>
+                        <span class="text-sm">Try adjusting your filters or search criteria</span>
+                        <button *ngIf="hasActiveFilters()" 
+                                (click)="clearAllFilters()" 
+                                class="mt-2 text-sm text-blue-600 hover:text-blue-800 underline">
+                            Clear all filters
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            <tr *ngIf="data.length === 0">
+                <td colspan="6" class="text-center py-8 text-gray-500">
+                    <div class="flex flex-col items-center gap-2">
+                        <span class="text-lg">No documentation found</span>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <!-- pagination controls -->
     <div class="flex justify-between items-center ps-[24px] pe-[50px] py-[8px]">
         <div class="flex items-center gap-4">
