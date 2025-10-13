@@ -347,8 +347,11 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     // Set loading state
     this.isPublishingDocumentation = true;
 
+    // Convert markdown to HTML for better formatting in Confluence
+    const htmlContent = this.convertMarkdownToHTML(content);
+
     const payload = {
-      content: content,
+      content: htmlContent,
       page_title: this.publishTitle,
       confluence_url: this.publishUrl
     };
@@ -409,42 +412,6 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     this.generateDoc = this.PdfSources.length > 0 || this.sources.length > 0;
   }
 
-  // export section
-//   releaseNotes: string = `
-// Example: ACI Payment Gateway – Release Notes (Version 2.5.0)
-
-// Release Date: March 15, 2025
-
-// Prepared By: Product Management Team
-
-// 1. Overview
-// This release introduces enhanced security measures, improved payment processing speed, and new API integrations to streamline bank and merchant operations. Several bug fixes and performance optimizations have also been included.
-
-// 2. New Features & Enhancements
-// Feature    | Description
-// -----------|-----------------------------------------------------
-// Enhanced Transaction Security | Implemented multi-layer fraud detection with AI-driven anomaly detection.
-// Faster Payment Processing | Optimized transaction routing to reduce processing time by 20%.
-// New API for Custom Reports | Introduced API endpoints for real-time payment tracking and data export.
-
-// 3. Bug Fixes & Performance Improvements
-// Issue    | Resolution
-// ---------|-----------------------------------------------------
-// Payment approval delays for high-volume transactions | Improved load balancing and optimized database queries.
-// Incorrect currency conversion in multi-currency transactions | Fixed calculation logic and tested accuracy.
-// Help24 system lagging during peak hours | Upgraded infrastructure and optimized query processing.
-
-// 4. Known Issues & Workarounds
-// - **Issue**: Some users may experience delays when accessing new API features.  
-//   **Workaround**: Clear cache or wait for server sync to complete within 5 minutes.
-
-// - **Issue**: Legacy integration users may see warning messages when processing transactions.  
-//   **Workaround**: Update to the latest API version or contact support for assistance.
-
-// For further details, contact:
-// 📩 ACI Support Team – support@aci.com  
-// 📄 Documentation & FAQs – ACI Knowledge Base
-// `;
   // documentation ask documentaion bot
   documentationAskDocuBot(){
     this.router.navigate(['/dashboard-page/chat']);
@@ -883,5 +850,95 @@ export class DocumentationComponent implements OnInit, OnDestroy {
       default:
         return 'assets/icons/doc-icon.svg';
     }
+  }
+
+  // Convert markdown to HTML for publishing
+  private convertMarkdownToHTML(markdown: string): string {
+    if (!markdown || typeof markdown !== 'string') {
+      return '';
+    }
+
+    let html = markdown;
+
+    // Convert headers
+    html = html.replace(/^#### (.*$)/gim, '<h4>$1</h4>');
+    html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+    html = html.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+    html = html.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+
+    // Convert bold text
+    html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    html = html.replace(/\_\_(.*?)\_\_/g, '<strong>$1</strong>');
+
+    // Convert italic text
+    html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    html = html.replace(/\_(.*?)\_/g, '<em>$1</em>');
+
+    // Convert unordered lists
+    html = html.replace(/^\* (.*$)/gim, '<li>$1</li>');
+    html = html.replace(/^- (.*$)/gim, '<li>$1</li>');
+
+    // Convert ordered lists
+    html = html.replace(/^\d+\.\s+(.*$)/gim, '<li>$1</li>');
+
+    // Wrap consecutive <li> elements with <ul> or <ol>
+    html = this.wrapListItems(html);
+
+    // Convert line breaks
+    html = html.replace(/\n\n/g, '</p><p>');
+    html = html.replace(/\n/g, '<br>');
+
+    // Wrap in paragraph tags if not already wrapped
+    if (!html.startsWith('<h') && !html.startsWith('<p') && !html.startsWith('<ul') && !html.startsWith('<ol')) {
+      html = '<p>' + html + '</p>';
+    }
+
+    // Clean up extra paragraph tags
+    html = html.replace(/<p><h/g, '<h');
+    html = html.replace(/<\/h([1-6])><\/p>/g, '</h$1>');
+    html = html.replace(/<p><ul>/g, '<ul>');
+    html = html.replace(/<\/ul><\/p>/g, '</ul>');
+    html = html.replace(/<p><ol>/g, '<ol>');
+    html = html.replace(/<\/ol><\/p>/g, '</ol>');
+
+    return html;
+  }
+
+  // Helper method to wrap list items with ul/ol tags
+  private wrapListItems(html: string): string {
+    const lines = html.split('\n');
+    const result: string[] = [];
+    let inList = false;
+    let listType = '';
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      
+      if (line.trim().startsWith('<li>')) {
+        if (!inList) {
+          // Start a new list
+          // Check if it's from a numbered list (if previous line had number pattern)
+          const previousLine = i > 0 ? lines[i - 1] : '';
+          listType = /^\d+\./.test(previousLine.trim()) ? 'ol' : 'ul';
+          result.push(`<${listType}>`);
+          inList = true;
+        }
+        result.push(line);
+      } else {
+        if (inList) {
+          // Close the list
+          result.push(`</${listType}>`);
+          inList = false;
+        }
+        result.push(line);
+      }
+    }
+
+    // Close list if still open at the end
+    if (inList) {
+      result.push(`</${listType}>`);
+    }
+
+    return result.join('\n');
   }
 }
