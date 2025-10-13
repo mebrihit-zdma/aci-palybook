@@ -149,7 +149,6 @@ export class OnBoardingPageComponent {
   createUserSettings(){
     // Find the selected product object from the productsList
     const selectedProductObj = this.productsList.find(product => product.name === this.selectedProduct);
-    console.log("user_id from on-boarding-page: ", this.userService.getUserId());
     const payload = {
       "user_id": this.userService.getUserId(),
       "personas": [
@@ -162,7 +161,6 @@ export class OnBoardingPageComponent {
       ],
       "products": this.productsList,
     }
-    console.log("payload from on-boarding-page: ", payload);
     this.apiService.createUserSetting(payload).subscribe({
       next: (data) => {
         console.log("user settings data: ", data);

@@ -33,7 +33,6 @@ export class OnboardingService {
     const product = this.fullProductList.find(p => p.name === selectedProduct);
     if (product) {
       this.selectedProductId = product.id;
-      console.log('OnboardingService: Set selected product:', selectedProduct, 'with ID:', product.id);
     } else {
       console.warn('OnboardingService: Product not found in fullProductList:', selectedProduct, 'Available products:', this.fullProductList.map(p => p.name));
     }

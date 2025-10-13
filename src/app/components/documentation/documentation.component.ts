@@ -69,6 +69,14 @@ export class DocumentationComponent implements OnInit, OnDestroy {
   publishTitle: string = '';
   publishUrl: string = '';
   
+  // Custom alert modal properties
+  isAlertModalOpen: boolean = false;
+  alertTitle: string = '';
+  alertMessage: string = '';
+  alertType: 'success' | 'error' | 'warning' | 'info' = 'info';
+  alertButtonText: string = 'OK';
+  alertButtonSecondaryText: string = '';
+  alertCallback: (() => void) | null = null;
 
   // constructor
   constructor(private userService: UserService, private documentationService: DocumentationService, private router: Router, private onboardingService: OnboardingService, private apiService: ApiService ) {}
@@ -242,7 +250,6 @@ export class DocumentationComponent implements OnInit, OnDestroy {
   }
   toggleViewSourcesDropdown() {
     this.isViewSourcesDropdownOpen = !this.isViewSourcesDropdownOpen;
-    console.log("this.isViewSourcesDropdownOpen: ", this.isViewSourcesDropdownOpen)
   }
   selectTemplate(template: any) {
     this.documentationService.setSelectedTemplate(template);
@@ -331,16 +338,36 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     this.publishUrl = '';
   }
   
+  // show custom alert modal
+  showAlert(title: string, message: string, type: 'success' | 'error' | 'warning' | 'info' = 'info', buttonText: string = 'OK', callback: (() => void) | null = null, secondaryButtonText: string = '') {
+    this.alertTitle = title;
+    this.alertMessage = message;
+    this.alertType = type;
+    this.alertButtonText = buttonText;
+    this.alertButtonSecondaryText = secondaryButtonText;
+    this.alertCallback = callback;
+    this.isAlertModalOpen = true;
+  }
+  
+  // close custom alert modal
+  closeAlert() {
+    this.isAlertModalOpen = false;
+    if (this.alertCallback) {
+      this.alertCallback();
+      this.alertCallback = null;
+    }
+  }
+  
   // handle publish form submission
   publishDocumentation() {
     if (!this.publishTitle.trim() || !this.publishUrl.trim()) {
-      alert('Please fill in both title and URL fields.');
+      this.showAlert('Validation Error', 'Please fill in both title and URL fields.', 'warning', 'Got it');
       return;
     }
 
     const content = this.generatedContent || this.releaseNotes;
     if (!content || content.trim() === '') {
-      alert('No documentation content available to publish. Please generate documentation first.');
+      this.showAlert('No Content', 'No documentation content available to publish. Please generate documentation first.', 'warning', 'Understood');
       return;
     }
 
@@ -355,13 +382,8 @@ export class DocumentationComponent implements OnInit, OnDestroy {
       page_title: this.publishTitle,
       confluence_url: this.publishUrl
     };
-
-    console.log('Publishing documentation with payload:', payload);
-
     this.apiService.postWithAuth('publish-to-confluence', payload).subscribe({
-      next: (data) => {
-        console.log("publishDocumentation Success: ", data);
-        
+      next: (data) => { 
         // Reset loading state
         this.isPublishingDocumentation = false;
         
@@ -369,7 +391,7 @@ export class DocumentationComponent implements OnInit, OnDestroy {
         this.closePublishModal();
         
         // Show success message
-        alert('Documentation published successfully!');
+        this.showAlert('Success!', 'Documentation published successfully!', 'success', 'OK!');
       },
       error: (error) => {
         console.error("publishDocumentation Error: ", error);
@@ -393,7 +415,7 @@ export class DocumentationComponent implements OnInit, OnDestroy {
           errorMessage += 'Please check the URL and try again.';
         }
         
-        alert(errorMessage);
+        this.showAlert('Publishing Failed', errorMessage, 'error', 'Try Again');
       }
     });
   }
@@ -472,18 +494,10 @@ export class DocumentationComponent implements OnInit, OnDestroy {
       formData.append('files', files[i]);
     }
   
-    // Debug FormData contents
-    console.log("FormData contents:");
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}:`, value);
-    }
-  
     this.apiService.generateDocumentation(formData).subscribe({
       next: (data: any) => {
-        console.log("API Response:", data);
         this.documentationService.setGeneratedContent(data.generated_content);
         this.generatedFileName = data.pdf_filename;
-        console.log("fileName:", data.pdf_filename);
         this.releaseNotes = data.generated_content;
         this.isGeneratingDocumentation = false;
       },
@@ -496,13 +510,10 @@ export class DocumentationComponent implements OnInit, OnDestroy {
   // export as text
   exportAsText() {
     try {
-      console.log('Starting PDF export...');
-      console.log('Release notes content:', this.releaseNotes);
-      
       // Check if we have content to export
       if (!this.releaseNotes || this.releaseNotes.trim() === '') {
         console.warn('No content to export');
-        alert('No content available to export. Please generate documentation first.');
+        this.showAlert('No Content', 'No content available to export. Please generate documentation first.', 'warning', 'Understood');
         return;
       }
 
@@ -514,7 +525,6 @@ export class DocumentationComponent implements OnInit, OnDestroy {
       
       // Parse and format the markdown content
       const formattedContent = this.parseMarkdownForPDF(this.releaseNotes);
-      console.log('Formatted content:', formattedContent);
       
       // Add content with proper formatting
       for (const element of formattedContent) {
@@ -606,14 +616,11 @@ export class DocumentationComponent implements OnInit, OnDestroy {
       const fileName = this.generatedFileName ? 
         this.generatedFileName.replace('.pdf', '') + '.pdf' : 
         'release-notes.pdf';
-      
-      console.log('Saving PDF with filename:', fileName);
       doc.save(fileName);
-      console.log('PDF export completed successfully');
       
     } catch (error) {
       console.error('Error during PDF export:', error);
-      alert('Error exporting PDF. Please try again.');
+      this.showAlert('Export Failed', 'Error exporting PDF. Please try again.', 'error', 'OK');
     }
   }
 

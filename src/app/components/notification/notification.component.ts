@@ -42,7 +42,6 @@ export class NotificationComponent {
   isNotificationList = false;
 
   viewAll() {
-    console.log("VIEWALL");
     this.isViewAll = !this.isViewAll;
   }
 
@@ -53,7 +52,6 @@ export class NotificationComponent {
   }
 
   notificationList() {
-    console.log("NOTIFICATION");
     this.isNotificationList = !this.isNotificationList;
   }
 

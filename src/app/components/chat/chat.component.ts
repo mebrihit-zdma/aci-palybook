@@ -141,7 +141,6 @@ export class ChatComponent {
   getChatSession(session_id: string) {
     this.apiService.get<any>(`get_session/${session_id}`).subscribe({
       next: async (data) => {
-        console.log("Chat within a session : ", data.chat_history)
         this.processSessionHistory(data.chat_history);
         this.sessionId = session_id;
       },
@@ -155,12 +154,8 @@ export class ChatComponent {
       user_id: userId,
       app_id: this.app_id
     };
-    console.log('session id userId bf:', userId);
-    console.log('session id bf:');
     this.apiService.post<any>('create_session', payload, 'json').subscribe({
       next: async (data) => {
-        console.log('session id userId:', userId);
-        console.log('session id:', data?.session_id);
         this.sessionId = data?.session_id;
 
       },
@@ -291,7 +286,6 @@ export class ChatComponent {
         }
       },
       async () => {
-        console.log("Response: ", this.chatResponse)
         const extractAnswer = extractAnswerText(this.chatResponse);
         const safeAnswer = await convertMarkdown(extractAnswer, this.sanitizer);
 
@@ -303,9 +297,6 @@ export class ChatComponent {
         
         let sources: ResponseSource[] = [];
         sources = extractResponseSources(this.chatResponse);
-        
-        console.log("sources: ", sources); 
-        
         // Final update with complete response
         this.chatMessages[botMessageIndex] = { 
           sender: 'bot', 
@@ -382,9 +373,6 @@ export class ChatComponent {
       next: (data) => {
         const apps = data || [];
         const preDefinedQuestions: string[] = apps[0]?.pre_defined_questions || [];
-  
-        console.log("Predefined Questions:", preDefinedQuestions);
-  
         this.promptShortcuts = preDefinedQuestions.map((question: string) => ({
           source: "Suggested by AI",
           question

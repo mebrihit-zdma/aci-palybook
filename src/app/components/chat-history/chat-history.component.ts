@@ -82,7 +82,6 @@ export class ChatHistoryComponent {
   
   // selected question from chat history
   selectChat(sessionId: string) {
-    console.log("Session Id: ", sessionId)
     this.chatService.setSessionId(sessionId);
     this.chatService.emitClick();
     this.chatService.setNewChatHistory(true);

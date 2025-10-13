@@ -27,7 +27,6 @@ export class UserService {
   async loadUserProfile(): Promise<void> {
     try {
       const profile = await this.keycloak.loadUserProfile();
-      console.log("profile from user.service: ", profile);
       this.firstName = profile.firstName ?? '';
       const fullName = [profile.firstName, profile.lastName].filter(Boolean).join(' ');
 
@@ -85,7 +84,6 @@ export class UserService {
   async getAccessToken(): Promise<string | undefined> {
     try {
       const token = await this.keycloak.getToken();
-      console.log("getAccessToken from user.service: ", token);
       return token;
     } catch (err) {
       console.error('Failed to get access token', err);

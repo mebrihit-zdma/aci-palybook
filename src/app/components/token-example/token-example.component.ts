@@ -131,7 +131,6 @@ export class TokenExampleComponent implements OnInit {
   async getToken() {
     try {
       this.accessToken = await this.userService.getAccessToken();
-      console.log('Access token retrieved:', this.accessToken);
     } catch (error) {
       console.error('Error getting token:', error);
       this.accessToken = 'Error retrieving token';
@@ -142,7 +141,6 @@ export class TokenExampleComponent implements OnInit {
     try {
       const refreshed = await this.userService.refreshToken();
       if (refreshed) {
-        console.log('Token refreshed successfully');
         await this.getToken(); // Get the new token
       } else {
         console.log('Token refresh not needed or failed');

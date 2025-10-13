@@ -76,7 +76,6 @@ export class ApiService {
     const token = await this.getToken();
     let headers = new HttpHeaders();
     console.log("token: ", token);
-    
     if (token) {
       headers = headers.set('Authorization', `Bearer ${token}`);
     }

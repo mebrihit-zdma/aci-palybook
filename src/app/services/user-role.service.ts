@@ -80,8 +80,6 @@ export class UserRoleService {
 
     // Set the product list and full product list
     const productNames = userSettingsData.products.map((product: any) => product.name);
-    console.log("userSettingsData.products: ", userSettingsData.products[0].name);
-    
     // Set the full product list first so that setSelectedProduct can find the ID
     this.onboardingService.setFullProductList(userSettingsData.products);
     this.onboardingService.setProductList(productNames);
