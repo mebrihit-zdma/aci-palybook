@@ -24,30 +24,35 @@ export class AppComponent implements OnInit{
 
   async ngOnInit(): Promise<void> {
     await this.userService.loadUserProfile();
+ 
+    // Subscribe to userId$ to ensure we get the value once it's available
+    this.userService.userId$.pipe(
+      filter(userId => userId !== null),
+      takeUntil(new Subject())
+    ).subscribe(userId => {
+      console.log("userId from app.component: ", userId);
+      const userIdTest = "39e96565-5bd6-492c-8d59-8a2140b97894";
+      this.apiService.getUserSettings<any>(userIdTest).subscribe({
+        next: async (data) => {
+          console.log("user settings data from app.component: ", data);
+          // If user settings exist, navigate to dashboard-page
+          if (data) {
+            this.userRoleService.setupUserFromSettings(data);
+            this.userService.setIsUserHasAccountSetup(true);
 
-    // const userId = "testlast12345-product-test-555";
-    const userId = this.userService.getUserId();
-    console.log("userId from app.component: ", userId);
-    this.apiService.getUserSettings<any>(userId).subscribe({
-      next: async (data) => {
-        console.log("user settings data from app.component: ", data);
-        // If user settings exist, navigate to dashboard-page
-        if (data) {
-          this.userRoleService.setupUserFromSettings(data);
-          this.userService.setIsUserHasAccountSetup(true);
-
-          // navigate to dashboard-page
-          this.router.navigate(['/dashboard-page']);
-        } else {
-          // If no user settings, navigate to welcome-page
+            // navigate to dashboard-page
+            this.router.navigate(['/dashboard-page']);
+          } else {
+            // If no user settings, navigate to welcome-page
+            this.router.navigate(['/welcome-page']);
+          }
+        },
+        error: (err) => {
+          console.error('Error getting user settings:', err);
+          // On error, navigate to welcome-page
           this.router.navigate(['/welcome-page']);
-        }
-      },
-      error: (err) => {
-        console.error('Error getting user settings:', err);
-        // On error, navigate to welcome-page
-        this.router.navigate(['/welcome-page']);
-      },
+        },
+      });
     });
   }
 }

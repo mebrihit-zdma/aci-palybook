@@ -1,7 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, from, switchMap } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +16,10 @@ export class ApiService {
   // documentation
   documentationUrl = `${environment.documentationUrl}/api/v1/generated-documents`;
   templatesUrl = `${environment.documentationUrl}/api/v1/documentation-types`;
+  documentationBaseUrl = `${environment.documentationUrl}/api/v1`;
 
   // constructor
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private userService: UserService) {}
   // create user setting
   createUserSetting(payload: any) {
     return this.http.post(this.createUserSettingsUrl, payload);
@@ -54,5 +56,93 @@ export class ApiService {
 
   delete<T>(endpoint: string): Observable<T> {
     return this.http.delete<T>(`${this.baseUrl}/${endpoint}`);
+  }
+
+  // === Token-aware methods ===
+
+  /**
+   * Get the current access token
+   * @returns Promise<string | undefined> - The access token or undefined if not available
+   */
+  async getToken(): Promise<string | undefined> {
+    return await this.userService.getValidToken();
+  }
+
+  /**
+   * Create authenticated HTTP headers with token
+   * @returns Promise<HttpHeaders> - Headers with Authorization token
+   */
+  async getAuthHeaders(): Promise<HttpHeaders> {
+    const token = await this.getToken();
+    let headers = new HttpHeaders();
+    console.log("token: ", token);
+    
+    if (token) {
+      headers = headers.set('Authorization', `Bearer ${token}`);
+    }
+    
+    return headers;
+  }
+
+  /**
+   * Make an authenticated GET request
+   * @param endpoint - The API endpoint
+   * @returns Observable<T> - The response data
+   */
+  getWithAuth<T>(endpoint: string): Observable<T> {
+    return from(this.getAuthHeaders()).pipe(
+      switchMap(headers => {
+        return this.http.get<T>(`${this.baseUrl}/${endpoint}`, { headers });
+      })
+    );
+  }
+
+  /**
+   * Make an authenticated POST request
+   * @param endpoint - The API endpoint
+   * @param data - The data to send
+   * @returns Observable<T> - The response data
+   */
+  postWithAuth<T>(endpoint: string, data: any): Observable<T> {
+    return from(this.getAuthHeaders()).pipe(
+      switchMap(headers => {
+        return this.http.post<T>(`${this.documentationBaseUrl }/${endpoint}`, data, { headers });
+      })
+    );
+  }
+
+  /**
+   * Make an authenticated PUT request
+   * @param endpoint - The API endpoint
+   * @param data - The data to send
+   * @returns Observable<T> - The response data
+   */
+  putWithAuth<T>(endpoint: string, data: any): Observable<T> {
+    return from(this.getAuthHeaders()).pipe(
+      switchMap(headers => {
+        return this.http.put<T>(`${this.documentationBaseUrl}/${endpoint}`, data, { headers });
+      })
+    );
+  }
+
+  /**
+   * Make an authenticated DELETE request
+   * @param endpoint - The API endpoint
+   * @returns Observable<T> - The response data
+   */
+  deleteWithAuth<T>(endpoint: string): Observable<T> {
+    return from(this.getAuthHeaders()).pipe(
+      switchMap(headers => {
+        return this.http.delete<T>(`${this.baseUrl}/${endpoint}`, { headers });
+      })
+    );
+  }
+
+  /**
+   * Check if user is authenticated
+   * @returns boolean - True if authenticated, false otherwise
+   */
+  isAuthenticated(): boolean {
+    return this.userService.isAuthenticated();
   }
 }

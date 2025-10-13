@@ -61,6 +61,7 @@ export class DocumentationComponent implements OnInit, OnDestroy {
   isPublishModalOpen = false; // Initial state (publish modal is closed)
   showChatBox = false;
   isGeneratingDocumentation: boolean = false;
+  isPublishingDocumentation: boolean = false;
   releaseNotes: string = '';
   generatedFileName: string = '';
   
@@ -332,22 +333,66 @@ export class DocumentationComponent implements OnInit, OnDestroy {
   
   // handle publish form submission
   publishDocumentation() {
-    if (this.publishTitle.trim() && this.publishUrl.trim()) {
-      // Here you would typically make an API call to publish the documentation
-      console.log('Publishing documentation:', {
-        title: this.publishTitle,
-        url: this.publishUrl,
-        content: this.generatedContent
-      });
-      
-      // Close modal after successful publish
-      this.closePublishModal();
-      
-      // You might want to show a success message or redirect
-      alert('Documentation published successfully!');
-    } else {
+    if (!this.publishTitle.trim() || !this.publishUrl.trim()) {
       alert('Please fill in both title and URL fields.');
+      return;
     }
+
+    const content = this.generatedContent || this.releaseNotes;
+    if (!content || content.trim() === '') {
+      alert('No documentation content available to publish. Please generate documentation first.');
+      return;
+    }
+
+    // Set loading state
+    this.isPublishingDocumentation = true;
+
+    const payload = {
+      content: content,
+      page_title: this.publishTitle,
+      confluence_url: this.publishUrl
+    };
+
+    console.log('Publishing documentation with payload:', payload);
+
+    this.apiService.postWithAuth('publish-to-confluence', payload).subscribe({
+      next: (data) => {
+        console.log("publishDocumentation Success: ", data);
+        
+        // Reset loading state
+        this.isPublishingDocumentation = false;
+        
+        // Close modal after successful publish
+        this.closePublishModal();
+        
+        // Show success message
+        alert('Documentation published successfully!');
+      },
+      error: (error) => {
+        console.error("publishDocumentation Error: ", error);
+        
+        // Reset loading state
+        this.isPublishingDocumentation = false;
+        
+        // Show detailed error message
+        let errorMessage = 'Failed to publish documentation. ';
+        if (error.error && error.error.message) {
+          errorMessage += error.error.message;
+        } else if (error.status === 401) {
+          errorMessage += 'Authentication failed. Please log in again.';
+        } else if (error.status === 403) {
+          errorMessage += 'Access denied. Please check your permissions.';
+        } else if (error.status === 404) {
+          errorMessage += 'Publish endpoint not found. Please contact support.';
+        } else if (error.status >= 500) {
+          errorMessage += 'Server error. Please try again later.';
+        } else {
+          errorMessage += 'Please check the URL and try again.';
+        }
+        
+        alert(errorMessage);
+      }
+    });
   }
   // create document
   createDocument() {
