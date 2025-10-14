@@ -867,6 +867,9 @@ export class DocumentationComponent implements OnInit, OnDestroy {
 
     let html = markdown;
 
+    // Clean up excessive newlines first (reduce multiple newlines to double newlines)
+    html = html.replace(/\n{3,}/g, '\n\n');
+
     // Convert headers
     html = html.replace(/^#### (.*$)/gim, '<h4>$1</h4>');
     html = html.replace(/^### (.*$)/gim, '<h3>$1</h3>');
@@ -891,22 +894,28 @@ export class DocumentationComponent implements OnInit, OnDestroy {
     // Wrap consecutive <li> elements with <ul> or <ol>
     html = this.wrapListItems(html);
 
-    // Convert line breaks
-    html = html.replace(/\n\n/g, '</p><p>');
-    html = html.replace(/\n/g, '<br>');
+    // Convert double line breaks to paragraph breaks only (not single line breaks)
+    html = html.replace(/\n\n+/g, '</p><p>');
+    
+    // Remove single newlines that are not already part of HTML tags
+    html = html.replace(/([^>])\n([^<])/g, '$1 $2');
 
     // Wrap in paragraph tags if not already wrapped
     if (!html.startsWith('<h') && !html.startsWith('<p') && !html.startsWith('<ul') && !html.startsWith('<ol')) {
       html = '<p>' + html + '</p>';
     }
 
-    // Clean up extra paragraph tags
+    // Clean up extra paragraph tags and breaks around block elements
     html = html.replace(/<p><h/g, '<h');
     html = html.replace(/<\/h([1-6])><\/p>/g, '</h$1>');
     html = html.replace(/<p><ul>/g, '<ul>');
     html = html.replace(/<\/ul><\/p>/g, '</ul>');
     html = html.replace(/<p><ol>/g, '<ol>');
     html = html.replace(/<\/ol><\/p>/g, '</ol>');
+    
+    // Remove empty paragraphs
+    html = html.replace(/<p>\s*<\/p>/g, '');
+    html = html.replace(/<p><\/p>/g, '');
 
     return html;
   }
