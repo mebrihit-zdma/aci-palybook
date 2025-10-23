@@ -12,6 +12,7 @@ export class OnboardingService {
   private fullProductList: any[] = [];
   private selectedWidgetList: string[] = [];
   private personaWidgetList: string[] = [];
+  private isOnboardingCompleted: boolean = false;
 
   // Reactive subjects for widget lists
   private selectedWidgetListSubject = new BehaviorSubject<string[]>([]);
@@ -90,5 +91,14 @@ export class OnboardingService {
 
   getSelectedProduct$(): Observable<string> {
     return this.selectedProduct$;
+  }
+
+  // Onboarding completion tracking
+  setOnboardingCompleted(completed: boolean) {
+    this.isOnboardingCompleted = completed;
+  }
+
+  getOnboardingCompleted(): boolean {
+    return this.isOnboardingCompleted;
   }
 }

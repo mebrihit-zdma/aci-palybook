@@ -116,6 +116,7 @@ export class OnBoardingPageComponent {
   goToDashboard() {
     this.selectedWidgets();
     this.createUserSettings();
+    this.onboardingService.setOnboardingCompleted(true);
     this.router.navigate(['/dashboard-page']);
   }
 
@@ -141,8 +142,8 @@ export class OnBoardingPageComponent {
     this.onboardingService.setSelectedWidgetList(widgetsList);
   }
   skipOnboarding(){
-  
     this.onboardingService.setSelectedWidgetList(this.widgetsList);
+    this.onboardingService.setOnboardingCompleted(true);
     this.router.navigate(['/dashboard-page']);
   }
 

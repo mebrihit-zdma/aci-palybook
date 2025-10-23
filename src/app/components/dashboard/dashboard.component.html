@@ -172,7 +172,7 @@
 </div>
 
 <!--/* Tooltip model section */-->
-<div class="hidden md:block" *ngIf="isUserHasAccountSetup === false">
+<div class="hidden md:block" *ngIf="isUserHasAccountSetup === false || isOnboardingCompleted">
     <div [ngClass]="(!skipTooltipValue)? 'overlay' : ''" 
     [ngClass]="!dashboardModelDone? 'overlay' : ''"></div>
     <div [ngClass]="!skipTooltipValue? 'block' : ' hidden'" 

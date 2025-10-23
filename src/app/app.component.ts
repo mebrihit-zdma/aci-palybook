@@ -32,13 +32,10 @@ export class AppComponent implements OnInit{
     ).subscribe(userId => {
       this.apiService.getUserSettings<any>(userId).subscribe({
         next: async (data) => {
-          console.log("user settings data from app.component: ", data);
           // If user settings exist, navigate to dashboard-page
           if (data) {
             this.userRoleService.setupUserFromSettings(data);
             this.userService.setIsUserHasAccountSetup(true);
-            console.log("isUserHasAccountSetup from app.component: ", this.userService.getIsUserHasAccountSetup());
-
             // navigate to dashboard-page
             this.router.navigate(['/dashboard-page']);
           } else {

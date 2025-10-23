@@ -24,6 +24,7 @@ export class DashboardComponent {
   userName: string | null = 'User Name';
   userRole: string | null = 'Product Owner';
   isUserHasAccountSetup: boolean | null = null;
+  isOnboardingCompleted: boolean = false;
 
   // documentation Pages
   documentationLandingPage = false;
@@ -70,8 +71,10 @@ export class DashboardComponent {
     });
     this.userService.isUserHasAccountSetup$.subscribe(isSetup => {
       this.isUserHasAccountSetup = isSetup;
-      console.log("isUserHasAccountSetup from dashboard.component: ", this.isUserHasAccountSetup);
     });
+
+    // Check if user just completed onboarding
+    this.isOnboardingCompleted = this.onboardingService.getOnboardingCompleted();
 
     // Get products
     if(this.onboardingService.getProductList().length > 0) {
@@ -115,11 +118,15 @@ export class DashboardComponent {
   // tooltip
   skipTooltip(){
     this.skipTooltipValue = true;
-    this.tooltipService.setSkipTooltipValue(true)
+    this.tooltipService.setSkipTooltipValue(true);
+    // Clear onboarding completion flag after skipping tooltip
+    this.onboardingService.setOnboardingCompleted(false);
   }
   goToAciPaymentHubTooltip(){
     this.aciPaymentHubTooltip = true;
     this.dashboardModelDone = true;
+    // Clear onboarding completion flag after showing tooltip
+    this.onboardingService.setOnboardingCompleted(false);
   }
   skipAciPaymentHubTooltip(){
     this.aciPaymentHubTooltipDone = true;
