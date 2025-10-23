@@ -30,15 +30,14 @@ export class AppComponent implements OnInit{
       filter(userId => userId !== null),
       takeUntil(new Subject())
     ).subscribe(userId => {
-      console.log("userId from app.component: ", userId);
-      const userIdTest = "39e96565-5bd6-492c-8d59-8a2140b97894";
-      this.apiService.getUserSettings<any>(userIdTest).subscribe({
+      this.apiService.getUserSettings<any>(userId).subscribe({
         next: async (data) => {
           console.log("user settings data from app.component: ", data);
           // If user settings exist, navigate to dashboard-page
           if (data) {
             this.userRoleService.setupUserFromSettings(data);
             this.userService.setIsUserHasAccountSetup(true);
+            console.log("isUserHasAccountSetup from app.component: ", this.userService.getIsUserHasAccountSetup());
 
             // navigate to dashboard-page
             this.router.navigate(['/dashboard-page']);

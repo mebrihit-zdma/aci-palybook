@@ -9,6 +9,7 @@ import { OnboardingService } from '../../services/onboarding.service';
 import { TooltipService } from '../../services/tooltip.service';
 import { DocumentationService } from '../../services/documentation.service';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,7 +23,7 @@ export class DashboardComponent {
   listNumber = 2;
   userName: string | null = 'User Name';
   userRole: string | null = 'Product Owner';
-  isUserHasAccountSetup: boolean = false;
+  isUserHasAccountSetup: boolean | null = null;
 
   // documentation Pages
   documentationLandingPage = false;
@@ -67,7 +68,10 @@ export class DashboardComponent {
     this.userService.userRole$.subscribe(role => {
       this.userRole = role;
     });
-    this.isUserHasAccountSetup = this.userService.getIsUserHasAccountSetup();
+    this.userService.isUserHasAccountSetup$.subscribe(isSetup => {
+      this.isUserHasAccountSetup = isSetup;
+      console.log("isUserHasAccountSetup from dashboard.component: ", this.isUserHasAccountSetup);
+    });
 
     // Get products
     if(this.onboardingService.getProductList().length > 0) {

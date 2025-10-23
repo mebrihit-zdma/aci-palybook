@@ -10,7 +10,7 @@ import { UserService } from './user.service';
 export class ApiService {
   
   createUserSettingsUrl = `${environment.apiBaseUrl}/api/v1/create_user_settings`;
-  getUserSettingsUrl = `${environment.apiBaseUrl}/api/v1/org_settings`;
+  getUserSettingsUrl = `${environment.apiBaseUrl}/api/v1/user_settings`;
   chatIdUrl = `${environment.apiBaseUrl}/api/v1/get_chat`;
   baseUrl = `${environment.apiBaseUrl}/api/v1`;
   // documentation

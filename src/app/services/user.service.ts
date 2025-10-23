@@ -19,7 +19,8 @@ export class UserService {
   private userImageUrlSubject = new BehaviorSubject<string | null>(null);
   userImageUrl$ = this.userImageUrlSubject.asObservable();
 
-  private isUserHasAccountSetup = false;
+  private isUserHasAccountSetupSubject = new BehaviorSubject<boolean | null>(null);
+  isUserHasAccountSetup$ = this.isUserHasAccountSetupSubject.asObservable();
 
   constructor(private keycloak: KeycloakService) {}
 
@@ -68,11 +69,11 @@ export class UserService {
   }
 
   setIsUserHasAccountSetup(isUserHasAccountSetup: boolean) {
-    this.isUserHasAccountSetup = isUserHasAccountSetup;
+    this.isUserHasAccountSetupSubject.next(isUserHasAccountSetup);
   }
 
-  getIsUserHasAccountSetup(): boolean {
-    return this.isUserHasAccountSetup;
+  getIsUserHasAccountSetup(): boolean | null {
+    return this.isUserHasAccountSetupSubject.value;
   }
 
   // === Token Management ===
